@@ -1,6 +1,6 @@
 # Please enter your name here:
 
-
+Roland Crompton
 
 -----------------------------------------------------------------------------
 
@@ -95,21 +95,21 @@ The player who has a higher score at the end of the game wins. If the scores are
 **For example**, after starting the game, the human player may see the following board (here the default board was chosen) and tiles:
 
 ~~~
-    a  b  c  d  e  f  g  h  i  j  k  l  m  n  o 
+    a  b  c  d  e  f  g  h  i  j  k  l  m  n  o
  1 {3} .  . (2) .  .  . {3} .  .  . (2) .  . {3}
- 2  . {2} .  .  . (3) .  .  . (3) .  .  . {2} . 
- 3  .  . {2} .  .  . (2) . (2) .  .  . {2} .  . 
+ 2  . {2} .  .  . (3) .  .  . (3) .  .  . {2} .
+ 3  .  . {2} .  .  . (2) . (2) .  .  . {2} .  .
  4 (2) .  . {2} .  .  . (2) .  .  . {2} .  . (2)
- 5  .  .  .  . {2} .  .  .  .  . {2} .  .  .  . 
- 6  . (3) .  .  . (3) .  .  . (3) .  .  . (3) . 
- 7  .  . (2) .  .  . (2) . (2) .  .  . (2) .  . 
+ 5  .  .  .  . {2} .  .  .  .  . {2} .  .  .  .
+ 6  . (3) .  .  . (3) .  .  . (3) .  .  . (3) .
+ 7  .  . (2) .  .  . (2) . (2) .  .  . (2) .  .
  8 {3} .  . (2) .  .  . {2} .  .  . (2) .  . {3}
- 9  .  . (2) .  .  . (2) . (2) .  .  . (2) .  . 
-10  . (3) .  .  . (3) .  .  . (3) .  .  . (3) . 
-11  .  .  .  . {2} .  .  .  .  . {2} .  .  .  . 
+ 9  .  . (2) .  .  . (2) . (2) .  .  . (2) .  .
+10  . (3) .  .  . (3) .  .  . (3) .  .  . (3) .
+11  .  .  .  . {2} .  .  .  .  . {2} .  .  .  .
 12 (2) .  . {2} .  .  . (2) .  .  . {2} .  . (2)
-13  .  . {2} .  .  . (2) . (2) .  .  . {2} .  . 
-14  . {2} .  .  . (3) .  .  . (3) .  .  . {2} . 
+13  .  . {2} .  .  . (2) . (2) .  .  . {2} .  .
+14  . {2} .  .  . (3) .  .  . (3) .  .  . {2} .
 15 {3} .  . (2) .  .  . {3} .  .  . (2) .  . {3}
 
 It's your turn! Your tiles:
@@ -133,21 +133,21 @@ Human player score:    8
 Computer player score: 0
 
 
-    a  b  c  d  e  f  g  h  i  j  k  l  m  n  o 
+    a  b  c  d  e  f  g  h  i  j  k  l  m  n  o
  1 {3} .  . (2) .  .  . {3} .  .  . (2) .  . {3}
- 2  . {2} .  .  . (3) .  .  . (3) .  .  . {2} . 
- 3  .  . {2} .  .  . (2) . (2) .  .  . {2} .  . 
+ 2  . {2} .  .  . (3) .  .  . (3) .  .  . {2} .
+ 3  .  . {2} .  .  . (2) . (2) .  .  . {2} .  .
  4 (2) .  . {2} .  .  . (2) .  .  . {2} .  . (2)
- 5  .  .  .  . {2} .  .  .  .  . {2} .  .  .  . 
- 6  . (3) .  .  . (3) .  .  . (3) .  .  . (3) . 
- 7  .  . (2) .  .  . (2) . (2) .  .  . (2) .  . 
+ 5  .  .  .  . {2} .  .  .  .  . {2} .  .  .  .
+ 6  . (3) .  .  . (3) .  .  . (3) .  .  . (3) .
+ 7  .  . (2) .  .  . (2) . (2) .  .  . (2) .  .
  8 {3} .  . (2) . G2 I1 T1  .  .  . (2) .  . {3}
- 9  .  . (2) .  .  . (2) . (2) .  .  . (2) .  . 
-10  . (3) .  .  . (3) .  .  . (3) .  .  . (3) . 
-11  .  .  .  . {2} .  .  .  .  . {2} .  .  .  . 
+ 9  .  . (2) .  .  . (2) . (2) .  .  . (2) .  .
+10  . (3) .  .  . (3) .  .  . (3) .  .  . (3) .
+11  .  .  .  . {2} .  .  .  .  . {2} .  .  .  .
 12 (2) .  . {2} .  .  . (2) .  .  . {2} .  . (2)
-13  .  . {2} .  .  . (2) . (2) .  .  . {2} .  . 
-14  . {2} .  .  . (3) .  .  . (3) .  .  . {2} . 
+13  .  . {2} .  .  . (2) . (2) .  .  . {2} .  .
+14  . {2} .  .  . (3) .  .  . (3) .  .  . {2} .
 15 {3} .  . (2) .  .  . {3} .  .  . (2) .  . {3}
 ~~~
 
@@ -166,21 +166,21 @@ Human player score:    8
 Computer player score: 4
 
 
-    a  b  c  d  e  f  g  h  i  j  k  l  m  n  o 
+    a  b  c  d  e  f  g  h  i  j  k  l  m  n  o
  1 {3} .  . (2) .  .  . {3} .  .  . (2) .  . {3}
- 2  . {2} .  .  . (3) .  .  . (3) .  .  . {2} . 
- 3  .  . {2} .  .  . (2) . (2) .  .  . {2} .  . 
+ 2  . {2} .  .  . (3) .  .  . (3) .  .  . {2} .
+ 3  .  . {2} .  .  . (2) . (2) .  .  . {2} .  .
  4 (2) .  . {2} .  .  . (2) .  .  . {2} .  . (2)
- 5  .  .  .  . {2} .  .  .  .  . {2} .  .  .  . 
- 6  . (3) .  .  . (3) .  .  . (3) .  .  . (3) . 
- 7  .  . (2) .  .  . (2)S1 (2) .  .  . (2) .  . 
+ 5  .  .  .  . {2} .  .  .  .  . {2} .  .  .  .
+ 6  . (3) .  .  . (3) .  .  . (3) .  .  . (3) .
+ 7  .  . (2) .  .  . (2)S1 (2) .  .  . (2) .  .
  8 {3} .  . (2) . G2 I1 T1  .  .  . (2) .  . {3}
- 9  .  . (2) .  .  . (2)A1 (2) .  .  . (2) .  . 
-10  . (3) .  .  . (3) . R1  . (3) .  .  . (3) . 
-11  .  .  .  . {2} .  .  .  .  . {2} .  .  .  . 
+ 9  .  . (2) .  .  . (2)A1 (2) .  .  . (2) .  .
+10  . (3) .  .  . (3) . R1  . (3) .  .  . (3) .
+11  .  .  .  . {2} .  .  .  .  . {2} .  .  .  .
 12 (2) .  . {2} .  .  . (2) .  .  . {2} .  . (2)
-13  .  . {2} .  .  . (2) . (2) .  .  . {2} .  . 
-14  . {2} .  .  . (3) .  .  . (3) .  .  . {2} . 
+13  .  . {2} .  .  . (2) . (2) .  .  . {2} .  .
+14  . {2} .  .  . (3) .  .  . (3) .  .  . {2} .
 15 {3} .  . (2) .  .  . {3} .  .  . (2) .  . {3}
 
 It's your turn! Your tiles:
@@ -229,7 +229,7 @@ Here `cr` indicates the column and row of the "origin" of the move. For example,
 
 ## User requirements
 
-> **Note: the requirements below are mandatory to follow. You will lose marks if your implementation does not meet these requirements** 
+> **Note: the requirements below are mandatory to follow. You will lose marks if your implementation does not meet these requirements**
 
 In this coursework, you shall implement a Java program in which a human user shall play ScraBBKle described above against the computer. **The human always makes the first move.**    
 
@@ -239,20 +239,20 @@ When the program is executed, it first prompts the user to provide a file name t
 
 ~~~
 Would you like to _l_oad a board or use the _d_efault board?
-Please enter your choice (l/d): 
+Please enter your choice (l/d):
 ~~~
 
 The user inputs `l` or `d`. Otherwise, the program states this and asks the user again for input.
 If the user inputs `d`, the default board is loaded from the file `defaultBoard.txt`. If the user inputs `l`, the program asks for the file name:
 
 ~~~
-Please enter the file name of the board: 
+Please enter the file name of the board:
 ~~~
 
 Then the user enters the file name. If this file is not valid, the program states that and prompts to provide a file name again:
 
 ~~~
-This is not a valid file. Please enter the file name of the board: 
+This is not a valid file. Please enter the file name of the board:
 ~~~
 
 This continues until the user provides a valid file. If a valid file is provided, the board that it contains is used for the game, and the game begins.
@@ -293,7 +293,7 @@ The computer player scored 203 points.
 The human player wins!
 ~~~
 
-(scores may vary). Instead of 
+(scores may vary). Instead of
 
 ~~~
 The human player wins!
@@ -337,7 +337,7 @@ For those cases of part (1) where it is indeed possible to play `n` tiles, go th
 
 - The class from which the program is run shall be called `Main.java` and be in the package `pij.main`.
 
-- Your program design shall employ object-oriented principles with suitable definitions of classes/interfaces and using packages, encapsulation, polymorphism, and inheritance as appropriate for this case. 
+- Your program design shall employ object-oriented principles with suitable definitions of classes/interfaces and using packages, encapsulation, polymorphism, and inheritance as appropriate for this case.
 
 ## Validation
 
@@ -383,11 +383,11 @@ The files of the final version of your project must be submitted via GitHub ***a
 and any other files or directories that are needed for the program started from class `Main` in package `pij.main` to run, as well as the JUnit tests.
 
 > Note: by the deadline of coursework submission, you must have both:
-> 
+>
 > - the GitHub repo with the final version of your coursework (and history)
 > - the code of the project on Moodle
-> 
-> Both entries contribute to your mark. 
+>
+> Both entries contribute to your mark.
 
 ### Additional Libraries
 
@@ -405,7 +405,7 @@ We aim to determine your mark according to the following rubric:
 | **Validation** (*completeness* = appropriate variety of scenarios are verified; *correctness* = tests for them are correctly written) | 10% | Correct and complete | Correct and mostly complete | Mostly correct and mostly complete | Either mostly incorrect and mostly complete, or mostly incomplete and mostly correct | Either fully incorrect, or fully incomplete, or mostly incorrect and mostly incomplete |
 | **Development style** (*well-structured code* = visual readability and non-redundancy (see Software Specification); *commit history* = commits on fortnightly basis (see Development and Submission) | 20% | Well-structured code and regular commits | Well-structured code and one gap in commits | Nearly well-structured code and at most one gap | Not well-structured code or more than one gap | Not well-structured code and more than one gap |
 
-> **Note:** 
+> **Note:**
 > If you do not provide commits for longer than four weeks, it counts as two gaps.
 
 
