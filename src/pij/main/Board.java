@@ -29,6 +29,7 @@ public class Board {
 				for (int i = 0; i < row.length(); i++) {
 					char current = row.charAt(i);
 					tileText += current;
+					
 					if (current == '.' || current == ')' || current == '}') {	
 						Tile tile = new Tile(tileText, tileValue);
 						grid[x][y] = tile;
@@ -60,15 +61,26 @@ public class Board {
 	 * Prints the board on the console
 	 */
 	public void print() {
+		char xLabel = 'a';
+		int yLabel = 1;
+		System.out.print("\t");
+		for (int i = 0; i < magnitude; i++) {
+			System.out.print(xLabel + "\t");
+			xLabel++;
+		}
+		
+		System.out.println();
 		
 		for (Tile[] yTile : grid) {
+			System.out.print(yLabel + "\t");
+			yLabel++;
 			for (Tile xTile : yTile) {
-				System.out.print(xTile.getText());
+				System.out.print(xTile.getText() + "\t");
 			}
 			System.out.println();
 		}
 		
-		//TODO 
+	
 	}
 	
 }
