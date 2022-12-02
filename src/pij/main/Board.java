@@ -33,6 +33,7 @@ public class Board {
 						Tile tile = new Tile(tileText, tileValue);
 						grid[x][y] = tile;
 						tileText = "";
+						tileValue = 0;
 						x++;
 					} else if (current != '(' && current != '{') {
 						tileValue = (tileValue * 10) + current;
