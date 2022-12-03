@@ -6,7 +6,22 @@ import java.util.*;
 
 public class ScrabbleTest {
 	
-	
+	@Test
+	public void testTile() {
+		Tile blankTile = new Tile(".", 0);
+		Tile premiumTile = new Tile("(3)", 3);
+		Tile letterTile = new LetterTile("A", 1);
+		
+		//Tests the getText method.
+		assertEquals(blankTile.getText(), " . ");
+		assertEquals(premiumTile.getText(), "(3)");
+		assertEquals(letterTile.getText(), "A1");
+		
+		//Tests the getValue method.
+		assertEquals(blankTile.getValue(), 0);
+		assertEquals(premiumTile.getValue(), 3);
+		assertEquals(letterTile.getValue(), 1);
+	}
 	
 	@Test
 	public void testBag() {
@@ -41,8 +56,8 @@ public class ScrabbleTest {
 		assertEquals("{7}", lower.getText());
 		assertEquals("(50)", board.tileAt(5,1).getText());
 		
-		
-		
 	}
+	
+	
 	
 }
