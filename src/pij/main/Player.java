@@ -7,11 +7,14 @@ public abstract class Player {
 	private ArrayList<Tile> tileRack = new ArrayList<>();
 	
 	/**
-	 * Prints the tile rack.
+	 * Returns the player's tile rack.
+	 * 
+	 * @return the player's tile rack.
 	 */
-	public void printRack() {
-		System.out.println(tileRack.toString());
+	public ArrayList<Tile> getRack() {
+		return tileRack;
 	}
+	
 	/**
 	 * Adds a tile to the tile rack.
 	 * 
