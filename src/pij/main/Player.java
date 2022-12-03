@@ -25,4 +25,9 @@ public abstract class Player {
 		for (int i = 0; i < 7 - size; i++)
 			tileRack.add(bag.draw());
 	}
+	
+	public void turn(Bag bag) {
+		draw(bag);
+	}
+	
 }

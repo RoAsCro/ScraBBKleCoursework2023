@@ -14,5 +14,11 @@ public class HumanPlayer extends Player {
 		}
 		System.out.println();
 	}
+
+	@Override
+	public void turn(Bag bag) {
+		super.turn(bag);
+		printRack();
+	}
 	
 }
