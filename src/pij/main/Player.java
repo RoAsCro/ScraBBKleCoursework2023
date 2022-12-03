@@ -25,7 +25,12 @@ public abstract class Player {
 		for (int i = 0; i < 7 - size; i++)
 			tileRack.add(bag.draw());
 	}
-	
+	/**
+	 * A series of methods to be carried out on a player's turn.
+	 * Should be overridden by classes extending Player.
+	 * 
+	 * @param bag
+	 */
 	public void turn(Bag bag) {
 		draw(bag);
 	}

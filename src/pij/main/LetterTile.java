@@ -16,5 +16,13 @@ public class LetterTile extends Tile {
 	public String getText() {
 		return super.getText() + super.getValue();
 	}
+	/**
+	 * Returns the tile's letter as a character.
+	 * 
+	 * @return the tile's letter as a character.
+	 */
+	public char getChar() {
+		return super.getText().charAt(0);
+	}
 	
 }

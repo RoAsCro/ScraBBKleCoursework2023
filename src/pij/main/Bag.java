@@ -33,7 +33,7 @@ public class Bag {
 		tileGenerator("X", 8, 1);
 		tileGenerator("Y", 4, 2);
 		tileGenerator("Z", 10, 1);
-		tileGenerator(" ", 0, 2);
+		tileGenerator(" ", 3, 2);
 	}
 	
 	/** 
@@ -41,7 +41,7 @@ public class Bag {
 	 */
 	private void tileGenerator(String tileText, int tileValue, int quantity) {
 		for (int i = 0; i  < quantity; i++) {
-			bag.add(new Tile(tileText, tileValue));
+			bag.add(new LetterTile(tileText, tileValue));
 		}
 	}
 	
