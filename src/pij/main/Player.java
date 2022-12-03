@@ -35,4 +35,14 @@ public abstract class Player {
 		draw(bag);
 	}
 	
+	/**
+	 * Removes the specified letter from the tile rack.
+	 * Should only be called alongside a Board's placeWord() method.
+	 * 
+	 * @param letterLocation Location of the letter in the tile rack
+	 */
+	public void removeTile(int letterLocation) {
+		tileRack.remove(letterLocation);
+	}
+	
 }
