@@ -10,12 +10,12 @@ public class ScrabbleTest {
 	public void testTile() {
 		Tile blankTile = new Tile(".", 0);
 		Tile premiumTile = new Tile("(3)", 3);
-		Tile letterTile = new LetterTile("A", 1);
+		LetterTile letterTile = new LetterTile("A", 1);
 		
 		//Tests the getText method.
 		assertEquals(blankTile.getText(), " . ");
 		assertEquals(premiumTile.getText(), "(3)");
-		assertEquals(letterTile.getText(), "A1");
+		assertEquals(letterTile.getChar(), 'A');
 		
 		//Tests the getValue method.
 		assertEquals(blankTile.getValue(), 0);
@@ -29,8 +29,8 @@ public class ScrabbleTest {
 		Bag bag = new Bag();
 		int finalTileReached = 0;
 		for (int i = 0; i < 100; i++) {
-			Tile tile = bag.draw();
-			if (tile.getText().equals(" ")) finalTileReached++;
+			LetterTile tile = bag.draw();
+			if (tile.getChar() == ' ') finalTileReached++;
 			//System.out.println(tile.getText());
 		}
 		//Tests whether the final tile in the bag is reached by the draw() method
@@ -56,8 +56,47 @@ public class ScrabbleTest {
 		assertEquals("{7}", lower.getText());
 		assertEquals("(50)", board.tileAt(5,1).getText());
 		
+		LetterTile t = new LetterTile("T", 1);
+		LetterTile e = new LetterTile("E", 1);
+		LetterTile s = new LetterTile("S", 1);
+		LetterTile t2 = new LetterTile("T", 1);
+		LetterTile[] test = new LetterTile[] {t, e, s, t2};
+		LetterTile[] tT = new LetterTile[] {t};
+		LetterTile[] te = new LetterTile[] {t, e};
+		
+		//Tests the placement of words on a blank board
+		assertTrue(board.placeWord(0, 0, 'r', test));
+		assertTrue(board.placeWord(0, 14, 'r', test));
+		assertTrue(board.placeWord(14, 0, 'r', tT));
+		assertTrue(board.placeWord(14, 14, 'r', tT));
+		assertFalse(board.placeWord(14, 15, 'r', tT));
+		assertFalse(board.placeWord(15, 0, 'r', tT));
+		assertFalse(board.placeWord(14, 0, 'r', test));
+		assertFalse(board.placeWord(14, 0, 'r', te));
+		assertFalse(board.placeWord(100, 0, 'r', test));
+		
+		board = new Board(file);
+		assertTrue(board.placeWord(0, 0, 'd', test));
+		assertTrue(board.placeWord(14, 0, 'd', test));
+		assertTrue(board.placeWord(0, 14, 'd', tT));
+		assertTrue(board.placeWord(14, 14, 'd', tT));
+		assertFalse(board.placeWord(15, 14, 'd', tT));
+		assertFalse(board.placeWord(0, 15, 'd', tT));
+		assertFalse(board.placeWord(0, 14, 'd', test));
+		assertFalse(board.placeWord(0, 14, 'd', te));
+		assertFalse(board.placeWord(0, 100, 'd', test));
+		
+		
 	}
 	
+	@Test
+	public void testPlayer() {
+		Bag bag = new Bag();
+		HumanPlayer human = new HumanPlayer();
+		
+		
+		
+	}
 	
 	
 }
