@@ -75,16 +75,15 @@ public class Board {
 		
 		System.out.println();
 		
-		for (Tile[] yTile : grid) {
+		for (int yCoord = 0; yCoord < magnitude; yCoord++) {
 			System.out.print(yLabel + "  ");
 			yLabel++;
-			for (Tile xTile : yTile) {
-				System.out.print(xTile.getText());
+			for (int xCoord = 0; xCoord < magnitude; xCoord++) {
+				System.out.print(grid[xCoord][yCoord].getText());	
 			}
 			System.out.println();
 		}
-		
-	
+
 	}
 	
 	public boolean placeWord(int x, int y, char direction, LetterTile[] tiles) {
