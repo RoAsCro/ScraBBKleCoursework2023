@@ -51,36 +51,57 @@ public class Board {
 	}
 	
 	/**
-	 * Loads a board from a file.
+	 * Returns the tile at a given set of x,y coordinates on the board.
+	 * 
+	 * @param x x coordinate.
+	 * @param y y coordinate.
+	 * @return Tile at given coordinates.
 	 */
-	public void load(File file) {
-		
-		//TODO 
+	public Tile tileAt(int x, int y) {
+		return grid[x][y];
 	}
+
 	/**
 	 * Prints the board on the console
 	 */
 	public void print() {
 		char xLabel = 'a';
 		int yLabel = 1;
-		System.out.print("\t");
+		System.out.print("   ");
 		for (int i = 0; i < magnitude; i++) {
-			System.out.print(xLabel + "\t");
+			System.out.print(" " + xLabel + " ");
 			xLabel++;
 		}
 		
 		System.out.println();
 		
 		for (Tile[] yTile : grid) {
-			System.out.print(yLabel + "\t");
+			System.out.print(yLabel + "  ");
 			yLabel++;
 			for (Tile xTile : yTile) {
-				System.out.print(xTile.getText() + "\t");
+				System.out.print(xTile.getText());
 			}
 			System.out.println();
 		}
 		
 	
+	}
+	
+	public boolean placeWord(int x, int y, char direction, String word) {
+		int xInc = (direction - 100) / 14;
+		int yInc = (direction - 114) / 14 * - 1;
+			
+		for (int i = 0; i < word.length();) {
+			if (x > magnitude - 1 || y > magnitude - 1)
+				return false;
+			if (grid[x][y].getClass() == Tile.class) {
+				i++;
+			}
+			x = x + xInc;
+			y = y + yInc;
+			
+		}
+		return true;
 	}
 	
 }
