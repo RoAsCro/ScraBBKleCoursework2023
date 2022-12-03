@@ -101,11 +101,13 @@ public class Board {
 		int wordLength = tiles.length;
 		double runningValue = 0;
 		int multiplier = 1;
+		int[][] locations = new int[wordLength][2];
 			
 		for (int i = 0; i < wordLength;) {
 			
 			if (x > magnitude - 1 || y > magnitude - 1)
 				return false;
+			
 			LetterTile placementTile = tiles[i];
 			Tile targetTile = grid[x][y];
 			int targetValue = targetTile.getValue();
@@ -113,8 +115,10 @@ public class Board {
 			if (targetTile.getClass() == Tile.class) {
 				int tileValue = placementTile.getValue();
 				
-				fullWord += placementTile.getChar();
+				locations[i][0] = x;
+				locations[i][1] = y;
 				
+				fullWord += placementTile.getChar();
 				i++;
 				
 				if (targetTile.getText().charAt(0) == '(') {
@@ -158,6 +162,11 @@ public class Board {
 		 *  Add runningValue to player score
 		 * 
 		 */
+		int i = 0;
+		for (int[] coords : locations) {
+			grid[coords[0]][coords[1]] = tiles[i];
+			i++;
+		}
 		
 		return true;
 	}
