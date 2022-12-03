@@ -25,14 +25,21 @@ public class Tile {
 	}
 	
 	/**
-	 * Returns the text for purposes of displaying on the board and a player's tile rack.
+	 * Returns the tile text.
 	 * 
-	 * @return the tile text concatenated with its value.
+	 * @return the tile text.
 	 */
 	public String getText() {
-		String displayText = TILE_TEXT;
-		return displayText;
+		return TILE_TEXT;
 	}
 	
+	/**
+	 * Returns the tile's value.
+	 * 
+	 * @return the tile's value. Always non-null.
+	 */
+	public int getValue() {
+		return VALUE;
+	}
 	
 }
