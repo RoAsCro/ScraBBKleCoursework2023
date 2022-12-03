@@ -14,9 +14,7 @@ public class Board {
 	/** A two-dimensional array of tiles representing the board. */
 	private Tile[][] grid;
 	
-	private int centreX;
-	
-	private int centreY;
+	private int centre;
 	
 	/** The size of the board's axes. */
 	private int magnitude;
@@ -28,7 +26,7 @@ public class Board {
 		try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
 			magnitude = Integer.parseInt(reader.readLine());
 			grid = new Tile[magnitude][magnitude];
-			centreX = centreY = magnitude / 2;
+			centre = (magnitude - 1) / 2;
 			String row;
 			for (int y = 0; y < magnitude; y++) {
 				row = reader.readLine();
@@ -97,6 +95,8 @@ public class Board {
 	}
 	
 	public boolean placeWord(int x, int y, char direction, LetterTile[] tiles) {
+		int wordLength = tiles.length;
+		
 		//xInc and yInc use the integer value of 'd' or 'r' to determine how to iterate across the grid.
 		int xInc = (direction - 100) / 14;
 		int yInc = (direction - 114) / 14 * - 1;
@@ -107,9 +107,13 @@ public class Board {
 		//Word constructed of the input letters and any letters with which the new word intersects.
 		String fullWord = "";
 		
-		int wordLength = tiles.length;
+		//Total score earned through placing the tiles.
 		double runningValue = 0;
+		
+		//Multipliers, starting with 1, to be factored into the runningValue.
 		int multiplier = 1;
+		
+		//Notes where the tiles are to be placed, assuming the placement is successful.
 		int[][] locations = new int[wordLength][2];
 			
 		for (int i = 0; i < wordLength;) {
@@ -123,7 +127,7 @@ public class Board {
 			Tile targetTile = grid[x][y];
 			int targetValue = targetTile.getValue();
 			
-			if (targetTile.getClass() == Tile.class) {
+			if (targetTile.getClass() != LetterTile.class) {
 				int tileValue = placementTile.getValue();
 				
 				locations[i][0] = x;
@@ -165,17 +169,14 @@ public class Board {
 			if (!startState) {
 				System.out.println("Your word must cross another word");
 				return false;
-			} else if (!((y == centreY && (centreX <= x-1 && centreX >= x-1 - wordLength))
-						|| (x == centreX && (centreY <= y-1 && centreY >= y-1 - wordLength)))) {
+			} else if (!((y == centre && (centre <= x-1 && centre >= x-1 - wordLength))
+						|| (x == centre && (centre <= y-1 && centre >= y-1 - wordLength)))) {
 				System.out.println("Your word must cross over the centre tile.");
 				return false;
 			}
+			startState = false;
 		}
-					
-		startState = false;
-				
-
-
+		
 		runningValue *= multiplier;
 		
 		/*

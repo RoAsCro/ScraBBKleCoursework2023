@@ -3,8 +3,11 @@ package pij.main;
 import java.util.ArrayList;
 
 public abstract class Player {
-	/** an array of tiles a player has available to them */
+	/** An array of tiles a player has available to them */
 	private ArrayList<LetterTile> tileRack = new ArrayList<>();
+	
+	/** A player's score. */
+	private double score = 0;
 	
 	/**
 	 * Returns the player's tile rack.
@@ -13,6 +16,24 @@ public abstract class Player {
 	 */
 	public ArrayList<LetterTile> getRack() {
 		return tileRack;
+	}
+	
+	/**
+	 * Returns the player's score.
+	 * 
+	 * @return the player's score.
+	 */
+	public double getScore() {
+		return this.score;
+	}
+	
+	/**
+	 * Updates the player's score with the input double.
+	 * 
+	 * @param update the number that will be added to the player's score.
+	 */
+	public void updateScore(double update) {
+		score += update;
 	}
 	
 	/**
