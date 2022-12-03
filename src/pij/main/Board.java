@@ -87,20 +87,78 @@ public class Board {
 	
 	}
 	
-	public boolean placeWord(int x, int y, char direction, String word) {
+	public boolean placeWord(int x, int y, char direction, LetterTile[] tiles) {
+		//xInc and yInc use the integer value of 'd' or 'r' to determine how to iterate across the grid.
 		int xInc = (direction - 100) / 14;
 		int yInc = (direction - 114) / 14 * - 1;
+		
+		//Test for if the word intersects with a pre-existing word on the board.
+		boolean intersection = false;
+		
+		//Word constructed of the input letters and any letters with which the new word intersects.
+		String fullWord = "";
+		
+		int wordLength = tiles.length;
+		double runningValue = 0;
+		int multiplier = 1;
 			
-		for (int i = 0; i < word.length();) {
+		for (int i = 0; i < wordLength;) {
+			
 			if (x > magnitude - 1 || y > magnitude - 1)
 				return false;
-			if (grid[x][y].getClass() == Tile.class) {
+			LetterTile placementTile = tiles[i];
+			Tile targetTile = grid[x][y];
+			int targetValue = targetTile.getValue();
+			
+			if (targetTile.getClass() == Tile.class) {
+				int tileValue = placementTile.getValue();
+				
+				fullWord += placementTile.getChar();
+				
 				i++;
+				
+				if (targetTile.getText().charAt(0) == '(') {
+					runningValue += targetValue * tileValue;
+				} else {
+					runningValue += tileValue;
+					if (targetTile.getText().charAt(0) == '{') {
+						multiplier *= targetValue;
+						
+					}
+				}
+					
+				
+			} else {
+				intersection = true;
+				LetterTile letterTile = (LetterTile) targetTile;
+				fullWord += letterTile.getChar();
+				runningValue += targetValue;
 			}
+			
 			x = x + xInc;
 			y = y + yInc;
 			
 		}
+		/*
+		 * @ TODO  
+		 * if (fullWord not in dictionary)
+		 * 		return false
+		 */
+		
+		/*
+		 * @ TODO
+		 * if (not intersection AND Not first word)
+		 * 		return false
+		 */
+		
+		runningValue *= multiplier;
+		
+		/*
+		 * @ TODO
+		 *  Add runningValue to player score
+		 * 
+		 */
+		
 		return true;
 	}
 	
