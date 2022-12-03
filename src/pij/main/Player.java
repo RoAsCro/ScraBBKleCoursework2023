@@ -16,11 +16,13 @@ public abstract class Player {
 	}
 	
 	/**
-	 * Adds a tile to the tile rack.
+	 * Fills all blank spaces in the player's tile rack with tiles from the given bag.
 	 * 
-	 * @param tile tile to be added.
+	 * @param bag the bag to be drawn from.
 	 */
-	public void draw(Tile tile) {
-		tileRack.add(tile);
+	public void draw(Bag bag) {
+		int size = tileRack.size();
+		for (int i = 0; i < 7 - size; i++)
+			tileRack.add(bag.draw());
 	}
 }
