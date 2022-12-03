@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Bag {
 	/** ArrayList storing the contents of the bag. */
-	private ArrayList<Tile> bag = new ArrayList<>();
+	private ArrayList<LetterTile> bag = new ArrayList<>();
 	
 	public Bag() {
 		tileGenerator("A", 1, 9);
@@ -52,13 +52,13 @@ public class Bag {
 	 * @return a random Tile or null if bag is empty.
 	 */
 	
-	public Tile draw() {
+	public LetterTile draw() {
 		int size = bag.size();
 
 		if (size == 0)
 			return null;
 
-		Tile tile = bag.get((int) (Math.random() * size));
+		LetterTile tile = bag.get((int) (Math.random() * size));
 		bag.remove(tile);
 		return tile;
 	}

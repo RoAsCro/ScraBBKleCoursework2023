@@ -4,14 +4,14 @@ import java.util.ArrayList;
 
 public abstract class Player {
 	/** an array of tiles a player has available to them */
-	private ArrayList<Tile> tileRack = new ArrayList<>();
+	private ArrayList<LetterTile> tileRack = new ArrayList<>();
 	
 	/**
 	 * Returns the player's tile rack.
 	 * 
 	 * @return the player's tile rack.
 	 */
-	public ArrayList<Tile> getRack() {
+	public ArrayList<LetterTile> getRack() {
 		return tileRack;
 	}
 	
