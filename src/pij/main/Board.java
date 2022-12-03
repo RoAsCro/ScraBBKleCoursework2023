@@ -13,12 +13,22 @@ public class Board {
 	
 	/** A two-dimensional array of tiles representing the board. */
 	private Tile[][] grid;
+	
+	private int centreX;
+	
+	private int centreY;
+	
+	/** The size of the board's axes. */
 	private int magnitude;
+	
+	/** True if no tiles have been placed yet */
+	private boolean startState = true;
 	
 	public Board(File file) {
 		try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
 			magnitude = Integer.parseInt(reader.readLine());
 			grid = new Tile[magnitude][magnitude];
+			centreX = centreY = magnitude / 2;
 			String row;
 			for (int y = 0; y < magnitude; y++) {
 				row = reader.readLine();
@@ -104,8 +114,10 @@ public class Board {
 			
 		for (int i = 0; i < wordLength;) {
 			
-			if (x > magnitude - 1 || y > magnitude - 1)
+			if (x > magnitude - 1 || y > magnitude - 1) {
+				System.out.println("That word does not fit on the board.");
 				return false;
+			}
 			
 			LetterTile placementTile = tiles[i];
 			Tile targetTile = grid[x][y];
@@ -148,12 +160,22 @@ public class Board {
 		 * 		return false
 		 */
 		
-		/*
-		 * @ TODO
-		 * if (not intersection AND Not first word)
-		 * 		return false
-		 */
-		
+
+		if (!intersection) {
+			if (!startState) {
+				System.out.println("Your word must cross another word");
+				return false;
+			} else if (!((y == centreY && (centreX <= x-1 && centreX >= x-1 - wordLength))
+						|| (x == centreX && (centreY <= y-1 && centreY >= y-1 - wordLength)))) {
+				System.out.println("Your word must cross over the centre tile.");
+				return false;
+			}
+		}
+					
+		startState = false;
+				
+
+
 		runningValue *= multiplier;
 		
 		/*
