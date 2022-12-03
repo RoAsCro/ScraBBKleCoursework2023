@@ -3,7 +3,7 @@ package pij.main;
 import java.util.ArrayList;
 
 public class Bag {
-	//private Tile[] bag = new Tile[100];
+	/** ArrayList storing the contents of the bag. */
 	private ArrayList<Tile> bag = new ArrayList<>();
 	
 	public Bag() {
@@ -36,14 +36,32 @@ public class Bag {
 		tileGenerator(" ", 0, 2);
 	}
 	
+	/** 
+	 * Helps the constructor with repeatedly adding identical tiles.
+	 */
 	private void tileGenerator(String tileText, int tileValue, int quantity) {
 		for (int i = 0; i  < quantity; i++) {
 			bag.add(new Tile(tileText, tileValue));
 		}
 	}
 	
-//	public Tile draw() {
-//		
-//	}
+	/**
+	 * Returns a random tile from the bag, and deletes that tile.
+	 * Returns null if the bag is empty.
+	 * 
+	 * @return a random Tile or null if bag is empty.
+	 */
 	
+	public Tile draw() {
+		int size = bag.size();
+
+		if (size == 0)
+			return null;
+
+		Tile tile = bag.get((int) (Math.random() * size));
+		bag.remove(tile);
+		return tile;
+	}
+	
+
 }
