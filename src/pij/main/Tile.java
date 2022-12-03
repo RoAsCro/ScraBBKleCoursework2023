@@ -8,7 +8,7 @@ package pij.main;
  *
  */
 
-public abstract class Tile {
+public class Tile {
 	/** The text displayed when a tile is displayed on the board or in a player's tile rack. */
 	private final String TILE_TEXT;
 	
@@ -19,6 +19,7 @@ public abstract class Tile {
 	
 	public Tile(String tileText, int value) {
 		this.VALUE = value;
+		if (tileText.equals(".")) tileText = " . ";
 		this.TILE_TEXT = tileText;
 		
 	}
@@ -29,7 +30,7 @@ public abstract class Tile {
 	 * @return the tile text concatenated with its value.
 	 */
 	public String getText() {
-		String displayText = TILE_TEXT + VALUE;
+		String displayText = TILE_TEXT;
 		return displayText;
 	}
 	
