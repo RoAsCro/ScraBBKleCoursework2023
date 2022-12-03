@@ -1,10 +1,12 @@
 package pij.main;
 
+import java.util.ArrayList;
+
 public class Bag {
-	private Tile[] bag = new Tile[100];
+	//private Tile[] bag = new Tile[100];
+	private ArrayList<Tile> bag = new ArrayList<>();
 	
 	public Bag() {
-		
 		tileGenerator("A", 1, 9);
 		tileGenerator("B", 3, 2);
 		tileGenerator("C", 3, 2);
@@ -36,8 +38,12 @@ public class Bag {
 	
 	private void tileGenerator(String tileText, int tileValue, int quantity) {
 		for (int i = 0; i  < quantity; i++) {
-			bag[i] = new Tile(tileText, tileValue);
+			bag.add(new Tile(tileText, tileValue));
 		}
-
 	}
+	
+//	public Tile draw() {
+//		
+//	}
+	
 }
