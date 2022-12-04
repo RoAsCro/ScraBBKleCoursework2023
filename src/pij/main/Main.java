@@ -70,9 +70,9 @@ public class Main {
 						+ (char) (move.getX() + 97) + (move.getY() + 1) + ", direction: " + direction);
 				System.out.println();
 				System.out.println("The result is: ");
-				System.out.println("Human player score:	" + Math.floor(human.getScore()));
-				System.out.println("Computer player score: " + computer.getScore());
 			}
+			System.out.println("Human player score:	" + human.getScore());
+			System.out.println("Computer player score: " + computer.getScore());
 			System.out.println();
 			currentPlayer = Math.abs(currentPlayer - 1);
 		}
