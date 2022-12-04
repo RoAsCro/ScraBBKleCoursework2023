@@ -43,4 +43,11 @@ public class Validator {
 		}
 	}
 	
+	public boolean inputValidation(String input, String[] validInputs) {
+		for (String s : validInputs) 
+			if (input.equals(s))
+				return true;
+		return false;
+	}
+	
 }
