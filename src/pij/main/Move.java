@@ -52,7 +52,6 @@ public class Move {
 				
 				for (char c : chars) {
 					for (LetterTile t : rack) {
-						System.out.println(t.getChar());
 						if (t.getChar() == c) {
 							tiles.add(t);
 							rack.remove(t);
@@ -65,8 +64,9 @@ public class Move {
 					valid = false;
 				}
 			
-			}
-		}
+			}else
+				valid = false;
+		} 
 		if (!this.valid || PASS) {
 			this.X = 0;
 			this.Y = 0;
@@ -80,4 +80,31 @@ public class Move {
 		}
 
 	}
+	
+	
+	public boolean isValid() {
+		return valid;
+	}
+
+
+	public int getX() {
+		return X;
+	}
+
+
+	public int getY() {
+		return Y;
+	}
+
+
+	public LetterTile[] getTiles() {
+		return TILES;
+	}
+
+
+	public char getDirection() {
+		return DIRECTION;
+	}
+	
+	
 }
