@@ -61,8 +61,11 @@ public abstract class Player {
 	 * 
 	 * @param letterLocation Location of the letter in the tile rack
 	 */
-	public void removeTile(int letterLocation) {
-		tileRack.remove(letterLocation);
+	public void removeTiles(LetterTile[] tiles) {
+		for (LetterTile tile : tiles) {
+			tileRack.remove(tile);
+		}
+		
 	}
 	
 }

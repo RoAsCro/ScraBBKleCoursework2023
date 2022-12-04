@@ -43,7 +43,6 @@ public class Move {
 				}
 				
 				if (!Validator.inputValidation(direction, new String[] {"r", "d"})) {
-					System.out.print("D");
 					valid = false;
 				}
 				char[] chars = movesToTest[0].toCharArray();
@@ -106,5 +105,7 @@ public class Move {
 		return DIRECTION;
 	}
 	
-	
+	public boolean isPass() {
+		return PASS;
+	}
 }
