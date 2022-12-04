@@ -105,7 +105,12 @@ public class Board {
 
 	}
 	
-	public boolean placeWord(int x, int y, char direction, LetterTile[] tiles) {
+	public boolean placeWord(Move move) {
+		int x = move.getX();
+		int y = move.getY();
+		char direction = move.getDirection();
+		LetterTile[] tiles = move.getTiles();
+		
 		int wordLength = tiles.length;
 		
 		//xInc and yInc use the integer value of 'd' or 'r' to determine how to iterate across the grid.
