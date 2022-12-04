@@ -18,7 +18,10 @@ public class Move {
 	
 	private final int Y;
 	
+	private final Player player;
+	
 	public Move(String input, Player player) {
+		this.player = player;
 		String x = "0";
 		String y = "0";
 		String direction = "d";
@@ -38,14 +41,16 @@ public class Move {
 				direction = movesToTest[2].toLowerCase();
 				
 				int yLength = y.length();
+				//Check the x coord is a letter
 				if (x.toUpperCase() == x.toLowerCase()) {
 					valid = false;
 				}
-				if (yLength > 2 || yLength < 1 || !Character.isDigit(y.charAt(0)) || !Character.isDigit(y.charAt(yLength - 1))) {
+				//Check the y coord is no larger than 2 and no smaller than one, and is a number
+				else if (yLength > 2 || yLength < 1 || !Character.isDigit(y.charAt(0)) || !Character.isDigit(y.charAt(yLength - 1))) {
 					valid = false;
 				}
-				
-				if (!Validator.inputValidation(direction, new String[] {"r", "d"})) {
+				//Check the direction is a valid direction
+				else if (!Validator.inputValidation(direction, new String[] {"r", "d"})) {
 					valid = false;
 				}
 				char[] chars = movesToTest[0].toCharArray();
@@ -110,5 +115,9 @@ public class Move {
 	
 	public boolean isPass() {
 		return PASS;
+	}
+	
+	public void updateScore(Double score) {
+		this.player.updateScore(score);
 	}
 }
