@@ -4,7 +4,7 @@ import java.io.*;
 
 /**
  * A board on which the game of ScraBBKle is played.
- * A board is S x S where S is between 12 and 26.
+ * A board's dimensions are S x S where S is between 12 and 26.
  * 
  * @author Roland Crompton
  *
@@ -14,48 +14,59 @@ public class Board {
 	/** A two-dimensional array of tiles representing the board. */
 	private Tile[][] grid;
 	
-	private int centre;
-	
 	/** The size of the board's axes. */
-	private int magnitude;
+	private final int MAGNITUDE;
 	
+	/** The coordinates of the centre tile of the board.
+	 * This will always be the same for both x and y axes.
+	 * If the board has an even-numbered magnitude, it will be (magnitude / 2)
+	 * If the board has an odd-numbered magnitude, it will be (magnitude / 2 + 1).
+	 */
+	private final int CENTRE;
+
 	/** True if no tiles have been placed yet */
 	private boolean startState = true;
 	
-	public Board(File file) {
-		try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-			magnitude = Integer.parseInt(reader.readLine());
-			grid = new Tile[magnitude][magnitude];
-			centre = (magnitude - 1) / 2;
-			String row;
-			for (int y = 0; y < magnitude; y++) {
-				row = reader.readLine();
-				String tileText = "";
-				int tileValue = 0;
-				int x = 0;
-				
-				for (int i = 0; i < row.length(); i++) {
-					char current = row.charAt(i);
-					tileText += current;
-					
-					if (current == '.' || current == ')' || current == '}') {	
-						Tile tile = new Tile(tileText, tileValue);
-						grid[x][y] = tile;
-						tileText = "";
-						tileValue = 0;
-						x++;
-					} else if (current != '(' && current != '{') {
-						tileValue = (tileValue * 10) + current;
-					}
-				}
-			}
-			
-		} catch (FileNotFoundException ex) {
-			
-			System.out.print("File not found");
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		}
+//	public Board(File file) {
+//		try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+//			magnitude = Integer.parseInt(reader.readLine());
+//			grid = new Tile[magnitude][magnitude];
+//			centre = (magnitude - 1) / 2;
+//			String row;
+//			for (int y = 0; y < magnitude; y++) {
+//				row = reader.readLine();
+//				String tileText = "";
+//				int tileValue = 0;
+//				int x = 0;
+//				
+//				for (int i = 0; i < row.length(); i++) {
+//					char current = row.charAt(i);
+//					tileText += current;
+//					
+//					if (current == '.' || current == ')' || current == '}') {	
+//						Tile tile = new Tile(tileText, tileValue);
+//						grid[x][y] = tile;
+//						tileText = "";
+//						tileValue = 0;
+//						x++;
+//					} else if (current != '(' && current != '{') {
+//						tileValue = (tileValue * 10) + current;
+//					}
+//				}
+//			}
+//			
+//		} catch (FileNotFoundException ex) {
+//			
+//			System.out.print("File not found");
+//		} catch (IOException ex) {
+//			ex.printStackTrace();
+//		}
+//	}
+	
+	public Board(int magnitude, Tile[][] grid) {
+		this.MAGNITUDE = magnitude;
+		this.CENTRE = magnitude / 2;
+		this.grid = grid;
 	}
 	
 	/**
@@ -76,17 +87,17 @@ public class Board {
 		char xLabel = 'a';
 		int yLabel = 1;
 		System.out.print("   ");
-		for (int i = 0; i < magnitude; i++) {
+		for (int i = 0; i < MAGNITUDE; i++) {
 			System.out.print(" " + xLabel + " ");
 			xLabel++;
 		}
 		
 		System.out.println();
 		
-		for (int yCoord = 0; yCoord < magnitude; yCoord++) {
+		for (int yCoord = 0; yCoord < MAGNITUDE; yCoord++) {
 			System.out.print(yLabel + "  ");
 			yLabel++;
-			for (int xCoord = 0; xCoord < magnitude; xCoord++) {
+			for (int xCoord = 0; xCoord < MAGNITUDE; xCoord++) {
 				System.out.print(grid[xCoord][yCoord].getText());	
 			}
 			System.out.println();
@@ -118,7 +129,7 @@ public class Board {
 			
 		for (int i = 0; i < wordLength;) {
 			
-			if (x > magnitude - 1 || y > magnitude - 1) {
+			if (x > MAGNITUDE - 1 || y > MAGNITUDE - 1) {
 				System.out.println("That word does not fit on the board.");
 				return false;
 			}
@@ -144,8 +155,7 @@ public class Board {
 						multiplier *= targetValue;
 						
 					}
-				}
-					
+				}					
 				
 			} else {
 				intersection = true;
@@ -154,29 +164,28 @@ public class Board {
 				runningValue += targetValue;
 			}
 			
+			//COULD MOVE THESE TO THE IF STATEMENT
 			x = x + xInc;
 			y = y + yInc;
 			
 		}
-		/*
-		 * @ TODO  
-		 * if (fullWord not in dictionary)
-		 * 		return false
-		 */
-		
 
 		if (!intersection) {
 			if (!startState) {
 				System.out.println("Your word must cross another word");
 				return false;
-			} else if (!((y == centre && (centre <= x-1 && centre >= x-1 - wordLength))
-						|| (x == centre && (centre <= y-1 && centre >= y-1 - wordLength)))) {
+			} else if (!((y == CENTRE && (CENTRE <= x-1 && CENTRE >= x-1 - wordLength))
+						|| (x == CENTRE && (CENTRE <= y-1 && CENTRE >= y-1 - wordLength)))) {
 				System.out.println("Your word must cross over the centre tile.");
 				return false;
 			}
 			startState = false;
 		}
 		
+		if (!readWord(fullWord)) {
+			System.out.println("Word not in dictionary.");
+			return false;
+		}
 		runningValue *= multiplier;
 		
 		/*
@@ -190,6 +199,15 @@ public class Board {
 			i++;
 		}
 		
+		return true;
+	}
+	
+	private static /*?*/ boolean readWord(String word) {
+		/*
+		 * @ TODO  
+		 * if (fullWord not in dictionary)
+		 * 		return false
+		 */
 		return true;
 	}
 	
