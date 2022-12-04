@@ -39,8 +39,6 @@ public class Main {
 			}
 			file = "../resources/" + file;
 			board = Validator.loadFile(file);
-			System.out.println();
-			
 		} while (board == null);
 		
 		HumanPlayer human = new HumanPlayer();
@@ -55,24 +53,27 @@ public class Main {
 			Move move;
 			do {
 				move = activePlayer.turn(bag);
-				if (move.isPass()) {
-					break;
-				}
 			} while (!board.placeWord(move));
-		
 			
-			String direction = "right";	
-			if (move.getDirection() == 'd')
-				direction = "down";
-			 
-			System.out.println("The move is:	Word: " + move.getTiles().toString() + " at position "
-					+ (char) (move.getX() + 97) + (move.getY() + 1) + ", direction: " + direction);
-			System.out.println();
-			System.out.println("The result is: ");
-			System.out.println("Human player score:	" + human.getScore());
-			System.out.println("Computer player score: " + computer.getScore());
 			activePlayer.removeTiles(move.getTiles());
 			
+			System.out.println();
+			if (move.isPass()) {
+				System.out.println("Player passed their turn.");
+			} else {
+			
+				String direction = "right";	
+				if (move.getDirection() == 'd')
+					direction = "down";
+				 
+				System.out.println("The move is:	Word: " + move.getTiles().toString() + " at position "
+						+ (char) (move.getX() + 97) + (move.getY() + 1) + ", direction: " + direction);
+				System.out.println();
+				System.out.println("The result is: ");
+				System.out.println("Human player score:	" + Math.floor(human.getScore()));
+				System.out.println("Computer player score: " + computer.getScore());
+			}
+			System.out.println();
 			currentPlayer = Math.abs(currentPlayer - 1);
 		}
 			

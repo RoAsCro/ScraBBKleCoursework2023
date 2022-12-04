@@ -35,7 +35,7 @@ public class Validator {
 			}
 			return new Board(magnitude, grid);
 		} catch (FileNotFoundException ex) {
-			System.out.println("File Not Found.");
+			System.out.print("This is not a valid file. ");
 			return null;
 			
 		} catch (IOException ex) {

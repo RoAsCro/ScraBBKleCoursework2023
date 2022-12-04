@@ -106,6 +106,8 @@ public class Board {
 	}
 	
 	public boolean placeWord(Move move) {
+		if (move.isPass())
+			return true;
 		int x = move.getX();
 		int y = move.getY();
 		char direction = move.getDirection();
@@ -156,12 +158,8 @@ public class Board {
 					runningValue += targetValue * tileValue;
 				} else {
 					runningValue += tileValue;
-					if (targetTile.getText().charAt(0) == '{') {
-						System.out.println("MUL: " + multiplier);
+					if (targetTile.getText().charAt(0) == '{')
 						multiplier *= targetValue;
-						System.out.println("MUL: " + multiplier);
-						
-					}
 				}					
 				
 			} else {
@@ -193,8 +191,6 @@ public class Board {
 			System.out.println("Word not in dictionary.");
 			return false;
 		}
-		System.out.println(runningValue);
-		System.out.println(multiplier);
 		
 		runningValue *= multiplier;
 		
