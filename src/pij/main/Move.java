@@ -57,10 +57,13 @@ public class Move {
 				int counter = 0;
 				int target = chars.length;
 				
+				//Check the player has the required tiles
 				for (char c : chars) {
 					for (LetterTile t : rack) {
-						if (t.getChar() == c) {
-							tiles.add(t);
+						char tChar = t.getChar();
+						if (tChar == c 
+								|| (Character.isLowerCase(c) && tChar == ' ')) {
+							tiles.add(new LetterTile("" + c, t.getValue()));
 							rack.remove(t);
 							counter++;
 							break;
