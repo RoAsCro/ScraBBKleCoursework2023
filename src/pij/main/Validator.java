@@ -5,7 +5,7 @@ import java.io.*;
 public class Validator {
 	
 	public static Board loadFile(String fileName) {
-		File file = new File("../resources/" + fileName);
+		File file = new File(fileName);
 		Tile[][] grid;
 		int magnitude;
 		try (BufferedReader reader = new BufferedReader(new FileReader(file))) {

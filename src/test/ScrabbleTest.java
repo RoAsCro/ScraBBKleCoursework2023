@@ -7,6 +7,7 @@ import pij.main.Board;
 import pij.main.HumanPlayer;
 import pij.main.LetterTile;
 import pij.main.Tile;
+import pij.main.Validator;
 
 import java.io.*;
 import java.util.*;
@@ -50,7 +51,7 @@ public class ScrabbleTest {
 	public void testBoard() {
 
 		File file = new File("./resources/testBoard.txt");
-		Board board = new Board(file);
+		Board board = Validator.loadFile("./resources/testBoard.txt");
 		
 		Tile lower = board.tileAt(0,0);
 		Tile upper = board.tileAt(14,14);
