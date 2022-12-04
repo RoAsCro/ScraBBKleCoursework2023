@@ -1,11 +1,15 @@
 package pij.main;
 
+import java.util.*;
+
 public class ComputerPlayer extends Player {
 
 	@Override
-	public String turn(Bag bag) {
+	public Move turn(Bag bag) {
 		// TODO Auto-generated method stub
-		return "";
+		draw(bag);	
+		Move move = new Move(",,", new ArrayList<LetterTile>(getRack()));
+		return move;
 	}
 
 }

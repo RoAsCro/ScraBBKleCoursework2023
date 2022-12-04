@@ -53,10 +53,7 @@ public abstract class Player {
 	 * @param bag
 	 * @return TODO
 	 */
-	public String turn(Bag bag) {
-		draw(bag);
-		return "";
-	}
+	public abstract Move turn(Bag bag);
 	
 	/**
 	 * Removes the specified letter from the tile rack.
