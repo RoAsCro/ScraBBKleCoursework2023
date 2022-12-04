@@ -30,8 +30,7 @@ public class HumanPlayer extends Player {
 					+ "and direction(d for down, r for right) separated by commas. "
 					+ "Entering just two commas passes.");
 			input = System.console().readLine();
-			ArrayList<LetterTile> rack = new ArrayList<>(getRack());
-			move = new Move(input, rack);
+			move = new Move(input, this);
 
 		}
 		return move;

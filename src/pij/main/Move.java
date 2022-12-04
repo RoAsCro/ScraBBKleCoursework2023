@@ -18,7 +18,7 @@ public class Move {
 	
 	private final int Y;
 	
-	public Move(String input, ArrayList<LetterTile> rack) {
+	public Move(String input, Player player) {
 		String x = "0";
 		String y = "0";
 		String direction = "d";
@@ -27,8 +27,11 @@ public class Move {
 		if (input.equals(",,"))
 			PASS = true;
 		else {
-			PASS = false;
+			
 			String[] movesToTest = input.split(",");
+			ArrayList<LetterTile> rack = new ArrayList<>(player.getRack());
+			PASS = false;
+			
 			if (movesToTest.length == 3) {
 				x = movesToTest[1].substring(0,1).toLowerCase();
 				y = movesToTest[1].substring(1);
