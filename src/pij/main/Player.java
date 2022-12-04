@@ -51,9 +51,11 @@ public abstract class Player {
 	 * Should be overridden by classes extending Player.
 	 * 
 	 * @param bag
+	 * @return TODO
 	 */
-	public void turn(Bag bag) {
+	public String turn(Bag bag) {
 		draw(bag);
+		return "";
 	}
 	
 	/**
