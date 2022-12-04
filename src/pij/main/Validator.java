@@ -29,7 +29,7 @@ public class Validator {
 						tileValue = 0;
 						x++;
 					} else if (current != '(' && current != '{') {
-						tileValue = (tileValue * 10) + current;
+						tileValue = (tileValue * 10) + current - '0';
 					}
 				}
 			}

@@ -18,10 +18,10 @@ public class Move {
 	
 	private final int Y;
 	
-	private final Player player;
+	private final Player PLAYER;
 	
 	public Move(String input, Player player) {
-		this.player = player;
+		this.PLAYER = player;
 		String x = "0";
 		String y = "0";
 		String direction = "d";
@@ -118,6 +118,6 @@ public class Move {
 	}
 	
 	public void updateScore(Double score) {
-		this.player.updateScore(score);
+		this.PLAYER.updateScore(score);
 	}
 }

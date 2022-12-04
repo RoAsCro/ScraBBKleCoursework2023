@@ -157,7 +157,9 @@ public class Board {
 				} else {
 					runningValue += tileValue;
 					if (targetTile.getText().charAt(0) == '{') {
+						System.out.println("MUL: " + multiplier);
 						multiplier *= targetValue;
+						System.out.println("MUL: " + multiplier);
 						
 					}
 				}					
@@ -191,13 +193,12 @@ public class Board {
 			System.out.println("Word not in dictionary.");
 			return false;
 		}
+		System.out.println(runningValue);
+		System.out.println(multiplier);
+		
 		runningValue *= multiplier;
 		
-		/*
-		 * @ TODO
-		 *  Add runningValue to player score
-		 * 
-		 */
+		move.updateScore(runningValue);
 		int i = 0;
 		for (int[] coords : locations) {
 			grid[coords[0]][coords[1]] = tiles[i];
