@@ -23,7 +23,7 @@ public class HumanPlayer extends Player {
 		String input = "";
 		Move move = null;
 		
-		while (move == null || !move.isValid()) {
+		do {
 			printRack();
 			System.out.println(
 					"Please enter your move with letter sequence, position, "
@@ -32,7 +32,7 @@ public class HumanPlayer extends Player {
 			input = System.console().readLine();
 			move = new Move(input, this);
 
-		}
+		} while (!move.isValid());
 		return move;
 	}
 	
