@@ -63,7 +63,7 @@ public class Move {
 						char tChar = t.getChar();
 						if (tChar == c 
 								|| (Character.isLowerCase(c) && tChar == ' ')) {
-							tiles.add(new LetterTile("" + c, t.getValue()));
+							tiles.add(t);
 							rack.remove(t);
 							counter++;
 							break;
