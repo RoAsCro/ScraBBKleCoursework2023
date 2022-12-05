@@ -62,12 +62,13 @@ public class Main {
 				System.out.println("Player passed their turn.");
 			} else {
 			
-				String direction = "right";	
-				if (move.getDirection() == 'd')
-					direction = "down";
-				 
-				System.out.println("The move is:	Word: " + move.getTiles().toString() + " at position "
-						+ (char) (move.getX() + 97) + (move.getY() + 1) + ", direction: " + direction);
+//				String direction = "right";	
+//				if (move.getDirection() == 'd')
+//					direction = "down";
+//				 
+//				System.out.println("The move is:	Word: " + move.getTiles().toString() + " at position "
+//						+ (char) (move.getX() + 97) + (move.getY() + 1) + ", direction: " + direction);
+				System.out.println(move.toString());
 				System.out.println();
 				System.out.println("The result is: ");
 				

@@ -120,6 +120,13 @@ public class Move {
 		return PASS;
 	}
 	
+	@ Override
+	public String toString() {
+		return "The move is:	Word: " + TILES.toString() + " at position "
+				+ (char) (X + 97) + (Y + 1) + ", direction: " +
+				(DIRECTION == 'd' ? "Down" : "Right");
+	}
+	
 	public void updateScore(Double score) {
 		this.PLAYER.updateScore(score);
 	}
