@@ -24,8 +24,12 @@ public class Validator {
 
 	}
 	
+	public static void loadDictionary() {
+		loadDictionary(new File("../resources/wordlist.txt"));
+	}
+	
 	public static boolean lookupWord(String word) {
-		if (dictionary.contains(word))
+		if (dictionary.contains(word.toLowerCase()))
 			return true;
 		return false;
 	}

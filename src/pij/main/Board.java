@@ -138,7 +138,12 @@ public class Board {
 			y = y + yInc;
 			
 		}
-
+		System.out.println(fullWord);
+		if (!Validator.lookupWord(fullWord)) {
+			System.out.println("Word not in dictionary.");
+			return false;
+		}
+		//THIS MUST BE THE LAST CHECK because startState is turned off by all the conditionals below evaluating to false.
 		if (!intersection) {
 			if (!startState) {
 				System.out.println("Your word must cross another word");
@@ -147,14 +152,12 @@ public class Board {
 						|| (x == CENTRE && (CENTRE <= y-1 && CENTRE >= y-1 - wordLength)))) {
 				System.out.println("Your word must cross over the centre tile.");
 				return false;
-			} else startState = false;
+			} else
+				startState = false;
 			
 		}
 		
-		if (!Validator.lookupWord(fullWord)) {
-			System.out.println("Word not in dictionary.");
-			return false;
-		}
+
 		runningValue *= multiplier;
 		
 		move.updateScore(runningValue);
