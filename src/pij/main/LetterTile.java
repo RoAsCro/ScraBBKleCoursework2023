@@ -15,9 +15,9 @@ public class LetterTile extends Tile {
 	@Override
 	public String getText() {
 		String prefix = "";
-//		if (getValue() <= 9)
-//			prefix = " ";
-		return prefix + super.getText() + getValue() + " ";
+		if (getValue() <= 9)
+			prefix = " ";
+		return prefix + super.getText() + getValue() + "";
 	}
 	/**
 	 * Returns the tile's letter as a character.

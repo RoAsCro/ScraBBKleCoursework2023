@@ -1,6 +1,7 @@
 package pij.main;
 
 import java.io.*;
+import java.util.*;
 
 public class Validator {
 	
@@ -48,6 +49,18 @@ public class Validator {
 			if (input.equals(s))
 				return true;
 		return false;
+	}
+	
+	public static void dictionary() {
+		File file = new File("./resources/wordlist.txt");
+		try {
+			Scanner scanner = new Scanner(file);
+			String x = scanner.findWithinHorizon("aadvark", 500);
+			System.out.print(x);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 }
