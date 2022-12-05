@@ -27,42 +27,6 @@ public class Board {
 	/** True if no tiles have been placed yet */
 	private boolean startState = true;
 	
-//	public Board(File file) {
-//		try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-//			magnitude = Integer.parseInt(reader.readLine());
-//			grid = new Tile[magnitude][magnitude];
-//			centre = (magnitude - 1) / 2;
-//			String row;
-//			for (int y = 0; y < magnitude; y++) {
-//				row = reader.readLine();
-//				String tileText = "";
-//				int tileValue = 0;
-//				int x = 0;
-//				
-//				for (int i = 0; i < row.length(); i++) {
-//					char current = row.charAt(i);
-//					tileText += current;
-//					
-//					if (current == '.' || current == ')' || current == '}') {	
-//						Tile tile = new Tile(tileText, tileValue);
-//						grid[x][y] = tile;
-//						tileText = "";
-//						tileValue = 0;
-//						x++;
-//					} else if (current != '(' && current != '{') {
-//						tileValue = (tileValue * 10) + current;
-//					}
-//				}
-//			}
-//			
-//		} catch (FileNotFoundException ex) {
-//			
-//			System.out.print("File not found");
-//		} catch (IOException ex) {
-//			ex.printStackTrace();
-//		}
-//	}
-	
 	public Board(int magnitude, Tile[][] grid) {
 		this.MAGNITUDE = magnitude;
 		this.CENTRE = magnitude / 2;
@@ -191,7 +155,6 @@ public class Board {
 			System.out.println("Word not in dictionary.");
 			return false;
 		}
-		
 		runningValue *= multiplier;
 		
 		move.updateScore(runningValue);
