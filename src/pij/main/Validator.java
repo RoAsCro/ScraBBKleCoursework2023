@@ -17,7 +17,6 @@ public class Validator {
 				dictionary.add(line);
 			}
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();

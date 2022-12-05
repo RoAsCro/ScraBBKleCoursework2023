@@ -147,11 +147,11 @@ public class Board {
 						|| (x == CENTRE && (CENTRE <= y-1 && CENTRE >= y-1 - wordLength)))) {
 				System.out.println("Your word must cross over the centre tile.");
 				return false;
-			}
-			startState = false;
+			} else startState = false;
+			
 		}
 		
-		if (!readWord(fullWord)) {
+		if (!Validator.lookupWord(fullWord)) {
 			System.out.println("Word not in dictionary.");
 			return false;
 		}
@@ -164,15 +164,6 @@ public class Board {
 			i++;
 		}
 		
-		return true;
-	}
-	
-	private static /*?*/ boolean readWord(String word) {
-		/*
-		 * @ TODO  
-		 * if (fullWord not in dictionary)
-		 * 		return false
-		 */
 		return true;
 	}
 	
