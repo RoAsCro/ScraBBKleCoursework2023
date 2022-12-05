@@ -5,6 +5,26 @@ import java.util.*;
 
 public class Validator {
 	
+	private static TreeSet<String> dictionary;
+	
+	public static void loadDictionary(File file) {
+		
+		dictionary = new TreeSet<>();
+		try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+			String line;
+			
+			while ((line = reader.readLine()) != null) {
+				dictionary.add(line);
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+	
 	public static Board loadFile(String fileName) {
 		File file = new File(fileName);
 		Tile[][] grid;
@@ -50,10 +70,14 @@ public class Validator {
 				return true;
 		return false;
 	}
-	
+	public static void main(String args[]) {
+		dictionary();
+	}
 	public static void dictionary() {
 		File file = new File("./resources/wordlist.txt");
 		try (Scanner scanner = new Scanner(file)){
+			//Hashtable<String> table = new Hashtable<>();
+			TreeSet<String> tree = new TreeSet<>();
 			String search = "zymosis";
 			//int i = 0;
 			long a = System.nanoTime();
@@ -79,6 +103,7 @@ public class Validator {
 			
 			while ((line = reader.readLine()) != null) {
 				array[j] = line;
+				tree.add(line);
 //				if (line.equals(search)) {
 //					System.out.println("Found");
 //					break;
@@ -86,6 +111,11 @@ public class Validator {
 				//System.out.println("B: " + line);
 				j++;
 			}
+			a = System.nanoTime();
+			System.out.println(tree.contains(search));
+			b = System.nanoTime();
+			System.out.println(b-a);
+			
 			a = System.nanoTime();
 			boolean go = true;
 			int f = 267752;
@@ -95,8 +125,8 @@ public class Validator {
 			char c = search.charAt(0);
 			while (n < search.length()) {
 				h = g + ((f - g) / 2);
-				System.out.println(array[h]);
-				System.out.println(search.charAt(n));
+				//System.out.println(array[h]);
+				//System.out.println(search.charAt(n));
 				if (search.equals(array[h])) {
 						System.out.println("Found!");
 						break;
@@ -106,10 +136,10 @@ public class Validator {
 						n++;
 					}
 					else if (search.charAt(n)  < array[h].charAt(n)) {
-						System.out.println("B");
+						//System.out.println("B");
 						f = h;
 					} else if (search.charAt(n)  > array[h].charAt(n)) {
-						System.out.println("A");
+						//System.out.println("A");
 						g = h;
 					}
 				} else g++;	
