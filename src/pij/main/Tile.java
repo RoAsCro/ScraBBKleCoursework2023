@@ -10,12 +10,19 @@ package pij.main;
 
 public class Tile {
 	/** The text displayed when a tile is displayed on the board or in a player's tile rack. */
-	private final String TILE_TEXT;
+	private String TILE_TEXT;
 	
 	/** The value of the tile. for premium tiles, this is the multiplier,
 	 * and for letter tiles, this is the point value.
 	 */
 	private final int VALUE;
+	
+	
+//	/**
+//	 * Indicates whether a LetterTile can be placed on this space.
+//	 * Initialises as true, should be set to false when a tile has two adjacent perpendicular LetterTiles.
+//	 */
+//	private boolean legalPlacement = true;
 	
 	public Tile(String tileText, int value) {
 		this.VALUE = value;
@@ -40,6 +47,10 @@ public class Tile {
 	 */
 	public int getValue() {
 		return VALUE;
+	}
+	
+	public void setText(String s) {
+		TILE_TEXT = s;
 	}
 	
 }
