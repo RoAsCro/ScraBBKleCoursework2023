@@ -66,7 +66,7 @@ public class Board {
 			System.out.print(yLabel + "  ");
 			yLabel++;
 			for (int xCoord = 0; xCoord < MAGNITUDE; xCoord++) {
-				System.out.print(grid[xCoord][yCoord].getText());	
+				System.out.print(tileAt(xCoord, yCoord).getText());	
 			}
 			System.out.println();
 		}
