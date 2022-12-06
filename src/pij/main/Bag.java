@@ -5,11 +5,11 @@ import java.util.ArrayList;
 public class Bag {
 	/** ArrayList storing the contents of the bag. */
 	private ArrayList<LetterTile> bag = new ArrayList<>();
-	private static final String[] ALPHABET = new String[][] {
-		{"A",1}, {"B",3}, {"C",3}, {"D",2}, {"E",1}, {"F",4}, {"G",2}, {"H",4}, {"I",1}, {"J",8}, {"K",5}, {"L",1},
-		{"M",3}, {"N",1}, {"O",1}, {"P",3}, {"Q",10}, {"R",1}, {"S",1}, {"T",1}, {"U",1}, {"V",4}, {"W",4}, {"X",8},
-		{"Y",4}, {"Z",10}, {" ",3}
-	};
+//	private static final String[][] ALPHABET = new String[][] {
+//		{"A","1"}, {"B","3"}, {"C","3"}, {"D","2"}, {"E","1"}, {"F","4"}, {"G","2"}, {"H","4"}, {"I","1"}, {"J","8"}, {"K","5"}, {"L","1"},
+//		{"M","3"}, {"N","1"}, {"O","1"}, {"P","3"}, {"Q","10"}, {"R","1"}, {"S","1"}, {"T","1"}, {"U","1"}, {"V","4"}, {"W","4"}, {"X","8"},
+//		{"Y","4"}, {"Z","10"}, {" ","3"}
+//	};
 	public Bag() {
 		tileGenerator("A", 1, 9);
 		tileGenerator("B", 3, 2);
@@ -37,7 +37,9 @@ public class Bag {
 		tileGenerator("X", 8, 1);
 		tileGenerator("Y", 4, 2);
 		tileGenerator("Z", 10, 1);
-		tileGenerator(" ", 3, 2);
+		//tileGenerator(" ", 3, 100);
+		for (int i = 0; i < 2; i++)
+			bag.add(new WildTile());
 	}
 	
 	public Bag(int[] quantities) {
