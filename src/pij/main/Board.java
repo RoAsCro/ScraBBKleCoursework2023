@@ -191,7 +191,12 @@ public class Board {
 		move.updateScore(runningValue);
 		int i = 0;
 		for (int[] coords : locations) {
-			grid[coords[0]][coords[1]] = tiles[i];
+			LetterTile t = tiles[i];
+			grid[coords[0]][coords[1]] = t;
+			if (WildTile.class.isInstance(t)) {
+				WildTile w = (WildTile) t;
+				w.setText();
+			}
 			i++;
 		}
 		

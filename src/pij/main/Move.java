@@ -67,8 +67,8 @@ public class Move {
 							rack.remove(t);
 							counter++;
 							if (WildTile.class.isInstance(t)) {
-								WildTile u = (WildTile) t;
-								u.setTempText(c);
+								WildTile w = (WildTile) t;
+								w.setTempText(c);
 							}
 							break;
 						}
