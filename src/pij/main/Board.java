@@ -38,10 +38,14 @@ public class Board {
 	 * 
 	 * @param x x coordinate.
 	 * @param y y coordinate.
-	 * @return Tile at given coordinates.
+	 * @return Tile at given coordinates. Null if tile out of bounds.
 	 */
 	public Tile tileAt(int x, int y) {
-		return grid[x][y];
+		if (x < 0 || y < 0 || x >= MAGNITUDE || y >= MAGNITUDE)
+			return null;
+		else
+			return grid[x][y];
+			
 	}
 
 	/**
@@ -100,14 +104,15 @@ public class Board {
 			
 		for (int i = 0; i < wordLength;) {
 			
+			Tile targetTile;
 			//Checks the tile is not being placed outside the board
-			if (x > MAGNITUDE - 1 || y > MAGNITUDE - 1) {
+			if ((targetTile = tileAt(x, y)) == null) {
 				System.out.println("That word does not fit on the board.");
 				return false;
 			}
 			
 			LetterTile placementTile = tiles[i];
-			Tile targetTile = grid[x][y];
+			
 			int targetValue = targetTile.getValue();
 			
 			//If the space is not occupied, add the space's value to the multiplier or multiply the the score of the tile being multiplied
@@ -139,8 +144,10 @@ public class Board {
 			//If the direction = r, xInc = 1 and yInc = 0, vice versa if direction = d.
 			//Therefore if direction = r this will check the tiles above and below, and to the right and left id direction = d.
 			//There should never be a LetterTile in one of these spaces.
-			if (grid[x + yInc][y + xInc].getClass() == LetterTile.class
-					|| grid[x - yInc][y - xInc].getClass() == LetterTile.class) {
+			Tile higher = tileAt(x + yInc, y + xInc);
+			Tile lower = tileAt(x - yInc, y - xInc);
+			if ((higher != null && higher.getClass() == LetterTile.class)
+					|| (lower != null && lower.getClass() == LetterTile.class)) {
 				System.out.println(
 						"You cannot form more than one word in one move, or have two adjacent letters that do not form a word.");
 				return false;
