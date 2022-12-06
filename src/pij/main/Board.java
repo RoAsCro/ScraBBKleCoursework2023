@@ -100,6 +100,7 @@ public class Board {
 			
 		for (int i = 0; i < wordLength;) {
 			
+			//Checks the tile is not being placed outside the board
 			if (x > MAGNITUDE - 1 || y > MAGNITUDE - 1) {
 				System.out.println("That word does not fit on the board.");
 				return false;
@@ -109,6 +110,7 @@ public class Board {
 			Tile targetTile = grid[x][y];
 			int targetValue = targetTile.getValue();
 			
+			//If the space is not occupied, add the space's value to the multiplier or multiply the the score of the tile being multiplied
 			if (targetTile.getClass() != LetterTile.class) {
 				int tileValue = placementTile.getValue();
 				
@@ -125,7 +127,7 @@ public class Board {
 					if (targetTile.getText().charAt(0) == '{')
 						multiplier *= targetValue;
 				}					
-				
+			//If the space on the board is already occupied, add the letter and its score to the word and score.	
 			} else {
 				intersection = true;
 				LetterTile letterTile = (LetterTile) targetTile;
@@ -133,16 +135,34 @@ public class Board {
 				runningValue += targetValue;
 			}
 			
+			//Check this move does not form two words
+			//If the direction = r, xInc = 1 and yInc = 0, vice versa if direction = d.
+			//Therefore if direction = r this will check the tiles above and below, and to the right and left id direction = d.
+			//There should never be a LetterTile in one of these spaces.
+			if (grid[x + yInc][y + xInc].getClass() == LetterTile.class
+					|| grid[x - yInc][y - xInc].getClass() == LetterTile.class) {
+				System.out.println(
+						"You cannot form more than one word in one move, or have two adjacent letters that do not form a word.");
+				return false;
+			}
+			
 			//COULD MOVE THESE TO THE IF STATEMENT
 			x = x + xInc;
 			y = y + yInc;
 			
+			
 		}
+		
+		//Check word is in dictionary.
 		System.out.println(fullWord);
 		if (!Validator.lookupWord(fullWord)) {
 			System.out.println("Word not in dictionary.");
 			return false;
 		}
+		
+
+		
+		//Check word is either the first word being placed OR that it intersects with a pre-existing word.
 		//THIS MUST BE THE LAST CHECK because startState is turned off by all the conditionals below evaluating to false.
 		if (!intersection) {
 			if (!startState) {
