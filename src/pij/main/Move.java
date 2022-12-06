@@ -62,10 +62,14 @@ public class Move {
 					for (LetterTile t : rack) {
 						char tChar = t.getChar();
 						if (tChar == c 
-								|| (Character.isLowerCase(c) && tChar == ' ')) {
+								|| (Character.isLowerCase(c) && WildTile.class.isInstance(t))) {
 							tiles.add(t);
 							rack.remove(t);
 							counter++;
+							if (WildTile.class.isInstance(t)) {
+								WildTile u = (WildTile) t;
+								u.setTempText(c);
+							}
 							break;
 						}
 					}
