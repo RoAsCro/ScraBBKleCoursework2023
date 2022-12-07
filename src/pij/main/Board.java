@@ -102,7 +102,12 @@ public class Board {
 		//Cut this out by instead making note of the LetterTiles found
 		//Notes where the tiles are to be placed, assuming the placement is successful.
 		int[][] locations = new int[wordLength][2];
-			
+		
+		while (LetterTile.class.isInstance(tileAt(x - xInc, y - yInc))) {
+			x -= xInc;
+			y -= yInc;
+		}
+		
 		for (int i = 0; i < wordLength;) {
 			
 			Tile targetTile;
@@ -162,26 +167,18 @@ public class Board {
 			
 		}
 		Tile target;
-		int z = x;
-		int a = y;
-		for (int i = 0; i < 2; i++) {
-			
-			while (LetterTile.class.isInstance((target = tileAt(x, y)))) {
-				intersection = true;
-				runningValue += target.getValue();
-				LetterTile letterTile = (LetterTile) target;
-				fullWord += letterTile.getChar();		
-				z += xInc;
-				a += yInc;
-						
-			}
-//			z = move.getX();
-//			a = move.getY();
-//			xInc = -xInc;
-//			yInc = - yInc;
+		
+
+		while (LetterTile.class.isInstance((target = tileAt(x, y)))) {
+			intersection = true;
+			runningValue += target.getValue();
+			LetterTile letterTile = (LetterTile) target;
+			fullWord += letterTile.getChar();		
+			x += xInc;
+			y += yInc;
 					
-			
 		}
+
 			
 		
 		
@@ -226,5 +223,7 @@ public class Board {
 		
 		return true;
 	}
+	
+
 	
 }
