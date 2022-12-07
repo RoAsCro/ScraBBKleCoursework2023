@@ -306,7 +306,23 @@ public class ScrabbleTest {
 		move = new Move("FA,m15,r", human);
 		assertTrue(board.placeWord(move));
 		
-		//System.out.println("Dict: " + Validator.lookupWord("bagg"));
+		//Tests appending a suffix
+		move = new Move("D,i11,d", human);
+		assertFalse(board.placeWord(move));
+		
+		move = new Move("D,i10,d", human);
+		assertFalse(board.placeWord(move));
+		
+		move = new Move("D,i9,d", human);
+		assertFalse(board.placeWord(move));
+		
+		move = new Move("D,i8,d", human);
+		assertFalse(board.placeWord(move));
+		
+		move = new Move("D,i7,d", human);
+		assertTrue(board.placeWord(move));
+		
+		System.out.println("Dict: " + Validator.lookupWord("ed"));
 		
 		
 //		LetterTile t = new LetterTile("T", 1);
