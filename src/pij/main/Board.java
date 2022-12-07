@@ -111,19 +111,19 @@ public class Board {
 		for (int i = 0; i < wordLength;) {
 			
 			Tile targetTile;
-			//Checks the tile is not being placed outside the board
-			if ((targetTile = tileAt(x, y)) == null) {
-				System.out.println("That word does not fit on the board.");
-				return false;
-			}
 			
-			LetterTile placementTile = tiles[i];
-			
-			int targetValue = targetTile.getValue();
 			
 			//If the space is not occupied, add the space's value to the multiplier or multiply the the score of the tile being multiplied
-			if (!LetterTile.class.isInstance(targetTile)) {
+			while (!LetterTile.class.isInstance((targetTile = tileAt(x, y))) && i < wordLength) {
+				//Checks the tile is not being placed outside the board
+				if ((targetTile = tileAt(x, y)) == null) {
+					System.out.println("That word does not fit on the board.");
+					return false;
+				}
 				
+				LetterTile placementTile = tiles[i];
+				
+				int targetValue = targetTile.getValue();
 				//Check this move does not form two words
 				//If the direction = r, xInc = 1 and yInc = 0, vice versa if direction = d.
 				//Therefore if direction = r this will check the tiles above and below, and to the right and left id direction = d.
@@ -152,35 +152,21 @@ public class Board {
 					if (targetTile.getText().charAt(0) == '{')
 						multiplier *= targetValue;
 				}					
+				x += xInc;
+				y += yInc;
+			}
 			//If the space on the board is already occupied, add the letter and its score to the word and score.	
-			} else {
+			while (LetterTile.class.isInstance((targetTile = tileAt(x, y)))) {
 				intersection = true;
 				LetterTile letterTile = (LetterTile) targetTile;
 				fullWord += letterTile.getChar();
-				runningValue += targetValue;
+				runningValue += targetTile.getValue();
+				x = x + xInc;
+				y = y + yInc;
 			}
 			
-			//COULD MOVE THESE TO THE IF STATEMENT
-			x = x + xInc;
-			y = y + yInc;
-			
-			
-		}
-		Tile target;
-		
-
-		while (LetterTile.class.isInstance((target = tileAt(x, y)))) {
-			intersection = true;
-			runningValue += target.getValue();
-			LetterTile letterTile = (LetterTile) target;
-			fullWord += letterTile.getChar();		
-			x += xInc;
-			y += yInc;
-					
 		}
 
-			
-		
 		
 		//Check word is in dictionary.
 		System.out.println(fullWord);
