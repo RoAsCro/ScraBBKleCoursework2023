@@ -90,23 +90,27 @@ public class Board {
 		//Test for if the word intersects with a pre-existing word on the board.
 		boolean intersection = false;
 		
-		//Word constructed of the input letters and any letters with which the new word intersects.
-		String fullWord = "";
-		
-		//Total score earned through placing the tiles.
-		double runningValue = 0;
-		
-		//Multipliers, starting with 1, to be factored into the runningValue.
-		int multiplier = 1;
+//		//Word constructed of the input letters and any letters with which the new word intersects.
+//		String fullWord = "";
+//		
+//		//Total score earned through placing the tiles.
+//		double runningValue = 0;
+//		
+//		//Multipliers, starting with 1, to be factored into the runningValue.
+//		int multiplier = 1;
+//		
+		Word word = new Word();
 		
 		//Cut this out by instead making note of the LetterTiles found
 		//Notes where the tiles are to be placed, assuming the placement is successful.
-		int[][] locations = new int[wordLength][2];
+		//int[][] locations = new int[wordLength][2];
 		
 		while (LetterTile.class.isInstance(tileAt(x - xInc, y - yInc))) {
 			x -= xInc;
 			y -= yInc;
 		}
+		int startX = x;
+		int startY = y;
 		
 		for (int i = 0; i < wordLength;) {
 			
@@ -138,19 +142,19 @@ public class Board {
 				}
 				
 				int tileValue = placementTile.getValue();
-				
-				locations[i][0] = x;
-				locations[i][1] = y;
-				
-				fullWord += placementTile.getChar();
+//				
+//				locations[i][0] = x;
+//				locations[i][1] = y;
+//				
+				word.addLetter(placementTile);
 				i++;
 				
 				if (targetTile.getText().charAt(0) == '(') {
-					runningValue += targetValue * tileValue;
+					word.addPoints(targetValue * tileValue);
 				} else {
-					runningValue += tileValue;
+					word.addPoints(tileValue);
 					if (targetTile.getText().charAt(0) == '{')
-						multiplier *= targetValue;
+						word.increaseMultiplier(targetValue);
 				}					
 				x += xInc;
 				y += yInc;
@@ -159,8 +163,9 @@ public class Board {
 			while (LetterTile.class.isInstance((targetTile = tileAt(x, y)))) {
 				intersection = true;
 				LetterTile letterTile = (LetterTile) targetTile;
-				fullWord += letterTile.getChar();
-				runningValue += targetTile.getValue();
+				word.addLetter(letterTile);
+				word.addPoints(targetTile.getValue());
+				
 				x += xInc;
 				y += yInc;
 			}
@@ -169,8 +174,8 @@ public class Board {
 
 		
 		//Check word is in dictionary.
-		System.out.println(fullWord);
-		if (!Validator.lookupWord(fullWord)) {
+		//System.out.println(fullWord);
+		if (!Validator.lookupWord(word.getWord())) {
 			System.out.println("Word not in dictionary.");
 			return false;
 		}
@@ -193,19 +198,31 @@ public class Board {
 		}
 		
 
-		runningValue *= multiplier;
+		//runningValue *= multiplier;
 		
-		move.updateScore(runningValue);
+		move.updateScore(word.getScore());
 		int i = 0;
-		for (int[] coords : locations) {
-			LetterTile t = tiles[i];
-			grid[coords[0]][coords[1]] = t;
-			if (WildTile.class.isInstance(t)) {
-				WildTile w = (WildTile) t;
-				w.setText();
+		
+		LetterTile[] letters = word.getTiles();
+		for (LetterTile letter : letters) {
+			grid[startX][startY] = letter;
+			if (WildTile.class.isInstance(letter)) {
+				WildTile wild = (WildTile) letter;
+				wild.setText();
 			}
-			i++;
+			startX += xInc;
+			startY += yInc;
 		}
+		
+//		for (int[] coords : locations) {
+//			LetterTile t = tiles[i];
+//			grid[coords[0]][coords[1]] = t;
+//			if (WildTile.class.isInstance(t)) {
+//				WildTile w = (WildTile) t;
+//				w.setText();
+//			}
+//			i++;
+//		}
 		
 		return true;
 	}
