@@ -127,7 +127,7 @@ public class Board {
 				
 				LetterTile placementTile = tiles[i];
 				
-				int targetValue = targetTile.getValue();
+				//int targetValue = targetTile.getValue();
 				//Check this move does not form two words
 				//If the direction = r, xInc = 1 and yInc = 0, vice versa if direction = d.
 				//Therefore if direction = r this will check the tiles above and below, and to the right and left id direction = d.
@@ -141,31 +141,31 @@ public class Board {
 					return false;
 				}
 				
-				int tileValue = placementTile.getValue();
+				word.addLetter(placementTile);
+				word.addLetter(targetTile);
+				
+				//int tileValue = placementTile.getValue();
 //				
 //				locations[i][0] = x;
 //				locations[i][1] = y;
 //				
-				word.addLetter(placementTile);
-				i++;
 				
-				if (targetTile.getText().charAt(0) == '(') {
-					word.addPoints(targetValue * tileValue);
-				} else {
-					word.addPoints(tileValue);
-					if (targetTile.getText().charAt(0) == '{')
-						word.increaseMultiplier(targetValue);
-				}					
+				
+//				if (targetTile.getText().charAt(0) == '(') {
+//					word.addPoints(targetValue * tileValue);
+//				} else {
+//					word.addPoints(tileValue);
+//					if (targetTile.getText().charAt(0) == '{')
+//						word.increaseMultiplier(targetValue);
+//				}	
+				i++;
 				x += xInc;
 				y += yInc;
 			}
 			//If the space on the board is already occupied, add the letter and its score to the word and score.	
 			while (LetterTile.class.isInstance((targetTile = tileAt(x, y)))) {
 				intersection = true;
-				LetterTile letterTile = (LetterTile) targetTile;
-				word.addLetter(letterTile);
-				word.addPoints(targetTile.getValue());
-				
+				word.addLetter(targetTile);
 				x += xInc;
 				y += yInc;
 			}

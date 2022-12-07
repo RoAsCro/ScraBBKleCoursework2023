@@ -33,8 +33,22 @@ public class Word {
 		this.multiplier *= multiplier;
 	}
 	
-	public void addLetter(LetterTile letter) {
-		word.add(letter);
+	public void addLetter(Tile tile) {
+		int value = tile.getValue();
+		if (LetterTile.class.isInstance(tile)) {
+			LetterTile letter = (LetterTile) tile;
+			score += value;
+			word.add(letter);
+		} else {
+			if (tile.getText().charAt(0) == '(') {
+				int letterValue = word.getLast().getValue();
+				score += (value * letterValue) - letterValue;
+				
+			} else if (tile.getText().charAt(0) == '{') {
+				this.multiplier *= value;
+			}
+		}
+		System.out.println(score);
 	}
 	
 }
