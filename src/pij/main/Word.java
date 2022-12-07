@@ -48,7 +48,7 @@ public class Word {
 				this.multiplier *= value;
 			}
 		}
-		System.out.println(score);
+		//System.out.println(score);
 	}
 	
 }
