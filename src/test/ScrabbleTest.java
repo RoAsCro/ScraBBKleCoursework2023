@@ -322,56 +322,24 @@ public class ScrabbleTest {
 		move = new Move("D,i7,d", human);
 		assertTrue(board.placeWord(move));
 		
-		System.out.println("Dict: " + Validator.lookupWord("ed"));
+		//Tests appending a prefix to a word already on the board and ending at the edge
 		
+		move = new Move("A,n7,r", human);
+		assertTrue(board.placeWord(move));
 		
-//		LetterTile t = new LetterTile("T", 1);
-//		LetterTile e = new LetterTile("E", 1);
-//		LetterTile s = new LetterTile("S", 1);
-//		LetterTile t2 = new LetterTile("T", 1);
-//		LetterTile[] test = new LetterTile[] {t, e, s, t2};
-//		LetterTile[] tT = new LetterTile[] {t};
-//		LetterTile[] te = new LetterTile[] {t, e};
+		move = new Move("AG,j12,r", human);
+		assertTrue(board.placeWord(move));
 		
-//		assertFalse(board.placeWord(0, 0, 'd', test));
-//		assertFalse(board.placeWord(7, 3, 'd', test));
-//		assertTrue(board.placeWord(7, 4, 'd', test));
-//		for (int i = 4; i < 8; i++) {
-//			assertEquals(board.tileAt(7, i).getClass(), LetterTile.class);
-//			assertEquals(board.tileAt(7-3+i, 4).getClass(), Tile.class);
-//		}
-//		assertFalse(board.placeWord(0, 0, 'd', test));
-//		assertFalse(board.placeWord(0, 5, 'r', test));
-//		assertTrue(board.placeWord(4, 5, 'r', test));
-
+		move = new Move("CED,j12,d", human);
+		assertTrue(board.placeWord(move));
 		
-		//Tests the placement of words on a blank board
-//		assertTrue(board.placeWord(0, 0, 'r', test));
-//		for (int i = 0; i < 4; i++) {
-//			assertEquals(board.tileAt(i, 0).getClass(), LetterTile.class);
-//			assertEquals(board.tileAt(0, i+1).getClass(), Tile.class);
-//		}
-//		assertTrue(board.placeWord(0, 14, 'r', test));
-//		assertTrue(board.placeWord(14, 0, 'r', tT));
-//		assertTrue(board.placeWord(14, 14, 'r', tT));
-//		assertFalse(board.placeWord(14, 15, 'r', tT));
-//		assertFalse(board.placeWord(15, 0, 'r', tT));
-//		assertFalse(board.placeWord(14, 0, 'r', test));
-//		assertFalse(board.placeWord(14, 0, 'r', te));
-//		assertFalse(board.placeWord(100, 0, 'r', test));
-//		
-//		
-//		
-//		board = new Board(file);
-//		assertTrue(board.placeWord(0, 0, 'd', test));
-//		assertTrue(board.placeWord(14, 0, 'd', test));
-//		assertTrue(board.placeWord(0, 14, 'd', tT));
-//		assertTrue(board.placeWord(14, 14, 'd', tT));
-//		assertFalse(board.placeWord(15, 14, 'd', tT));
-//		assertFalse(board.placeWord(0, 15, 'd', tT));
-//		assertFalse(board.placeWord(0, 14, 'd', test));
-//		assertFalse(board.placeWord(0, 14, 'd', te));
-//		assertFalse(board.placeWord(0, 100, 'd', test));
+		move = new Move("CAGE,f15,r", human);
+		assertTrue(board.placeWord(move));
+		
+		move = new Move("BA,h13,d", human);
+		assertTrue(board.placeWord(move));
+		
+		System.out.println("Dict: " + Validator.lookupWord("ced"));
 		
 		
 	}

@@ -98,22 +98,20 @@ public class Board {
 //		}
 		int startX = x;
 		int startY = y;
-		if (LetterTile.class.isInstance(tileAt(x-xInc, y-yInc)))
+		if (LetterTile.class.isInstance(tileAt(x-xInc, y-yInc))) {
+			System.out.println("Please use the position of the first letter in the word as the input location.");
 			return false;
+		}
 		
-		for (int i = 0; i < wordLength;) {
+		Tile targetTile = tileAt(x, y);
+		for (int i = 0 ; i < wordLength || LetterTile.class.isInstance(targetTile);) {
 			
-			Tile targetTile;
-			
-			
-			//If the space is not occupied, add the space's value to the multiplier or multiply the the score of the tile being multiplied
-			while (!LetterTile.class.isInstance((targetTile = tileAt(x, y))) && i < wordLength) {
-				//Checks the tile is not being placed outside the board
-				if ((targetTile = tileAt(x, y)) == null) {
+			if (targetTile == null) {
 					System.out.println("That word does not fit on the board.");
 					return false;
-				}
-				
+			}
+			
+			if (!LetterTile.class.isInstance(targetTile)) {
 				LetterTile placementTile = tiles[i];
 				
 				//Check this move does not form two words
@@ -128,22 +126,16 @@ public class Board {
 							"You cannot form more than one word in one move, or have two adjacent letters that do not form a word.");
 					return false;
 				}
-				
 				word.addLetter(placementTile);
-				word.addLetter(targetTile);
-	
 				i++;
-				x += xInc;
-				y += yInc;
-			}
-			//If the space on the board is already occupied, add the letter and its score to the word and score.	
-			while (LetterTile.class.isInstance((targetTile = tileAt(x, y)))) {
+			} else {
 				intersection = true;
-				word.addLetter(targetTile);
-				x += xInc;
-				y += yInc;
-			}
+			} 
 			
+			word.addLetter(targetTile);
+			x += xInc;
+			y += yInc;
+			targetTile = tileAt(x, y);
 		}
 
 		
