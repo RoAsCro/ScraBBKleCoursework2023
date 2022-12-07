@@ -99,6 +99,7 @@ public class Board {
 		//Multipliers, starting with 1, to be factored into the runningValue.
 		int multiplier = 1;
 		
+		//Cut this out by instead making note of the LetterTiles found
 		//Notes where the tiles are to be placed, assuming the placement is successful.
 		int[][] locations = new int[wordLength][2];
 			
@@ -160,6 +161,29 @@ public class Board {
 			
 			
 		}
+		Tile target;
+		int z = x;
+		int a = y;
+		for (int i = 0; i < 2; i++) {
+			
+			while (LetterTile.class.isInstance((target = tileAt(x, y)))) {
+				intersection = true;
+				runningValue += target.getValue();
+				LetterTile letterTile = (LetterTile) target;
+				fullWord += letterTile.getChar();		
+				z += xInc;
+				a += yInc;
+						
+			}
+//			z = move.getX();
+//			a = move.getY();
+//			xInc = -xInc;
+//			yInc = - yInc;
+					
+			
+		}
+			
+		
 		
 		//Check word is in dictionary.
 		System.out.println(fullWord);
