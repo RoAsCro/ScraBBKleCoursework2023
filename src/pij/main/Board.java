@@ -161,8 +161,8 @@ public class Board {
 				LetterTile letterTile = (LetterTile) targetTile;
 				fullWord += letterTile.getChar();
 				runningValue += targetTile.getValue();
-				x = x + xInc;
-				y = y + yInc;
+				x += xInc;
+				y += yInc;
 			}
 			
 		}
