@@ -112,12 +112,16 @@ public class ScrabbleTest {
 		assertTrue(move.isValid());
 		assertFalse(move.isPass());
 		
-//		move = new Move(",a1,r", human);
-//		assertFalse(move.isValid());
-//		assertFalse(move.isPass());
+		move = new Move(",a1,r", human);
+		assertFalse(move.isValid());
+		assertFalse(move.isPass());
 		
 		//Tests reaction to improperly formatted inputs
 		move = new Move(",,,", human);
+		assertFalse(move.isValid());
+		assertFalse(move.isPass());
+		
+		move = new Move("A,a3,r,d", human);
 		assertFalse(move.isValid());
 		assertFalse(move.isPass());
 		
@@ -134,15 +138,15 @@ public class ScrabbleTest {
 		assertFalse(move.isValid());
 		assertFalse(move.isPass());
 		
-//		move = new Move("A,,r", human);
-//		assertFalse(move.isValid());
-//		assertFalse(move.isPass());
+		move = new Move("A,,r", human);
+		assertFalse(move.isValid());
+		assertFalse(move.isPass());
 		
 		move = new Move("A,a,r", human);
 		assertFalse(move.isValid());
 		assertFalse(move.isPass());
 		
-		move = new Move("A,a222,r", human);
+		move = new Move("A,a1a,r", human);
 		assertFalse(move.isValid());
 		assertFalse(move.isPass());
 		
@@ -233,6 +237,11 @@ public class ScrabbleTest {
 		
 		move = new Move("FACE,c4,d", human);
 		assertFalse(board.placeWord(move));
+		
+		move = new Move("FACE,e8,r", human);
+		assertTrue(board.placeWord(move));
+		
+		board = Validator.loadFile("./resources/testBoard.txt");
 		
 		move = new Move("FACE,h8,r", human);
 		assertTrue(board.placeWord(move));

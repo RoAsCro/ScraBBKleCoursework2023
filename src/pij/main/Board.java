@@ -1,7 +1,5 @@
 package pij.main;
 
-import java.io.*;
-
 /**
  * A board on which the game of ScraBBKle is played.
  * A board's dimensions are S x S where S is between 12 and 26.
@@ -89,7 +87,8 @@ public class Board {
 		
 		//Test for if the word intersects with a pre-existing word on the board.
 		boolean intersection = false;
-			
+		
+		//The word will store all the placed word's information
 		Word word = new Word();
 				
 //		while (LetterTile.class.isInstance(tileAt(x - xInc, y - yInc))) {
@@ -104,11 +103,11 @@ public class Board {
 		}
 		
 		Tile targetTile = tileAt(x, y);
-		for (int i = 0 ; i < wordLength || LetterTile.class.isInstance(targetTile);) {
-			
+		for (int i = 0; i < wordLength || LetterTile.class.isInstance(targetTile);) {
+
 			if (targetTile == null) {
-					System.out.println("That word does not fit on the board.");
-					return false;
+				System.out.println("That word does not fit on the board.");
+				return false;
 			}
 			
 			if (!LetterTile.class.isInstance(targetTile)) {
@@ -120,17 +119,15 @@ public class Board {
 				//There should never be a LetterTile in one of these spaces.
 				Tile higher = tileAt(x + yInc, y + xInc);
 				Tile lower = tileAt(x - yInc, y - xInc);
-				if (LetterTile.class.isInstance(higher)
-						|| LetterTile.class.isInstance(lower)) {
+				if (LetterTile.class.isInstance(higher) || LetterTile.class.isInstance(lower)) {
 					System.out.println(
 							"You cannot form more than one word in one move, or have two adjacent letters that do not form a word.");
 					return false;
 				}
 				word.addLetter(placementTile);
 				i++;
-			} else {
+			} else 
 				intersection = true;
-			} 
 			
 			word.addLetter(targetTile);
 			x += xInc;
@@ -138,14 +135,11 @@ public class Board {
 			targetTile = tileAt(x, y);
 		}
 
-		
 		//Check word is in dictionary.
 		if (!Validator.lookupWord(word.getWord())) {
 			System.out.println("Word not in dictionary.");
 			return false;
 		}
-		
-
 		
 		//Check word is either the first word being placed OR that it intersects with a pre-existing word.
 		//THIS MUST BE THE LAST CHECK because startState is turned off by all the conditionals below evaluating to false.
@@ -153,8 +147,8 @@ public class Board {
 			if (!startState) {
 				System.out.println("Your word must cross another word");
 				return false;
-			} else if (!((y == CENTRE && (CENTRE <= x-1 && CENTRE >= x-1 - wordLength))
-						|| (x == CENTRE && (CENTRE <= y-1 && CENTRE >= y-1 - wordLength)))) {
+			} else if (!((y == CENTRE && (CENTRE <= x - 1 && CENTRE >= startX))
+					|| (x == CENTRE && (CENTRE <= y - 1 && CENTRE >= startY)))) {
 				System.out.println("Your word must cross over the centre tile.");
 				return false;
 			} else
@@ -163,11 +157,11 @@ public class Board {
 		}
 		
 		move.updateScore(word.getScore());
-		int i = 0;
-		
+
 		LetterTile[] letters = word.getTiles();
 		for (LetterTile letter : letters) {
 			grid[startX][startY] = letter;
+			//CONSIDER PUTTING THIS IN THE PLAYER'S REMOVETILE METHOD
 			if (WildTile.class.isInstance(letter)) {
 				WildTile wild = (WildTile) letter;
 				wild.setText();

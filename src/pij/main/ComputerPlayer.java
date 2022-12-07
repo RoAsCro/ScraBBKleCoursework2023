@@ -1,7 +1,5 @@
 package pij.main;
 
-import java.util.*;
-
 public class ComputerPlayer extends Player {
 
 	@Override
