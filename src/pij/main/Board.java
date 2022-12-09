@@ -10,7 +10,7 @@ package pij.main;
 public class Board {
 	
 	/** A two-dimensional array of tiles representing the board. */
-	private Tile[][] grid;
+	public Tile[][] grid;
 	
 	/** The size of the board's axes. */
 	private final int MAGNITUDE;
@@ -69,6 +69,29 @@ public class Board {
 			System.out.println();
 		}
 
+	}
+	
+	public boolean boardIter(int x, int y, int xInc, int yInc, LetterTile[] tiles, boolean condition, boolean secondCondition, WordOperation method, Word word) {
+		
+		Tile targetTile = tileAt(x,y);
+		int wordLength = tiles.length;
+		
+		for (int i = 0; i < wordLength;) {
+			if (!condition) {
+				return false;
+			}
+			if (secondCondition) {
+				method.execute(word, tiles[i]);
+			}
+			
+			method.execute(word, tileAt(x, y));
+			//method.execute(tiles[i], tileAt(x, y));
+		}
+		x += xInc;
+		y += yInc;
+		targetTile = tileAt(x, y);
+		
+		return true;
 	}
 	
 	public boolean placeWord(Move move) {
@@ -160,12 +183,13 @@ public class Board {
 
 		LetterTile[] letters = word.getTiles();
 		for (LetterTile letter : letters) {
-			grid[startX][startY] = letter;
+			
 			//CONSIDER PUTTING THIS IN THE PLAYER'S REMOVETILE METHOD
 			if (WildTile.class.isInstance(letter)) {
 				WildTile wild = (WildTile) letter;
 				wild.setText();
 			}
+			grid[startX][startY] = letter;
 			startX += xInc;
 			startY += yInc;
 		}

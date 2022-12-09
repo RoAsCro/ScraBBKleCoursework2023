@@ -51,4 +51,7 @@ public class Word {
 		//System.out.println(score);
 	}
 	
+	public LinkedList<LetterTile> getTilesTwo() {
+		return word;
+	}
 }
