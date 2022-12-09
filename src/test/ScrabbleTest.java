@@ -210,6 +210,24 @@ public class ScrabbleTest {
 		HumanPlayer human = new HumanPlayer();
 		Validator.loadDictionary(new File("./resources/wordlist.txt"));
 		
+		Bag riggedBag2 = new Bag(new int[]{0,0,0,0,
+				1,0,0,0,
+				1,0,0,0,0,
+				1,0,0,0,0,0,0,0,
+				4,0,0,0,0});
+		HumanPlayer human2 = new HumanPlayer();
+		human2.draw(riggedBag2);
+		for (LetterTile l : human2.getRack()) {
+			System.out.println(l.getChar());
+		}
+		Board board2 = Validator.loadFile("./resources/testBoard.txt");
+		Move move2 = new Move("VEIN,g8,r", human2);
+		assertTrue(move2.isValid());
+		assertTrue(board2.placeWord(move2));
+		
+		System.out.println("Dict: " + Validator.lookupWord("vein"));
+
+		
 		Tile lower = board.tileAt(0,0);
 		Tile upper = board.tileAt(14,14);
 		Tile outOfBounds = board.tileAt(-1, -1);
@@ -348,7 +366,6 @@ public class ScrabbleTest {
 		move = new Move("BA,h13,d", human);
 		assertTrue(board.placeWord(move));
 		
-		System.out.println("Dict: " + Validator.lookupWord("ced"));
 		
 		
 	}
@@ -378,5 +395,25 @@ public class ScrabbleTest {
 	public void playExample() {
 		
 	}
+	
+	
+	@Test
+	public void genericTest() {
+		Word word = new Word();
+		LetterTile lt = new LetterTile("A", 1);
+		word.getTilesTwo().add(lt);
+		for (LetterTile l : word.getTiles()) {
+			System.out.println(l.getChar());
+		}
+		Board board = Validator.loadFile("./resources/testBoard.txt");
+		System.out.println(board.tileAt(0,0).getText());
+		new PlaceTile().execute(word, board.grid[0],0);
+		System.out.println(board.tileAt(0,0).getText());
+		for (LetterTile l : word.getTiles()) {
+			System.out.println(l.getChar());
+		}
+	}
+	
+	
 	
 }

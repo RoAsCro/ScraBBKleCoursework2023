@@ -1,7 +1,5 @@
 package pij.main;
 
-import java.io.*;
-
 public class Main {
 	
 	public static void main(String[] args) {
@@ -13,6 +11,7 @@ public class Main {
 		boolean go = true;
 		String input = "";
 		Bag bag = new Bag();
+		Validator.loadDictionary();
 		
 		System.out.println("Welcome to ScraBBKle!");
 		while (go) {

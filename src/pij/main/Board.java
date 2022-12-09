@@ -71,21 +71,30 @@ public class Board {
 
 	}
 	
-	public boolean boardIter(int x, int y, int xInc, int yInc, LetterTile[] tiles, boolean condition, boolean secondCondition, WordOperation method, Word word) {
+	public boolean boardIter(int x, int y, int xInc, int yInc, LetterTile[] tiles,
+			boolean testAdjacency, WordOperation method, WordOperation methodTwo, Word word,Tile type) {
 		
 		Tile targetTile = tileAt(x,y);
 		int wordLength = tiles.length;
 		
 		for (int i = 0; i < wordLength;) {
-			if (!condition) {
+			if (targetTile == null) {
 				return false;
 			}
-			if (secondCondition) {
-				method.execute(word, tiles[i]);
+			if (!type.getClass().isInstance(targetTile)) {
+				if (testAdjacency) {
+					Tile higher = tileAt(x + yInc, y + xInc);
+					Tile lower = tileAt(x - yInc, y - xInc);
+					if (LetterTile.class.isInstance(higher) || LetterTile.class.isInstance(lower)) {
+						System.out.println(
+								"You cannot form more than one word in one move, or have two adjacent letters that do not form a word.");
+						return false;
+					}
+					i++;	
+				}
+				method.execute(word, tiles, i);
 			}
-			
-			method.execute(word, tileAt(x, y));
-			//method.execute(tiles[i], tileAt(x, y));
+			methodTwo.execute(word, grid[x], y);
 		}
 		x += xInc;
 		y += yInc;
@@ -118,45 +127,49 @@ public class Board {
 //			x -= xInc;
 //			y -= yInc;
 //		}
+		if (!boardIter(x, y, xInc, yInc, tiles, true, new WordConstruction(), new WordConstruction(), word, new LetterTile("A", 1)))
+			return false;
+		System.out.println("AAA");
+
 		int startX = x;
 		int startY = y;
-		if (LetterTile.class.isInstance(tileAt(x-xInc, y-yInc))) {
-			System.out.println("Please use the position of the first letter in the word as the input location.");
-			return false;
-		}
-		
-		Tile targetTile = tileAt(x, y);
-		for (int i = 0; i < wordLength || LetterTile.class.isInstance(targetTile);) {
-
-			if (targetTile == null) {
-				System.out.println("That word does not fit on the board.");
-				return false;
-			}
-			
-			if (!LetterTile.class.isInstance(targetTile)) {
-				LetterTile placementTile = tiles[i];
-				
-				//Check this move does not form two words
-				//If the direction = r, xInc = 1 and yInc = 0, vice versa if direction = d.
-				//Therefore if direction = r this will check the tiles above and below, and to the right and left id direction = d.
-				//There should never be a LetterTile in one of these spaces.
-				Tile higher = tileAt(x + yInc, y + xInc);
-				Tile lower = tileAt(x - yInc, y - xInc);
-				if (LetterTile.class.isInstance(higher) || LetterTile.class.isInstance(lower)) {
-					System.out.println(
-							"You cannot form more than one word in one move, or have two adjacent letters that do not form a word.");
-					return false;
-				}
-				word.addLetter(placementTile);
-				i++;
-			} else 
-				intersection = true;
-			
-			word.addLetter(targetTile);
-			x += xInc;
-			y += yInc;
-			targetTile = tileAt(x, y);
-		}
+//		if (LetterTile.class.isInstance(tileAt(x-xInc, y-yInc))) {
+//			System.out.println("Please use the position of the first letter in the word as the input location.");
+//			return false;
+//		}
+//		
+//		Tile targetTile = tileAt(x, y);
+//		for (int i = 0; i < wordLength || LetterTile.class.isInstance(targetTile);) {
+//
+//			if (targetTile == null) {
+//				System.out.println("That word does not fit on the board.");
+//				return false;
+//			}
+//			
+//			if (!LetterTile.class.isInstance(targetTile)) {
+//				LetterTile placementTile = tiles[i];
+//				
+//				//Check this move does not form two words
+//				//If the direction = r, xInc = 1 and yInc = 0, vice versa if direction = d.
+//				//Therefore if direction = r this will check the tiles above and below, and to the right and left id direction = d.
+//				//There should never be a LetterTile in one of these spaces.
+//				Tile higher = tileAt(x + yInc, y + xInc);
+//				Tile lower = tileAt(x - yInc, y - xInc);
+//				if (LetterTile.class.isInstance(higher) || LetterTile.class.isInstance(lower)) {
+//					System.out.println(
+//							"You cannot form more than one word in one move, or have two adjacent letters that do not form a word.");
+//					return false;
+//				}
+//				word.addLetter(placementTile);
+//				i++;
+//			} else 
+//				intersection = true;
+//			
+//			word.addLetter(targetTile);
+//			x += xInc;
+//			y += yInc;
+//			targetTile = tileAt(x, y);
+//		}
 
 		//Check word is in dictionary.
 		if (!Validator.lookupWord(word.getWord())) {
