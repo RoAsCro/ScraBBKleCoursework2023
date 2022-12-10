@@ -71,6 +71,7 @@ public class Board {
 
 	}
 	
+	
 	public boolean placeWord(Move move) {
 		if (move.isPass())
 			return true;
