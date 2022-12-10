@@ -12,6 +12,8 @@ public class Board {
 	/** A two-dimensional array of tiles representing the board. */
 	public Tile[][] grid;
 	
+	
+	
 	/** The size of the board's axes. */
 	private final int MAGNITUDE;
 	
@@ -24,6 +26,32 @@ public class Board {
 
 	/** True if no tiles have been placed yet */
 	private boolean startState = true;
+	
+	private WordOperation addLetter = (word, tiles, i) -> {
+		word.addLetter(tiles[i]);
+	};
+	
+	private WordOperation setText = (word, tiles, i) -> {
+		WildTile wild = (WildTile) tiles[i];
+		wild.setText();
+	};
+	
+	private WordOperation placeTile = (word, tiles, i) -> {
+		
+	};
+	
+	private Condition aboveBelow = (x, y, xInc, yInc) -> {
+		Tile higher = tileAt(x + yInc, y + xInc);
+		Tile lower = tileAt(x - yInc, y - xInc);
+		if (LetterTile.class.isInstance(higher) || LetterTile.class.isInstance(lower)) {
+			System.out.println(
+					"You cannot form more than one word in one move, or have two adjacent letters that do not form a word.");
+			return false;
+		}
+		return true;
+	};
+	
+	Condition alwaysTrue = (x, y, xInc, yInc) -> {return true;};
 	
 	public Board(int magnitude, Tile[][] grid) {
 		this.MAGNITUDE = magnitude;
@@ -72,34 +100,29 @@ public class Board {
 	}
 	
 	public boolean boardIter(int x, int y, int xInc, int yInc, LetterTile[] tiles,
-			boolean testAdjacency, WordOperation method, WordOperation methodTwo, Word word,Tile type) {
+			Condition failCondition, WordOperation method, WordOperation methodTwo, Word word,Tile type) {
 		
 		Tile targetTile = tileAt(x,y);
 		int wordLength = tiles.length;
 		
-		for (int i = 0; i < wordLength;) {
+		for (int i = 0; i < wordLength || LetterTile.class.isInstance(targetTile);) {
 			if (targetTile == null) {
+				System.out.println("That word does not fit on the board.");
 				return false;
 			}
 			if (!type.getClass().isInstance(targetTile)) {
-				if (testAdjacency) {
-					Tile higher = tileAt(x + yInc, y + xInc);
-					Tile lower = tileAt(x - yInc, y - xInc);
-					if (LetterTile.class.isInstance(higher) || LetterTile.class.isInstance(lower)) {
-						System.out.println(
-								"You cannot form more than one word in one move, or have two adjacent letters that do not form a word.");
-						return false;
-					}
-					i++;	
-				}
+				if (!failCondition.test(x, y, xInc, yInc))
+					return false;
 				method.execute(word, tiles, i);
+				i++;
 			}
 			methodTwo.execute(word, grid[x], y);
+			x += xInc;
+			y += yInc;
+			targetTile = tileAt(x, y);
 		}
-		x += xInc;
-		y += yInc;
-		targetTile = tileAt(x, y);
 		
+		System.out.println("DDDDDD");
 		return true;
 	}
 	
@@ -127,16 +150,22 @@ public class Board {
 //			x -= xInc;
 //			y -= yInc;
 //		}
-		if (!boardIter(x, y, xInc, yInc, tiles, true, new WordConstruction(), new WordConstruction(), word, new LetterTile("A", 1)))
+		
+		if (LetterTile.class.isInstance(tileAt(x-xInc, y-yInc))) {
+			System.out.println("Please use the position of the first letter in the word as the input location.");
 			return false;
-		System.out.println("AAA");
+		}
+		
+		if (!boardIter(x, y, xInc, yInc, tiles, aboveBelow, addLetter, addLetter, word, new LetterTile("A", 1)))
+			return false;
+		
+		if (word.getTiles().length > wordLength) {
+			intersection = true;
+		}
 
 		int startX = x;
 		int startY = y;
-//		if (LetterTile.class.isInstance(tileAt(x-xInc, y-yInc))) {
-//			System.out.println("Please use the position of the first letter in the word as the input location.");
-//			return false;
-//		}
+
 //		
 //		Tile targetTile = tileAt(x, y);
 //		for (int i = 0; i < wordLength || LetterTile.class.isInstance(targetTile);) {
@@ -183,8 +212,8 @@ public class Board {
 			if (!startState) {
 				System.out.println("Your word must cross another word");
 				return false;
-			} else if (!((y == CENTRE && (CENTRE <= x - 1 && CENTRE >= startX))
-					|| (x == CENTRE && (CENTRE <= y - 1 && CENTRE >= startY)))) {
+			} else if (!((y == CENTRE && (CENTRE <= x + wordLength - 1 && CENTRE >= startX))
+					|| (x == CENTRE && (CENTRE <= y + wordLength - 1 && CENTRE >= startY)))) {
 				System.out.println("Your word must cross over the centre tile.");
 				return false;
 			} else
@@ -195,6 +224,9 @@ public class Board {
 		move.updateScore(word.getScore());
 
 		LetterTile[] letters = word.getTiles();
+		//boardIter(x, y, xInc, yInc, letters, alwaysTrue, setText, new PlaceTile(), word, new Tile("A", 1));
+			
+
 		for (LetterTile letter : letters) {
 			
 			//CONSIDER PUTTING THIS IN THE PLAYER'S REMOVETILE METHOD
