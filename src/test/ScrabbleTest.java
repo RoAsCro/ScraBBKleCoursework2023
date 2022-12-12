@@ -366,7 +366,7 @@ public class ScrabbleTest {
 		move = new Move("BA,h13,d", human);
 		assertTrue(board.placeWord(move));
 		
-		
+		board.print();
 		
 	}
 	
@@ -407,11 +407,7 @@ public class ScrabbleTest {
 		}
 		Board board = Validator.loadFile("./resources/testBoard.txt");
 		System.out.println(board.tileAt(0,0).getText());
-		new PlaceTile().execute(word, board.grid[0],0);
-		System.out.println(board.tileAt(0,0).getText());
-		for (LetterTile l : word.getTiles()) {
-			System.out.println(l.getChar());
-		}
+		
 	}
 	
 	
