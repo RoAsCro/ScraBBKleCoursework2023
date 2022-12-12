@@ -18,6 +18,14 @@ public class BoardReader {
 		this.initialY = this.currentY = y;
 	}
 	
+	public int getX() {
+		return currentX;
+	}
+	
+	public int getY() {
+		return currentY;
+	}
+	
 	public Tile next() {
 		return board.tileAt(currentX += xInc, currentY += yInc);
 	}
