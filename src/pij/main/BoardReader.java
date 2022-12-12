@@ -23,7 +23,10 @@ public class BoardReader {
 	}
 	
 	public Tile previous() {
-		return board.tileAt(currentX -= xInc, currentY -= yInc);
+		reverse();
+		Tile tile = next();
+		reverse();
+		return tile;
 	}
 	
 	public Tile operativeNext(TileOperation method) {
@@ -39,9 +42,21 @@ public class BoardReader {
 		return currentTile;
 	}
 	
+	public Tile conditionalPrevious(Check condition, TileOperation method) {
+		reverse();
+		Tile tile = conditionalNext(condition, method);
+		reverse();
+		return tile;
+	}
+	
 	public void reset() {
 		currentX = initialX;
 		currentY = initialY;
+	}
+	
+	private void reverse() {
+		this.xInc = -xInc;
+		this.yInc = -yInc;
 	}
 	
 }
