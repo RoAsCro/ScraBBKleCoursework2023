@@ -105,33 +105,39 @@ public class Board {
 
 	}
 	
-	public boolean constructWord(int x, int y, char direction, LinkedList<LetterTile> tiles, Word word) {
+	public boolean constructWord(int initialX, int initialY, char direction, LinkedList<LetterTile> tiles, Word word) {
 
-		BoardReader reader = new BoardReader(this, x, y, direction);
+		BoardReader reader = new BoardReader(this, initialX, initialY, direction);
 		Tile currentTile = null;
 		do {
-//			if (currentTile != null)
-//				System.out.println(currentTile.getText());
 			currentTile = reader.conditionalNext((tile) -> {
 				return (!LetterTile.class.isInstance(tile) && !tiles.isEmpty());
-			}, (tile) -> {
-					System.out.println("1");
-					word.addLetter(tiles.poll());
-					word.addLetter(tile);
+			}, (x, y) -> {
+				word.addLetter(tiles.poll());
+				word.addLetter(tileAt(x, y));
 			});
+			
 			currentTile = reader.conditionalNext((tile) -> {
 				return (LetterTile.class.isInstance(tile));
-			}, (tile) -> {
-				System.out.println("2");
-					word.addLetter(tile);
+			}, (x, y) -> {
+				word.addLetter(tileAt(x, y));
 			});
+			
 		} while (!tiles.isEmpty() && currentTile != null);
-		
+
 		if (!tiles.isEmpty() && currentTile == null)
-				return false;
+			return false;
 		return true;
 	}
 	
+	public void placeTiles(int initialX, int initialY, char direction, LinkedList<LetterTile> tiles) {
+		BoardReader reader = new BoardReader(this, initialX, initialY, direction);
+		reader.conditionalNext((tile) -> {
+			return !tiles.isEmpty();
+		}, (x, y) -> {
+			grid[x][y] = tiles.poll();
+		});
+	}
 	
 	public boolean boardIter(int x, int y, int xInc, int yInc, LetterTile[] tiles, Condition failCondition,
 			WordOperation method, WordOperation methodTwo, Word word, Tile type) {
@@ -260,8 +266,7 @@ public class Board {
 		move.updateScore(word.getScore());
 
 		LetterTile[] letters = word.getTiles();
-		boardIter(x, y, xInc, yInc, tiles, alwaysTrue, addLetter, new PlaceTile(), word, new LetterTile("A", 1));
-			
+		placeTiles(x, y, move.getDirection(), word.getTilesTwo());
 
 //		for (LetterTile letter : letters) {
 //			
