@@ -1,5 +1,7 @@
 package pij.main;
 
+import java.util.LinkedList;
+
 /**
  * A board on which the game of ScraBBKle is played.
  * A board's dimensions are S x S where S is between 12 and 26.
@@ -10,7 +12,7 @@ package pij.main;
 public class Board {
 	
 	/** A two-dimensional array of tiles representing the board. */
-	private Tile[][] grid;
+	public Tile[][] grid;
 	
 	
 	
@@ -103,24 +105,31 @@ public class Board {
 
 	}
 	
-	public boolean constructWord(int x, int y, int xInc, int yInc, LetterTile[] tiles, Word word) {
-		TileOperation op = (tile) -> {word.addLetter(tiles[0]);};
-		BoardReader reader = new BoardReader(this, x, y, 'r');
-		int wordLength = tiles.length;
+	public boolean constructWord(int x, int y, char direction, LinkedList<LetterTile> tiles, Word word) {
 
-		for (int i = 0; i < wordLength;) {
-			Tile currentTile = reader.conditionalNext((tile) -> {
-				return LetterTile.class.isInstance(tile);
+		BoardReader reader = new BoardReader(this, x, y, direction);
+		Tile currentTile = null;
+		do {
+//			if (currentTile != null)
+//				System.out.println(currentTile.getText());
+			currentTile = reader.conditionalNext((tile) -> {
+				return (!LetterTile.class.isInstance(tile) && !tiles.isEmpty());
 			}, (tile) -> {
-				word.addLetter(tiles[i]);
+					System.out.println("1");
+					word.addLetter(tiles.poll());
+					word.addLetter(tile);
 			});
-			
-		}
+			currentTile = reader.conditionalNext((tile) -> {
+				return (LetterTile.class.isInstance(tile));
+			}, (tile) -> {
+				System.out.println("2");
+					word.addLetter(tile);
+			});
+		} while (!tiles.isEmpty() && currentTile != null);
 		
-		if (boardIter(x, y, xInc, yInc, tiles, aboveBelow, addLetter, addLetter, word, new LetterTile("A", 1))) {
-			return true;
-		}
-		return false;
+		if (!tiles.isEmpty() && currentTile == null)
+				return false;
+		return true;
 	}
 	
 	
@@ -183,7 +192,7 @@ public class Board {
 			return false;
 		}
 		
-		if (!constructWord(x, y, xInc, yInc, tiles, word))
+		if (!boardIter(x, y, xInc, yInc, tiles, aboveBelow, addLetter, addLetter, word, new LetterTile("A", 1)))
 			return false;
 		
 		if (word.getTiles().length > wordLength) {

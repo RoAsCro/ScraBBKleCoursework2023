@@ -28,10 +28,9 @@ public class BoardReader {
 	
 	public Tile conditionalNext(Check condition, TileOperation method) {
 		Tile currentTile = board.tileAt(currentX, currentY);
-		while (condition.check(board.tileAt(currentX + xInc, currentY + yInc)) && board.tileAt(currentX + xInc, currentY + yInc) != null) {
-			currentTile = next();
+		while (board.tileAt(currentX, currentY) != null && condition.check(board.tileAt(currentX, currentY))) {
 			method.execute(currentTile);
-			
+			currentTile = next();
 		}
 		return currentTile;
 	}
