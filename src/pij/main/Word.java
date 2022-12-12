@@ -13,7 +13,8 @@ public class Word {
 		return score * multiplier;
 	}
 	
-	public String getWord() {
+	@Override
+	public String toString() {
 		String stringWord = "";
 		for (LetterTile letter : this.word) {
 			stringWord += letter.getChar();

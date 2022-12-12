@@ -243,7 +243,7 @@ public class Board {
 //		}
 
 		//Check word is in dictionary.
-		if (!Validator.lookupWord(word.getWord())) {
+		if (!Validator.lookupWord(word.toString())) {
 			System.out.println("Word not in dictionary.");
 			return false;
 		}
