@@ -18,7 +18,7 @@ public class ComputerPlayer extends Player {
 		return move;
 	}
 
-	private void parseBoard() {
+	private boolean parseBoard() {
 		int currentX = board.getCentre();
 		int currentY = currentX;
 		char direction = 'r';
@@ -27,14 +27,47 @@ public class ComputerPlayer extends Player {
 		currentX = reader.getX();
 		currentX = reader.getY();
 		
-		for (LetterTile l : getRack()) {
+		
+		testWords(new LinkedList<>(getRack()), new LinkedList<LetterTile>(), reader);
+		
+//		for (LetterTile l : getRack()) {
+//			Word word = new Word();
+//			LinkedList<LetterTile> list = new LinkedList<>();
+//			list.add(l);
+//			if (board.constructWord(currentX, currentY, direction, list, word)) {
+//				if (Validator.lookupWord(word.toString())) {
+//					return true;
+//				}
+//			}
+//		}
+		return false;
+	}
+	
+	private boolean testWords(LinkedList<LetterTile> rack, LinkedList<LetterTile> currentWord, BoardReader reader) {
+		//LinkedList<LetterTile> listThree = (LinkedList<LetterTile>) list.clone();
+//		if (list.isEmpty())
+//			return false;
+//		
+		reader.previous();
+		
+		for (LetterTile l : rack) {
 			Word word = new Word();
-			LinkedList<LetterTile> list = new LinkedList<>();
-			list.add(l);
-			if (board.constructWord(currentX, currentY, direction, list, word)) {
-				Validator.lookupWord(word.toString());
+			currentWord.push(l);
+			if (board.constructWord(reader.getX(), reader.getY(), reader.getDirection(), currentWord, word)) {
+				if (Validator.lookupWord(word.toString())) {
+					System.out.println(word.toString());
+					return true;
+				}
 			}
+			LinkedList<LetterTile> listThree = (LinkedList<LetterTile>) rack.clone();
+			listThree.remove(l);
+			if (testWords(listThree, currentWord, reader)) {
+				return true;
+			}
+			currentWord.pop();
 		}
+		reader.next();
+		return false;
 	}
 	
 	private Word constructWord(int x, int y, int xInc, int yInc, LetterTile[] letters) {
