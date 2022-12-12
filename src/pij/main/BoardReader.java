@@ -43,7 +43,7 @@ public class BoardReader {
 	
 	public Tile conditionalNext(Check condition, TileOperation method) {
 		Tile currentTile = board.tileAt(currentX, currentY);
-		while (board.tileAt(currentX, currentY) != null && condition.check(currentTile)) {
+		while (currentTile != null && condition.check(currentTile)) {
 			method.execute(currentX, currentY);
 			currentTile = next();
 		}
