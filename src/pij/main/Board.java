@@ -10,7 +10,7 @@ package pij.main;
 public class Board {
 	
 	/** A two-dimensional array of tiles representing the board. */
-	public Tile[][] grid;
+	private Tile[][] grid;
 	
 	
 	
@@ -99,12 +99,12 @@ public class Board {
 
 	}
 	
-	public boolean boardIter(int x, int y, int xInc, int yInc, LetterTile[] tiles,
-			Condition failCondition, WordOperation method, WordOperation methodTwo, Word word,Tile type) {
-		
-		Tile targetTile = tileAt(x,y);
+	public boolean boardIter(int x, int y, int xInc, int yInc, LetterTile[] tiles, Condition failCondition,
+			WordOperation method, WordOperation methodTwo, Word word, Tile type) {
+
+		Tile targetTile = tileAt(x, y);
 		int wordLength = tiles.length;
-		
+
 		for (int i = 0; i < wordLength || LetterTile.class.isInstance(targetTile);) {
 			if (targetTile == null) {
 				System.out.println("That word does not fit on the board.");
@@ -121,7 +121,6 @@ public class Board {
 			y += yInc;
 			targetTile = tileAt(x, y);
 		}
-		
 		System.out.println("DDDDDD");
 		return true;
 	}
@@ -224,20 +223,20 @@ public class Board {
 		move.updateScore(word.getScore());
 
 		LetterTile[] letters = word.getTiles();
-		//boardIter(x, y, xInc, yInc, letters, alwaysTrue, setText, new PlaceTile(), word, new Tile("A", 1));
+		boardIter(x, y, xInc, yInc, tiles, alwaysTrue, addLetter, new PlaceTile(), word, new LetterTile("A", 1));
 			
 
-		for (LetterTile letter : letters) {
-			
-			//CONSIDER PUTTING THIS IN THE PLAYER'S REMOVETILE METHOD
-			if (WildTile.class.isInstance(letter)) {
-				WildTile wild = (WildTile) letter;
-				wild.setText();
-			}
-			grid[startX][startY] = letter;
-			startX += xInc;
-			startY += yInc;
-		}
+//		for (LetterTile letter : letters) {
+//			
+//			//CONSIDER PUTTING THIS IN THE PLAYER'S REMOVETILE METHOD
+//			if (WildTile.class.isInstance(letter)) {
+//				WildTile wild = (WildTile) letter;
+//				wild.setText();
+//			}
+//			grid[startX][startY] = letter;
+//			startX += xInc;
+//			startY += yInc;
+//		}
 		
 		return true;
 	}
