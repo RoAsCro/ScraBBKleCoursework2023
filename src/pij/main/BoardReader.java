@@ -2,6 +2,7 @@ package pij.main;
 
 public class BoardReader {
 	private final Board board;
+	private char direction;
 	private int initialX;
 	private int initialY;
 	private int currentX;
@@ -12,6 +13,7 @@ public class BoardReader {
 	public BoardReader(Board board, int x, int y, char direction) {
 		this.board = board;
 		//xInc and yInc use the integer value of 'd' or 'r' to determine how to iterate across the grid.
+		this.direction = direction;
 		this.xInc = (direction - 100) / 14;
 		this.yInc = (direction - 114) / 14 * - 1;
 		this.initialX = this.currentX = x;
@@ -24,6 +26,10 @@ public class BoardReader {
 	
 	public int getY() {
 		return currentY;
+	}
+	
+	public char getDirection() {
+		return this.direction;
 	}
 	
 	public Tile next() {
