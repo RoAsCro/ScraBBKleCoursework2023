@@ -99,6 +99,14 @@ public class Board {
 
 	}
 	
+	public boolean constructWord(int x, int y, int xInc, int yInc, LetterTile[] tiles, Word word) {
+		if (boardIter(x, y, xInc, yInc, tiles, aboveBelow, addLetter, addLetter, word, new LetterTile("A", 1))) {
+			return true;
+		}
+		return false;
+	}
+	
+	
 	public boolean boardIter(int x, int y, int xInc, int yInc, LetterTile[] tiles, Condition failCondition,
 			WordOperation method, WordOperation methodTwo, Word word, Tile type) {
 
@@ -155,7 +163,7 @@ public class Board {
 			return false;
 		}
 		
-		if (!boardIter(x, y, xInc, yInc, tiles, aboveBelow, addLetter, addLetter, word, new LetterTile("A", 1)))
+		if (!constructWord(x, y, xInc, yInc, tiles, word))
 			return false;
 		
 		if (word.getTiles().length > wordLength) {
