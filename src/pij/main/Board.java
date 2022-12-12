@@ -104,6 +104,19 @@ public class Board {
 	}
 	
 	public boolean constructWord(int x, int y, int xInc, int yInc, LetterTile[] tiles, Word word) {
+		TileOperation op = (tile) -> {word.addLetter(tiles[0]);};
+		BoardReader reader = new BoardReader(this, x, y, 'r');
+		int wordLength = tiles.length;
+
+		for (int i = 0; i < wordLength;) {
+			Tile currentTile = reader.conditionalNext((tile) -> {
+				return LetterTile.class.isInstance(tile);
+			}, (tile) -> {
+				word.addLetter(tiles[i]);
+			});
+			
+		}
+		
 		if (boardIter(x, y, xInc, yInc, tiles, aboveBelow, addLetter, addLetter, word, new LetterTile("A", 1))) {
 			return true;
 		}
@@ -113,7 +126,10 @@ public class Board {
 	
 	public boolean boardIter(int x, int y, int xInc, int yInc, LetterTile[] tiles, Condition failCondition,
 			WordOperation method, WordOperation methodTwo, Word word, Tile type) {
-
+		
+		//
+		
+		//
 		Tile targetTile = tileAt(x, y);
 		int wordLength = tiles.length;
 
