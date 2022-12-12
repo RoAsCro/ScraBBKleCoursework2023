@@ -59,6 +59,10 @@ public class Board {
 		this.grid = grid;
 	}
 	
+	public int getCentre() {
+		return CENTRE;
+	}
+	
 	/**
 	 * Returns the tile at a given set of x,y coordinates on the board.
 	 * 
