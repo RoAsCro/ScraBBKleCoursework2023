@@ -55,8 +55,13 @@ public class BoardReader {
 	}
 	
 	private void reverse() {
-		this.xInc = -xInc;
-		this.yInc = -yInc;
+		this.xInc = -this.xInc;
+		this.yInc = -this.yInc;
+	}
+	
+	public void turn() {
+		this.xInc = this.yInc;
+		this.yInc = Math.abs(this.yInc - 1);
 	}
 	
 }
