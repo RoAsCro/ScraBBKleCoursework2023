@@ -22,6 +22,10 @@ public class BoardReader {
 		return board.tileAt(currentX += xInc, currentY += yInc);
 	}
 	
+	public Tile previous() {
+		return board.tileAt(currentX -= xInc, currentY -= yInc);
+	}
+	
 	public Tile operativeNext(TileOperation method) {
 		return new Tile("A", 1);
 	}
