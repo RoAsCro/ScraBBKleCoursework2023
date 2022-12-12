@@ -109,10 +109,13 @@ public class Board {
 
 		BoardReader reader = new BoardReader(this, initialX, initialY, direction);
 		Tile currentTile = null;
+		//LinkedList<LetterTile> tiles = new LinkedList<LetterTile>(list);
+		
 		do {
 			currentTile = reader.conditionalNext((tile) -> {
 				return (!LetterTile.class.isInstance(tile) && !tiles.isEmpty());
 			}, (x, y) -> {
+				//System.out.println(tiles.peek().getChar());
 				word.addLetter(tiles.poll());
 				word.addLetter(tileAt(x, y));
 			});
@@ -127,6 +130,7 @@ public class Board {
 
 		if (!tiles.isEmpty() && currentTile == null)
 			return false;
+		System.out.println(word.toString());
 		return true;
 	}
 	

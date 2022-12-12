@@ -14,6 +14,7 @@ public class ComputerPlayer extends Player {
 	public Move turn(Bag bag) {
 		// TODO Auto-generated method stub
 		draw(bag);	
+		parseBoard();
 		Move move = new Move(",,", this);
 		return move;
 	}
@@ -27,46 +28,42 @@ public class ComputerPlayer extends Player {
 		currentX = reader.getX();
 		currentX = reader.getY();
 		
-		
 		testWords(new LinkedList<>(getRack()), new LinkedList<LetterTile>(), reader);
 		
-//		for (LetterTile l : getRack()) {
-//			Word word = new Word();
-//			LinkedList<LetterTile> list = new LinkedList<>();
-//			list.add(l);
-//			if (board.constructWord(currentX, currentY, direction, list, word)) {
-//				if (Validator.lookupWord(word.toString())) {
-//					return true;
-//				}
-//			}
-//		}
 		return false;
 	}
 	
 	private boolean testWords(LinkedList<LetterTile> rack, LinkedList<LetterTile> currentWord, BoardReader reader) {
-		//LinkedList<LetterTile> listThree = (LinkedList<LetterTile>) list.clone();
-//		if (list.isEmpty())
-//			return false;
-//		
-		reader.previous();
+		if (rack.isEmpty())
+			return false;
+		
+		System.out.println(currentWord.size());
+		System.out.println(rack.size());
 		
 		for (LetterTile l : rack) {
+			
 			Word word = new Word();
 			currentWord.push(l);
-			if (board.constructWord(reader.getX(), reader.getY(), reader.getDirection(), currentWord, word)) {
+			if (board.constructWord(reader.getX(), reader.getY(), reader.getDirection(), new LinkedList<LetterTile>(currentWord), word)) {
 				if (Validator.lookupWord(word.toString())) {
+					System.out.println(reader.getX() + ", " + reader.getY());
 					System.out.println(word.toString());
+					
+					board.placeTiles(reader.getX(), reader.getY(), 'r', currentWord);
 					return true;
 				}
 			}
-			LinkedList<LetterTile> listThree = (LinkedList<LetterTile>) rack.clone();
+			LinkedList<LetterTile> listThree = new LinkedList<LetterTile>(rack);
 			listThree.remove(l);
+			reader.previous();
 			if (testWords(listThree, currentWord, reader)) {
 				return true;
 			}
+			reader.next();
+
 			currentWord.pop();
 		}
-		reader.next();
+		
 		return false;
 	}
 	
