@@ -14,9 +14,13 @@ public class ComputerPlayer extends Player {
 	public Move turn(Bag bag) {
 		// TODO Auto-generated method stub
 		draw(bag);	
-		parseBoard();
 		Move move = new Move(",,", this);
-		return move;
+		if (!parseBoard()) {
+			//board.placeWord(move);
+			return move;
+		}
+		
+		return new Move("A,a1,r", this);
 	}
 
 	private boolean parseBoard() {
@@ -24,18 +28,71 @@ public class ComputerPlayer extends Player {
 		int currentY = currentX;
 		char direction = 'r';
 		BoardReader reader = new BoardReader(board, currentX, currentY, direction);
-		reader.depthFirstSearch((x, y) -> {
+		if (reader.depthFirstSearch((x, y) -> {
 			if (testWords(new LinkedList<>(getRack()), new LinkedList<LetterTile>(),
 					new BoardReader(board, x, y, reader.getDirection()))) {
 				return true;
 			}
 			return false;
-		});
+		}))
+			return true;
 		
 //		testWords(new LinkedList<>(getRack()), new LinkedList<LetterTile>(), reader);
 		
 		return false;
 	}
+	
+//	public boolean testWordsInit(LinkedList<LetterTile> rack, LinkedList<LetterTile> currentWord, BoardReader reader) {
+//		Word word = new Word();
+//		word = testWordsTwo(rack, currentWord, reader, word);
+//		if (word.getTiles().length != 0) {
+//			board.placeTiles(word.getX(), word.getY(), reader.getDirection(), word.getTilesTwo());
+//			return true;
+//		}
+//		return false;
+//	}
+//	
+//	public Word testWordsTwo(LinkedList<LetterTile> rack, LinkedList<LetterTile> currentWord, BoardReader reader, Word highest) {
+//		if (rack.isEmpty())
+//			return highest;
+//		
+//		for (LetterTile l : rack) {
+//			
+//			Word word = new Word();
+//			currentWord.push(l);
+//			
+//			if (board.constructWord(reader.getX(), reader.getY(), reader.getDirection(), new LinkedList<LetterTile>(currentWord), word)) {
+//				if (Validator.lookupWord(word.toString())) {
+//					//
+//					System.out.println(reader.getX() + ", " + reader.getY());
+//					System.out.println(word.toString());
+//					System.out.println(reader.getDirection());
+//					System.out.println(currentWord.size());
+//					//
+////					removeTiles(currentWord.toArray(new LetterTile[0]));
+////					board.placeTiles(reader.getX(), reader.getY(), reader.getDirection(), word.getTilesTwo());
+//					if (word.getScore() > highest.getScore())
+//						highest = word;
+//				}
+//			}
+//			LinkedList<LetterTile> newRack = new LinkedList<LetterTile>(rack);
+//			newRack.remove(l);
+//			word = testWordsTwo(newRack, currentWord, reader, highest);
+//			if (word.getScore() > highest.getScore()) {
+//				highest = word;
+//			}
+//			reader.previous();
+//			word = testWordsTwo(newRack, currentWord, reader, highest);
+//			if (word.getScore() > highest.getScore()) {
+//				highest = word;
+//			}
+//			reader.next();
+//
+//			currentWord.pop();
+//		}
+//		
+//		return highest;
+//	}
 	
 	/**
 	 * Attempts to create a word at the target location using every combination of the tiles in the input rack.
@@ -65,7 +122,17 @@ public class ComputerPlayer extends Player {
 			
 			Word word = new Word();
 			currentWord.push(l);
+			//
+			if ((!LetterTile.class.isInstance(reader.previous()))) {
+				reader.next();
+			}
+			else {
+				reader.conditionalPrevious((tile) -> {return LetterTile.class.isInstance(tile);}, (x, y) -> {});
+				//reader.conditionalNext((tile) -> {return LetterTile.class.isInstance(tile);}, (x, y) -> {});
+				reader.next();
+			}
 			
+			//
 			if (board.constructWord(reader.getX(), reader.getY(), reader.getDirection(), new LinkedList<LetterTile>(currentWord), word)) {
 				if (Validator.lookupWord(word.toString())) {
 					//
@@ -74,6 +141,7 @@ public class ComputerPlayer extends Player {
 					System.out.println(reader.getDirection());
 					System.out.println(currentWord.size());
 					//
+					removeTiles(currentWord.toArray(new LetterTile[0]));
 					board.placeTiles(reader.getX(), reader.getY(), reader.getDirection(), word.getTilesTwo());
 					return true;
 				}

@@ -109,13 +109,26 @@ public class Board {
 
 		BoardReader reader = new BoardReader(this, initialX, initialY, direction);
 		Tile currentTile = null;
+//		if (tiles.size() == 1) {
+//			for (LetterTile l : tiles) {
+//				System.out.print(l.getChar());
+//				System.out.println(initialX + ", " + initialY);
+//			}
+//			//System.out.println();
+//		}
 		
-		if ((!LetterTile.class.isInstance(reader.previous())))
-			reader.next();
-		else {
-			reader.conditionalPrevious(isLetter, (x, y) -> {tiles.push((LetterTile) tileAt(x, y));});
-			reader.conditionalNext(isLetter, (x, y) -> {});
-		}
+		//System.out.println();
+
+//		if ((!LetterTile.class.isInstance(reader.previous()))) {
+//			reader.next();
+//		}
+//		else {
+//			reader.conditionalPrevious(isLetter, (x, y) -> {tiles.push((LetterTile) tileAt(x, y));
+//			});
+//			reader.conditionalNext(isLetter, (x, y) -> {});
+//			
+//		}
+//		reader.next();
 		
 		do {
 			currentTile = reader.conditionalNext((tile) -> {
@@ -145,9 +158,12 @@ public class Board {
 			
 		} while (!tiles.isEmpty() && currentTile != null);
 
+//		if (word.toString().equals("ba"))
+//			System.out.println(word.toString());
+		
 		if (!tiles.isEmpty() && currentTile == null)
 			return false;
-//		System.out.println(word.toString());
+		
 		return true;
 	}
 	
