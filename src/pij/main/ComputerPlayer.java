@@ -74,7 +74,7 @@ public class ComputerPlayer extends Player {
 					System.out.println(reader.getDirection());
 					System.out.println(currentWord.size());
 					//
-					board.placeTiles(reader.getX(), reader.getY(), reader.getDirection(), currentWord);
+					board.placeTiles(reader.getX(), reader.getY(), reader.getDirection(), word.getTilesTwo());
 					return true;
 				}
 			}
