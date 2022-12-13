@@ -109,39 +109,20 @@ public class Board {
 
 		BoardReader reader = new BoardReader(this, initialX, initialY, direction);
 		Tile currentTile = null;
-//		if (tiles.size() == 1) {
-//			for (LetterTile l : tiles) {
-//				System.out.print(l.getChar());
-//				System.out.println(initialX + ", " + initialY);
-//			}
-//			//System.out.println();
-//		}
-		
-		//System.out.println();
-
-//		if ((!LetterTile.class.isInstance(reader.previous()))) {
-//			reader.next();
-//		}
-//		else {
-//			reader.conditionalPrevious(isLetter, (x, y) -> {tiles.push((LetterTile) tileAt(x, y));
-//			});
-//			reader.conditionalNext(isLetter, (x, y) -> {});
-//			
-//		}
-//		reader.next();
-		
 		do {
 			currentTile = reader.conditionalNext((tile) -> {
 				return (!LetterTile.class.isInstance(tile) && !tiles.isEmpty());
 			}, (x, y) -> {
 
 				reader.turn();
-				if (isLetter.check(reader.next()))
+				if (isLetter.check(reader.next())) {
 					reader.set(-2, -2);
+				}
 				else {
 					reader.previous();
-					if (isLetter.check(reader.previous()))
+					if (isLetter.check(reader.previous())) {
 						reader.set(-2, -2);
+					}
 					else {
 						reader.next();
 						reader.turn();
@@ -157,9 +138,6 @@ public class Board {
 			});
 			
 		} while (!tiles.isEmpty() && currentTile != null);
-
-//		if (word.toString().equals("ba"))
-//			System.out.println(word.toString());
 		
 		if (!tiles.isEmpty() && currentTile == null)
 			return false;
