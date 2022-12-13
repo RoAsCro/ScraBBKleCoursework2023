@@ -5,7 +5,6 @@ import java.util.TreeSet;
 
 public class BoardReader {
 	private final Board board;
-	private char direction;
 	private int initialX;
 	private int initialY;
 	private int currentX;
@@ -17,7 +16,6 @@ public class BoardReader {
 	public BoardReader(Board board, int x, int y, char direction) {
 		this.board = board;
 		//xInc and yInc use the integer value of 'd' or 'r' to determine how to iterate across the grid.
-		this.direction = direction;
 		this.xInc = (direction - 100) / 14;
 		this.yInc = (direction - 114) / 14 * - 1;
 		this.initialX = this.currentX = x;
@@ -68,6 +66,11 @@ public class BoardReader {
 		currentY = initialY;
 	}
 	
+	public void set(int x, int y) {
+		currentX = x;
+		currentY = y;
+	}
+	
 	private void reverse() {
 		this.xInc = -this.xInc;
 		this.yInc = -this.yInc;
@@ -79,10 +82,10 @@ public class BoardReader {
 		this.xInc = xInc - yInc;
 	}
 	
-	public void depthFirstSearch(BooleanTileOperation method) {
+	public boolean depthFirstSearch(BooleanTileOperation method) {
 		currentX = board.getCentre();
 		currentY = board.getCentre();
-		depthFirstSearch(currentX, currentY, method);
+		return depthFirstSearch(currentX, currentY, method);
 	}
 	
 	public boolean depthFirstSearch(int x, int y, BooleanTileOperation method) {
@@ -96,6 +99,7 @@ public class BoardReader {
 		}
 
 		if (!LetterTile.class.isInstance(tile)) {
+			//if (tile != null) tile.setText(" o ");
 			if (method.execute(x, y))
 				return true;
 			previous();
@@ -105,6 +109,7 @@ public class BoardReader {
 		this.tileTree.add(treeRef);	
 		
 		for (int i = 0; i < 4; i++) {
+
 			next();
 			if (depthFirstSearch(currentX, currentY, method))
 				return true;
@@ -114,7 +119,7 @@ public class BoardReader {
 		}
 		previous();
 		System.out.println("TT: " + tileTree.size());
-		return true;
+		return false;
 	}
 	
 }
