@@ -99,7 +99,7 @@ public class ComputerPlayer extends Player {
 	 * Step 1: Check rack is empty. If so, return false.
 	 * Step 2: For each letter in the rack:
 	 * 	-add that letter to the currentWord
-	 * 	-see if that word can be placed on the board, and construct a Word object from it
+	 * 	-see if that word can be placed on the board, and construct a Word object from it. If the word cannot be placed, stop looking in that direction.
 	 * 	-see if that word is in the dictionary, if so, place it on the board and return true
 	 * 	-if not in the dictionary, create a new rack that is the same is the old rack except the letter in question
 	 * 	-call testWords again	
@@ -133,7 +133,21 @@ public class ComputerPlayer extends Player {
 			}
 			
 			//
+
+//			System.out.print(reader.getX() + ", " + reader.getY() + " ");
+//			for (LetterTile lt : currentWord) {
+//				
+//				System.out.print(lt.getChar());
+//				
+//			}
+//			System.out.println();
+//			for (LetterTile lt : rack) {
+//				
+//				System.out.print(lt.getChar());
+//			}
+//			System.out.println();
 			if (board.constructWord(reader.getX(), reader.getY(), reader.getDirection(), new LinkedList<LetterTile>(currentWord), word)) {
+//				System.out.println("W: " + word.toString());
 				if (Validator.lookupWord(word.toString())) {
 					//
 					System.out.println(reader.getX() + ", " + reader.getY());
@@ -144,15 +158,22 @@ public class ComputerPlayer extends Player {
 					removeTiles(currentWord.toArray(new LetterTile[0]));
 					board.placeTiles(reader.getX(), reader.getY(), reader.getDirection(), word.getTilesTwo());
 					return true;
-				}
+				} 
+			} 
+			else {
+				//System.out.println("L: " + word.toString());
+				return false;
 			}
 			LinkedList<LetterTile> newRack = new LinkedList<LetterTile>(rack);
 			newRack.remove(l);
-			if (testWords(newRack, currentWord, reader)) {
+			if (testWords(newRack, new LinkedList<LetterTile>(currentWord), reader)) {
 				return true;
 			}
+//			System.out.println("-------------");
 			reader.previous();
-			if (testWords(newRack, currentWord, reader)) {
+			newRack = new LinkedList<LetterTile>(rack);
+			newRack.remove(l);
+			if (testWords(newRack, new LinkedList<LetterTile>(currentWord), reader)) {
 				return true;
 			}
 			reader.next();
