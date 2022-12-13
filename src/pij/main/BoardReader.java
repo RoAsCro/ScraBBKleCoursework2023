@@ -68,7 +68,7 @@ public class BoardReader {
 		currentY = initialY;
 	}
 	
-	public void reverse() {
+	private void reverse() {
 		this.xInc = -this.xInc;
 		this.yInc = -this.yInc;
 	}
