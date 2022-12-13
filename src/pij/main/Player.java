@@ -3,6 +3,9 @@ package pij.main;
 import java.util.ArrayList;
 
 public abstract class Player {
+	
+	private final static int RACK_SIZE = 7;
+	
 	/** An array of tiles a player has available to them */
 	private ArrayList<LetterTile> tileRack = new ArrayList<>();
 	
@@ -43,8 +46,11 @@ public abstract class Player {
 	 */
 	public void draw(Bag bag) {
 		int size = tileRack.size();
-		for (int i = 0; i < 7 - size; i++)
-			tileRack.add(bag.draw());
+		for (int i = 0; i < RACK_SIZE - size; i++) {
+			LetterTile tile = bag.draw();
+			if (tile != null)
+				tileRack.add(tile);
+		}
 	}
 	/**
 	 * A series of methods to be carried out on a player's turn.
