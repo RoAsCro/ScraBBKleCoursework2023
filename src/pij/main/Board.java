@@ -139,7 +139,7 @@ public class Board {
 			
 		} while (!tiles.isEmpty() && currentTile != null);
 		
-		if (!tiles.isEmpty() && currentTile == null)
+		if ((!tiles.isEmpty() && currentTile == null) || word.getTiles().length <= tiles.size())
 			return false;
 		
 		return true;
