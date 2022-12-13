@@ -78,8 +78,9 @@ public class BoardReader {
 	}
 	
 	public void turn() {
-		this.xInc = this.yInc;
-		this.yInc = Math.abs(this.yInc - 1);
+		this.xInc += this.yInc;
+		this.yInc = xInc - yInc;
+		this.xInc = xInc - yInc;
 	}
 	
 	public void depthFirstSearch(TileOperation method) {
