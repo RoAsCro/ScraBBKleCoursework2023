@@ -41,7 +41,7 @@ public class Board {
 	private WordOperation placeTile = (word, tiles, i) -> {
 		
 	};
-	
+	private Check isLetter = (tile) -> {return LetterTile.class.isInstance(tile);};
 	private Condition aboveBelow = (x, y, xInc, yInc) -> {
 		Tile higher = tileAt(x + yInc, y + xInc);
 		Tile lower = tileAt(x - yInc, y - xInc);
@@ -109,20 +109,23 @@ public class Board {
 
 		BoardReader reader = new BoardReader(this, initialX, initialY, direction);
 		Tile currentTile = null;
-		//LinkedList<LetterTile> tiles = new LinkedList<LetterTile>(list);
+		
+		if ((!LetterTile.class.isInstance(reader.previous())))
+			reader.next();
+		else {
+			reader.conditionalPrevious(isLetter, (x, y) -> {tiles.push((LetterTile) tileAt(x, y));});
+			reader.conditionalNext(isLetter, (x, y) -> {});
+		}
 		
 		do {
 			currentTile = reader.conditionalNext((tile) -> {
 				return (!LetterTile.class.isInstance(tile) && !tiles.isEmpty());
 			}, (x, y) -> {
-				//System.out.println(tiles.peek().getChar());
 				word.addLetter(tiles.poll());
 				word.addLetter(tileAt(x, y));
 			});
 			
-			currentTile = reader.conditionalNext((tile) -> {
-				return (LetterTile.class.isInstance(tile));
-			}, (x, y) -> {
+			currentTile = reader.conditionalNext(isLetter, (x, y) -> {
 				word.addLetter(tileAt(x, y));
 			});
 			
@@ -130,7 +133,7 @@ public class Board {
 
 		if (!tiles.isEmpty() && currentTile == null)
 			return false;
-		System.out.println(word.toString());
+//		System.out.println(word.toString());
 		return true;
 	}
 	
