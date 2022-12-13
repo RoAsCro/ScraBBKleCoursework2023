@@ -33,7 +33,7 @@ public class BoardReader {
 	}
 	
 	public char getDirection() {
-		return this.direction;
+		return (char) (Math.abs(this.xInc) * 14 + 100);
 	}
 	
 	public Tile next() {
@@ -45,10 +45,6 @@ public class BoardReader {
 		Tile tile = next();
 		reverse();
 		return tile;
-	}
-	
-	public Tile operativeNext(TileOperation method) {
-		return new Tile("A", 1);
 	}
 	
 	public Tile conditionalNext(Check condition, TileOperation method) {
@@ -72,7 +68,7 @@ public class BoardReader {
 		currentY = initialY;
 	}
 	
-	private void reverse() {
+	public void reverse() {
 		this.xInc = -this.xInc;
 		this.yInc = -this.yInc;
 	}
@@ -83,13 +79,13 @@ public class BoardReader {
 		this.xInc = xInc - yInc;
 	}
 	
-	public void depthFirstSearch(TileOperation method) {
+	public void depthFirstSearch(BooleanTileOperation method) {
 		currentX = board.getCentre();
 		currentY = board.getCentre();
 		depthFirstSearch(currentX, currentY, method);
 	}
 	
-	public boolean depthFirstSearch(int x, int y, TileOperation method) {
+	public boolean depthFirstSearch(int x, int y, BooleanTileOperation method) {
 
 		int treeRef = x * (board.getCentre() + 1) * 2 + y;
 		Tile tile = board.tileAt(x, y);
@@ -100,8 +96,8 @@ public class BoardReader {
 		}
 
 		if (!LetterTile.class.isInstance(tile)) {
-			//if (tile != null) tile.setText(" o ");
-			method.execute(x, y);
+			if (method.execute(x, y))
+				return true;
 			previous();
 			return false;
 		}
@@ -110,7 +106,8 @@ public class BoardReader {
 		
 		for (int i = 0; i < 4; i++) {
 			next();
-			depthFirstSearch(currentX, currentY, method);
+			if (depthFirstSearch(currentX, currentY, method))
+				return true;
 			reverse();
 			if (i % 2 != 0)
 				turn();
