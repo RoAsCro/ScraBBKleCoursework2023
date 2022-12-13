@@ -2,6 +2,12 @@ package test;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
+import pij.main.Bag;
+import pij.main.Board;
+import pij.main.HumanPlayer;
+import pij.main.LetterTile;
+import pij.main.Tile;
+import pij.main.Validator;
 import pij.main.*;
 
 import java.io.*;
@@ -197,33 +203,6 @@ public class ScrabbleTest {
 	}
 	
 	@Test
-	public void testPlayer() {
-		Bag bag = new Bag();
-		HumanPlayer human = new HumanPlayer();
-		//Test draw function
-		human.draw(bag);
-		ArrayList<LetterTile> tilesOne = new ArrayList<> (human.getRack());
-		assertEquals(tilesOne.size(), 7);
-		human.draw(bag);
-		ArrayList<LetterTile> tilesTwo = new ArrayList<> (human.getRack());
-		assertTrue(tilesOne.containsAll(tilesTwo));
-		
-		LetterTile[] tileArray = tilesOne.toArray(new LetterTile[0]);
-		human.removeTiles(tileArray);
-		assertEquals(human.getRack().size(), 0);
-		
-		
-		
-		
-	}
-	
-	@Test
-	public void playExample() {
-		
-	}
-	
-	
-	@Test
 	public void testBoard() {
 		//File file = new File("./resources/testBoard.txt");
 		Board board = Validator.loadFile("./resources/testBoard.txt");
@@ -247,7 +226,7 @@ public class ScrabbleTest {
 		assertTrue(board2.placeWord(move2));
 		
 		System.out.println("Dict: " + Validator.lookupWord("vein"));
-	
+
 		
 		Tile lower = board.tileAt(0,0);
 		Tile upper = board.tileAt(14,14);
@@ -389,75 +368,47 @@ public class ScrabbleTest {
 		
 		board.print();
 		
-		//board = Validator.loadFile("./resources/testBoard.txt");
-		ComputerPlayer cpu = new ComputerPlayer(board);
-		Bag riggedBagTwo = new Bag(new int[]{0,3,1,1,0,1,1});
-		//board.grid[7][7] = new LetterTile("T",1);
-		cpu.turn(riggedBagTwo);
-		board.print();
-		
-
-
-
 	}
-
+	
 	@Test
-		public void genericTest() {
-//		Board board = Validator.loadFile("./resources/testBoard.txt");
-//		Validator.loadDictionary(new File("./resources/wordlist.txt"));
-//		ComputerPlayer cpu = new ComputerPlayer(board);
-//		Bag riggedBagTwo = new Bag(new int[]{1,0,0,0,5,0,1});
-//		board.grid[7][7] = new LetterTile("G", 1);
-//		//board.grid[8][7] = new LetterTile("L", 1);
-//		cpu.turn(riggedBagTwo);
-//		board.print();
+	public void testPlayer() {
+		Bag bag = new Bag();
+		HumanPlayer human = new HumanPlayer();
+		//Test draw function
+		human.draw(bag);
+		ArrayList<LetterTile> tilesOne = new ArrayList<> (human.getRack());
+		assertEquals(tilesOne.size(), 7);
+		human.draw(bag);
+		ArrayList<LetterTile> tilesTwo = new ArrayList<> (human.getRack());
+		assertTrue(tilesOne.containsAll(tilesTwo));
 		
-	//		Word word = new Word();
-	//		LetterTile lt = new LetterTile("A", 1);
-	//		word.getTilesTwo().add(lt);
-	//		for (LetterTile l : word.getTiles()) {
-	//			System.out.println(l.getChar());
-	//		}
-	//		
-	//		board.grid[0][0] = lt;
-	//		board.grid[1][0] = lt;
-	//		board.grid[2][0] = lt;
-	//		board.grid[3][0] = lt;
-	//		
-	//		board.grid[14][14] = lt;
-	//		
-	//		BoardReader reader = new BoardReader(board, 0,0,'r');
-	//		
-	//		
-	//		
-	//		Word word2 = new Word();
-	//		LinkedList<LetterTile> tiles = new LinkedList<>();
-	//		tiles.add(lt);
-	//		tiles.add(new LetterTile("B", 1));
-	//		board.constructWord(0, 0, 'r', tiles, word2);
-	//		board.print();
-	//		System.out.println(word2.getTiles().length);
-	//		//System.out.println(word2.getTiles().length);
-	////		for (LetterTile l : word2.getTiles()) {
-	////			System.out.println("CHAR: " + l.getChar());
-	////		}
-	//		
-	////		System.out.println(board.tileAt(0,0).getText());
-	////		
-	////		reader.conditionalNext((tile) -> {
-	////			return true;},
-	////				(tile) -> {System.out.print(tile.getText());});
-	//		
-	//		
-	//		
-	//		board = Validator.loadFile("./resources/testBoard.txt");
-	//		ComputerPlayer cpu = new ComputerPlayer(board);
-	//		Bag riggedBag = new Bag(new int[]{1,1,1,1,1,1,1});
-	//		board.grid[7][7] = new LetterTile("T",1);
-	//		//cpu.turn(riggedBag);
-	//		board.print();
-			
+		LetterTile[] tileArray = tilesOne.toArray(new LetterTile[0]);
+		human.removeTiles(tileArray);
+		assertEquals(human.getRack().size(), 0);
+		
+		
+		
+		
+	}
+	
+	@Test
+	public void playExample() {
+		
+	}
+	
+	
+	@Test
+	public void genericTest() {
+		Word word = new Word();
+		LetterTile lt = new LetterTile("A", 1);
+		word.getTilesTwo().add(lt);
+		for (LetterTile l : word.getTiles()) {
+			System.out.println(l.getChar());
 		}
+		Board board = Validator.loadFile("./resources/testBoard.txt");
+		System.out.println(board.tileAt(0,0).getText());
+		
+	}
 	
 	
 	

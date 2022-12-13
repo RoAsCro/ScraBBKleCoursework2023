@@ -5,6 +5,7 @@ import java.util.TreeSet;
 
 public class BoardReader {
 	private final Board board;
+	private char direction;
 	private int initialX;
 	private int initialY;
 	private int currentX;
@@ -16,6 +17,7 @@ public class BoardReader {
 	public BoardReader(Board board, int x, int y, char direction) {
 		this.board = board;
 		//xInc and yInc use the integer value of 'd' or 'r' to determine how to iterate across the grid.
+		this.direction = direction;
 		this.xInc = (direction - 100) / 14;
 		this.yInc = (direction - 114) / 14 * - 1;
 		this.initialX = this.currentX = x;
@@ -66,11 +68,6 @@ public class BoardReader {
 		currentY = initialY;
 	}
 	
-	public void set(int x, int y) {
-		currentX = x;
-		currentY = y;
-	}
-	
 	private void reverse() {
 		this.xInc = -this.xInc;
 		this.yInc = -this.yInc;
@@ -99,13 +96,12 @@ public class BoardReader {
 		}
 
 		if (!LetterTile.class.isInstance(tile)) {
-			tile.setText(" o ");
 			if (method.execute(x, y))
 				return true;
 			previous();
 			return false;
 		}
-		tile.setText("X");
+		//tile.setText("X");
 		this.tileTree.add(treeRef);	
 		
 		for (int i = 0; i < 4; i++) {
