@@ -24,39 +24,67 @@ public class ComputerPlayer extends Player {
 		int currentY = currentX;
 		char direction = 'r';
 		BoardReader reader = new BoardReader(board, currentX, currentY, direction);
-		reader.conditionalPrevious((tile) -> {return LetterTile.class.isInstance(tile);}, (x, y) -> {});
-		currentX = reader.getX();
-		currentX = reader.getY();
+		reader.depthFirstSearch((x, y) -> {
+			if (testWords(new LinkedList<>(getRack()), new LinkedList<LetterTile>(),
+					new BoardReader(board, x, y, reader.getDirection()))) {
+				return true;
+			}
+			return false;
+		});
 		
-		testWords(new LinkedList<>(getRack()), new LinkedList<LetterTile>(), reader);
+//		testWords(new LinkedList<>(getRack()), new LinkedList<LetterTile>(), reader);
 		
 		return false;
 	}
 	
+	/**
+	 * Attempts to create a word at the target location using every combination of the tiles in the input rack.
+	 * Step 1: Check rack is empty. If so, return false.
+	 * Step 2: For each letter in the rack:
+	 * 	-add that letter to the currentWord
+	 * 	-see if that word can be placed on the board, and construct a Word object from it
+	 * 	-see if that word is in the dictionary, if so, place it on the board and return true
+	 * 	-if not in the dictionary, create a new rack that is the same is the old rack except the letter in question
+	 * 	-call testWords again	
+	 * 	-move the reader backwards
+	 * 	-call testWords again
+	 * 	-if that returns false, move the reader forwards
+	 * 	-remove the letter in question from the currentWord
+	 * Step 3: return false
+	 * 	
+	 * @param rack
+	 * @param currentWord
+	 * @param reader
+	 * @return
+	 */
 	private boolean testWords(LinkedList<LetterTile> rack, LinkedList<LetterTile> currentWord, BoardReader reader) {
 		if (rack.isEmpty())
 			return false;
-		
-		System.out.println(currentWord.size());
-		System.out.println(rack.size());
 		
 		for (LetterTile l : rack) {
 			
 			Word word = new Word();
 			currentWord.push(l);
+			
 			if (board.constructWord(reader.getX(), reader.getY(), reader.getDirection(), new LinkedList<LetterTile>(currentWord), word)) {
 				if (Validator.lookupWord(word.toString())) {
+					//
 					System.out.println(reader.getX() + ", " + reader.getY());
 					System.out.println(word.toString());
-					
-					board.placeTiles(reader.getX(), reader.getY(), 'r', currentWord);
+					System.out.println(reader.getDirection());
+					System.out.println(currentWord.size());
+					//
+					board.placeTiles(reader.getX(), reader.getY(), reader.getDirection(), currentWord);
 					return true;
 				}
 			}
-			LinkedList<LetterTile> listThree = new LinkedList<LetterTile>(rack);
-			listThree.remove(l);
+			LinkedList<LetterTile> newRack = new LinkedList<LetterTile>(rack);
+			newRack.remove(l);
+			if (testWords(newRack, currentWord, reader)) {
+				return true;
+			}
 			reader.previous();
-			if (testWords(listThree, currentWord, reader)) {
+			if (testWords(newRack, currentWord, reader)) {
 				return true;
 			}
 			reader.next();
