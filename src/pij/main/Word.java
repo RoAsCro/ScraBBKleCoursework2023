@@ -3,6 +3,7 @@ package pij.main;
 import java.util.LinkedList;
 
 public class Word {
+	
 	private double score = 0;
 	
 	private double multiplier = 1;
@@ -12,6 +13,7 @@ public class Word {
 	public double getScore() {
 		return score * multiplier;
 	}
+	
 	
 	@Override
 	public String toString() {
