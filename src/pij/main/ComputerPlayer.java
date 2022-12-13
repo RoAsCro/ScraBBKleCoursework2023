@@ -22,7 +22,11 @@ public class ComputerPlayer extends Player {
 		
 		return new Move("A,a1,r", this);
 	}
-
+	/**
+	 * Goes through every tile on the board and checks if a word can be made from it, then places the word there if valid.
+	 * 
+	 * @return true if a word is successfully placed. False if not.
+	 */
 	private boolean parseBoard() {
 		BoardReader reader = new BoardReader(board, 'r');
 		if (reader.depthFirstSearch((x, y) -> {
@@ -117,16 +121,13 @@ public class ComputerPlayer extends Player {
 			
 			Word word = new Word();
 			currentWord.push(l);
-			//
 			if ((!LetterTile.class.isInstance(reader.previous()))) {
 				reader.next();
 			}
 			else {
 				reader.conditionalPrevious((tile) -> {return LetterTile.class.isInstance(tile);}, (x, y) -> {});
-				//reader.conditionalNext((tile) -> {return LetterTile.class.isInstance(tile);}, (x, y) -> {});
 				reader.next();
 			}
-			System.out.println(l.getChar());
 			if (board.constructWord(reader.getX(), reader.getY(), reader.getDirection(), new LinkedList<LetterTile>(currentWord), word)) {
 				if (Validator.lookupWord(word.toString())) {
 					//
@@ -141,23 +142,23 @@ public class ComputerPlayer extends Player {
 				} 
 			} 
 			else {
-				//System.out.println("L: " + word.toString());
 				return false;
 			}
-			LinkedList<LetterTile> newRack = new LinkedList<LetterTile>(rack);
-			newRack.remove(l);
-			if (testWords(newRack, new LinkedList<LetterTile>(currentWord), reader)) {
-				return true;
-			}
-//			System.out.println("-------------");
-			reader.previous();
-			newRack = new LinkedList<LetterTile>(rack);
-			newRack.remove(l);
-			if (testWords(newRack, new LinkedList<LetterTile>(currentWord), reader)) {
-				return true;
+			for (int i = 0; i < 2; i++) {
+				LinkedList<LetterTile> newRack = new LinkedList<LetterTile>(rack);
+				newRack.remove(l);
+				if (testWords(newRack, new LinkedList<LetterTile>(currentWord), reader)) {
+					return true;
+				}
+				reader.previous();
+//			newRack = new LinkedList<LetterTile>(rack);
+//			newRack.remove(l);
+//			if (testWords(newRack, new LinkedList<LetterTile>(currentWord), reader)) {
+//				return true;
+//			}
 			}
 			reader.next();
-
+			reader.next();
 			currentWord.pop();
 		}
 		
