@@ -25,10 +25,10 @@ public class ComputerPlayer extends Player {
 		char direction = 'r';
 		BoardReader reader = new BoardReader(board, currentX, currentY, direction);
 		reader.depthFirstSearch((x, y) -> {
-			if (testWords(new LinkedList<>(getRack()), new LinkedList<LetterTile>(),
-					new BoardReader(board, x, y, reader.getDirection()))) {
-				return true;
-			}
+//			if (testWords(new LinkedList<>(getRack()), new LinkedList<LetterTile>(),
+//					new BoardReader(board, x, y, reader.getDirection()))) {
+//				return true;
+//			}
 			return false;
 		});
 		
