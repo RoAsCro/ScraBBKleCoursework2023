@@ -96,12 +96,13 @@ public class BoardReader {
 		}
 
 		if (!LetterTile.class.isInstance(tile)) {
+			tile.setText(" o ");
 			if (method.execute(x, y))
 				return true;
 			previous();
 			return false;
 		}
-		//tile.setText("X");
+		tile.setText("X");
 		this.tileTree.add(treeRef);	
 		
 		for (int i = 0; i < 4; i++) {
