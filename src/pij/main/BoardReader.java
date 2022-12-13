@@ -31,6 +31,10 @@ public class BoardReader {
 	/** A TreeSet for storing every visited tile on the board during a search of the board. */
 	private TreeSet<Integer> tileTree = new TreeSet<>();
 	
+	public BoardReader(Board board, char direction) {
+		this(board, board.getCentre(), board.getCentre(), direction);
+	}
+	
 	public BoardReader(Board board, int x, int y, char direction) {
 		this.board = board;
 		//xInc and yInc use the integer value of 'd' or 'r' to determine how to iterate across the grid.
@@ -164,7 +168,6 @@ public class BoardReader {
 		this.tileTree.add(treeRef);	
 		
 		for (int i = 0; i < 4; i++) {
-
 			next();
 			if (depthFirstSearch(currentX, currentY, method))
 				return true;
