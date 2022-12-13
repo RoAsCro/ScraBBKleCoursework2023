@@ -122,19 +122,21 @@ public class Board {
 				return (!LetterTile.class.isInstance(tile) && !tiles.isEmpty());
 			}, (x, y) -> {
 
-//				reader.turn();
-//				if (isLetter.check(reader.next()))
-//					reader.set(-2, -2);
-//				reader.previous();
-//				if (isLetter.check(reader.previous()))
-//					reader.set(-2, -2);
-//				else {
-//					reader.next();
-//					reader.turn();
-					
-					word.addLetter(tiles.poll());
-					word.addLetter(tileAt(x, y));
-				//}
+				reader.turn();
+				if (isLetter.check(reader.next()))
+					reader.set(-2, -2);
+				else {
+					reader.previous();
+					if (isLetter.check(reader.previous()))
+						reader.set(-2, -2);
+					else {
+						reader.next();
+						reader.turn();
+						
+						word.addLetter(tiles.poll());
+						word.addLetter(tileAt(x, y));
+					}
+				}
 			});
 			
 			currentTile = reader.conditionalNext(isLetter, (x, y) -> {
