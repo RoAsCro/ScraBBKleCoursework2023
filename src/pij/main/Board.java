@@ -93,7 +93,8 @@ public class Board {
 		}
 		
 		System.out.println();
-		
+//		BoardReader reader = new BoardReader(this, 0, 0, 'd');
+//		reader.conditionalNext((tile) -> {return true;}, (x, y) -> {System.out.print(tileAt(x, y).getText());});
 		for (int yCoord = 0; yCoord < MAGNITUDE; yCoord++) {
 			System.out.print(yLabel + "  ");
 			yLabel++;
@@ -113,7 +114,6 @@ public class Board {
 			currentTile = reader.conditionalNext((tile) -> {
 				return (!LetterTile.class.isInstance(tile) && !tiles.isEmpty());
 			}, (x, y) -> {
-
 				reader.turn();
 				if (isLetter.check(reader.next())) {
 					reader.set(-2, -2);
@@ -126,7 +126,6 @@ public class Board {
 					else {
 						reader.next();
 						reader.turn();
-						
 						word.addLetter(tiles.poll());
 						word.addLetter(tileAt(x, y));
 					}
@@ -280,7 +279,7 @@ public class Board {
 		
 		move.updateScore(word.getScore());
 
-		LetterTile[] letters = word.getTiles();
+		//LetterTile[] letters = word.getTiles();
 		placeTiles(x, y, move.getDirection(), word.getTilesTwo());
 
 //		for (LetterTile letter : letters) {

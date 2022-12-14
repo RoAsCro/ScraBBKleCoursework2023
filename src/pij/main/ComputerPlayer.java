@@ -15,7 +15,13 @@ public class ComputerPlayer extends Player {
 		// TODO Auto-generated method stub
 		draw(bag);	
 		Move move = new Move(",,", this);
+		//
+		for (LetterTile lt : getRack()) {
+			System.out.print(lt.getChar() + ", ");
+		}
 		if (!parseBoard()) {
+			System.out.println("XXXXXX");
+			
 			//board.placeWord(move);
 			return move;
 		}
@@ -114,6 +120,8 @@ public class ComputerPlayer extends Player {
 	 * @return
 	 */
 	private boolean testWords(LinkedList<LetterTile> rack, LinkedList<LetterTile> currentWord, BoardReader reader) {
+		//System.out.print(reader.getX() + ", " + reader.getY());
+		BoardReader readerTwo = new BoardReader(board, reader.getX(), reader.getY(), reader.getDirection());
 		if (rack.isEmpty())
 			return false;
 		
@@ -121,23 +129,23 @@ public class ComputerPlayer extends Player {
 			
 			Word word = new Word();
 			currentWord.push(l);
-			if ((!LetterTile.class.isInstance(reader.previous()))) {
-				reader.next();
+			if ((!LetterTile.class.isInstance(readerTwo.previous()))) {
+				readerTwo.next();
 			}
 			else {
-				reader.conditionalPrevious((tile) -> {return LetterTile.class.isInstance(tile);}, (x, y) -> {});
-				reader.next();
+				readerTwo.conditionalPrevious((tile) -> {return LetterTile.class.isInstance(tile);}, (x, y) -> {});
+				readerTwo.next();
 			}
-			if (board.constructWord(reader.getX(), reader.getY(), reader.getDirection(), new LinkedList<LetterTile>(currentWord), word)) {
+			if (board.constructWord(readerTwo.getX(), readerTwo.getY(), readerTwo.getDirection(), new LinkedList<LetterTile>(currentWord), word)) {
 				if (Validator.lookupWord(word.toString())) {
 					//
-					System.out.println(reader.getX() + ", " + reader.getY());
+					System.out.println(readerTwo.getX() + ", " + readerTwo.getY());
 					System.out.println(word.toString());
-					System.out.println(reader.getDirection());
+					System.out.println(readerTwo.getDirection());
 					System.out.println(currentWord.size());
 					//
 					removeTiles(currentWord.toArray(new LetterTile[0]));
-					board.placeTiles(reader.getX(), reader.getY(), reader.getDirection(), word.getTilesTwo());
+					board.placeTiles(readerTwo.getX(), readerTwo.getY(), readerTwo.getDirection(), word.getTilesTwo());
 					return true;
 				} 
 			} 
@@ -145,23 +153,24 @@ public class ComputerPlayer extends Player {
 				return false;
 			}
 			for (int i = 0; i < 2; i++) {
+				//System.out.print(word.toString()+ ", ");
 				LinkedList<LetterTile> newRack = new LinkedList<LetterTile>(rack);
 				newRack.remove(l);
 				if (testWords(newRack, new LinkedList<LetterTile>(currentWord), reader)) {
 					return true;
 				}
+				//System.out.print(":");
 				reader.previous();
-//			newRack = new LinkedList<LetterTile>(rack);
-//			newRack.remove(l);
-//			if (testWords(newRack, new LinkedList<LetterTile>(currentWord), reader)) {
-//				return true;
-//			}
+
 			}
 			reader.next();
 			reader.next();
 			currentWord.pop();
 		}
-		
+		//System.out.print(";");
+
+		//System.out.println();
+
 		return false;
 	}
 	
