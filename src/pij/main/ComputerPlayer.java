@@ -123,7 +123,7 @@ public class ComputerPlayer extends Player {
 		//System.out.print(reader.getX() + ", " + reader.getY());
 		if (rack.isEmpty())
 			return false;
-		BoardReader readerTwo = new BoardReader(board, reader.getX(), reader.getY(), reader.getDirection());
+		BoardReader readerTwo = new BoardReader(reader);
 		if ((!LetterTile.class.isInstance(readerTwo.previous()))) {
 			readerTwo.next();
 		}

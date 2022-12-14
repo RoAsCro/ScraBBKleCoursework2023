@@ -35,6 +35,10 @@ public class BoardReader {
 		this(board, board.getCentre(), board.getCentre(), direction);
 	}
 	
+	public BoardReader(BoardReader reader) {
+		this(reader.board, reader.currentX, reader.currentY, reader.getDirection());
+	}
+	
 	public BoardReader(Board board, int x, int y, char direction) {
 		this.board = board;
 		//xInc and yInc use the integer value of 'd' or 'r' to determine how to iterate across the grid.
