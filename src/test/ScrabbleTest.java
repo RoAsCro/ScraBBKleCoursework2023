@@ -208,8 +208,7 @@ public class ScrabbleTest {
 		ArrayList<LetterTile> tilesTwo = new ArrayList<> (human.getRack());
 		assertTrue(tilesOne.containsAll(tilesTwo));
 		
-		LetterTile[] tileArray = tilesOne.toArray(new LetterTile[0]);
-		human.removeTiles(tileArray);
+		human.removeTiles(new LinkedList<LetterTile>(tilesOne));
 		assertEquals(human.getRack().size(), 0);
 		
 		
@@ -232,9 +231,6 @@ public class ScrabbleTest {
 				4,0,0,0,0});
 		HumanPlayer human2 = new HumanPlayer();
 		human2.draw(riggedBag2);
-		for (LetterTile l : human2.getRack()) {
-			System.out.println(l.getChar());
-		}
 		Board board2 = Validator.loadFile("./resources/testBoard.txt");
 		Move move2 = new Move("VEIN,g8,r", human2);
 		assertTrue(move2.isValid());
@@ -398,17 +394,23 @@ public class ScrabbleTest {
 	@Test
 		public void genericTest() {
 		Board board = Validator.loadFile("./resources/testBoard.txt");
-		Validator.loadDictionary(new File("./resources/reducedwordlist.txt"));
+		Validator.loadDictionary(new File("./resources/wordlist.txt"));
 		ComputerPlayer cpu = new ComputerPlayer(board);
-		Bag riggedBagTwo = new Bag(new int[]{1,1,1,1,1,1,1});
-		board.grid[7][7] = new LetterTile("X", 1);
-		board.grid[6][6] = new LetterTile("X", 1);
-		board.grid[6][8] = new LetterTile("X", 1);
-//		board.grid[8][7] = new LetterTile("A", 1);
-//		board.grid[7][6] = new LetterTile("A", 1);
-//		board.grid[7][5] = new LetterTile("A", 1);
-//		for (int i =0; i < 100; i++) {
-//			riggedBagTwo = new Bag(new int[]{1,1,1,1,1,1,1});
+		Bag riggedBagTwo = new Bag(new int[]{1,1,1,1,1,1,0});
+		board.grid[7][7] = new LetterTile("A", 1);
+//		board.grid[6][6] = new LetterTile("X", 1);
+//		board.grid[6][8] = new LetterTile("X", 1);
+		board.grid[8][7] = new LetterTile("A", 1);
+		board.grid[7][6] = new LetterTile("A", 1);
+		board.grid[7][5] = new LetterTile("A", 1);
+		LinkedList<LetterTile> ltlt = new LinkedList<>(cpu.getRack());
+		System.out.println("X     :" + ltlt.size());
+		ltlt.poll();
+		for (LetterTile d : ltlt) {
+			
+		}
+//		for (int i =0; i < 1000; i++) {
+//			riggedBagTwo = new Bag(new int[]{4,3,0,0,0,0,0});
 //			if (cpu.turn(riggedBagTwo).isPass()) {
 //				for (LetterTile t : cpu.getRack()) {
 //					System.out.println(t.getChar());
@@ -417,35 +419,32 @@ public class ScrabbleTest {
 //			}
 //			board.print();
 //		}
-		//cpu.turn(riggedBagTwo);
-		board.print();
+//		cpu.turn(riggedBagTwo);
+//		board.print();
 			
 		}
 	
 	@Test
-	public void genericTest2() {
+	public void testComputerPlayer() {
 		Board board = Validator.loadFile("./resources/testBoard.txt");
-		Validator.loadDictionary(new File("./resources/wordlist.txt"));
+		Validator.loadDictionary(new File("./resources/reducedwordlist.txt"));
 		ComputerPlayer cpu = new ComputerPlayer(board);
-		Bag riggedBagTwo = new Bag(new int[]{7,0,0,0,0,0,0});
-		board.grid[7][7] = new LetterTile("A", 1);
-//		board.grid[6][6] = new LetterTile("X", 1);
-//		board.grid[6][8] = new LetterTile("X", 1);
-//		board.grid[8][7] = new LetterTile("A", 1);
-//		board.grid[7][6] = new LetterTile("A", 1);
-//		board.grid[7][5] = new LetterTile("A", 1);
-//		for (int i =0; i < 100; i++) {
-//			riggedBagTwo = new Bag(new int[]{7});
-//			if (cpu.turn(riggedBagTwo).isPass()) {
-////				for (LetterTile t : cpu.getRack()) {
-////					System.out.println(t.getChar());
-////				}
-//				break;
-//			}
-//			board.print();
-//		}
-		//cpu.turn(riggedBagTwo);
-		board.print();
+
+		Bag riggedBagTwo = new Bag(new int[]{0,1,0,0,0,0,0});
+		board.grid[7][7] = new LetterTile("B", 1);
+		board.grid[7][5] = new LetterTile("X", 1);
+		board.grid[8][7] = new LetterTile("D", 1);
+
+		cpu.draw(riggedBagTwo);
+		riggedBagTwo = new Bag(new int[]{1,0,0,0,0,0,0});
+		cpu.draw(riggedBagTwo);
+
+		for (int i =0; i < 1000; i++) {
+			if (cpu.turn(riggedBagTwo).isPass()) {
+				break;
+			}
+		}
+		assertTrue(LetterTile.class.isInstance(board.tileAt(7, 8)));
 	}
 
 	
@@ -463,17 +462,17 @@ public class ScrabbleTest {
 		board.grid[9][7] = new LetterTile("E", 1);
 		board.grid[10][7] = new LetterTile("C", 1);
 		board.grid[11][7] = new LetterTile("K", 1);
-		for (int i = 0; i < 100; i++) {
-			board.print();
-			bag = new Bag();
-			if (cpu.turn(bag).isPass()) {
-				for (LetterTile t : cpu.getRack()) {
-					System.out.println(t.getChar());
-				}
-				break;
-			}
-		}
-		board.print();
+//		for (int i = 0; i < 1000; i++) {
+//			board.print();
+//			bag = new Bag();
+//			if (cpu.turn(bag).isPass()) {
+//				for (LetterTile t : cpu.getRack()) {
+//					System.out.println(t.getChar());
+//				}
+//				break;
+//			}
+//		}
+//		board.print();
 	}
 	
 	

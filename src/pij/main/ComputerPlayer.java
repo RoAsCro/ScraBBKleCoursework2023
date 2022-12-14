@@ -143,7 +143,7 @@ public class ComputerPlayer extends Player {
 					System.out.println(readerTwo.getDirection());
 					System.out.println(currentWord.size());
 					//
-					removeTiles(currentWord.toArray(new LetterTile[0]));
+					removeTiles(currentWord);
 					board.placeTiles(readerTwo.getX(), readerTwo.getY(), readerTwo.getDirection(), word.getTilesTwo());
 					return true;
 				} 

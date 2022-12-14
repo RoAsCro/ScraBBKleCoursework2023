@@ -1,6 +1,7 @@
 package pij.main;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public abstract class Player {
 	
@@ -67,8 +68,8 @@ public abstract class Player {
 	 * 
 	 * @param letterLocation Location of the letter in the tile rack
 	 */
-	public void removeTiles(LetterTile[] tiles) {
-		for (LetterTile tile : tiles) {
+	public void removeTiles(LinkedList<LetterTile> linkedList) {
+		for (LetterTile tile : linkedList) {
 			tileRack.remove(tile);
 		}
 		
