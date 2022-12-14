@@ -121,15 +121,14 @@ public class Board {
 						word.addLetter(tileAt(x, y));
 					}
 				}
-			});
-			
+			});	
 			currentTile = reader.conditionalNext(isLetter, (x, y) -> {
 				word.addLetter(tileAt(x, y));
 			});
 			
 		} while (!tiles.isEmpty() && currentTile != null);
 		
-		if ((!tiles.isEmpty() && currentTile == null) || word.getTiles().length <= tiles.size())
+		if ((!tiles.isEmpty() && currentTile == null) /*|| word.getTiles().length <= tiles.size()*/)
 			return false;
 		
 		return true;
@@ -144,66 +143,28 @@ public class Board {
 		});
 	}
 	
-	public boolean boardIter(int x, int y, int xInc, int yInc, LetterTile[] tiles, Condition failCondition,
-			WordOperation method, WordOperation methodTwo, Word word, Tile type) {
-		Tile targetTile = tileAt(x, y);
-		int wordLength = tiles.length;
-
-		for (int i = 0; i < wordLength || LetterTile.class.isInstance(targetTile);) {
-			if (targetTile == null) {
-				System.out.println("That word does not fit on the board.");
-				return false;
-			}
-			if (!type.getClass().isInstance(targetTile)) {
-				if (!failCondition.test(x, y, xInc, yInc))
-					return false;
-				method.execute(word, tiles, i);
-				i++;
-			}
-			methodTwo.execute(word, grid[x], y);
-			x += xInc;
-			y += yInc;
-			targetTile = tileAt(x, y);
-		}
-		System.out.println("DDDDDD");
-		return true;
-	}
-	
 	public boolean placeWord(Move move) {
 		if (move.isPass())
 			return true;
 		int x = move.getX();
 		int y = move.getY();
 		char direction = move.getDirection();
-		LetterTile[] tiles = move.getTiles();
-		
-		int wordLength = tiles.length;
+		LinkedList<LetterTile> tiles = new LinkedList<LetterTile>(move.getTiles());
+		int wordLength = tiles.size();
 		
 		//xInc and yInc use the integer value of 'd' or 'r' to determine how to iterate across the grid.
 		int xInc = (direction - 100) / 14;
 		int yInc = (direction - 114) / 14 * - 1;
 		
-		//Test for if the word intersects with a pre-existing word on the board.
-		boolean intersection = false;
-		
 		//The word will store all the placed word's information
 		Word word = new Word();
 				
-		
 		if (LetterTile.class.isInstance(tileAt(x-xInc, y-yInc))) {
 			System.out.println("Please use the position of the first letter in the word as the input location.");
 			return false;
 		}
-		
-		if (!boardIter(x, y, xInc, yInc, tiles, aboveBelow, addLetter, addLetter, word, new LetterTile("A", 1)))
+		if (!constructWord(x, y, direction, tiles, word))
 			return false;
-		
-		if (word.getTiles().length > wordLength) {
-			intersection = true;
-		}
-
-		int startX = x;
-		int startY = y;
 
 		//Check word is in dictionary.
 		if (!Validator.lookupWord(word.toString())) {
@@ -213,12 +174,12 @@ public class Board {
 		
 		//Check word is either the first word being placed OR that it intersects with a pre-existing word.
 		//THIS MUST BE THE LAST CHECK because startState is turned off by all the conditionals below evaluating to false.
-		if (!intersection) {
+		if (!(word.getTiles().length > wordLength)) {
 			if (!startState) {
 				System.out.println("Your word must cross another word");
 				return false;
-			} else if (!((y == CENTRE && y + yInc == CENTRE && (CENTRE <= x + wordLength - 1 && CENTRE >= startX))
-					|| (x == CENTRE && x + xInc == CENTRE && (CENTRE <= y + wordLength - 1 && CENTRE >= startY)))) {
+			} else if (!((y == CENTRE && y + yInc == CENTRE && (CENTRE <= x + wordLength - 1 && CENTRE >= x))
+					|| (x == CENTRE && x + xInc == CENTRE && (CENTRE <= y + wordLength - 1 && CENTRE >= y)))) {
 				System.out.println("Your word must cross over the centre tile.");
 				return false;
 			} else
