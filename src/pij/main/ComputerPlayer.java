@@ -120,17 +120,16 @@ public class ComputerPlayer extends Player {
 	 * @return
 	 */
 	private boolean testWords(LinkedList<LetterTile> rack, LinkedList<LetterTile> currentWord, BoardReader reader) {
-		//System.out.print(reader.getX() + ", " + reader.getY());
 		if (rack.isEmpty())
 			return false;
 		BoardReader readerTwo = new BoardReader(reader);
 		if ((!LetterTile.class.isInstance(readerTwo.previous()))) {
 			readerTwo.next();
-		}
-		else {
+		} else {
 			readerTwo.conditionalPrevious((tile) -> {return LetterTile.class.isInstance(tile);}, (x, y) -> {});
 			readerTwo.next();
 		}
+
 		for (LetterTile l : rack) {
 			
 			Word word = new Word();
@@ -167,11 +166,7 @@ public class ComputerPlayer extends Player {
 			reader.next();
 			currentWord.pop();
 		}
-		//System.out.print(";");
-
-		//System.out.println();
-
 		return false;
 	}
-	
+
 }

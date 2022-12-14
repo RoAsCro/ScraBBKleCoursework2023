@@ -12,9 +12,6 @@ import java.util.TreeSet;
 public class BoardReader {
 	/** The Board over which the reader iterates . */
 	private final Board board;
-
-	private int initialX;
-	private int initialY;
 	
 	/** The current x coordinate of the reader. */
 	private int currentX;
@@ -44,8 +41,8 @@ public class BoardReader {
 		//xInc and yInc use the integer value of 'd' or 'r' to determine how to iterate across the grid.
 		this.xInc = (direction - 100) / 14;
 		this.yInc = (direction - 114) / 14 * - 1;
-		this.initialX = this.currentX = x;
-		this.initialY = this.currentY = y;
+		this.currentX = x;
+		this.currentY = y;
 	}
 	
 	public int getX() {
@@ -105,10 +102,6 @@ public class BoardReader {
 		return tile;
 	}
 	
-	public void reset() {
-		currentX = initialX;
-		currentY = initialY;
-	}
 	/**
 	 * Sets the current coordinates to the given (x, y).
 	 * @param x the x coordinate.
@@ -183,5 +176,4 @@ public class BoardReader {
 		//System.out.println("TT: " + tileTree.size());
 		return false;
 	}
-	
 }
