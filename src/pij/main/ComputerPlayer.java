@@ -121,21 +121,21 @@ public class ComputerPlayer extends Player {
 	 */
 	private boolean testWords(LinkedList<LetterTile> rack, LinkedList<LetterTile> currentWord, BoardReader reader) {
 		//System.out.print(reader.getX() + ", " + reader.getY());
-		BoardReader readerTwo = new BoardReader(board, reader.getX(), reader.getY(), reader.getDirection());
 		if (rack.isEmpty())
 			return false;
-		
+		BoardReader readerTwo = new BoardReader(board, reader.getX(), reader.getY(), reader.getDirection());
+		if ((!LetterTile.class.isInstance(readerTwo.previous()))) {
+			readerTwo.next();
+		}
+		else {
+			readerTwo.conditionalPrevious((tile) -> {return LetterTile.class.isInstance(tile);}, (x, y) -> {});
+			readerTwo.next();
+		}
 		for (LetterTile l : rack) {
 			
 			Word word = new Word();
 			currentWord.push(l);
-			if ((!LetterTile.class.isInstance(readerTwo.previous()))) {
-				readerTwo.next();
-			}
-			else {
-				readerTwo.conditionalPrevious((tile) -> {return LetterTile.class.isInstance(tile);}, (x, y) -> {});
-				readerTwo.next();
-			}
+			
 			if (board.constructWord(readerTwo.getX(), readerTwo.getY(), readerTwo.getDirection(), new LinkedList<LetterTile>(currentWord), word)) {
 				if (Validator.lookupWord(word.toString())) {
 					//
