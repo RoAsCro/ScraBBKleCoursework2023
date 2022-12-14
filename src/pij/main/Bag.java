@@ -42,13 +42,10 @@ public class Bag {
 	 * 
 	 * @return a random Tile or null if bag is empty.
 	 */
-	
 	public LetterTile draw() {
 		int size = bag.size();
-
 		if (size == 0)
 			return null;
-
 		LetterTile tile = bag.get((int) (Math.random() * size));
 		bag.remove(tile);
 		return tile;
