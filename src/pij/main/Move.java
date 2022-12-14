@@ -126,10 +126,12 @@ public class Move {
 	public int getY() {
 		return Y;
 	}
-
-
-	public LetterTile[] getTiles() {
-		return TILES;
+	
+	public LinkedList<LetterTile> getTiles() {
+		LinkedList<LetterTile> list = new LinkedList<>();
+		for (LetterTile l : TILES)
+			list.add(l);
+		return list;
 	}
 
 
