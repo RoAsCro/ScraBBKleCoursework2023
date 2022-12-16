@@ -209,11 +209,7 @@ public class ScrabbleTest {
 		assertTrue(tilesOne.containsAll(tilesTwo));
 		
 		human.removeTiles(new LinkedList<LetterTile>(tilesOne));
-		assertEquals(human.getRack().size(), 0);
-		
-		
-		
-		
+		assertEquals(human.getRack().size(), 0);	
 	}
 	
 	@Test
@@ -462,17 +458,17 @@ public class ScrabbleTest {
 		board.grid[9][7] = new LetterTile("E", 1);
 		board.grid[10][7] = new LetterTile("C", 1);
 		board.grid[11][7] = new LetterTile("K", 1);
-//		for (int i = 0; i < 1000; i++) {
-//			board.print();
-//			bag = new Bag();
-//			if (cpu.turn(bag).isPass()) {
-//				for (LetterTile t : cpu.getRack()) {
-//					System.out.println(t.getChar());
-//				}
-//				break;
-//			}
-//		}
-//		board.print();
+		for (int i = 0; i < 1000; i++) {
+			board.print();
+			bag = new Bag();
+			if (cpu.turn(bag).isPass()) {
+				for (LetterTile t : cpu.getRack()) {
+					System.out.println(t.getChar());
+				}
+				break;
+			}
+		}
+		board.print();
 	}
 	
 	

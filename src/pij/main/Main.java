@@ -41,7 +41,7 @@ public class Main {
 		} while (board == null);
 		
 		HumanPlayer human = new HumanPlayer();
-		ComputerPlayer computer = new ComputerPlayer();
+		ComputerPlayer computer = new ComputerPlayer(board);
 		Player[] players = new Player[] {human, computer};
 		int currentPlayer = 0;
 		Player activePlayer;
@@ -78,10 +78,6 @@ public class Main {
 			System.out.println();
 			
 			currentPlayer = Math.abs(currentPlayer - 1);
-		}
-			
+		}			
 	}
-	
-
-	
 }
