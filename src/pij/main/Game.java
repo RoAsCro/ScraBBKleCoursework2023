@@ -159,13 +159,14 @@ public class Game {
 						w.setTempText(letter[0].toLowerCase().charAt(0));
 						if (Validator.lookupWord(word.toString())) {
 							inDictionary = true;
+							break;
 						}
 					}
 				} else
 					if (Validator.lookupWord(word.toString()))
 						inDictionary = true;
 				if (inDictionary) {
-					activePlayer.removeTiles(currentWord);
+					//activePlayer.removeTiles(currentWord);
 					move.setAll(readerTwo.getX(), readerTwo.getY(), readerTwo.getDirection(), currentWord.toArray(new LetterTile[0]));
 					return true;
 				} 
