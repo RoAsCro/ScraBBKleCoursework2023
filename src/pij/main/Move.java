@@ -20,6 +20,15 @@ public class Move {
 	
 	private final Player PLAYER;
 	
+	public Move(int x, int y, char direction, LetterTile[] tiles, Player player) {
+		PASS = false;
+		this.X = x;
+		this.Y = y;
+		this.TILES = tiles;
+		this.PLAYER = player;
+		this.DIRECTION = direction;
+	}
+	
 	public Move(String input, Player player) {
 		this.PLAYER = player;
 		String x = "0";

@@ -27,26 +27,8 @@ public class Board {
 	/** True if no tiles have been placed yet */
 	private boolean startState = true;
 	
-	private WordOperation addLetter = (word, tiles, i) -> {
-		word.addLetter(tiles[i]);
-	};
 	
-	private WordOperation placeTile = (word, tiles, i) -> {
-		
-	};
 	private Check isLetter = (tile) -> {return LetterTile.class.isInstance(tile);};
-	private Condition aboveBelow = (x, y, xInc, yInc) -> {
-		Tile higher = tileAt(x + yInc, y + xInc);
-		Tile lower = tileAt(x - yInc, y - xInc);
-		if (LetterTile.class.isInstance(higher) || LetterTile.class.isInstance(lower)) {
-			System.out.println(
-					"You cannot form more than one word in one move, or have two adjacent letters that do not form a word.");
-			return false;
-		}
-		return true;
-	};
-	
-	Condition alwaysTrue = (x, y, xInc, yInc) -> {return true;};
 	
 	public Board(int magnitude, Tile[][] grid) {
 		this.MAGNITUDE = magnitude;
@@ -97,7 +79,15 @@ public class Board {
 		}
 
 	}
-	
+	/**
+	 * 
+	 * @param initialX
+	 * @param initialY
+	 * @param direction
+	 * @param tiles
+	 * @param word
+	 * @return
+	 */
 	public boolean constructWord(int initialX, int initialY, char direction, LinkedList<LetterTile> tiles, Word word) {
 		BoardReader reader = new BoardReader(this, initialX, initialY, direction);
 		Tile currentTile = null;
@@ -108,29 +98,27 @@ public class Board {
 				reader.turn();
 				if (isLetter.check(reader.next())) {
 					reader.set(-2, -2);
-				}
-				else {
+				} else {
 					reader.previous();
 					if (isLetter.check(reader.previous())) {
 						reader.set(-2, -2);
-					}
-					else {
+					} else {
 						reader.next();
 						reader.turn();
 						word.addLetter(tiles.poll());
 						word.addLetter(tileAt(x, y));
 					}
 				}
-			});	
+			});
 			currentTile = reader.conditionalNext(isLetter, (x, y) -> {
 				word.addLetter(tileAt(x, y));
 			});
-			
+
 		} while (!tiles.isEmpty() && currentTile != null);
-		
-		if ((!tiles.isEmpty() && currentTile == null) /*|| word.getTiles().length <= tiles.size()*/)
+
+		if ((!tiles.isEmpty() && currentTile == null) /* || word.getTiles().length <= tiles.size() */)
 			return false;
-		
+
 		return true;
 	}
 	
@@ -151,29 +139,32 @@ public class Board {
 		char direction = move.getDirection();
 		LinkedList<LetterTile> tiles = new LinkedList<LetterTile>(move.getTiles());
 		int wordLength = tiles.size();
-		
-		//xInc and yInc use the integer value of 'd' or 'r' to determine how to iterate across the grid.
+
+		// xInc and yInc use the integer value of 'd' or 'r' to determine how to iterate
+		// across the grid.
 		int xInc = (direction - 100) / 14;
-		int yInc = (direction - 114) / 14 * - 1;
-		
-		//The word will store all the placed word's information
+		int yInc = (direction - 114) / 14 * -1;
+
+		// The word will store all the placed word's information
 		Word word = new Word();
-				
-		if (LetterTile.class.isInstance(tileAt(x-xInc, y-yInc))) {
+
+		if (LetterTile.class.isInstance(tileAt(x - xInc, y - yInc))) {
 			System.out.println("Please use the position of the first letter in the word as the input location.");
 			return false;
 		}
 		if (!constructWord(x, y, direction, tiles, word))
 			return false;
 
-		//Check word is in dictionary.
+		// Check word is in dictionary.
 		if (!Validator.lookupWord(word.toString())) {
-			System.out.println("Word not in dictionary.");
+			//System.out.println("Word not in dictionary.");
 			return false;
 		}
-		
-		//Check word is either the first word being placed OR that it intersects with a pre-existing word.
-		//THIS MUST BE THE LAST CHECK because startState is turned off by all the conditionals below evaluating to false.
+
+		// Check word is either the first word being placed OR that it intersects with a
+		// pre-existing word.
+		// THIS MUST BE THE LAST CHECK because startState is turned off by all the
+		// conditionals below evaluating to false.
 		if (!(word.getTiles().length > wordLength)) {
 			if (!startState) {
 				System.out.println("Your word must cross another word");
@@ -184,12 +175,12 @@ public class Board {
 				return false;
 			} else
 				startState = false;
-			
+
 		}
-		
+
 		move.updateScore(word.getScore());
 		placeTiles(x, y, move.getDirection(), word.getTilesTwo());
-		
+
 		return true;
 	}
 	

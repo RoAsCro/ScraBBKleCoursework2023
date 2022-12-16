@@ -25,7 +25,7 @@ public class ComputerPlayer extends Player {
 			//board.placeWord(move);
 			return move;
 		}
-		
+		System.out.println("XXXXXXXXXXXXXXXXXXXX");
 		return new Move("A,a1,r", this);
 	}
 	/**
@@ -46,58 +46,6 @@ public class ComputerPlayer extends Player {
 				
 		return false;
 	}
-	
-//	public boolean testWordsInit(LinkedList<LetterTile> rack, LinkedList<LetterTile> currentWord, BoardReader reader) {
-//		Word word = new Word();
-//		word = testWordsTwo(rack, currentWord, reader, word);
-//		if (word.getTiles().length != 0) {
-//			board.placeTiles(word.getX(), word.getY(), reader.getDirection(), word.getTilesTwo());
-//			return true;
-//		}
-//		return false;
-//	}
-//	
-//	public Word testWordsTwo(LinkedList<LetterTile> rack, LinkedList<LetterTile> currentWord, BoardReader reader, Word highest) {
-//		if (rack.isEmpty())
-//			return highest;
-//		
-//		for (LetterTile l : rack) {
-//			
-//			Word word = new Word();
-//			currentWord.push(l);
-//			
-//			if (board.constructWord(reader.getX(), reader.getY(), reader.getDirection(), new LinkedList<LetterTile>(currentWord), word)) {
-//				if (Validator.lookupWord(word.toString())) {
-//					//
-//					System.out.println(reader.getX() + ", " + reader.getY());
-//					System.out.println(word.toString());
-//					System.out.println(reader.getDirection());
-//					System.out.println(currentWord.size());
-//					//
-////					removeTiles(currentWord.toArray(new LetterTile[0]));
-////					board.placeTiles(reader.getX(), reader.getY(), reader.getDirection(), word.getTilesTwo());
-//					if (word.getScore() > highest.getScore())
-//						highest = word;
-//				}
-//			}
-//			LinkedList<LetterTile> newRack = new LinkedList<LetterTile>(rack);
-//			newRack.remove(l);
-//			word = testWordsTwo(newRack, currentWord, reader, highest);
-//			if (word.getScore() > highest.getScore()) {
-//				highest = word;
-//			}
-//			reader.previous();
-//			word = testWordsTwo(newRack, currentWord, reader, highest);
-//			if (word.getScore() > highest.getScore()) {
-//				highest = word;
-//			}
-//			reader.next();
-//
-//			currentWord.pop();
-//		}
-//		
-//		return highest;
-//	}
 	
 	/**
 	 * Attempts to create a word at the target location using every combination of the tiles in the input rack.
@@ -131,11 +79,12 @@ public class ComputerPlayer extends Player {
 		}
 
 		for (LetterTile l : rack) {
-			
+
 			Word word = new Word();
 			currentWord.push(l);
-			
-			if (board.constructWord(readerTwo.getX(), readerTwo.getY(), readerTwo.getDirection(), new LinkedList<LetterTile>(currentWord), word)) {
+
+			if (board.constructWord(readerTwo.getX(), readerTwo.getY(), readerTwo.getDirection(),
+					new LinkedList<LetterTile>(currentWord), word)) {
 				if (Validator.lookupWord(word.toString())) {
 					//
 					System.out.println(readerTwo.getX() + ", " + readerTwo.getY());
@@ -158,7 +107,6 @@ public class ComputerPlayer extends Player {
 				if (testWords(newRack, new LinkedList<LetterTile>(currentWord), reader)) {
 					return true;
 				}
-				//System.out.print(":");
 				reader.previous();
 
 			}
@@ -168,5 +116,95 @@ public class ComputerPlayer extends Player {
 		}
 		return false;
 	}
-
+	
+//	private boolean testWordsTwo(LinkedList<LetterTile> rack, LinkedList<LetterTile> currentWord, BoardReader reader) {
+//		if (rack.isEmpty())
+//			return false;
+//		BoardReader readerTwo = new BoardReader(reader);
+//		if ((!LetterTile.class.isInstance(readerTwo.previous()))) {
+//			readerTwo.next();
+//		} else {
+//			readerTwo.conditionalPrevious((tile) -> {return LetterTile.class.isInstance(tile);}, (x, y) -> {});
+//			readerTwo.next();
+//		}
+//
+//		for (LetterTile l : rack) {
+//
+//			currentWord.push(l);
+//			if (board.placeWord(new Move(readerTwo.getX(), readerTwo.getY(), readerTwo.getDirection(), currentWord.toArray(new LetterTile[0]), this))) {
+//				return true;
+//			}
+//			for (int i = 0; i < 2; i++) {
+//				LinkedList<LetterTile> newRack = new LinkedList<LetterTile>(rack);
+//				newRack.remove(l);
+//				if (testWordsTwo(newRack, new LinkedList<LetterTile>(currentWord), reader)) {
+//					return true;
+//				}
+//				reader.previous();
+//
+//			}
+//			reader.next();
+//			reader.next();
+//			currentWord.pop();
+//		}
+//		return false;
+//	}
+//
+//	private Move testWordsThree(LinkedList<LetterTile> rack, LinkedList<LetterTile> currentWord, BoardReader reader) {
+//		if (rack.isEmpty())
+//			return null;
+//		BoardReader readerTwo = new BoardReader(reader);
+//		if ((!LetterTile.class.isInstance(readerTwo.previous()))) {
+//			readerTwo.next();
+//		} else {
+//			readerTwo.conditionalPrevious((tile) -> {return LetterTile.class.isInstance(tile);}, (x, y) -> {});
+//			readerTwo.next();
+//		}
+//
+//		for (LetterTile l : rack) {
+//
+//			Word word = new Word();
+//			currentWord.push(l);
+//
+//			if (board.constructWord(readerTwo.getX(), readerTwo.getY(), readerTwo.getDirection(),
+//					new LinkedList<LetterTile>(currentWord), word)) {
+//				if (Validator.lookupWord(word.toString())) {
+//					return new Move(readerTwo.getX(), readerTwo.getY(), readerTwo.getDirection(), currentWord.toArray(new LetterTile[0]), this);
+//				} 
+//			} 
+//			else {
+//				return null;
+//			}
+//			for (int i = 0; i < 2; i++) {
+//				//System.out.print(word.toString()+ ", ");
+//				LinkedList<LetterTile> newRack = new LinkedList<LetterTile>(rack);
+//				newRack.remove(l);
+//				Move move = testWordsThree(newRack, new LinkedList<LetterTile>(currentWord), reader);
+//				if (move != null) {
+//					return move;
+//				}
+//				reader.previous();
+//
+//			}
+//			reader.next();
+//			reader.next();
+//			currentWord.pop();
+//		}
+//		return null;
+//	}
+//	
+//	private boolean parseBoardTwo() {
+//		BoardReader reader = new BoardReader(board, 'r');
+//		if (reader.depthFirstSearch((x, y) -> {
+//			if (testWords(new LinkedList<>(getRack()), new LinkedList<LetterTile>(),
+//					new BoardReader(board, x, y, reader.getDirection()))) {
+//				return true;
+//			}
+//			return false;
+//		}))
+//			return true;
+//				
+//		return false;
+//	}
+	
 }
