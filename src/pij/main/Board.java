@@ -152,12 +152,13 @@ public class Board {
 			System.out.println("Please use the position of the first letter in the word as the input location.");
 			return false;
 		}
-		if (!constructWord(x, y, direction, tiles, word))
+		if (!constructWord(x, y, direction, tiles, word)) {
 			return false;
+		}
 
 		// Check word is in dictionary.
 		if (!Validator.lookupWord(word.toString())) {
-			//System.out.println("Word not in dictionary.");
+			System.out.println("Word not in dictionary.");
 			return false;
 		}
 

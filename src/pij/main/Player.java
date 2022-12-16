@@ -62,7 +62,7 @@ public abstract class Player {
 	 * @param bag
 	 * @return TODO
 	 */
-	public abstract Move turn(Bag bag);
+	public abstract Move turn(Game game);
 
 	/**
 	 * Removes the specified letter from the tile rack. Should only be called

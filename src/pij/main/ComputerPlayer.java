@@ -11,22 +11,23 @@ public class ComputerPlayer extends Player {
 	}
 	
 	@Override
-	public Move turn(Bag bag) {
+	public Move turn(Game game) {
 		// TODO Auto-generated method stub
-		draw(bag);	
-		Move move = new Move(",,", this);
+		draw(game.bag);	
+		Move move = new Move(this);
 		//
 		for (LetterTile lt : getRack()) {
 			System.out.print(lt.getChar() + ", ");
 		}
-		if (!parseBoard()) {
+		if (game.parseBoard(move)) {
 			System.out.println("XXXXXX");
 			
 			//board.placeWord(move);
 			return move;
 		}
+		else move = new Move(",,", this);
 		System.out.println("XXXXXXXXXXXXXXXXXXXX");
-		return new Move("A,a1,r", this);
+		return move;
 	}
 	/**
 	 * Goes through every tile on the board and checks if a word can be made from it, then places the word there if valid.
