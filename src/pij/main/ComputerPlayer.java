@@ -79,13 +79,30 @@ public class ComputerPlayer extends Player {
 		}
 
 		for (LetterTile l : rack) {
-
+			if (WildTile.class.isInstance(l)) {
+				WildTile w = (WildTile) l;
+				for (String[] letter : Bag.getAlphabet()) {
+					w.setTempText(letter[0].charAt(0));
+				}
+			}
 			Word word = new Word();
 			currentWord.push(l);
 
 			if (board.constructWord(readerTwo.getX(), readerTwo.getY(), readerTwo.getDirection(),
 					new LinkedList<LetterTile>(currentWord), word)) {
-				if (Validator.lookupWord(word.toString())) {
+				boolean inDictionary = false;
+				if (WildTile.class.isInstance(l)) {
+					WildTile w = (WildTile) l;
+					for (String[] letter : Bag.getAlphabet()) {
+						w.setTempText(letter[0].toLowerCase().charAt(0));
+						if (Validator.lookupWord(word.toString())) {
+							inDictionary = true;
+						}
+					}
+				} else
+					if (Validator.lookupWord(word.toString()))
+						inDictionary = true;
+				if (inDictionary) {
 					//
 					System.out.println(readerTwo.getX() + ", " + readerTwo.getY());
 					System.out.println(word.toString());
