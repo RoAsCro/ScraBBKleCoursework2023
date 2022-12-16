@@ -26,6 +26,10 @@ public class Bag {
 			}
 		}
 	}
+	
+	public static String[][] getAlphabet() {
+		return ALPHABET;
+	}
 
 	/**
 	 * Helps the constructor with repeatedly adding identical tiles.

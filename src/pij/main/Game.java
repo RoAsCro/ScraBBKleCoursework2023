@@ -46,7 +46,7 @@ public class Game {
 		} while (board == null);
 		
 		human = new HumanPlayer();
-		computer = new ComputerPlayer(board);
+		computer = new ComputerPlayer();
 		Player[] players = new Player[] {human, computer};
 		int currentPlayer = 0;
 		go = true;
