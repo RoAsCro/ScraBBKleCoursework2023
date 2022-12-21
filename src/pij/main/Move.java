@@ -8,17 +8,22 @@ public class Move {
 	
 	private boolean valid = true;
 	
-	private final boolean PASS;
+	private boolean pass;
 	
-	private final char DIRECTION;
+	private char direction;
 	
-	private final LetterTile[] TILES;
+	private LetterTile[] tiles;
 	
-	private final int X;
+	private int x;
 	
-	private final int Y;
+	private int y;
 	
 	private final Player PLAYER;
+	
+	public Move(Player player) {
+		pass = false;
+		this.PLAYER = player;
+	}
 	
 	public Move(String input, Player player) {
 		this.PLAYER = player;
@@ -28,9 +33,9 @@ public class Move {
 		ArrayList<LetterTile> tiles = new ArrayList<>();
 		
 		if (input.equals(",,"))
-			PASS = true;
+			pass = true;
 		else {
-			PASS = false;
+			pass = false;
 			
 			String[] movesToTest = input.split(",");
 			
@@ -98,20 +103,27 @@ public class Move {
 			}else
 				valid = false;
 		} 
-		if (!this.valid || PASS) {
-			this.X = 0;
-			this.Y = 0;
-			this.DIRECTION = 'd';
-			this.TILES = new LetterTile[0];
+		if (!this.valid || pass) {
+			this.x = 0;
+			this.y = 0;
+			this.direction = 'd';
+			this.tiles = new LetterTile[0];
 		} else {
-			this.X = x.charAt(0) - 97;
-			this.Y = Integer.parseInt(y) - 1;
-			this.DIRECTION = direction.charAt(0);
-			this.TILES = tiles.toArray(new LetterTile[0]);
+			this.x = x.charAt(0) - 97;
+			this.y = Integer.parseInt(y) - 1;
+			this.direction = direction.charAt(0);
+			this.tiles = tiles.toArray(new LetterTile[0]);
 		}
 
 	}
 	
+	public void setAll(int x, int y, char direction, LetterTile[] tiles) {
+		pass = false;
+		this.x = x;
+		this.y = y;
+		this.tiles = tiles;
+		this.direction = direction;
+	}
 	
 	public boolean isValid() {
 		return valid;
@@ -119,33 +131,35 @@ public class Move {
 
 
 	public int getX() {
-		return X;
+		return x;
 	}
 
 
 	public int getY() {
-		return Y;
+		return y;
 	}
-
-
-	public LetterTile[] getTiles() {
-		return TILES;
+	
+	public LinkedList<LetterTile> getTiles() {
+		LinkedList<LetterTile> list = new LinkedList<>();
+		for (LetterTile l : tiles)
+			list.add(l);
+		return list;
 	}
 
 
 	public char getDirection() {
-		return DIRECTION;
+		return direction;
 	}
 	
 	public boolean isPass() {
-		return PASS;
+		return pass;
 	}
 	
 	@ Override
 	public String toString() {
-		return "The move is:	Word: " + TILES.toString() + " at position "
-				+ (char) (X + 97) + (Y + 1) + ", direction: " +
-				(DIRECTION == 'd' ? "Down" : "Right");
+		return "The move is:	Word: " + tiles.toString() + " at position "
+				+ (char) (x + 97) + (y + 1) + ", direction: " +
+				(direction == 'd' ? "Down" : "Right");
 	}
 	
 	public void updateScore(Double score) {

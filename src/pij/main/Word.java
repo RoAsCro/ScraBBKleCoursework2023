@@ -3,6 +3,7 @@ package pij.main;
 import java.util.LinkedList;
 
 public class Word {
+	
 	private double score = 0;
 	
 	private double multiplier = 1;
@@ -13,7 +14,9 @@ public class Word {
 		return score * multiplier;
 	}
 	
-	public String getWord() {
+	
+	@Override
+	public String toString() {
 		String stringWord = "";
 		for (LetterTile letter : this.word) {
 			stringWord += letter.getChar();
@@ -51,4 +54,7 @@ public class Word {
 		//System.out.println(score);
 	}
 	
+	public LinkedList<LetterTile> getTilesTwo() {
+		return word;
+	}
 }

@@ -15,8 +15,8 @@ public class HumanPlayer extends Player {
 	}
 
 	@Override
-	public Move turn(Bag bag) {
-		draw(bag);
+	public Move turn(Game game) {
+		draw(game.bag);
 
 		String input = "";
 		Move move = null;
