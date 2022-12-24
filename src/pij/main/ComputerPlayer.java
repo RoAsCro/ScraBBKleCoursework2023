@@ -1,18 +1,17 @@
 package pij.main;
 
 public class ComputerPlayer extends Player {
-		
-	
+
 	@Override
 	public Move turn(Game game) {
 		// TODO Auto-generated method stub
-		draw(game.bag);	
+		draw(game.bag);
 		Move move = new Move(this);
 		//
 		for (LetterTile lt : getRack()) {
 			System.out.print(lt.getChar() + ", ");
 		}
-		if (game.parseBoard(move)) {			
+		if (game.parseBoard(move)) {
 			return move;
 		}
 		return new Move(",,", this);
@@ -122,6 +121,5 @@ public class ComputerPlayer extends Player {
 //		}
 //		return false;
 //	}
-	
 
 }

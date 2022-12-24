@@ -32,5 +32,5 @@ public class HumanPlayer extends Player {
 		} while (!move.isValid());
 		return move;
 	}
-	
+
 }
