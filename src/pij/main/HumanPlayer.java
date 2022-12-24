@@ -8,7 +8,7 @@ public class HumanPlayer extends Player {
 	public void printRack() {
 		String separator = "";
 		for (Tile tile : getRack()) {
-			System.out.print(separator + "[" + tile.getText() + "]");
+			System.out.print(separator + "[" + tile.toString() + "]");
 			separator = ", ";
 		}
 		System.out.println();

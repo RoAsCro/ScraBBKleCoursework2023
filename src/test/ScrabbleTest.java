@@ -21,8 +21,8 @@ public class ScrabbleTest {
 		assertFalse(LetterTile.class.isInstance(w));
 
 		// Tests the getText method.
-		assertEquals(blankTile.getText(), " . ");
-		assertEquals(premiumTile.getText(), "(3)");
+		assertEquals(blankTile.toString(), " . ");
+		assertEquals(premiumTile.toString(), "(3)");
 		assertEquals(letterTile.getChar(), 'A');
 
 		// Tests the getValue method.
@@ -247,8 +247,8 @@ public class ScrabbleTest {
 		assertFalse(Tile.class.isInstance(outOfBoundsTwo));
 
 		// Tests the correct tile is being referenced by getText
-		assertEquals("{7}", lower.getText());
-		assertEquals("(50)", board.tileAt(5, 1).getText());
+		assertEquals("{7}", lower.toString());
+		assertEquals("(50)", board.tileAt(5, 1).toString());
 
 		// Tests initial word placement
 		human.draw(riggedBag);

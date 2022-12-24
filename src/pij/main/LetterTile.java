@@ -14,11 +14,11 @@ public class LetterTile extends Tile {
 	 * @return the tile text concatenated with its value.
 	 */
 	@Override
-	public String getText() {
+	public String toString() {
 		String prefix = "";
 		if (getValue() <= 9)
 			prefix = " ";
-		return prefix + super.getText() + getValue() + "";
+		return prefix + super.toString() + getValue() + "";
 	}
 
 	/**
@@ -27,7 +27,7 @@ public class LetterTile extends Tile {
 	 * @return the tile's letter as a character.
 	 */
 	public char getChar() {
-		return super.getText().charAt(0);
+		return super.toString().charAt(0);
 	}
 
 }

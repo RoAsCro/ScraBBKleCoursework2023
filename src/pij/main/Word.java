@@ -43,11 +43,11 @@ public class Word {
 			score += value;
 			word.add(letter);
 		} else {
-			if (tile.getText().charAt(0) == '(') {
+			if (tile.toString().charAt(0) == '(') {
 				int letterValue = word.getLast().getValue();
 				score += (value * letterValue) - letterValue;
 				
-			} else if (tile.getText().charAt(0) == '{') {
+			} else if (tile.toString().charAt(0) == '{') {
 				this.multiplier *= value;
 			}
 		}

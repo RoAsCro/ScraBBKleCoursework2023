@@ -36,7 +36,8 @@ public class Tile{
 	 * 
 	 * @return the tile text.
 	 */
-	public String getText() {
+	@Override
+	public String toString() {
 		return TILE_TEXT;
 	}
 	
