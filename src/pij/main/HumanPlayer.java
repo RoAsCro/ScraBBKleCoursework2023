@@ -1,5 +1,11 @@
 package pij.main;
-
+/**
+ * 
+ * The human player
+ * 
+ * @author Roland Crompton
+ *
+ */
 public class HumanPlayer extends Player {
 
 	/**

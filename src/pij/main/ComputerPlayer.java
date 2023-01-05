@@ -1,5 +1,10 @@
 package pij.main;
-
+	/**
+	 * The computer player
+	 * 
+	 * @author Roland Crompton
+	 *
+	 */
 public class ComputerPlayer extends Player {
 
 	@Override
