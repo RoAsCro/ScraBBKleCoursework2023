@@ -3,43 +3,45 @@ package pij.main;
 import java.util.LinkedList;
 
 /**
- * A board on which the game of ScraBBKle is played.
- * A board's dimensions are S x S where S is between 12 and 26.
+ * A board on which the game of ScraBBKle is played. A board's dimensions are S
+ * x S where S is between 12 and 26.
  * 
  * @author Roland Crompton
  *
  */
 public class Board {
-	
+
 	/** A two-dimensional array of tiles representing the board. */
 	public Tile[][] grid;
-	
+
 	/** The size of the board's axes. */
 	private final int MAGNITUDE;
-	
-	/** The coordinates of the centre tile of the board.
-	 * This will always be the same for both x and y axes.
-	 * If the board has an even-numbered magnitude, it will be (magnitude / 2)
-	 * If the board has an odd-numbered magnitude, it will be (magnitude / 2 + 1).
+
+	/**
+	 * The coordinates of the centre tile of the board. This will always be the same
+	 * for both x and y axes. If the board has an even-numbered magnitude, it will
+	 * be (magnitude / 2) If the board has an odd-numbered magnitude, it will be
+	 * (magnitude / 2 + 1).
 	 */
 	private final int CENTRE;
 
 	/** True if no tiles have been placed yet */
 	private boolean startState = true;
-	
-	
-	private Check isLetter = (tile) -> {return LetterTile.class.isInstance(tile);};
-	
+
+	private Check isLetter = (tile) -> {
+		return LetterTile.class.isInstance(tile);
+	};
+
 	public Board(int magnitude, Tile[][] grid) {
 		this.MAGNITUDE = magnitude;
 		this.CENTRE = magnitude / 2;
 		this.grid = grid;
 	}
-	
+
 	public int getCentre() {
 		return CENTRE;
 	}
-	
+
 	/**
 	 * Returns the tile at a given set of x,y coordinates on the board.
 	 * 
@@ -51,7 +53,7 @@ public class Board {
 		if (x < 0 || y < 0 || x >= MAGNITUDE || y >= MAGNITUDE)
 			return null;
 		else
-			return grid[x][y];	
+			return grid[x][y];
 	}
 
 	/**
@@ -65,7 +67,7 @@ public class Board {
 			System.out.print(" " + xLabel + " ");
 			xLabel++;
 		}
-		
+
 		System.out.println();
 //		BoardReader reader = new BoardReader(this, 0, 0, 'd');
 //		reader.conditionalNext((tile) -> {return true;}, (x, y) -> {System.out.print(tileAt(x, y).getText());});
@@ -73,12 +75,13 @@ public class Board {
 			System.out.print(yLabel + "  ");
 			yLabel++;
 			for (int xCoord = 0; xCoord < MAGNITUDE; xCoord++) {
-				System.out.print(tileAt(xCoord, yCoord).toString());	
+				System.out.print(tileAt(xCoord, yCoord).toString());
 			}
 			System.out.println();
 		}
 
 	}
+
 	/**
 	 * 
 	 * @param initialX
@@ -121,7 +124,7 @@ public class Board {
 
 		return true;
 	}
-	
+
 	public void placeTiles(int initialX, int initialY, char direction, LinkedList<LetterTile> tiles) {
 		BoardReader reader = new BoardReader(this, initialX, initialY, direction);
 		reader.conditionalNext((tile) -> {
@@ -130,8 +133,7 @@ public class Board {
 			grid[x][y] = tiles.poll();
 		});
 	}
-	
-	
+
 	public boolean placeWord(Move move) {
 		if (move.isPass())
 			return true;
@@ -185,7 +187,5 @@ public class Board {
 
 		return true;
 	}
-	
 
-	
 }
