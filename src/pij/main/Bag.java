@@ -31,6 +31,10 @@ public class Bag {
 		return ALPHABET;
 	}
 
+	public boolean isEmpty() {
+		return bag.isEmpty();
+	}
+
 	/**
 	 * Helps the constructor with repeatedly adding identical tiles.
 	 */

@@ -82,9 +82,8 @@ public class Game {
 			System.out.println("Computer player score: " + computer.getScore());
 			System.out.println();
 			
-			if (passes >= 4) {
+			if ((passes >= 4) || (bag.isEmpty() && (human.getRack().isEmpty() || computer.getRack().isEmpty())))
 				go = false;
-			}
 			
 			currentPlayer = Math.abs(currentPlayer - 1);
 		}			
