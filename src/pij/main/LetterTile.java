@@ -15,10 +15,7 @@ public class LetterTile extends Tile {
 	 */
 	@Override
 	public String toString() {
-		String prefix = "";
-		if (getValue() <= 9)
-			prefix = " ";
-		return prefix + super.toString() + getValue() + "";
+		return super.toString() + getValue();
 	}
 
 	/**

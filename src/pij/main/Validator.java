@@ -51,8 +51,8 @@ public class Validator {
 				for (int i = 0; i < row.length(); i++) {
 					char current = row.charAt(i);
 					tileText += current;
-					
-					if (current == '.' || current == ')' || current == '}') {	
+
+					if (current == '.' || current == ')' || current == '}') {
 						Tile tile = new Tile(tileText, tileValue);
 						grid[x][y] = tile;
 						tileText = "";
@@ -61,6 +61,8 @@ public class Validator {
 					} else if (current != '(' && current != '{') {
 						tileValue = (tileValue * 10) + current - '0';
 					}
+					// TODO: 18/01/2023  - else board file is not valid
+
 				}
 			}
 			return new Board(magnitude, grid);

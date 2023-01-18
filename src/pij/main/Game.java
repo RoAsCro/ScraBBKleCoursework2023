@@ -39,7 +39,7 @@ public class Game {
 				System.out.print("Please enter the file name of the board: ");
 				file = System.console().readLine();
 			} else {
-				file = "defaultBoard.txt";
+				file = "testBoard.txt";
 			}
 			file = "../resources/" + file;
 			board = Validator.loadFile(file);

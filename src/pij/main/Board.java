@@ -64,7 +64,7 @@ public class Board {
 		int yLabel = 1;
 		System.out.print("   ");
 		for (int i = 0; i < MAGNITUDE; i++) {
-			System.out.print(" " + xLabel + " ");
+			System.out.format("%-4c", xLabel);
 			xLabel++;
 		}
 
@@ -72,10 +72,14 @@ public class Board {
 //		BoardReader reader = new BoardReader(this, 0, 0, 'd');
 //		reader.conditionalNext((tile) -> {return true;}, (x, y) -> {System.out.print(tileAt(x, y).getText());});
 		for (int yCoord = 0; yCoord < MAGNITUDE; yCoord++) {
-			System.out.print(yLabel + "  ");
+			System.out.format("%-3d", yLabel);
 			yLabel++;
 			for (int xCoord = 0; xCoord < MAGNITUDE; xCoord++) {
-				System.out.print(tileAt(xCoord, yCoord).toString());
+				Tile tile = tileAt(xCoord, yCoord);
+//				if (tile.getValue() < 9 && LetterTile.class.isInstance(tile))
+//					System.out.print(" ");
+				System.out.format("%-4s", tile.toString());
+				//System.out.print(" ");
 			}
 			System.out.println();
 		}

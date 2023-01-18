@@ -16,19 +16,11 @@ public class Tile{
 	 * and for letter tiles, this is the point value.
 	 */
 	private final int VALUE;
-	
-	
-//	/**
-//	 * Indicates whether a LetterTile can be placed on this space.
-//	 * Initialises as true, should be set to false when a tile has two adjacent perpendicular LetterTiles.
-//	 */
-//	private boolean legalPlacement = true;
-	
+
+
 	public Tile(String tileText, int value) {
 		this.VALUE = value;
-		if (tileText.equals(".")) tileText = " . ";
 		this.TILE_TEXT = tileText;
-		
 	}
 	
 	/**
