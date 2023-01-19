@@ -1,10 +1,14 @@
 package pij.main;
+import java.util.LinkedList;
 
 public class Main {
 	
 	public static void main(String[] args) {
 		Main main = new Main();
-		Game game = new Game();
+		LinkedList<Player> players = new LinkedList<>();
+		players.add(new HumanPlayer());
+		players.add(new ComputerPlayer());
+		Game game = new Game(players);
 		game.run();
 	}
 	

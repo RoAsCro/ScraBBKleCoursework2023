@@ -6,11 +6,16 @@ public class Game {
 	
 	int passes = 0;
 	Player activePlayer;
-	HumanPlayer human;
-	ComputerPlayer computer;
+//	HumanPlayer human;
+//	ComputerPlayer computer;
 	Board board;
 	Bag bag;
-	
+	LinkedList<Player> players;
+
+	public Game(LinkedList<Player> players){
+		this.players = players;
+	}
+
 	
 	public void run() {
 		boolean go = true;
@@ -45,13 +50,14 @@ public class Game {
 			board = Validator.loadFile(file);
 		} while (board == null);
 		
-		human = new HumanPlayer();
-		computer = new ComputerPlayer();
-		Player[] players = new Player[] {human, computer};
-		int currentPlayer = 0;
+//		human = new HumanPlayer();
+//		computer = new ComputerPlayer();
+//		players = new Player[] {human, computer};
+		//int currentPlayer = 0;
 		go = true;
 		while (go) {
-			activePlayer = players[currentPlayer];
+			activePlayer = players.poll();
+			players.add(activePlayer);
 			board.print();
 			Move move;
 			do {
@@ -77,15 +83,15 @@ public class Game {
 				System.out.println("The result is: ");
 				
 			}
+			boolean emptyRack = false;
+			for (Player p : players) {
+				System.out.println(p.getScore());
+				if (p.getRack().isEmpty())
+					emptyRack = true;
+			}
 			
-			System.out.println("Human player score:	" + human.getScore());
-			System.out.println("Computer player score: " + computer.getScore());
-			System.out.println();
-			
-			if ((passes >= 4) || (bag.isEmpty() && (human.getRack().isEmpty() || computer.getRack().isEmpty())))
+			if ((passes >= 4) || (bag.isEmpty() && emptyRack))
 				go = false;
-			
-			currentPlayer = Math.abs(currentPlayer - 1);
 		}			
 	}
 	

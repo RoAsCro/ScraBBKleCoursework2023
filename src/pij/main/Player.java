@@ -59,7 +59,7 @@ public abstract class Player {
 	 * A series of methods to be carried out on a player's turn. Should be
 	 * overridden by classes extending Player.
 	 * 
-	 * @param bag
+	 * @param game
 	 * @return TODO
 	 */
 	public abstract Move turn(Game game);
