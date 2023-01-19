@@ -37,6 +37,10 @@ public abstract class Player {
 		return this.score;
 	}
 
+	public Board getBoard(){
+		return this.board;
+	}
+
 	/**
 	 * Updates the player's score with the input double.
 	 * 

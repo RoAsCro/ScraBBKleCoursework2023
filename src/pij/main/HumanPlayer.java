@@ -32,6 +32,7 @@ public class HumanPlayer extends Player {
 		Move move = null;
 
 		do {
+			getBoard().print();
 			printRack();
 			System.out.println("Please enter your move with letter sequence, position, "
 					+ "and direction(d for down, r for right) separated by commas. "
@@ -39,7 +40,8 @@ public class HumanPlayer extends Player {
 			input = System.console().readLine();
 			move = new Move(input, this);
 
-		} while (!move.isValid());
+		} while (!move.isPass() && (!move.isValid() || !getBoard().placeWord(move)));
+
 		return move;
 	}
 

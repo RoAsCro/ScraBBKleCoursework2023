@@ -21,6 +21,7 @@ public class ComputerPlayer extends Player {
 			System.out.print(lt.getChar() + ", ");
 		}
 		if (game.parseBoard(move)) {
+			getBoard().placeWord(move);
 			return move;
 		}
 		return new Move(",,", this);

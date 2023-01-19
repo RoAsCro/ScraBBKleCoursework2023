@@ -54,11 +54,11 @@ public class Game {
 		while (go) {
 			activePlayer = players.poll();
 			players.add(activePlayer);
-			board.print();
+			//board.print();
 			Move move;
-			do {
+			//do {
 				move = activePlayer.turn(this);
-			} while (!board.placeWord(move));
+			//} while (!board.placeWord(move));
 			
 			activePlayer.removeTiles(move.getTiles());
 			
