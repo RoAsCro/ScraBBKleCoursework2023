@@ -6,54 +6,50 @@ public class Game {
 	
 	int passes = 0;
 	Player activePlayer;
-//	HumanPlayer human;
-//	ComputerPlayer computer;
 	Board board;
 	Bag bag;
 	LinkedList<Player> players;
 
-	public Game(LinkedList<Player> players){
+	public Game(LinkedList<Player> players, Board board){
 		this.players = players;
+		this.board = board;
 	}
 
 	
 	public void run() {
 		boolean go = true;
-		String input = "";
+//		String input = "";
 		bag = new Bag();
 		Validator.loadDictionary();
 		
-		System.out.println("Welcome to ScraBBKle!");
-		while (go) {
-			System.out.println("Would you like to _l_oad a board or use the _d_efault board?");
-			System.out.print("Please enter your choice (l/d): ");
-			input = System.console().readLine();
-			if (!Validator.inputValidation(input, new String[]{"d", "l"})) {
-				System.out.println("That is not a valid input.");
-				System.out.println();
-				continue;
-			}
-			go = false;
-			System.out.println();
-		}
-		String file = "";
-		board = null;
+//		System.out.println("Welcome to ScraBBKle!");
+//		while (go) {
+//			System.out.println("Would you like to _l_oad a board or use the _d_efault board?");
+//			System.out.print("Please enter your choice (l/d): ");
+//			input = System.console().readLine();
+//			if (!Validator.inputValidation(input, new String[]{"d", "l"})) {
+//				System.out.println("That is not a valid input.");
+//				System.out.println();
+//				continue;
+//			}
+//			go = false;
+//			System.out.println();
+//		}
+//		String file = "";
+//		board = null;
+//
+//		do {
+//			if (input.equals("l")) {
+//				System.out.print("Please enter the file name of the board: ");
+//				file = System.console().readLine();
+//			} else {
+//				file = "testBoard.txt";
+//			}
+//			file = "../resources/" + file;
+//			board = Validator.loadFile(file);
+//		} while (board == null);
 		
-		do {
-			if (input.equals("l")) {
-				System.out.print("Please enter the file name of the board: ");
-				file = System.console().readLine();
-			} else {
-				file = "testBoard.txt";
-			}
-			file = "../resources/" + file;
-			board = Validator.loadFile(file);
-		} while (board == null);
-		
-//		human = new HumanPlayer();
-//		computer = new ComputerPlayer();
-//		players = new Player[] {human, computer};
-		//int currentPlayer = 0;
+
 		go = true;
 		while (go) {
 			activePlayer = players.poll();
@@ -72,12 +68,7 @@ public class Game {
 				System.out.println("Player passed their turn.");
 			} else {
 				passes = 0;
-//				String direction = "right";	
-//				if (move.getDirection() == 'd')
-//					direction = "down";
-//				 
-//				System.out.println("The move is:	Word: " + move.getTiles().toString() + " at position "
-//						+ (char) (move.getX() + 97) + (move.getY() + 1) + ", direction: " + direction);
+
 				System.out.println(move.toString());
 				System.out.println();
 				System.out.println("The result is: ");

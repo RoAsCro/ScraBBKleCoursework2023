@@ -8,6 +8,10 @@ package pij.main;
  */
 public class HumanPlayer extends Player {
 
+	public HumanPlayer(Board board) {
+		super(board);
+	}
+
 	/**
 	 * Prints the tile rack.
 	 */

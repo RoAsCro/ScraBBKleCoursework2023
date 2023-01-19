@@ -7,7 +7,11 @@ package pij.main;
 	 */
 public class ComputerPlayer extends Player {
 
-	@Override
+		public ComputerPlayer(Board board) {
+			super(board);
+		}
+
+		@Override
 	public Move turn(Game game) {
 		// TODO Auto-generated method stub
 		draw(game.bag);

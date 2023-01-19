@@ -13,6 +13,12 @@ public abstract class Player {
 	/** A player's score. */
 	private double score = 0;
 
+	private Board board;
+
+	public Player(Board board) {
+		this.board = board;
+	}
+
 	/**
 	 * Returns the player's tile rack.
 	 * 
