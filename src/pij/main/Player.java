@@ -1,7 +1,15 @@
 package pij.main;
-
 import java.util.ArrayList;
 import java.util.LinkedList;
+
+/**
+ *
+ * A player makes moves based on the Board in front of them.
+ * A player has a tile rack and draws tiles from a bag.
+ * A player has a score.
+ *
+ * @author Roland Crompton
+ */
 
 public abstract class Player {
 

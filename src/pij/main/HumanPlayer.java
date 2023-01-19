@@ -1,7 +1,7 @@
 package pij.main;
 /**
  * 
- * The human player
+ * The human player.
  * 
  * @author Roland Crompton
  *
