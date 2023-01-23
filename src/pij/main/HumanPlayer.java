@@ -29,7 +29,7 @@ public class HumanPlayer extends Player {
 		draw(game.bag);
 
 		String input = "";
-		Move move = null;
+		Move move = new Move(this, getBoard());
 
 		do {
 			getBoard().print();
@@ -38,9 +38,9 @@ public class HumanPlayer extends Player {
 					+ "and direction(d for down, r for right) separated by commas. "
 					+ "Entering just two commas passes.");
 			input = System.console().readLine();
-			move = new Move(input, this, getBoard());
+			//move.validateInput(input);
 
-		} while (!move.isPass() && (!move.isValid() || !getBoard().placeWord(move)));
+		} while (!move.validateInput(input));
 
 		return move;
 	}
