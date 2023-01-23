@@ -144,7 +144,7 @@ public class Board {
 		int x = move.getX();
 		int y = move.getY();
 		char direction = move.getDirection();
-		LinkedList<LetterTile> tiles = new LinkedList<LetterTile>(move.getTiles());
+		LinkedList<LetterTile> tiles = new LinkedList<>(move.getTiles());
 		int wordLength = tiles.size();
 
 		// xInc and yInc use the integer value of 'd' or 'r' to determine how to iterate
@@ -155,10 +155,12 @@ public class Board {
 		// The word will store all the placed word's information
 		Word word = new Word();
 
+		//If there is a letter directly behind the one specified in the move, return false
 		if (LetterTile.class.isInstance(tileAt(x - xInc, y - yInc))) {
 			System.out.println("Please use the position of the first letter in the word as the input location.");
 			return false;
 		}
+		//If a word is failed to be constructed, return false
 		if (!constructWord(x, y, direction, tiles, word)) {
 			return false;
 		}
