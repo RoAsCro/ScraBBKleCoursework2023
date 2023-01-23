@@ -21,4 +21,9 @@ public class WildTile extends LetterTile {
 		super.setText("" + tempText);
 	}
 
+	@Override
+	public boolean compareChar(char c) {
+		return Character.isLowerCase(c);
+	}
+
 }

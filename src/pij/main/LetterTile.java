@@ -27,4 +27,8 @@ public class LetterTile extends Tile {
 		return super.toString().charAt(0);
 	}
 
+	public boolean compareChar(char c) {
+		return c == getChar();
+	}
+
 }

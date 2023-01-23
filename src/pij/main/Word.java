@@ -51,7 +51,6 @@ public class Word {
 				this.multiplier *= value;
 			}
 		}
-		//System.out.println(score);
 	}
 	
 	public LinkedList<LetterTile> getTilesTwo() {
