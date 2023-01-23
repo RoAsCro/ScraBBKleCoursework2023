@@ -156,7 +156,8 @@ public class Game {
 						if (Validator.lookupWord(word.toString())) {
 							inDictionary = true;
 							break;
-						}
+						} else
+							w.setTempText(' ');
 					}
 				} else
 					if (Validator.lookupWord(word.toString()))

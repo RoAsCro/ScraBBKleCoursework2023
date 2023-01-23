@@ -82,7 +82,7 @@ public class Move {
 						for (char c : chars) {
 							for (LetterTile t : rack) {
 								char tChar = t.getChar();
-								if (tChar == c 
+								if (tChar == c
 										|| (Character.isLowerCase(c) && WildTile.class.isInstance(t))) {
 									tiles.add(t);
 									rack.remove(t);
@@ -154,6 +154,8 @@ public class Move {
 	public boolean isPass() {
 		return pass;
 	}
+
+
 	
 	@ Override
 	public String toString() {
