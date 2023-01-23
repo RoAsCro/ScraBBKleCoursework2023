@@ -42,6 +42,14 @@ public class Board {
 		return CENTRE;
 	}
 
+	public boolean getStartState() {
+		return startState;
+	}
+
+	public void setStartState() {
+		startState = false;
+	}
+
 	/**
 	 * Returns the tile at a given set of x,y coordinates on the board.
 	 * 
