@@ -57,14 +57,14 @@ public class BoardReader {
 		return (char) (Math.abs(this.xInc) * 14 + 100);
 	}
 	/**
-	 * Moves the reader to the next tile according to it's current location and increment.
+	 * Moves the reader to the next tile according to its current location and increment.
 	 * @return the Tile at the next location. If this is out of bounds, returns null.
 	 */
 	public Tile next() {
 		return board.tileAt(currentX += xInc, currentY += yInc);
 	}
 	/**
-	 * Moves the reader in the opposite direction to it's direction.
+	 * Moves the reader in the opposite direction to its direction.
 	 * @return the Tile at the previous location. If this is out of bounds, returns null.
 	 */
 	public Tile previous() {
@@ -129,7 +129,7 @@ public class BoardReader {
 	/**
 	 * Initialises depthFirstSearch(int, int, BooleanTileOperation) starting at the centre of the board.
 	 * @param method the method to be passed into the DFS.
-	 * @return whether or not the DFS was successful.
+	 * @return whether the DFS was successful.
 	 */
 	public boolean depthFirstSearch(BooleanTileOperation method) {
 		set(board.getCentre(), board.getCentre());

@@ -19,13 +19,17 @@ public class Move {
 	private int y;
 	
 	private final Player PLAYER;
+
+	private final Board BOARD;
 	
-	public Move(Player player) {
+	public Move(Player player, Board board) {
 		pass = false;
 		this.PLAYER = player;
+		this.BOARD = board;
 	}
 	
-	public Move(String input, Player player) {
+	public Move(String input, Player player, Board board) {
+		this.BOARD = board;
 		this.PLAYER = player;
 		String x = "0";
 		String y = "0";

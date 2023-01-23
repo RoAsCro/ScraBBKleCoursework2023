@@ -15,7 +15,7 @@ public class ComputerPlayer extends Player {
 	public Move turn(Game game) {
 		// TODO Auto-generated method stub
 		draw(game.bag);
-		Move move = new Move(this);
+		Move move = new Move(this, getBoard());
 		//
 		for (LetterTile lt : getRack()) {
 			System.out.print(lt.getChar() + ", ");
@@ -24,7 +24,7 @@ public class ComputerPlayer extends Player {
 			getBoard().placeWord(move);
 			return move;
 		}
-		return new Move(",,", this);
+		return new Move(",,", this, getBoard());
 	}
 //	/**
 //	 * Goes through every tile on the board and checks if a word can be made from it, then places the word there if valid.

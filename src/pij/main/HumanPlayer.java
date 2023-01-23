@@ -38,7 +38,7 @@ public class HumanPlayer extends Player {
 					+ "and direction(d for down, r for right) separated by commas. "
 					+ "Entering just two commas passes.");
 			input = System.console().readLine();
-			move = new Move(input, this);
+			move = new Move(input, this, getBoard());
 
 		} while (!move.isPass() && (!move.isValid() || !getBoard().placeWord(move)));
 
