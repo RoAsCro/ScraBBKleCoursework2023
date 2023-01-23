@@ -21,6 +21,10 @@ public class Move {
 	private final Player PLAYER;
 
 	private final Board BOARD;
+
+	private Check isLetter = (tile) -> {
+		return LetterTile.class.isInstance(tile);
+	};
 	
 	public Move(Player player, Board board) {
 		pass = false;
@@ -170,5 +174,39 @@ public class Move {
 	
 	public void updateScore(Double score) {
 		this.PLAYER.updateScore(score);
+	}
+
+	public boolean constructWord(int initialX, int initialY, char direction, LinkedList<LetterTile> tiles, Word word) {
+		BoardReader reader = new BoardReader(BOARD, initialX, initialY, direction);
+		Tile currentTile = null;
+		do {
+			currentTile = reader.conditionalNext((tile) -> {
+				return (!LetterTile.class.isInstance(tile) && !tiles.isEmpty());
+			}, (x, y) -> {
+				reader.turn();
+				if (isLetter.check(reader.next())) {
+					reader.set(-2, -2);
+				} else {
+					reader.previous();
+					if (isLetter.check(reader.previous())) {
+						reader.set(-2, -2);
+					} else {
+						reader.next();
+						reader.turn();
+						word.addLetter(tiles.poll());
+						word.addLetter(BOARD.tileAt(x, y));
+					}
+				}
+			});
+			currentTile = reader.conditionalNext(isLetter, (x, y) -> {
+				word.addLetter(BOARD.tileAt(x, y));
+			});
+
+		} while (!tiles.isEmpty() && currentTile != null);
+
+		if ((!tiles.isEmpty() && currentTile == null) /* || word.getTiles().length <= tiles.size() */)
+			return false;
+
+		return true;
 	}
 }
