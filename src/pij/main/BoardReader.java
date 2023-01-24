@@ -137,7 +137,7 @@ public class BoardReader {
 		return depthFirstSearch(currentX, currentY, method);
 	}
 	/**
-	 * Carries out a depth first search on the Board. The specified operation will be carried out
+	 * Carries out a depth first search of LetterTiles on the Board. The specified operation will be carried out
 	 * on every non-letter tile adjacent to a letter tile.
 	 * @param x the starting x coordinate.
 	 * @param y the starting y coordinate.
