@@ -114,11 +114,18 @@ public class Move {
 //		}
 //	}
 
+	public Word getWord() {
+		return word;
+	}
+
 	public boolean tryMove(String input) {
 		if (!validateInput(input))
 			return false;
 		if (pass)
 			return true;
+		if (!checkPlacable())
+			return false;
+		updateScore(this.word.getScore());
 		confirmMove();
 		return true;
 	}
@@ -201,13 +208,14 @@ public class Move {
 			return false;
 		} else {
 			setAll(x.charAt(0) - 97, Integer.parseInt(y) - 1, direction.charAt(0), tiles.toArray(new LetterTile[0]));
-		}
-		if (checkPlacable()) {
-			System.out.println("Success");
 			return true;
 		}
-		System.out.println("???");
-		return false;
+//		if (checkPlacable()) {
+//			System.out.println("Success");
+//			return true;
+//		}
+//		System.out.println("???");
+//		return false;
 	}
 
 	public void confirmMove() {
@@ -302,7 +310,7 @@ public class Move {
 				BOARD.setStartState();
 
 		}
-		updateScore(this.word.getScore());
+		//updateScore(this.word.getScore());
 		//this.BOARD.placeTiles(x, y, direction, getTiles());
 		return true;
 	}
