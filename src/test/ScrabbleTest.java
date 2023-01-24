@@ -253,80 +253,80 @@ public class ScrabbleTest {
 		// Tests initial word placement
 		human.draw(riggedBag);
 		Move move = new Move(human, board);
-        assertFalse(move.validateInput("FACE,a1,r"));
+        assertFalse(move.tryMove("FACE,a1,r"));
 
 
         move = new Move(human, board);
-        assertFalse(move.validateInput("FACE,d1,r"));
+        assertFalse(move.tryMove("FACE,d1,r"));
 
         move = new Move(human, board);
-        assertFalse(move.validateInput("FACE,c4,d"));
+        assertFalse(move.tryMove("FACE,c4,d"));
 
         move = new Move(human, board);
-        assertTrue(move.validateInput("FACE,e8,r"));
+        assertTrue(move.tryMove("FACE,e8,r"));
 
 
 		board = Validator.loadFile("./resources/testBoard.txt");
 
 
         move = new Move(human, board);
-        assertTrue(move.validateInput("FACE,h8,r"));
+        assertTrue(move.tryMove("FACE,h8,r"));
 
 
         // Tests intersection test
         move = new Move(human, board);
-        assertFalse(move.validateInput("FACE,a1,r"));
+        assertFalse(move.tryMove("FACE,a1,r"));
 
         move = new Move(human, board);
-        assertFalse(move.validateInput("FACE,a1,d"));
+        assertFalse(move.tryMove("FACE,a1,d"));
 
         move = new Move(human, board);
-        assertTrue(move.validateInput("CE,i8,d"));
+        assertTrue(move.tryMove("CE,i8,d"));
 
         move = new Move(human, board);
-        assertTrue(move.validateInput("FAC,k5,d"));
+        assertTrue(move.tryMove("FAC,k5,d"));
 
         move = new Move(human, board);
-        assertTrue(move.validateInput("FCE,j6,r"));
+        assertTrue(move.tryMove("FCE,j6,r"));
 
         move = new Move(human, board);
-        assertTrue(move.validateInput("F,i7,d"));
+        assertTrue(move.tryMove("F,i7,d"));
 
         move = new Move(human, board);
-        assertTrue(move.validateInput("D,k5,d"));
+        assertTrue(move.tryMove("D,k5,d"));
 
         move = new Move(human, board);
-        assertTrue(move.validateInput("BADG,m2,d"));
+        assertTrue(move.tryMove("BADG,m2,d"));
 
 
 //		// Tests not forming two words at once
         move = new Move(human, board);
-        assertFalse(move.validateInput("FAE,l4,d"));
+        assertFalse(move.tryMove("FAE,l4,d"));
 
 //		// Tests double intersection
         board.print();
         move = new Move(human, board);
-        assertTrue(move.validateInput("DE,k3,d"));
+        assertTrue(move.tryMove("DE,k3,d"));
 
         move = new Move(human, board);
-        assertTrue(move.validateInput("FE,j4,r"));
+        assertTrue(move.tryMove("FE,j4,r"));
 
 //		// Tests out of bounds right
 
         move = new Move(human, board);
-        assertTrue(move.validateInput("AB,m5,r"));
+        assertTrue(move.tryMove("AB,m5,r"));
 
         move = new Move(human, board);
-        assertFalse(move.validateInput("ED,k3,r"));
+        assertFalse(move.tryMove("ED,k3,r"));
 
         move = new Move(human, board);
-        assertFalse(move.validateInput("CE,o6,r"));
+        assertFalse(move.tryMove("CE,o6,r"));
 
 
 //		// Tests dictionary is taking into account all letters
 
         move = new Move(human, board);
-        assertFalse(move.validateInput("BADGE,o5,d"));
+        assertFalse(move.tryMove("BADGE,o5,d"));
 //
 //		// Tests out of bounds down
 //		move = new Move("ADGE,o5,d", human);

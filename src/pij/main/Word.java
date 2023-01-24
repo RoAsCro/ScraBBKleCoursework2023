@@ -52,6 +52,21 @@ public class Word {
 			}
 		}
 	}
+
+//	@Override
+//	public boolean equals(Object o) {
+//		if (!(o instanceof Word) || o == null)
+//			return false;
+//		Word w = (Word) o;
+//		for (LetterTile l : word) {
+//			for (LetterTile m : w.getTiles()) {
+//				if (!l.compareChar(m.getChar()))
+//
+//
+//			}
+//		}
+//		return true;
+//	}
 	
 	public LinkedList<LetterTile> getTilesTwo() {
 		return word;
