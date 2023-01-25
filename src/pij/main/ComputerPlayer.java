@@ -10,7 +10,7 @@ import java.util.LinkedList;
 	 */
 public class ComputerPlayer extends Player {
 		private LinkedList<Move> moves = new LinkedList<>();
-		private int difficulty = 0;
+		private int difficulty = 1000;
 		public ComputerPlayer(Board board) {
 			super(board);
 		}
@@ -27,10 +27,7 @@ public class ComputerPlayer extends Player {
 		parseBoardTwo();
 		Move bestMove = new Move(this, getBoard());
 		bestMove.validateInput(",,");
-		int i = 0;
 		for (Move m : moves) {
-			i++;
-
 			if (m.getWord().getScore() > bestMove.getWord().getScore()) {
 				bestMove = m;
 			}
@@ -66,7 +63,6 @@ public class ComputerPlayer extends Player {
 //	}
 
 	public void parseBoardTwo() {
-		Move moveTwo = new Move(this, getBoard());
 		BoardReader reader = new BoardReader(getBoard(), 'r');
 		reader.depthFirstSearch((x, y) -> {
 			testWordsTwo(new LinkedList<>(getRack()), new LinkedList<LetterTile>(),
@@ -188,7 +184,7 @@ public class ComputerPlayer extends Player {
 
 	private void testWordsTwo(LinkedList<LetterTile> rack, LinkedList<LetterTile> currentWord, BoardReader reader) {
 
-		if (rack.isEmpty())
+		if (rack.isEmpty() || (moves.size() >= difficulty))
 			return;
 		//This second reader is for finding where to start the word
 		BoardReader readerTwo = new BoardReader(reader);
@@ -202,11 +198,14 @@ public class ComputerPlayer extends Player {
 		}
 
 		for (LetterTile l : rack) {
+			///_______________________________________________________________________________________________
+			//This sets it to Z for some reason?
 			if (l instanceof WildTile w) {
 				for (String[] letter : Bag.getAlphabet()) {
 					w.setTempText(letter[0].charAt(0));
 				}
 			}
+			///_______________________________________________________________________________________________
 			Move newMove = new Move(this, getBoard());
 			currentWord.push(l);
 
@@ -224,13 +223,8 @@ public class ComputerPlayer extends Player {
 			if (newMove.validateInput(builder.toString()) && newMove.checkPlacable()){
 
 				if (Validator.lookupWord(newMove.getWord().toString())) {
-					System.out.println("Found");
-					System.out.println(newMove.getWord().toString());
-					System.out.println(newMove.getTiles());
 					moves.add(newMove);
-					System.out.println(moves.size());
-					if (difficulty == 0)
-						return;
+
 				}
 
 			} else {
@@ -241,7 +235,7 @@ public class ComputerPlayer extends Player {
 			//Tries placing new tiles in front of the currently constructed word, then behind
 			for (int i = 0; i < 2; i++) {
 				//System.out.println("....");
-				LinkedList<LetterTile> newRack = new LinkedList<LetterTile>(rack);
+				LinkedList<LetterTile> newRack = new LinkedList<>(rack);
 				newRack.remove(l);
 				testWordsTwo(newRack, new LinkedList<LetterTile>(currentWord), reader);
 				reader.previous();

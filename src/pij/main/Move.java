@@ -26,9 +26,7 @@ public class Move {
 
 	private Word word = new Word();
 
-	private Check isLetter = (tile) -> {
-		return LetterTile.class.isInstance(tile);
-	};
+	private Check isLetter = LetterTile.class::isInstance;
 	
 	public Move(Player player, Board board) {
 		pass = false;
@@ -66,7 +64,7 @@ public class Move {
 //					y = location.substring(1);
 //
 //					int yLength = y.length();
-//					//Check the x coord is a letter
+//					//Check the x coordinate is a letter
 //					if (!Character.isLetter(x.charAt(0)) || !Character.isDigit(y.charAt(0))
 //							|| !Character.isDigit(y.charAt(yLength - 1))
 //							|| !Validator.inputValidation(direction, new String[] { "r", "d" })
@@ -181,7 +179,7 @@ public class Move {
 					y = location.substring(1);
 
 					int yLength = y.length();
-					//Check the x coord is a letter
+					//Check the x coordinate is a letter
 					if (!Character.isLetter(x.charAt(0)) || !Character.isDigit(y.charAt(0))
 							|| !Character.isDigit(y.charAt(yLength - 1))
 							|| !Validator.inputValidation(direction, new String[] { "r", "d" })
@@ -199,12 +197,11 @@ public class Move {
 							for (LetterTile t : rack) {
 								char tChar = t.getChar();
 								if (tChar == c
-										|| (Character.isLowerCase(c) && WildTile.class.isInstance(t))) {
+										|| (Character.isLowerCase(c) && t instanceof WildTile)) {
 									tiles.add(t);
 									rack.remove(t);
 									counter++;
-									if (WildTile.class.isInstance(t)) {
-										WildTile w = (WildTile) t;
+									if (t instanceof WildTile w) {
 										w.setTempText(c);
 									}
 									break;
@@ -279,7 +276,7 @@ public class Move {
 	
 	@ Override
 	public String toString() {
-		return "The move is:	Word: " + tiles.toString() + " at position "
+		return "The move is:	Word: " + Arrays.toString(tiles) + " at position "
 				+ (char) (x + 97) + (y + 1) + ", direction: " +
 				(direction == 'd' ? "Down" : "Right");
 	}
@@ -296,7 +293,7 @@ public class Move {
 		int wordLength = this.getTiles().size();
 
 		//If there is a letter directly behind the one specified in the move, return false
-		if (LetterTile.class.isInstance(this.BOARD.tileAt(this.x - xInc, this.y - yInc))) {
+		if (this.BOARD.tileAt(this.x - xInc, this.y - yInc) instanceof LetterTile) {
 			System.out.println("Please use the position of the first letter in the word as the input location.");
 			return false;
 		}
@@ -326,8 +323,6 @@ public class Move {
 				BOARD.setStartState();
 
 		}
-		//updateScore(this.word.getScore());
-		//this.BOARD.placeTiles(x, y, direction, getTiles());
 
 		return true;
 	}
@@ -338,9 +333,7 @@ public class Move {
 		BoardReader reader = new BoardReader(this.BOARD, this.x, this.y, this.direction);
 		Tile currentTile = null;
 		do {
-			currentTile = reader.conditionalNext((tile) -> {
-				return (!LetterTile.class.isInstance(tile) && !tileQueue.isEmpty());
-			}, (x, y) -> {
+			currentTile = reader.conditionalNext((tile) -> (!(tile instanceof LetterTile) && !tileQueue.isEmpty()), (x, y) -> {
 				reader.turn();
 				if (isLetter.check(reader.next())) {
 					reader.set(-2, -2);
@@ -356,9 +349,7 @@ public class Move {
 					}
 				}
 			});
-			currentTile = reader.conditionalNext(isLetter, (x, y) -> {
-				this.word.addLetter(BOARD.tileAt(x, y));
-			});
+			currentTile = reader.conditionalNext(isLetter, (x, y) -> this.word.addLetter(BOARD.tileAt(x, y)));
 
 		} while (!tileQueue.isEmpty() && currentTile != null);
 

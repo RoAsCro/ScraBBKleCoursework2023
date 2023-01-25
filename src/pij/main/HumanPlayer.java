@@ -28,7 +28,7 @@ public class HumanPlayer extends Player {
 	public Move turn(Game game) {
 		draw(game.bag);
 
-		String input = "";
+		String input;
 		Move move = new Move(this, getBoard());
 
 		do {

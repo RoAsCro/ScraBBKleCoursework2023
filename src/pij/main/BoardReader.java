@@ -162,8 +162,7 @@ public class BoardReader {
 			previous();
 			return false;
 		}
-		//tile.setText("X");
-		this.tileTree.add(treeRef);	
+		this.tileTree.add(treeRef);
 		
 		for (int i = 0; i < 4; i++) {
 			next();
