@@ -25,6 +25,7 @@ public class ComputerPlayer extends Player {
 		}
 
 		parseBoardTwo();
+
 		Move bestMove = new Move(this, getBoard());
 		bestMove.validateInput(",,");
 		for (Move m : moves) {
@@ -218,7 +219,7 @@ public class ComputerPlayer extends Player {
 			builder.append((readerTwo.getY() + 1));
 			builder.append(",");
 			builder.append(readerTwo.getDirection());
-			//System.out.println("S: " + builder);
+			//System.out.println(builder);
 
 			if (newMove.validateInput(builder.toString()) && newMove.checkPlacable()){
 

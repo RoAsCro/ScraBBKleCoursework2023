@@ -3,6 +3,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import pij.main.*;
 
+import java.util.regex.Pattern;
+
 
 public class WildTest {
 
@@ -17,14 +19,18 @@ public class WildTest {
             return null;
         }
     }
+
+    @Test
+    public void testThis(){
+        String x = ".";
+        System.out.println(Pattern.matches(x, "b"));
+    }
+
     @Test
     public void testDefaultWild(){
         WildTile wild = new WildTile();
-        assertEquals(wild.getChar(), ' ');
-        assertTrue(wild.compareChar('f'));
-        assertTrue(wild.compareChar('g'));
-        assertFalse(wild.compareChar('F'));
-        assertFalse(wild.compareChar('G'));
+        assertEquals(wild.getChar(), '.');
+
     }
 
     @Test

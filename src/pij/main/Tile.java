@@ -41,9 +41,6 @@ public class Tile{
 	public int getValue() {
 		return VALUE;
 	}
-	
-	public void setText(String s) {
-		TILE_TEXT = s;
-	}
+
 	
 }

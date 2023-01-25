@@ -10,20 +10,12 @@ public class WildTile extends LetterTile {
 	
 	@Override
 	public char getChar() {
-		return tempText;
+		return '.';
 	}
 	
 	public void setTempText(char c) {
 		tempText = c;
 	}
-	
-	public void setText() {
-		super.setText("" + tempText);
-	}
 
-	@Override
-	public boolean compareChar(char c) {
-		return Character.isLowerCase(c);
-	}
 
 }
