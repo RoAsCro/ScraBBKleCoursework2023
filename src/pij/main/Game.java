@@ -69,7 +69,7 @@ public class Game {
 			} else {
 				passes = 0;
 
-				System.out.println(move.toString());
+				//System.out.println(move.toString());
 				System.out.println();
 				System.out.println("The result is: ");
 				

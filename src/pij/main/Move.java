@@ -5,7 +5,9 @@ import java.util.*;
 	
 
 public class Move {
-	
+
+	private String input;
+
 	private boolean valid = true;
 	
 	private boolean pass;
@@ -118,6 +120,12 @@ public class Move {
 		return word;
 	}
 
+	public boolean tryMove() {
+		if (this.input == null)
+			return false;
+		return tryMove(this.input);
+	}
+
 	public boolean tryMove(String input) {
 		if (!validateInput(input))
 			return false;
@@ -125,13 +133,18 @@ public class Move {
 			return true;
 		if (!checkPlacable())
 			return false;
+		if (!Validator.lookupWord(this.word.toString())) {
+			System.out.println("Word not in dictionary.");
+			return false;
+		}
+
 		updateScore(this.word.getScore());
 		confirmMove();
 		return true;
 	}
 
 	public boolean validateInput(String input) {
-		System.out.println("------------------------------");
+		//System.out.println("------------------------------");
 		String x = "0";
 		String y = "0";
 		String direction = "d";
@@ -155,7 +168,7 @@ public class Move {
 				if (location.length() < 2 || location.length() > 3)
 					valid = false;
 				else {
-					System.out.println("length");
+			//		System.out.println("length");
 					x = location.substring(0,1).toLowerCase();
 					y = location.substring(1);
 
@@ -165,7 +178,7 @@ public class Move {
 							|| !Character.isDigit(y.charAt(yLength - 1))
 							|| !Validator.inputValidation(direction, new String[] { "r", "d" })
 							|| letters.length() < 1) {
-						System.out.println("direction");
+			//			System.out.println("direction");
 						valid = false;
 					}
 					else {
@@ -191,7 +204,7 @@ public class Move {
 							}
 						}
 						if (counter != target) {
-							System.out.println("counter");
+			//				System.out.println("counter");
 							valid = false;
 						}
 					}
@@ -200,14 +213,15 @@ public class Move {
 				valid = false;
 		}
 		if (pass) {
-			System.out.println("Pass");
+			//System.out.println("Pass");
 			return true;
 		}
 		if (!this.valid) {
-			System.out.println("Invalid");
+			//System.out.println("Invalid");
 			return false;
 		} else {
 			setAll(x.charAt(0) - 97, Integer.parseInt(y) - 1, direction.charAt(0), tiles.toArray(new LetterTile[0]));
+			this.input = input;
 			return true;
 		}
 //		if (checkPlacable()) {
@@ -286,12 +300,12 @@ public class Move {
 		}
 		if (!constructWord())
 			return false;
-		System.out.println(this.word);
+		//System.out.println(this.word);
 		// Check word is in dictionary.
-		if (!Validator.lookupWord(this.word.toString())) {
-			System.out.println("Word not in dictionary.");
-			return false;
-		}
+//		if (!Validator.lookupWord(this.word.toString())) {
+//			System.out.println("Word not in dictionary.");
+//			return false;
+//		}
 
 		// Check word is either the first word being placed OR that it intersects with a
 		// pre-existing word.
@@ -312,10 +326,12 @@ public class Move {
 		}
 		//updateScore(this.word.getScore());
 		//this.BOARD.placeTiles(x, y, direction, getTiles());
+
 		return true;
 	}
 
 	private boolean constructWord() {
+		resetWord();
 		LinkedList<LetterTile> tileQueue = new LinkedList<>(getTiles());
 		BoardReader reader = new BoardReader(this.BOARD, this.x, this.y, this.direction);
 		Tile currentTile = null;
@@ -345,10 +361,14 @@ public class Move {
 		} while (!tileQueue.isEmpty() && currentTile != null);
 
 		if ((!tileQueue.isEmpty() && currentTile == null)) {
-			this.word = new Word();
+			resetWord();
 			return false;
 		}
 
 		return true;
+	}
+
+	public void resetWord() {
+		this.word = new Word();
 	}
 }

@@ -145,6 +145,7 @@ public class BoardReader {
 	 * @return true if at any stage the method returns true. False if it never does.
 	 */
 	private boolean depthFirstSearch(int x, int y, BooleanTileOperation method) {
+		System.out.println(x + ", " + y);
 		set(x, y);
 		int treeRef = x * (board.getCentre() + 1) * 2 + y;
 		Tile tile = board.tileAt(x, y);
