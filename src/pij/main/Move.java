@@ -127,12 +127,20 @@ public class Move {
 	}
 
 	public boolean tryMove(String input) {
-		if (!validateInput(input))
+		if (!validateInput(input)) {
+			//System.out.println(input);
+			System.out.println("That is not a valid move.");
 			return false;
-		if (pass)
+		}
+		if (pass) {
+			//System.out.println("Pass");
 			return true;
-		if (!checkPlacable())
+		}
+		if (!checkPlacable()) {
+			System.out.println("Word cannot be places there.");
+
 			return false;
+		}
 		if (!Validator.lookupWord(this.word.toString())) {
 			System.out.println("Word not in dictionary.");
 			return false;
@@ -224,12 +232,6 @@ public class Move {
 			this.input = input;
 			return true;
 		}
-//		if (checkPlacable()) {
-//			System.out.println("Success");
-//			return true;
-//		}
-//		System.out.println("???");
-//		return false;
 	}
 
 	public void confirmMove() {
