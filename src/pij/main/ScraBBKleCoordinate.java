@@ -20,6 +20,11 @@ public class ScraBBKleCoordinate implements Comparable<ScraBBKleCoordinate> {
     }
 
     @Override
+    public String toString() {
+        return "(" + x + ", " + y + ")";
+    }
+
+    @Override
     public int hashCode() {
         return x * MAXBOARDSIZE + y;
     }

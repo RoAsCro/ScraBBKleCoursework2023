@@ -116,6 +116,10 @@ public class BoardReader {
 		currentX = x;
 		currentY = y;
 	}
+
+	public void set(ScraBBKleCoordinate coord) {
+		set(coord.getX(), coord.getY());
+	}
 	/**
 	 * Reverses the direction of the reader.
 	 */
@@ -189,9 +193,11 @@ public class BoardReader {
 		TreeSet<ScraBBKleCoordinate> allTiles = new TreeSet<>();
 		LinkedList<ScraBBKleCoordinate> foundTiles = new LinkedList<>();
 		set(this.board.getCentre(), this.board.getCentre());
-		foundTiles.add(new ScraBBKleCoordinate(this.currentX, this.currentY));
+		ScraBBKleCoordinate currentCoord = new ScraBBKleCoordinate(this.currentX, this.currentY);
+		foundTiles.add(currentCoord);
+		allTiles.add(currentCoord);
 		do {
-			ScraBBKleCoordinate currentCoord = foundTiles.poll();
+			currentCoord = foundTiles.poll();
 			set(currentCoord.getX(), currentCoord.getY());
 			for (int j = 0 ; j < 2 ; j++) {
 				next();
@@ -204,6 +210,8 @@ public class BoardReader {
 					previous();
 					previous();
 				}
+				next();
+				next();
 				next();
 				turn();
 			}

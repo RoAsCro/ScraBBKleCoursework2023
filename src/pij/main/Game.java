@@ -57,7 +57,7 @@ public class Game {
 			//board.print();
 			Move move;
 			//do {
-				move = activePlayer.turn(this);
+				move = activePlayer.turn(this.bag);
 			//} while (!board.placeWord(move));
 			
 			activePlayer.removeTiles(move.getTiles());

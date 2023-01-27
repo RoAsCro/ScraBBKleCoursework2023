@@ -11,26 +11,30 @@ import java.util.TreeSet;
 	 */
 public class ComputerPlayer extends Player {
 		private LinkedList<Move> moves = new LinkedList<>();
-		private int difficulty = 1000;
+		private int difficulty = 10000;
 		public ComputerPlayer(Board board) {
 			super(board);
 		}
 
 		@Override
-	public Move turn(Game game) {
-		draw(game.bag);
+	public Move turn(Bag bag) {
+		draw(bag);
 		moves.clear();
 
 		for (LetterTile lt : getRack()) {
 			System.out.print(lt.getChar() + ", ");
 		}
-
-		parseBoardThree();
+		long startTime = System.nanoTime();
+		parseBoardBreadth();
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime);
+		System.out.println(duration);
 
 		Move bestMove = new Move(this, getBoard());
 		bestMove.validateInput(",,");
 		for (Move m : moves) {
 			if (m.getWord().getScore() > bestMove.getWord().getScore()) {
+
 				bestMove = m;
 			}
 		}
@@ -86,6 +90,8 @@ public class ComputerPlayer extends Player {
 			return false;
 		});
 	}
+
+
 
 //	/**
 //	 * Attempts to create a word at the target location using every combination of the tiles in the input rack.
@@ -363,6 +369,98 @@ public class ComputerPlayer extends Player {
 			reader.next();
 			currentWord.pollLast();
 		}
+	}
+
+
+	public void parseBoardBreadth() {
+		BoardReader reader = new BoardReader(getBoard(), 'r');
+		TreeSet<ScraBBKleCoordinate> coordinates = reader.breadthFirstSearch();
+		long startTime = System.nanoTime();
+		testWordsBreadthInit(coordinates);
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime);
+		System.out.println(duration);
+
+
+	}
+
+	public void testWordsBreadthInit(TreeSet<ScraBBKleCoordinate> coordinates) {
+			BoardReader reader = new BoardReader(getBoard(), 'd');
+			while (!coordinates.isEmpty()){
+				ScraBBKleCoordinate currentCoord = coordinates.pollFirst();
+				reader.set(currentCoord);
+				System.out.println(currentCoord);
+				for (int i = 0 ; i < 2 ; i++) {
+					Tile tile = reader.previous();
+					if (!(tile instanceof LetterTile)) {
+						reader.next();
+						testWordsBreadth(reader, new LinkedList<>(getRack()), new LinkedList<>());
+					}
+					reader.turn();
+				}
+			}
+	}
+
+	public void testWordsBreadth(BoardReader reader, LinkedList<LetterTile> rack, LinkedList<LetterTile> currentWord) {
+		//System.out.println(reader.getX() + ", " + reader.getY());
+		if (rack.isEmpty() || (moves.size() >= difficulty))
+			return;
+		BoardReader readerTwo = new BoardReader(reader);
+
+		//If the reader is currently in the middle of a word on the board, it will reverse until it reaches the beginning of the word
+		StringBuilder letters = new StringBuilder();
+		Tile tile = readerTwo.previous();
+		if ((!(tile instanceof LetterTile))) {
+			readerTwo.next();
+		} else {
+			//letters.append(((LetterTile) tile).getChar());
+			readerTwo.conditionalPrevious(LetterTile.class::isInstance, (x, y) -> {});
+			readerTwo.next();
+		}
+
+
+
+		ScraBBKleCoordinate coordinate = new ScraBBKleCoordinate(readerTwo.getX(), readerTwo.getY());
+		for (LetterTile l : rack) {
+			LinkedList<LetterTile> newWord = new LinkedList<>(currentWord);
+			newWord.add(l);
+
+			for (int i = 0; i <= currentWord.size() + 1 ; i++) {
+				Move newMove = new Move(this, getBoard());
+				//System.out.println(l.getChar());
+				StringBuilder builder = new StringBuilder();
+				for (LetterTile lt : newWord) {
+					builder.append(lt.getChar());
+				}
+				builder.append(",");
+				builder.append((char) (readerTwo.getX() + 97));
+				builder.append((readerTwo.getY() + 1));
+				builder.append(",");
+				builder.append(readerTwo.getDirection());
+				//System.out.println(builder);
+
+
+				if (newMove.validateInput(builder.toString()) && newMove.checkPlacable()) {
+					//System.out.println(newMove.getWord());
+					if (Validator.lookupWord(newMove.getWord().toString())) {
+						moves.add(newMove);
+
+					};
+
+				} else
+					return;
+				readerTwo.previous();
+			}
+			readerTwo.set(coordinate);
+
+			LinkedList<LetterTile> newRack = new LinkedList<>(rack);
+			newRack.remove(l);
+			testWordsBreadth(readerTwo, newRack, newWord);
+			//
+
+		}
+		readerTwo.previous();
+
 	}
 
 }
