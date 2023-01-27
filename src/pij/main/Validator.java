@@ -33,6 +33,54 @@ public class Validator {
 			return true;
 		return false;
 	}
+	public static TreeSet<String> lookupRack(String letters) {
+		TreeSet<String> tree = new TreeSet<>();
+		Iterator<String> iter = dictionary.iterator();
+		StringBuilder regex = new StringBuilder(letters);
+		regex.insert(0,".*[");
+		regex.insert(regex.length(),"].*");
+//		for (int i = 0; i < regex.length() ; i++) {
+//			regex.insert(i + i + 1, '?');
+//		}
+		String regexString = regex.toString().toLowerCase();
+		System.out.println(regexString);
+		while (iter.hasNext()){
+			String s = iter.next();
+			if (s.matches(regexString))
+				tree.add(s);
+		}
+		return tree;
+	}
+
+	public static TreeSet<String> lookupSet(String word, TreeSet<String> tree) {
+		//System.out.println(tree.size());
+		TreeSet<String> newTree = new TreeSet<>();
+		TreeSet<String> oldTree = new TreeSet<>(tree);
+		String lowerWord = word.toLowerCase();
+		oldTree.remove(lowerWord);
+		Iterator<String> iter = oldTree.iterator();
+		while (iter.hasNext()){
+			String s = iter.next();
+			if (s.matches(".+" + lowerWord + ".+")){
+				newTree.add(s);
+			}
+		}
+		//System.out.println(tree.size());
+		return newTree;
+	}
+	public static int lookupWordTwo(String word) {
+		Iterator<String> iter = dictionary.iterator();
+		String lowerWord = word.toLowerCase();
+		if (dictionary.contains(lowerWord))
+				return 0;
+		while (iter.hasNext()){
+			String s = iter.next();
+			if (s.matches(".+" + lowerWord + ".+")){
+				return 1;
+			}
+		}
+		return -1;
+	}
 	
 	public static Board loadFile(String fileName) {
 		File file = new File(fileName);

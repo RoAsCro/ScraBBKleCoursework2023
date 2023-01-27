@@ -1,6 +1,7 @@
 package pij.main;
 
 import java.util.LinkedList;
+import java.util.TreeSet;
 
 /**
 	 * The computer player
@@ -24,7 +25,7 @@ public class ComputerPlayer extends Player {
 			System.out.print(lt.getChar() + ", ");
 		}
 
-		parseBoardTwo();
+		parseBoardThree();
 
 		Move bestMove = new Move(this, getBoard());
 		bestMove.validateInput(",,");
@@ -68,6 +69,20 @@ public class ComputerPlayer extends Player {
 		reader.depthFirstSearch((x, y) -> {
 			testWordsTwo(new LinkedList<>(getRack()), new LinkedList<LetterTile>(),
 					new BoardReader(getBoard(), x, y, reader.getDirection()));
+			return false;
+		});
+	}
+
+	public void parseBoardThree() {
+		BoardReader reader = new BoardReader(getBoard(), 'r');
+		StringBuilder builder = new StringBuilder();
+		for (LetterTile l : getRack()) {
+			builder.append(l.getChar());
+		}
+
+		reader.depthFirstSearch((x, y) -> {
+			testWordsThree(new LinkedList<>(getRack()), new LinkedList<LetterTile>(),
+					new BoardReader(getBoard(), x, y, reader.getDirection()), Validator.lookupRack(builder.toString()));
 			return false;
 		});
 	}
@@ -191,7 +206,8 @@ public class ComputerPlayer extends Player {
 		BoardReader readerTwo = new BoardReader(reader);
 
 		//If the reader is currently in the middle of a word on the board, it will reverse until it reaches the beginning of the word
-		if ((!(readerTwo.previous() instanceof LetterTile))) {
+		Tile tile = readerTwo.previous();
+		if ((!(tile instanceof LetterTile))) {
 			readerTwo.next();
 		} else {
 			readerTwo.conditionalPrevious(LetterTile.class::isInstance, (x, y) -> {});
@@ -201,13 +217,14 @@ public class ComputerPlayer extends Player {
 		for (LetterTile l : rack) {
 			///_______________________________________________________________________________________________
 			//This sets it to Z for some reason?
-			if (l instanceof WildTile w) {
-				for (String[] letter : Bag.getAlphabet()) {
-					w.setTempText(letter[0].charAt(0));
-				}
-			}
+//			if (l instanceof WildTile w) {
+//				for (String[] letter : Bag.getAlphabet()) {
+//					w.setTempText(letter[0].charAt(0));
+//				}
+//			}
 			///_______________________________________________________________________________________________
 			Move newMove = new Move(this, getBoard());
+
 			currentWord.push(l);
 
 			StringBuilder builder = new StringBuilder();
@@ -228,6 +245,7 @@ public class ComputerPlayer extends Player {
 
 				}
 
+
 			} else {
 				//If move is not placable, stop searching here
 				return;
@@ -245,6 +263,105 @@ public class ComputerPlayer extends Player {
 			reader.next();
 			reader.next();
 			currentWord.pop();
+		}
+	}
+
+	private void testWordsThree(LinkedList<LetterTile> rack, LinkedList<LetterTile> currentWord, BoardReader reader, TreeSet<String> tree) {
+
+		if (rack.isEmpty() || (moves.size() >= difficulty))
+			return;
+		//This second reader is for finding where to start the word
+		BoardReader readerTwo = new BoardReader(reader);
+
+		//If the reader is currently in the middle of a word on the board, it will reverse until it reaches the beginning of the word
+
+		StringBuilder letters = new StringBuilder();
+		Tile tile = readerTwo.previous();
+		if ((!(tile instanceof LetterTile))) {
+			readerTwo.next();
+		} else {
+			//letters.append(((LetterTile) tile).getChar());
+			readerTwo.conditionalPrevious(LetterTile.class::isInstance, (x, y) -> {letters.append(((LetterTile) readerTwo.getCurrent()).getChar());});
+			readerTwo.next();
+		}
+		System.out.println(letters);
+		TreeSet<String> newTree = Validator.lookupSet(letters.reverse().toString(), tree);
+		if (newTree.isEmpty())
+			return;
+
+		for (LetterTile l : rack) {
+			TreeSet<String> treeThree = new TreeSet<>(newTree);
+			System.out.println(newTree.size());
+			///_______________________________________________________________________________________________
+			//This sets it to Z for some reason?
+//			if (l instanceof WildTile w) {
+//				for (String[] letter : Bag.getAlphabet()) {
+//					w.setTempText(letter[0].charAt(0));
+//				}
+//			}
+			///_______________________________________________________________________________________________
+			Move newMove = new Move(this, getBoard());
+			System.out.println(l.getChar());
+			currentWord.add(l);
+			System.out.println(currentWord.toString());
+
+			StringBuilder builder = new StringBuilder();
+			for (LetterTile lt : currentWord) {
+				builder.append(lt.getChar());
+			}
+			builder.append(",");
+			builder.append((char)(readerTwo.getX() + 97));
+			builder.append((readerTwo.getY() + 1));
+			builder.append(",");
+			builder.append(readerTwo.getDirection());
+			//System.out.println(builder);
+
+			if (newMove.validateInput(builder.toString()) && newMove.checkPlacable()){
+
+//				if (Validator.lookupWord(newMove.getWord().toString())) {
+//					moves.add(newMove);
+//
+//				}
+				String word = newMove.getWord().toString();
+				System.out.println(word);
+				if (treeThree.contains(word.toLowerCase())) {
+					System.out.println("Yes");
+					moves.add(newMove);
+				}
+				treeThree = Validator.lookupSet(word, treeThree);
+				if ((treeThree.isEmpty())) {
+					System.out.println("Continue");
+					reader.next();
+					currentWord.pollLast();
+					continue;
+				}
+//				if (x == 0) {
+//					System.out.println("S: " + newMove.getWord().toString());
+//					moves.add(newMove);
+//				} else if (x == -1) {
+//					continue;
+//				} else
+//					System.out.println(newMove.getWord().toString());
+
+			} else {
+				//If move is not placable, stop searching here
+				return;
+			}
+
+
+
+			//Tries placing new tiles in front of the currently constructed word, then behind
+			for (int i = 0; i < 2; i++) {
+				System.out.println("....");
+				LinkedList<LetterTile> newRack = new LinkedList<>(rack);
+				newRack.remove(l);
+				testWordsThree(newRack, new LinkedList<LetterTile>(currentWord), reader, treeThree);
+				reader.previous();
+			}
+			//The first next() undoes the previous() above, the pop() removes l added at the start of the loop.
+			reader.next();
+			reader.next();
+			currentWord.pollLast();
 		}
 	}
 
