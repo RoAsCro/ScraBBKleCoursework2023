@@ -1,5 +1,6 @@
 package pij.main;
 
+import java.util.LinkedList;
 import java.util.TreeSet;
 /**
  * A reader for iterating across a ScraBBKle Board object.
@@ -52,16 +53,20 @@ public class BoardReader {
 	public int getY() {
 		return currentY;
 	}
-	
+
 	public char getDirection() {
 		return (char) (Math.abs(this.xInc) * 14 + 100);
 	}
+
 	/**
 	 * Moves the reader to the next tile according to its current location and increment.
 	 * @return the Tile at the next location. If this is out of bounds, returns null.
 	 */
 	public Tile next() {
 		return board.tileAt(currentX += xInc, currentY += yInc);
+	}
+	public Tile getCurrent() {
+		return this.board.tileAt(this.currentX, this.currentY);
 	}
 	/**
 	 * Moves the reader in the opposite direction to its direction.
@@ -145,7 +150,6 @@ public class BoardReader {
 	 * @return true if at any stage the method returns true. False if it never does.
 	 */
 	private boolean depthFirstSearch(int x, int y, BooleanTileOperation method) {
-		System.out.println(x + ", " + y);
 		set(x, y);
 		int treeRef = x * (board.getCentre() + 1) * 2 + y;
 		Tile tile = board.tileAt(x, y);
@@ -176,4 +180,37 @@ public class BoardReader {
 		//System.out.println("TT: " + tileTree.size());
 		return false;
 	}
+
+	/**
+	 * Carries out a breadth first search of the board.
+	 * @return
+	 */
+	public TreeSet<ScraBBKleCoordinate> breadthFirstSearch() {
+		TreeSet<ScraBBKleCoordinate> allTiles = new TreeSet<>();
+		LinkedList<ScraBBKleCoordinate> foundTiles = new LinkedList<>();
+		set(this.board.getCentre(), this.board.getCentre());
+		foundTiles.add(new ScraBBKleCoordinate(this.currentX, this.currentY));
+		do {
+			ScraBBKleCoordinate currentCoord = foundTiles.poll();
+			set(currentCoord.getX(), currentCoord.getY());
+			for (int j = 0 ; j < 2 ; j++) {
+				next();
+				for (int i = 0; i < 2; i++) {
+					currentCoord = new ScraBBKleCoordinate(this.currentX, this.currentY);
+					if (getCurrent() instanceof LetterTile && !allTiles.contains(currentCoord)) {
+						foundTiles.add(currentCoord);
+						allTiles.add(currentCoord);
+					}
+					previous();
+					previous();
+				}
+				next();
+				turn();
+			}
+
+		} while (!foundTiles.isEmpty());
+
+		return allTiles;
+	}
+
 }
