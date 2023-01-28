@@ -1,5 +1,6 @@
 package pij.main;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.TreeSet;
 
@@ -25,7 +26,8 @@ public class ComputerPlayer extends Player {
 			System.out.print(lt.getChar() + ", ");
 		}
 		long startTime = System.nanoTime();
-		parseBoardBreadth();
+//		parseBoardBreadth();
+		testWordsFindCombos();
 		long endTime = System.nanoTime();
 		long duration = (endTime - startTime);
 		System.out.println(duration);
@@ -290,14 +292,14 @@ public class ComputerPlayer extends Player {
 			readerTwo.conditionalPrevious(LetterTile.class::isInstance, (x, y) -> {letters.append(((LetterTile) readerTwo.getCurrent()).getChar());});
 			readerTwo.next();
 		}
-		System.out.println(letters);
+		//System.out.println(letters);
 		TreeSet<String> newTree = Validator.lookupSet(letters.reverse().toString(), tree);
 		if (newTree.isEmpty())
 			return;
 
 		for (LetterTile l : rack) {
 			TreeSet<String> treeThree = new TreeSet<>(newTree);
-			System.out.println(newTree.size());
+			//System.out.println(newTree.size());
 			///_______________________________________________________________________________________________
 			//This sets it to Z for some reason?
 //			if (l instanceof WildTile w) {
@@ -307,9 +309,9 @@ public class ComputerPlayer extends Player {
 //			}
 			///_______________________________________________________________________________________________
 			Move newMove = new Move(this, getBoard());
-			System.out.println(l.getChar());
+			//System.out.println(l.getChar());
 			currentWord.add(l);
-			System.out.println(currentWord.toString());
+			//System.out.println(currentWord.toString());
 
 			StringBuilder builder = new StringBuilder();
 			for (LetterTile lt : currentWord) {
@@ -329,14 +331,14 @@ public class ComputerPlayer extends Player {
 //
 //				}
 				String word = newMove.getWord().toString();
-				System.out.println(word);
+				//System.out.println(word);
 				if (treeThree.contains(word.toLowerCase())) {
-					System.out.println("Yes");
+					//System.out.println("Yes");
 					moves.add(newMove);
 				}
 				treeThree = Validator.lookupSet(word, treeThree);
 				if ((treeThree.isEmpty())) {
-					System.out.println("Continue");
+					//System.out.println("Continue");
 					reader.next();
 					currentWord.pollLast();
 					continue;
@@ -358,7 +360,7 @@ public class ComputerPlayer extends Player {
 
 			//Tries placing new tiles in front of the currently constructed word, then behind
 			for (int i = 0; i < 2; i++) {
-				System.out.println("....");
+				//System.out.println("....");
 				LinkedList<LetterTile> newRack = new LinkedList<>(rack);
 				newRack.remove(l);
 				testWordsThree(newRack, new LinkedList<LetterTile>(currentWord), reader, treeThree);
@@ -379,7 +381,7 @@ public class ComputerPlayer extends Player {
 		testWordsBreadthInit(coordinates);
 		long endTime = System.nanoTime();
 		long duration = (endTime - startTime);
-		System.out.println(duration);
+		//System.out.println(duration);
 
 
 	}
@@ -390,7 +392,7 @@ public class ComputerPlayer extends Player {
 				ScraBBKleCoordinate currentCoord = coordinates.pollFirst();
 				reader.set(currentCoord);
 				for (int i = 0 ; i < 2 ; i++) {
-					System.out.println(currentCoord);
+					//System.out.println(currentCoord);
 					Tile tile = reader.previous();
 					if (!(tile instanceof LetterTile)) {
 						reader.next();
@@ -400,6 +402,8 @@ public class ComputerPlayer extends Player {
 				}
 			}
 	}
+
+
 
 	public void testWordsBreadth(BoardReader reader, LinkedList<LetterTile> rack, LinkedList<LetterTile> currentWord) {
 		//System.out.println(reader.getX() + ", " + reader.getY());
@@ -416,7 +420,7 @@ public class ComputerPlayer extends Player {
 
 		ScraBBKleCoordinate coordinate = new ScraBBKleCoordinate(readerTwo.getX(), readerTwo.getY());
 		for (LetterTile l : rack) {
-			System.out.println(l);
+			//System.out.println(l);
 			LinkedList<LetterTile> newWord = new LinkedList<>(currentWord);
 			newWord.add(l);
 
@@ -449,7 +453,7 @@ public class ComputerPlayer extends Player {
 				if (newMove.validateInput(builder.toString()) && newMove.checkPlacable()) {
 					//System.out.println(newMove.getWord());
 					if (Validator.lookupWord(newMove.getWord().toString())) {
-						System.out.println("Found");
+						//System.out.println("Found");
 						moves.add(newMove);
 
 					};
@@ -470,5 +474,112 @@ public class ComputerPlayer extends Player {
 		readerTwo.previous();
 
 	}
+
+	public void testWordsFindCombos() {
+
+		ArrayList<LinkedList<String>> words = new ArrayList<>();
+		for (int i = 0; i < getRack().size() ; i++)
+			words.add(new LinkedList<String>());
+
+		allCombos(new LinkedList<>(getRack()), new StringBuilder(), words, 0);
+
+		BoardReader reader = new BoardReader(getBoard(), 'r');
+		TreeSet<ScraBBKleCoordinate> coordinates = reader.breadthFirstSearch();
+		//testWordsBreadthInit(coordinates);
+		for (ScraBBKleCoordinate c : coordinates) {
+			//System.out.println(c);
+			testWordsWithCombos(c, words);
+		}
+
+
+	}
+
+	public void allCombos(LinkedList<LetterTile> lettersInput, StringBuilder currentWordInput, ArrayList<LinkedList<String>> array, int depth){
+		if (lettersInput.isEmpty())
+			return;
+
+		for (LetterTile l : lettersInput) {
+			LinkedList<LetterTile> letters = new LinkedList<>(lettersInput);
+			StringBuilder currentWord = new StringBuilder(currentWordInput);
+			currentWord.append(l.getChar());
+			array.get(depth).add(currentWord.toString());
+			letters.remove(l);
+			allCombos(letters, currentWord, array, depth + 1);
+		}
+
+
+
+
+	}
+
+
+	public void testWordsWithCombos(ScraBBKleCoordinate c, ArrayList<LinkedList<String>> list) {
+
+		BoardReader reader = new BoardReader(getBoard(), c.getX(), c.getY(), 'r');
+
+		for (int k = 0 ; k < 2 ; k++) {
+			reader.set(c);
+			reader.turn();
+			int offset = 0;
+			int offsetInc = 0;
+			Tile tile = reader.previous();
+
+			if ((!(tile instanceof LetterTile))) {
+				reader.next();
+			}else
+				continue;
+			do {
+				//System.out.println( c + "::" + reader.getX() + ", " + reader.getY());
+				tile = reader.previous();
+				if ((!(tile instanceof LetterTile))) {
+					reader.next();
+				} else {
+					reader.conditionalPrevious(LetterTile.class::isInstance, (x, y) -> {
+					});
+					reader.next();
+				}
+				StringBuilder builder = new StringBuilder();
+				builder.append(",");
+				builder.append((char) (reader.getX() + 97));
+				builder.append(reader.getY() + 1);
+				builder.append(",");
+				builder.append(reader.getDirection());
+				loopBlock:
+				{
+					for (int i = offset; i < list.size(); i++) {
+
+						for (String s : list.get(i)) {
+							StringBuilder builderTwo = new StringBuilder(builder);
+							builderTwo.insert(0, s);
+
+						//System.out.println(builderTwo);
+
+							Move move = new Move(this, getBoard());
+
+							if (move.validateInput(builderTwo.toString()) && move.checkPlacable()) {
+								//System.out.println(move.getWord());
+								if (Validator.lookupWord(move.getWord().toString())) {
+									//System.out.println("Found");
+									moves.add(move);
+
+								}
+
+							} else {
+								//System.out.println(".........");
+								break loopBlock;
+							}
+						}
+					}
+				}
+				reader.previous();
+				offset += offsetInc;
+				offsetInc = 1;
+			} while (offset < list.size());
+
+
+		}
+	}
+
+
 
 }
