@@ -385,12 +385,12 @@ public class ComputerPlayer extends Player {
 	}
 
 	public void testWordsBreadthInit(TreeSet<ScraBBKleCoordinate> coordinates) {
-			BoardReader reader = new BoardReader(getBoard(), 'd');
+			BoardReader reader = new BoardReader(getBoard(), 'r');
 			while (!coordinates.isEmpty()){
 				ScraBBKleCoordinate currentCoord = coordinates.pollFirst();
 				reader.set(currentCoord);
-				System.out.println(currentCoord);
 				for (int i = 0 ; i < 2 ; i++) {
+					System.out.println(currentCoord);
 					Tile tile = reader.previous();
 					if (!(tile instanceof LetterTile)) {
 						reader.next();
@@ -409,25 +409,31 @@ public class ComputerPlayer extends Player {
 
 		//If the reader is currently in the middle of a word on the board, it will reverse until it reaches the beginning of the word
 		StringBuilder letters = new StringBuilder();
-		Tile tile = readerTwo.previous();
-		if ((!(tile instanceof LetterTile))) {
-			readerTwo.next();
-		} else {
-			//letters.append(((LetterTile) tile).getChar());
-			readerTwo.conditionalPrevious(LetterTile.class::isInstance, (x, y) -> {});
-			readerTwo.next();
-		}
+
+
 
 
 
 		ScraBBKleCoordinate coordinate = new ScraBBKleCoordinate(readerTwo.getX(), readerTwo.getY());
 		for (LetterTile l : rack) {
+			System.out.println(l);
 			LinkedList<LetterTile> newWord = new LinkedList<>(currentWord);
 			newWord.add(l);
 
 			for (int i = 0; i <= currentWord.size() + 1 ; i++) {
+				///////////////
+				Tile tile = readerTwo.previous();
+				if ((!(tile instanceof LetterTile))) {
+					readerTwo.next();
+				} else {
+					//letters.append(((LetterTile) tile).getChar());
+					readerTwo.conditionalPrevious(LetterTile.class::isInstance, (x, y) -> {});
+					readerTwo.next();
+				}
+				//////////////////
 				Move newMove = new Move(this, getBoard());
 				//System.out.println(l.getChar());
+				//HAVE THIS NOT BE INITIALISED EACH TIME
 				StringBuilder builder = new StringBuilder();
 				for (LetterTile lt : newWord) {
 					builder.append(lt.getChar());
@@ -443,12 +449,14 @@ public class ComputerPlayer extends Player {
 				if (newMove.validateInput(builder.toString()) && newMove.checkPlacable()) {
 					//System.out.println(newMove.getWord());
 					if (Validator.lookupWord(newMove.getWord().toString())) {
+						System.out.println("Found");
 						moves.add(newMove);
 
 					};
 
-				} else
-					return;
+				}
+//				else
+//					return;
 				readerTwo.previous();
 			}
 			readerTwo.set(coordinate);
