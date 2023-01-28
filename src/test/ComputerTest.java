@@ -21,22 +21,23 @@ public class ComputerTest {
 
     @Test
     public void testComboFinder(){
-        Bag riggedBag = new Bag(new int[] { 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
+        Bag riggedBag = new Bag(new int[] { 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
         Board board = Validator.loadFile("./resources/testBoard.txt");
         ComputerPlayer cpu = new ComputerPlayer(board);
         cpu.draw(riggedBag);
-        ArrayList<LinkedList<String>> words = new ArrayList<>();
+        ArrayList<ArrayList<String>> words = new ArrayList<>();
         for (int i = 0; i < 7 ; i++)
-            words.add(new LinkedList<String>());
+            words.add(new ArrayList<String>());
 
         cpu.allCombos(new LinkedList<>(cpu.getRack()), new StringBuilder(), words, 0);
         int count = 0;
-        for (LinkedList<String> s : words) {
+        for (ArrayList<String> s : words) {
+            //System.out.println(s);
             count += s.size();
         }
         //System.out.println(count);
         assertEquals(count, 13699);
-        cpu.testWordsFindCombos();
+        //cpu.testWordsFindCombos();
 
     }
     @Test

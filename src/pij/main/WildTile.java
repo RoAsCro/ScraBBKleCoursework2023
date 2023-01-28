@@ -10,9 +10,14 @@ public class WildTile extends LetterTile {
 	
 	@Override
 	public char getChar() {
-		return '.';
+		return ' ';
 	}
-	
+
+	@Override
+	public String toString(){
+		return "" + tempText + getValue();
+	}
+
 	public void setTempText(char c) {
 		tempText = c;
 	}
