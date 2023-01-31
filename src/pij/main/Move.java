@@ -96,7 +96,7 @@ public class Move {
 					valid = false;
 				else {
 			//		System.out.println("length");
-					x = location.substring(0,1).toLowerCase();
+					x = location.substring(0,1);
 					y = location.substring(1);
 
 					int yLength = y.length();
@@ -215,6 +215,7 @@ public class Move {
 
 		//If there is a letter directly behind the one specified in the move, return false
 		if (this.BOARD.tileAt(this.x - xInc, this.y - yInc) instanceof LetterTile) {
+			System.out.println(this.x + ", " + this.y + " : " + direction);
 			System.out.println("Please use the position of the first letter in the word as the input location.");
 			return false;
 		}
