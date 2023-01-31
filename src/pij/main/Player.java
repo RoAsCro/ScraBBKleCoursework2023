@@ -88,10 +88,8 @@ public abstract class Player {
 	 * @param 
 	 */
 	public void removeTiles(List<LetterTile> tiles) {
-		Iterator<LetterTile> iter = tiles.iterator();
-		while (iter.hasNext()) {
-			iter.next();
-			iter.remove();
+		for (LetterTile tile : tiles) {
+			tileRack.remove(tile);
 		}
 
 	}
