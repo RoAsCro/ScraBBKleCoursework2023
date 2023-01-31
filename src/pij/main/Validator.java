@@ -7,29 +7,19 @@ public class Validator {
 	
 	private static TreeSet<String> dictionary = new TreeSet<>();
 
-	private static TreeSet<String> prefixDictionary = new TreeSet<>((o1, o2) -> {
+	private static final Comparator<String> PREFIX_COMPARATOR = (o1, o2) -> {
 		if (o1.contains(" ")) {
 			o1 = o1.replace(" ", "");
 			if (o2.length() >= o1.length()) {
 				o2 = o2.substring(0, o1.length());
-//				System.out.println(o1);
-//				System.out.println(o2);
 			}
 		}
 		return o1.compareTo(o2);
-	});
+	};
 
-	private static TreeSet<String> suffixDictionary = new TreeSet<>((o1, o2) -> {
-		if (o1.contains(" ")) {
-			o1 = o1.replace(" ", "");
-			if (o2.length() >= o1.length()) {
-				o2 = o2.substring(0, o1.length());
-//				System.out.println(o1);
-//				System.out.println(o2);
-			}
-		}
-		return o1.compareTo(o2);
-	});
+	private static TreeSet<String> prefixDictionary = new TreeSet<>(PREFIX_COMPARATOR);
+
+	private static TreeSet<String> suffixDictionary = new TreeSet<>(PREFIX_COMPARATOR);
 
 	private static TreeSet<String> comboDictionary = new TreeSet<>();
 
@@ -40,81 +30,6 @@ public class Validator {
 		}
 		return z;
 		});
-	public static TreeSet<String> dictionaryTwo = new TreeSet<>((o1, o2) -> {
-		int z = o1.length() - o2.length();
-		if (!(z == 0))
-			return z;
-
-		if (o2.matches(o1))
-			return 0;
-		if (o1.contains(".")){
-			System.out.println(o1);
-			System.out.println(o2);
-			StringBuilder builder1 = new StringBuilder(o1);
-			StringBuilder builder2 = new StringBuilder(o2);
-
-			for (int i = 0; i < o1.length(); i++) {
-
-				int index = o1.indexOf(".");
-				builder1.replace(index, index+1, "");
-				o1 = builder1.toString();
-				builder2.replace(index, index+1, "");
-				o2 = builder2.toString();
-
-
-			}
-			return o1.compareTo(o2);
-//			int x = o1.length();
-//			int y = o2.length();
-//			for (int i = 0; i < o1.length(); i++) {
-//				char c1 = o1.charAt(i);
-//				char c2;
-//				if (i < y)
-//					c2 = o2.charAt(i);
-//				else
-//					return 1;
-//				if (c1 != c2)
-//					return (int) c1 - c2;
-//			}
-//
-//			if (x == y)
-//				return 0;
-//			if (x > y)
-//				return 1;
-//			System.out.println("v");
-//			return -1;
-
-		}
-		return o1.compareTo(o2);
-
-//		int x = o1.length();
-//		int y = o2.length();
-//		for (int i = 0; i < o1.length(); i++) {
-//			char c1 = o1.charAt(i);
-//			char c2;
-//			if (i < y)
-//				c2 = o2.charAt(i);
-//			else
-//				return 1;
-//			if (c1 != c2)
-//				return (int) c1 - c2;
-//		}
-//
-//		if (x == y)
-//			return 0;
-//		if (x > y)
-//			return 1;
-//		return -1;
-
-
-
-		//return o1.compareTo(o2);
-//		int z = o1.length() - o2.length();
-//		if (z == 0) {
-//			return o1.compareTo(o2);
-//		}
-//		return z;
-	});
 	
 	public static void loadDictionary(File file) {
 		
@@ -135,8 +50,6 @@ public class Validator {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-//		dictionaryTwo.addAll(dictionary);
-//		dictionaryThree.addAll(dictionary);
 		lengthDictionary.addAll(dictionary);
 		prefixDictionary.addAll(dictionary);
 
@@ -257,11 +170,11 @@ public class Validator {
 	
 	public static boolean inputValidation(String input, String[] validInputs) {
 		for (String s : validInputs) 
-			if (input.equals(s))
+			if (s.equals(input))
 				return true;
 		return false;
 	}
-	public static void main(String args[]) {
+	public static void main(String[] args) {
 		loadDictionary(new File("./resources/wordlist.txt"));
 		System.out.println(lookupWord("zygote"));
 		System.out.println(lookupWord("adwdaw"));
