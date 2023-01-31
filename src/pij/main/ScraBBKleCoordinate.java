@@ -6,7 +6,7 @@ public class ScraBBKleCoordinate implements Comparable<ScraBBKleCoordinate> {
 
     private final static int MAXBOARDSIZE = 26;
 
-    ScraBBKleCoordinate(int x, int y) {
+    public ScraBBKleCoordinate(int x, int y) {
         this.x = x;
         this.y = y;
     }

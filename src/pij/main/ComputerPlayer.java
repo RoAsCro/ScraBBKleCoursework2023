@@ -587,10 +587,6 @@ public class ComputerPlayer extends Player {
 //										//System.out.println(l + ": " + listThree.get(l).size());
 //									}
 //								}
-//								if (Validator.lookupWord(moveWord)) {
-//									moves.add(move);
-//
-//								}
 
 							} else {
 								//System.out.println(".........");

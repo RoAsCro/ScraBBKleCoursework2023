@@ -13,10 +13,10 @@ import static junit.framework.Assert.assertEquals;
 
 public class ComputerTest {
 
-    public void loadWithLetters(LinkedList<LetterTile> tiles, int x, String letter) {
-        for (int i = 0; i < x; i++) {
-            tiles.add(new LetterTile(letter, 1));
-        }
+    private Move turn (ComputerPlayer cpu, Bag bag) {
+        Move move = cpu.turn(bag);
+        cpu.removeTiles(move.getTiles());
+        return move;
     }
 
 
@@ -42,7 +42,6 @@ public class ComputerTest {
         riggedBag = new Bag(new int[] { 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,2 });
         cpu = new ComputerPlayer(board);
         cpu.draw(riggedBag);
-        cpu.allCombos(new LinkedList<>(cpu.getRack()), new StringBuilder(), words, 0);
         for (ArrayList<String> s : words) {
             //System.out.println(s);
             count += s.size();
@@ -56,91 +55,119 @@ public class ComputerTest {
     @Test
     public void testComputer(){
         Board board = Validator.loadFile("./resources/testBoard.txt");
-
-
         Validator.loadDictionary(new File("./resources/wordlist.txt"));
-        LinkedList<LetterTile> tiles = new LinkedList<>();
-        loadWithLetters(tiles, 1, "X");
-
-        board.placeTiles(board.getCentre(), board.getCentre(), 'd', tiles);
-        loadWithLetters(tiles, 2, "X");
-        board.placeTiles(board.getCentre(), 8, 'r', tiles);
-
-        //System.out.println(board.tileAt(7,7));
+        TestUtility.writeOnBoard(board, "X", 'd');
+        TestUtility.writeOnBoard(new ScraBBKleCoordinate(board.getCentre(), 8), board, "XX", 'r');
 
         Bag riggedBag = new Bag(new int[] { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
         Move move;
         ComputerPlayer cpu = new ComputerPlayer(board);
-        move = cpu.turn(riggedBag);
-        cpu.removeTiles(move.getTiles());
+        turn(cpu, riggedBag);
 
         assertEquals(board.tileAt(6,7).toString(), "A1");
 
-        loadWithLetters(tiles, 1, "F");
-        board.placeTiles(4, 7, 'r', tiles);
+        TestUtility.writeOnBoard(new ScraBBKleCoordinate(4, 7), board, "F", 'r');
         riggedBag = new Bag(new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
-        move = cpu.turn(riggedBag);
-        cpu.removeTiles(move.getTiles());
+        turn(cpu, riggedBag);
+
 
         assertEquals(board.tileAt(5,7).toString(), "L1");
 
         riggedBag = new Bag(new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
-        move = cpu.turn(riggedBag);
-        cpu.removeTiles(move.getTiles());
+        turn(cpu, riggedBag);
 
 
-        loadWithLetters(tiles, 1, "X");
-        board.placeTiles(5, 8, 'r', tiles);
-        loadWithLetters(tiles, 1, "X");
-        board.placeTiles(6, 6, 'r', tiles);
-        loadWithLetters(tiles, 1, "S");
-        board.placeTiles(9, 8, 'r', tiles);
+        TestUtility.writeOnBoard(new ScraBBKleCoordinate(5, 8), board, "X", 'r');
+        TestUtility.writeOnBoard(new ScraBBKleCoordinate(6, 6), board, "X", 'r');
+        TestUtility.writeOnBoard(new ScraBBKleCoordinate(9, 8), board, "S", 'r');
 
         riggedBag = new Bag(new int[] { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
-        move = cpu.turn(riggedBag);
-        cpu.removeTiles(move.getTiles());
+        turn(cpu, riggedBag);
 
-        riggedBag = new Bag(new int[] { 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 });
-        move = cpu.turn(riggedBag);
-        cpu.removeTiles(move.getTiles());
-
-
-
+        riggedBag = new Bag(new int[] { 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2 });
+        turn(cpu, riggedBag);
 
         board.print();
-
-        System.out.println(Validator.lookupWord("FE"));
-
 
     }
     @Test
     public void testWildCards(){
         Board board = Validator.loadFile("./resources/testBoard.txt");
+        TestUtility.loadDictionary();
 
-
-        Validator.loadDictionary(new File("./resources/wordlist.txt"));
-        LinkedList<LetterTile> tiles = new LinkedList<>();
-        loadWithLetters(tiles, 1, "X");
-
-        board.placeTiles(board.getCentre(), board.getCentre(), 'd', tiles);
-//        loadWithLetters(tiles, 2, "X");
-//        board.placeTiles(board.getCentre(), 8, 'r', tiles);
-
-        //System.out.println(board.tileAt(7,7));
+        TestUtility.writeOnBoard(board, "EEEEE", 'd');
 
         Bag riggedBag = new Bag(new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 });
         Move move;
         ComputerPlayer cpu = new ComputerPlayer(board);
-        move = cpu.turn(riggedBag);
-        cpu.removeTiles(move.getTiles());
+        turn(cpu, riggedBag);
+
 
         board.print();
         //System.out.println(Validator.dictionaryTwo.contains("x."));
 
 
     }
+    @Test
+    public void testGameplay() {
+        Board board = Validator.loadFile("./resources/testBoard.txt");
+        TestUtility.loadDictionary();
+        ComputerPlayer cpu = new ComputerPlayer(board);
+        TestUtility.writeOnBoard(board, "A", 'd');
+
+        Move move;
+        LinkedList<LetterTile> listy = new LinkedList<>();
+        listy.add(new LetterTile("A", 1));
+        listy.add(new LetterTile("B", 3));
+        listy.add(new LetterTile("C", 3));
+        listy.add(new LetterTile("D", 2));
+        listy.add(new LetterTile("E", 1));
+        listy.add(new LetterTile("F", 4));
+        listy.add(new LetterTile("G", 2));
+
+        do {
+            Bag riggedBag = new Bag(new int[] { 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
+            move = cpu.turn(riggedBag);
+            cpu.removeTiles(listy);
+            board.print();
+        } while (!move.isPass());
 
 
+
+    }
+    @Test
+    public void testGameplayEndingInWild() {
+        Board board = Validator.loadFile("./resources/testBoard.txt");
+        TestUtility.loadDictionary();
+
+        ComputerPlayer cpu = new ComputerPlayer(board);
+        TestUtility.writeOnBoard(board, "A", 'd');
+
+
+        Move move;
+        LinkedList<LetterTile> listy = new LinkedList<>();
+        listy.add(new LetterTile("A", 1));
+        listy.add(new LetterTile("B", 3));
+        listy.add(new LetterTile("C", 3));
+        listy.add(new LetterTile("D", 2));
+        listy.add(new LetterTile("E", 1));
+        listy.add(new LetterTile("F", 4));
+        listy.add(new LetterTile("G", 2));
+        Bag riggedBag;
+
+        for (int i = 0 ; i < 10 ; i++) {
+            riggedBag = new Bag(new int[] { 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
+            turn(cpu, riggedBag);
+        }
+        cpu.removeTiles(new LinkedList<LetterTile>(cpu.getRack()));
+        riggedBag = new Bag(new int[] { 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2 });
+        turn(cpu, riggedBag);
+
+
+
+
+
+    }
 
 
 }
