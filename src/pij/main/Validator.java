@@ -6,6 +6,89 @@ import java.util.*;
 public class Validator {
 	
 	private static TreeSet<String> dictionary = new TreeSet<>();
+
+	public static TreeSet<String> dictionaryThree = new TreeSet<>((o1, o2) -> {
+				int z = o1.length() - o2.length();
+				if (z == 0) {
+					return o1.compareTo(o2);
+				}
+				return z;
+			});
+	public static TreeSet<String> dictionaryTwo = new TreeSet<>((o1, o2) -> {
+		int z = o1.length() - o2.length();
+		if (!(z == 0))
+			return z;
+
+		if (o2.matches(o1))
+			return 0;
+		if (o1.contains(".")){
+			System.out.println(o1);
+			System.out.println(o2);
+			StringBuilder builder1 = new StringBuilder(o1);
+			StringBuilder builder2 = new StringBuilder(o2);
+
+			for (int i = 0; i < o1.length(); i++) {
+
+				int index = o1.indexOf(".");
+				builder1.replace(index, index+1, "");
+				o1 = builder1.toString();
+				builder2.replace(index, index+1, "");
+				o2 = builder2.toString();
+
+
+			}
+			return o1.compareTo(o2);
+//			int x = o1.length();
+//			int y = o2.length();
+//			for (int i = 0; i < o1.length(); i++) {
+//				char c1 = o1.charAt(i);
+//				char c2;
+//				if (i < y)
+//					c2 = o2.charAt(i);
+//				else
+//					return 1;
+//				if (c1 != c2)
+//					return (int) c1 - c2;
+//			}
+//
+//			if (x == y)
+//				return 0;
+//			if (x > y)
+//				return 1;
+//			System.out.println("v");
+//			return -1;
+
+		}
+		return o1.compareTo(o2);
+
+//		int x = o1.length();
+//		int y = o2.length();
+//		for (int i = 0; i < o1.length(); i++) {
+//			char c1 = o1.charAt(i);
+//			char c2;
+//			if (i < y)
+//				c2 = o2.charAt(i);
+//			else
+//				return 1;
+//			if (c1 != c2)
+//				return (int) c1 - c2;
+//		}
+//
+//		if (x == y)
+//			return 0;
+//		if (x > y)
+//			return 1;
+//		return -1;
+
+
+
+		//return o1.compareTo(o2);
+//		int z = o1.length() - o2.length();
+//		if (z == 0) {
+//			return o1.compareTo(o2);
+//		}
+//		return z;
+	});
 	
 	public static void loadDictionary(File file) {
 		
@@ -21,6 +104,8 @@ public class Validator {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		dictionaryTwo.addAll(dictionary);
+		dictionaryThree.addAll(dictionary);
 
 	}
 	
@@ -29,9 +114,44 @@ public class Validator {
 	}
 	
 	public static boolean lookupWord(String word) {
-		if (dictionary.contains(word.toLowerCase()))
-			return true;
-		return false;
+		if (word.contains(" ")){
+
+//			TreeSet<String> test = new TreeSet<>((o1, o2) -> {
+//				int z = o1.length() - o2.length();
+//				if (z == 0) {
+//					return o1.compareTo(o2);
+//				}
+//				return z;
+//			});
+//			test.addAll(dictionary);
+
+
+//			SortedSet<String> subTree = dictionaryThree.tailSet(word.replace(' ', 'a').toLowerCase());
+//			subTree = subTree.headSet((word.replace(' ', 'z') + "a").toLowerCase());
+//
+			String newWord = word.replace(' ', '.').toLowerCase();
+//			//System.out.println(newWord);
+//			//return dictionaryTwo.contains(newWord);
+//			Iterator<String> iter = subTree.iterator();
+//			//System.out.println(newWord);
+//			//System.out.println(subTree);
+//
+//
+//			while (iter.hasNext()){
+//
+//				String s = iter.next();
+////				System.out.println(newWord);
+////				System.out.println(s);
+//				if (s.matches(newWord)) {
+//					System.out.println("Yes");
+//					return true;
+//				}
+//			}
+			//System.out.println(".");
+			return dictionaryTwo.contains(newWord);
+		}
+		//System.out.println("x");
+		return dictionary.contains(word.toLowerCase());
 	}
 	public static TreeSet<String> lookupRack(String letters) {
 		TreeSet<String> tree = new TreeSet<>();

@@ -12,7 +12,7 @@ import java.util.TreeSet;
 	 */
 public class ComputerPlayer extends Player {
 		private LinkedList<Move> moves = new LinkedList<>();
-		private int difficulty = 10000;
+		private int difficulty = 1000;
 		public ComputerPlayer(Board board) {
 			super(board);
 		}
@@ -487,9 +487,18 @@ public class ComputerPlayer extends Player {
 		TreeSet<ScraBBKleCoordinate> coordinates = reader.breadthFirstSearch();
 		//testWordsBreadthInit(coordinates);
 		for (ScraBBKleCoordinate c : coordinates) {
+			System.out.println(this.moves.size());
+			System.out.println(c);
+			if (this.moves.size() > this.difficulty) {
+				return;
+			}
 			//System.out.println(c);
 			testWordsWithCombos(c, words);
 		}
+		System.out.println("SIZE= " + moves.size());
+//		for (Move m : moves) {
+//			System.out.print(m.);
+//		}
 
 
 	}
@@ -499,25 +508,21 @@ public class ComputerPlayer extends Player {
 			return;
 
 		for (LetterTile l : lettersInput) {
+
 			LinkedList<LetterTile> letters = new LinkedList<>(lettersInput);
 
 			letters.remove(l);
-			char character = l.getChar();
-			char maxCharacter = l.getChar();
-			if (character == ' ') {
-				maxCharacter = 'z';
-			}
-			for (int i = character ; i <= maxCharacter ; i++) {
-				StringBuilder currentWord = new StringBuilder(currentWordInput);
-				currentWord.append(l.getChar());
-				array.get(depth).add(currentWord.toString());
-				allCombos(letters, currentWord, array, depth + 1);
-			}
+
+			StringBuilder currentWord = new StringBuilder(currentWordInput);
+			currentWord.append(l.getChar());
+			array.get(depth).add(currentWord.toString());
+			allCombos(letters, currentWord, array, depth + 1);
 		}
 	}
 
 
 	public void testWordsWithCombos(ScraBBKleCoordinate c, ArrayList<ArrayList<String>> list) {
+
 
 		BoardReader reader = new BoardReader(getBoard(), c.getX(), c.getY(), 'r');
 
@@ -566,9 +571,9 @@ public class ComputerPlayer extends Player {
 							Move move = new Move(this, getBoard());
 
 							if (move.validateInput(builderTwo.toString()) && move.checkPlacable()) {
-								//System.out.println(move.getWord());
+								System.out.println(move.getWord());
 								if (Validator.lookupWord(move.getWord().toString())) {
-									//System.out.println("Found");
+									//System.out.println(move.getWord());
 									moves.add(move);
 
 								}

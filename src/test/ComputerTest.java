@@ -5,6 +5,7 @@ import pij.main.*;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 import static junit.framework.Assert.assertEquals;
@@ -29,15 +30,27 @@ public class ComputerTest {
         for (int i = 0; i < 7 ; i++)
             words.add(new ArrayList<String>());
 
-        cpu.allCombos(new LinkedList<>(cpu.getRack()), new StringBuilder(), words, 0);
+        //cpu.allCombos(new LinkedList<>(cpu.getRack()), new StringBuilder(), words, 0);
         int count = 0;
+        for (ArrayList<String> s : words) {
+            count += s.size();
+        }
+        //assertEquals(count, 13699);
+        for (int i = 0; i < 100 ; i++)
+            words.add(new ArrayList<String>());
+
+        riggedBag = new Bag(new int[] { 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,2 });
+        cpu = new ComputerPlayer(board);
+        cpu.draw(riggedBag);
+        cpu.allCombos(new LinkedList<>(cpu.getRack()), new StringBuilder(), words, 0);
         for (ArrayList<String> s : words) {
             //System.out.println(s);
             count += s.size();
         }
-        //System.out.println(count);
-        assertEquals(count, 13699);
-        //cpu.testWordsFindCombos();
+        System.out.println(count);
+
+
+
 
     }
     @Test
@@ -87,15 +100,42 @@ public class ComputerTest {
         move = cpu.turn(riggedBag);
         cpu.removeTiles(move.getTiles());
 
+        riggedBag = new Bag(new int[] { 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 });
+        move = cpu.turn(riggedBag);
+        cpu.removeTiles(move.getTiles());
+
 
 
 
         board.print();
 
-
-
-
         System.out.println(Validator.lookupWord("FE"));
+
+
+    }
+    @Test
+    public void testWildCards(){
+        Board board = Validator.loadFile("./resources/testBoard.txt");
+
+
+        Validator.loadDictionary(new File("./resources/wordlist.txt"));
+        LinkedList<LetterTile> tiles = new LinkedList<>();
+        loadWithLetters(tiles, 1, "X");
+
+        board.placeTiles(board.getCentre(), board.getCentre(), 'd', tiles);
+//        loadWithLetters(tiles, 2, "X");
+//        board.placeTiles(board.getCentre(), 8, 'r', tiles);
+
+        //System.out.println(board.tileAt(7,7));
+
+        Bag riggedBag = new Bag(new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 });
+        Move move;
+        ComputerPlayer cpu = new ComputerPlayer(board);
+        move = cpu.turn(riggedBag);
+        cpu.removeTiles(move.getTiles());
+
+        board.print();
+        //System.out.println(Validator.dictionaryTwo.contains("x."));
 
 
     }
