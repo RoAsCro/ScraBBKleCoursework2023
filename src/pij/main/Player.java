@@ -1,6 +1,5 @@
 package pij.main;
-import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.*;
 
 /**
  *
@@ -88,9 +87,11 @@ public abstract class Player {
 	 * 
 	 * @param 
 	 */
-	public void removeTiles(LinkedList<LetterTile> linkedList) {
-		for (LetterTile tile : linkedList) {
-			tileRack.remove(tile);
+	public void removeTiles(List<LetterTile> tiles) {
+		Iterator<LetterTile> iter = tiles.iterator();
+		while (iter.hasNext()) {
+			iter.next();
+			iter.remove();
 		}
 
 	}
