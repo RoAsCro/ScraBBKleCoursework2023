@@ -12,7 +12,7 @@ import java.util.TreeSet;
 	 */
 public class ComputerPlayer extends Player {
 		private LinkedList<Move> moves = new LinkedList<>();
-		private int difficulty = 1000;
+		private int difficulty = 10000;
 		public ComputerPlayer(Board board) {
 			super(board);
 		}

@@ -8,8 +8,20 @@ public class Validator {
 	private static TreeSet<String> dictionary = new TreeSet<>();
 
 	private static TreeSet<String> prefixDictionary = new TreeSet<>((o1, o2) -> {
-		if (o1.contains("!")) {
-			o1 = o1.replace("!", "");
+		if (o1.contains(" ")) {
+			o1 = o1.replace(" ", "");
+			if (o2.length() >= o1.length()) {
+				o2 = o2.substring(0, o1.length());
+//				System.out.println(o1);
+//				System.out.println(o2);
+			}
+		}
+		return o1.compareTo(o2);
+	});
+
+	private static TreeSet<String> suffixDictionary = new TreeSet<>((o1, o2) -> {
+		if (o1.contains(" ")) {
+			o1 = o1.replace(" ", "");
 			if (o2.length() >= o1.length()) {
 				o2 = o2.substring(0, o1.length());
 //				System.out.println(o1);
@@ -21,13 +33,13 @@ public class Validator {
 
 	private static TreeSet<String> comboDictionary = new TreeSet<>();
 
-	public static TreeSet<String> dictionaryThree = new TreeSet<>((o1, o2) -> {
-				int z = o1.length() - o2.length();
-				if (z == 0) {
-					return o1.compareTo(o2);
-				}
-				return z;
-			});
+	public static TreeSet<String> lengthDictionary = new TreeSet<>((o1, o2) -> {
+		int z = o1.length() - o2.length();
+		if (z == 0) {
+			return o1.compareTo(o2);
+		}
+		return z;
+		});
 	public static TreeSet<String> dictionaryTwo = new TreeSet<>((o1, o2) -> {
 		int z = o1.length() - o2.length();
 		if (!(z == 0))
@@ -112,6 +124,7 @@ public class Validator {
 			
 			while ((line = reader.readLine()) != null) {
 				dictionary.add(line);
+				suffixDictionary.add((new StringBuilder(line)).reverse().toString());
 				char[] chars = line.toCharArray();
 				Arrays.sort(chars);
 				String orderedLine = new String(chars);
@@ -124,6 +137,7 @@ public class Validator {
 		}
 //		dictionaryTwo.addAll(dictionary);
 //		dictionaryThree.addAll(dictionary);
+		lengthDictionary.addAll(dictionary);
 		prefixDictionary.addAll(dictionary);
 
 
@@ -162,92 +176,42 @@ public class Validator {
 	}
 
 	public static boolean lookupWord(String word) {
-//		if (word.contains(" ")){
-//
-////			TreeSet<String> test = new TreeSet<>((o1, o2) -> {
-////				int z = o1.length() - o2.length();
-////				if (z == 0) {
-////					return o1.compareTo(o2);
-////				}
-////				return z;
-////			});
-////			test.addAll(dictionary);
-//
-//
-////			SortedSet<String> subTree = dictionaryThree.tailSet(word.replace(' ', 'a').toLowerCase());
-////			subTree = subTree.headSet((word.replace(' ', 'z') + "a").toLowerCase());
-////
-//			String newWord = word.replace(' ', '.').toLowerCase();
-////			//System.out.println(newWord);
-////			//return dictionaryTwo.contains(newWord);
-////			Iterator<String> iter = subTree.iterator();
-////			//System.out.println(newWord);
-////			//System.out.println(subTree);
-////
-////
-////			while (iter.hasNext()){
-////
-////				String s = iter.next();
-//////				System.out.println(newWord);
-//////				System.out.println(s);
-////				if (s.matches(newWord)) {
-////					System.out.println("Yes");
-////					return true;
-////				}
-////			}
-//			//System.out.println(".");
-//			return dictionaryTwo.contains(newWord);
-//		}
-		//System.out.println("x");
+		if (word.contains(" ")){
+
+			String newWord = word.toLowerCase();
+			//System.out.println(newWord);
+			String head = newWord.substring(0, word.indexOf(" ") + 1);
+			String tail = (new StringBuilder(newWord.substring(word.lastIndexOf(" ")))).reverse().toString();
+			boolean suffix = suffixDictionary.contains(head);
+			boolean prefix = prefixDictionary.contains(tail);
+			//System.out.println(suffix);
+			//System.out.println(prefix);
+			if ((!suffix && !prefix)) {
+				return
+						false;
+
+
+			}
+			//SortedSet<String> subDictionary = dictionary.subSet(newWord.replace(".", "a"), newWord.replace(".", "z") + "a");
+			//System.out.println(subDictionary);
+			//System.out.println(lookupWildWord(word, dictionary));
+			return lookupWildWord(word, dictionary);
+			}
 		return dictionary.contains(word.toLowerCase());
 	}
-	public static TreeSet<String> lookupRack(String letters) {
-		TreeSet<String> tree = new TreeSet<>();
-		Iterator<String> iter = dictionary.iterator();
-		StringBuilder regex = new StringBuilder(letters);
-		regex.insert(0,".*[");
-		regex.insert(regex.length(),"].*");
-//		for (int i = 0; i < regex.length() ; i++) {
-//			regex.insert(i + i + 1, '?');
-//		}
-		String regexString = regex.toString().toLowerCase();
-		System.out.println(regexString);
-		while (iter.hasNext()){
-			String s = iter.next();
-			if (s.matches(regexString))
-				tree.add(s);
-		}
-		return tree;
-	}
 
-	public static TreeSet<String> lookupSet(String word, TreeSet<String> tree) {
-		//System.out.println(tree.size());
-		TreeSet<String> newTree = new TreeSet<>();
-		TreeSet<String> oldTree = new TreeSet<>(tree);
-		String lowerWord = word.toLowerCase();
-		oldTree.remove(lowerWord);
-		Iterator<String> iter = oldTree.iterator();
-		while (iter.hasNext()){
-			String s = iter.next();
-			if (s.matches(".+" + lowerWord + ".+")){
-				newTree.add(s);
-			}
+
+	public static boolean lookupWildWord(String word, SortedSet<String> subDictionary) {
+
+		for (int i = 97; i <= 122; i++) {
+			String newWord = word.replaceFirst(" ", ((char) i) + "");
+			if (newWord.contains(" "))
+				if (lookupWildWord(newWord, subDictionary))
+					return true;
+			if (subDictionary.contains(newWord.toLowerCase()))
+					return true;
 		}
-		//System.out.println(tree.size());
-		return newTree;
-	}
-	public static int lookupWordTwo(String word) {
-		Iterator<String> iter = dictionary.iterator();
-		String lowerWord = word.toLowerCase();
-		if (dictionary.contains(lowerWord))
-				return 0;
-		while (iter.hasNext()){
-			String s = iter.next();
-			if (s.matches(".+" + lowerWord + ".+")){
-				return 1;
-			}
-		}
-		return -1;
+		return false;
 	}
 	
 	public static Board loadFile(String fileName) {
