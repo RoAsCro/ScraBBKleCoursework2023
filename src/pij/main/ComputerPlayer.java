@@ -25,6 +25,7 @@ public class ComputerPlayer extends Player {
 		for (LetterTile lt : getRack()) {
 			System.out.print(lt.getChar() + ", ");
 		}
+		System.out.println();
 		long startTime = System.nanoTime();
 //		parseBoardBreadth();
 		testWordsFindCombos();
@@ -377,10 +378,10 @@ public class ComputerPlayer extends Player {
 	public void parseBoardBreadth() {
 		BoardReader reader = new BoardReader(getBoard(), 'r');
 		TreeSet<ScraBBKleCoordinate> coordinates = reader.breadthFirstSearch();
-		long startTime = System.nanoTime();
+		//long startTime = System.nanoTime();
 		testWordsBreadthInit(coordinates);
-		long endTime = System.nanoTime();
-		long duration = (endTime - startTime);
+//		long endTime = System.nanoTime();
+//		long duration = (endTime - startTime);
 		//System.out.println(duration);
 
 
@@ -477,9 +478,9 @@ public class ComputerPlayer extends Player {
 
 	public void testWordsFindCombos() {
 
-		ArrayList<ArrayList<String>> words = new ArrayList<>();
+		ArrayList<TreeSet<String>> words = new ArrayList<>();
 		for (int i = 0; i < getRack().size() ; i++)
-			words.add(new ArrayList<String>());
+			words.add(new TreeSet<String>());
 
 		allCombos(new LinkedList<>(getRack()), new StringBuilder(), words, 0);
 
@@ -487,15 +488,15 @@ public class ComputerPlayer extends Player {
 		TreeSet<ScraBBKleCoordinate> coordinates = reader.breadthFirstSearch();
 		//testWordsBreadthInit(coordinates);
 		for (ScraBBKleCoordinate c : coordinates) {
-			System.out.println(this.moves.size());
-			System.out.println(c);
+//			System.out.println(this.moves.size());
+//			System.out.println(c);
 			if (this.moves.size() > this.difficulty) {
 				return;
 			}
 			//System.out.println(c);
 			testWordsWithCombos(c, words);
 		}
-		System.out.println("SIZE= " + moves.size());
+		//System.out.println("SIZE= " + moves.size());
 //		for (Move m : moves) {
 //			System.out.print(m.);
 //		}
@@ -503,7 +504,7 @@ public class ComputerPlayer extends Player {
 
 	}
 
-	public void allCombos(LinkedList<LetterTile> lettersInput, StringBuilder currentWordInput, ArrayList<ArrayList<String>> array, int depth){
+	public void allCombos(LinkedList<LetterTile> lettersInput, StringBuilder currentWordInput, ArrayList<TreeSet<String>> array, int depth){
 		if (lettersInput.isEmpty())
 			return;
 
@@ -521,7 +522,7 @@ public class ComputerPlayer extends Player {
 	}
 
 
-	public void testWordsWithCombos(ScraBBKleCoordinate c, ArrayList<ArrayList<String>> list) {
+	public void testWordsWithCombos(ScraBBKleCoordinate c, ArrayList<TreeSet<String>> list) {
 
 
 		BoardReader reader = new BoardReader(getBoard(), c.getX(), c.getY(), 'r');
@@ -539,7 +540,7 @@ public class ComputerPlayer extends Player {
 			}else
 				continue;
 			do {
-				ArrayList<ArrayList<String>> listTwo = new ArrayList<ArrayList<String>>(list);
+				ArrayList<TreeSet<String>> listTwo = new ArrayList<TreeSet<String>>(list);
 				//System.out.println( c + "::" + reader.getX() + ", " + reader.getY());
 				tile = reader.previous();
 				if ((!(tile instanceof LetterTile))) {
@@ -557,9 +558,10 @@ public class ComputerPlayer extends Player {
 				builder.append(reader.getDirection());
 				loopBlock:
 				{
+					ArrayList<TreeSet<String>> listThree = new ArrayList<>(listTwo);
 					for (int i = offset; i < list.size(); i++) {
-						for (int j = 0 ; j <  listTwo.get(i).size() ; j++) {
-							String s = listTwo.get(i).get(j);
+						for (String s : listThree.get(i)) {
+
 							if (s.equals("")){
 								continue ;
 							}
@@ -571,12 +573,24 @@ public class ComputerPlayer extends Player {
 							Move move = new Move(this, getBoard());
 
 							if (move.validateInput(builderTwo.toString()) && move.checkPlacable()) {
-								System.out.println(move.getWord());
-								if (Validator.lookupWord(move.getWord().toString())) {
-									//System.out.println(move.getWord());
+								String moveWord = move.getWord().toString();
+								if (Validator.lookupWord(moveWord)) {
 									moves.add(move);
-
 								}
+//								else if (!Validator.lookupPrefix(moveWord)) {
+//									for (int l = i + 1; l < list.size() - 4; l++) {
+//										TreeSet<String> currentTree = listThree.get(l);
+//										TreeSet<String> head = new TreeSet<>(currentTree.headSet(s));
+//										TreeSet<String> tail = new TreeSet<>(currentTree.tailSet(s + "za"));
+//										head.addAll(tail);
+//										listThree.set(l, head);
+//										//System.out.println(l + ": " + listThree.get(l).size());
+//									}
+//								}
+//								if (Validator.lookupWord(moveWord)) {
+//									moves.add(move);
+//
+//								}
 
 							} else {
 								//System.out.println(".........");

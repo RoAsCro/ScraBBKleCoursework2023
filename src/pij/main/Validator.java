@@ -7,6 +7,20 @@ public class Validator {
 	
 	private static TreeSet<String> dictionary = new TreeSet<>();
 
+	private static TreeSet<String> prefixDictionary = new TreeSet<>((o1, o2) -> {
+		if (o1.contains("!")) {
+			o1 = o1.replace("!", "");
+			if (o2.length() >= o1.length()) {
+				o2 = o2.substring(0, o1.length());
+//				System.out.println(o1);
+//				System.out.println(o2);
+			}
+		}
+		return o1.compareTo(o2);
+	});
+
+	private static TreeSet<String> comboDictionary = new TreeSet<>();
+
 	public static TreeSet<String> dictionaryThree = new TreeSet<>((o1, o2) -> {
 				int z = o1.length() - o2.length();
 				if (z == 0) {
@@ -98,58 +112,92 @@ public class Validator {
 			
 			while ((line = reader.readLine()) != null) {
 				dictionary.add(line);
+				char[] chars = line.toCharArray();
+				Arrays.sort(chars);
+				String orderedLine = new String(chars);
+				comboDictionary.add(orderedLine);
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		dictionaryTwo.addAll(dictionary);
-		dictionaryThree.addAll(dictionary);
+//		dictionaryTwo.addAll(dictionary);
+//		dictionaryThree.addAll(dictionary);
+		prefixDictionary.addAll(dictionary);
+
 
 	}
 	
 	public static void loadDictionary() {
 		loadDictionary(new File("../resources/wordlist.txt"));
 	}
-	
+
+	public static boolean lookupCombo(String word) {
+		//System.out.println("SIZE: " + comboDictionary.size());
+		char[] chars = word.toCharArray();
+		Arrays.sort(chars);
+		String orderedWord = new String(chars);
+
+		Iterator<String> iter = comboDictionary.iterator();
+			//System.out.println(newWord);
+			//System.out.println(subTree);
+
+
+			while (iter.hasNext()) {
+
+				String s = iter.next();
+//				System.out.println(newWord);
+//				System.out.println(s);
+				if (s.matches(word)) {
+					System.out.println(s);
+					return true;
+				}
+			}
+		return comboDictionary.contains(orderedWord);
+	}
+
+	public static boolean lookupPrefix(String prefix) {
+		return prefixDictionary.contains(prefix.toLowerCase() + "!");
+	}
+
 	public static boolean lookupWord(String word) {
-		if (word.contains(" ")){
-
-//			TreeSet<String> test = new TreeSet<>((o1, o2) -> {
-//				int z = o1.length() - o2.length();
-//				if (z == 0) {
-//					return o1.compareTo(o2);
-//				}
-//				return z;
-//			});
-//			test.addAll(dictionary);
-
-
-//			SortedSet<String> subTree = dictionaryThree.tailSet(word.replace(' ', 'a').toLowerCase());
-//			subTree = subTree.headSet((word.replace(' ', 'z') + "a").toLowerCase());
+//		if (word.contains(" ")){
 //
-			String newWord = word.replace(' ', '.').toLowerCase();
-//			//System.out.println(newWord);
-//			//return dictionaryTwo.contains(newWord);
-//			Iterator<String> iter = subTree.iterator();
-//			//System.out.println(newWord);
-//			//System.out.println(subTree);
+////			TreeSet<String> test = new TreeSet<>((o1, o2) -> {
+////				int z = o1.length() - o2.length();
+////				if (z == 0) {
+////					return o1.compareTo(o2);
+////				}
+////				return z;
+////			});
+////			test.addAll(dictionary);
 //
 //
-//			while (iter.hasNext()){
-//
-//				String s = iter.next();
-////				System.out.println(newWord);
-////				System.out.println(s);
-//				if (s.matches(newWord)) {
-//					System.out.println("Yes");
-//					return true;
-//				}
-//			}
-			//System.out.println(".");
-			return dictionaryTwo.contains(newWord);
-		}
+////			SortedSet<String> subTree = dictionaryThree.tailSet(word.replace(' ', 'a').toLowerCase());
+////			subTree = subTree.headSet((word.replace(' ', 'z') + "a").toLowerCase());
+////
+//			String newWord = word.replace(' ', '.').toLowerCase();
+////			//System.out.println(newWord);
+////			//return dictionaryTwo.contains(newWord);
+////			Iterator<String> iter = subTree.iterator();
+////			//System.out.println(newWord);
+////			//System.out.println(subTree);
+////
+////
+////			while (iter.hasNext()){
+////
+////				String s = iter.next();
+//////				System.out.println(newWord);
+//////				System.out.println(s);
+////				if (s.matches(newWord)) {
+////					System.out.println("Yes");
+////					return true;
+////				}
+////			}
+//			//System.out.println(".");
+//			return dictionaryTwo.contains(newWord);
+//		}
 		//System.out.println("x");
 		return dictionary.contains(word.toLowerCase());
 	}
