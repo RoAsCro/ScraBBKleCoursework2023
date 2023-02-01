@@ -83,7 +83,8 @@ public class ComputerTest {
 
         riggedBag = new Bag(new int[] { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
         turn(cpu, riggedBag);
-
+        TestUtility.writeOnBoard(new ScraBBKleCoordinate(10, 7), board, "X", 'r');
+        cpu.removeTiles(cpu.getRack());
         riggedBag = new Bag(new int[] { 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2 });
         turn(cpu, riggedBag);
 

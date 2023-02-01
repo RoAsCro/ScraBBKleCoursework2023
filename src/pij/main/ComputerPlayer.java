@@ -12,7 +12,7 @@ import java.util.TreeSet;
 	 */
 public class ComputerPlayer extends Player {
 		private LinkedList<Move> moves = new LinkedList<>();
-		private int difficulty = 10000;
+		private int difficulty = 100000;
 		public ComputerPlayer(Board board) {
 			super(board);
 		}
@@ -42,6 +42,8 @@ public class ComputerPlayer extends Player {
 			}
 		}
 		System.out.println(bestMove.getWord());
+		System.out.println(bestMove.getWord().getScore());
+		System.out.println(moves.size());
 		bestMove.tryMove();
 
 		//		if (parseBoard(move)) {
