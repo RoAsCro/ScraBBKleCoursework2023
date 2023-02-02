@@ -6,12 +6,8 @@ import java.util.*;
 public class Validator {
 	
 	private static TreeSet<String> dictionary = new TreeSet<>();
-
+	@Deprecated
 	private static final Comparator<String> PREFIX_COMPARATOR_OLD = (o1, o2) -> {
-//		int len1 = o1.length();
-//		int len2 = o2.length();
-//		if (!(len1 == len2))
-//			return len1 - len2;
 		if (o1.contains(" ")) {
 			o1 = o1.replace(" ", "");
 			if (o2.length() >= o1.length()) {
@@ -28,20 +24,9 @@ public class Validator {
 			return len1 - len2;
 		int index = o1.indexOf(" ");
 		if (index != -1) {
-//			if (o1.contains("xalfd")) {
-//				System.out.println(o1);
-//				System.out.println(o2);
-//			}
-			//System.out.println(o2);
 			o1 = o1.substring(0, index);
 			o2 = o2.substring(0, index);
-			//System.out.println(o1);
-//			o1 = o1.replace(" ", "");
-//			if (o2.length() >= o1.length()) {
-//				o2 = o2.substring(0, o1.length());
-//			}
 		}
-
 		return o1.compareTo(o2);
 	};
 
@@ -113,7 +98,7 @@ public class Validator {
 	}
 
 	public static boolean lookupPrefix(String prefix) {
-		return prefixDictionary.contains(prefix.toLowerCase() + "!");
+		return prefixDictionary.contains(prefix.toLowerCase() + " ");
 	}
 
 	public static boolean lookupWord(String word) {
@@ -121,8 +106,8 @@ public class Validator {
 
 			String newWord = word.toLowerCase();
 			//System.out.println(newWord);
-			String head = newWord.substring(0, word.indexOf(" ") + 1);
-			String tail = (new StringBuilder(newWord.substring(word.lastIndexOf(" ")))).reverse().toString();
+//			String head = newWord.substring(0, word.indexOf(" ") + 1);
+//			String tail = (new StringBuilder(newWord.substring(word.lastIndexOf(" ")))).reverse().toString();
 			boolean suffix = suffixDictionary.contains(new StringBuilder(newWord).reverse().toString());
 			boolean prefix = prefixDictionary.contains(newWord);
 			//System.out.println(suffix);
@@ -130,13 +115,11 @@ public class Validator {
 			if ((!suffix || !prefix)) {
 				return
 						false;
-
-
 			}
-			//SortedSet<String> subDictionary = dictionary.subSet(newWord.replace(".", "a"), newWord.replace(".", "z") + "a");
+			SortedSet<String> subDictionary = dictionary.subSet(newWord.replace(" ", "a"), newWord.replace(" ", "z") + "a");
 			//System.out.println(subDictionary);
-			//System.out.println(lookupWildWord(word, dictionary));
-			return lookupWildWord(word, dictionary);
+			return lookupWildWord(word, subDictionary);
+			//return lookupWildWord(word, dictionary);
 			}
 		return dictionary.contains(word.toLowerCase());
 	}

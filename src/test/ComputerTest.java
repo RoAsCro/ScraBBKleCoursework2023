@@ -156,13 +156,14 @@ public class ComputerTest {
         listy.add(new LetterTile("G", 2));
         Bag riggedBag;
 
-        for (int i = 0 ; i < 10 ; i++) {
+        for (int i = 0 ; i < 13 ; i++) {
             riggedBag = new Bag(new int[] { 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
             turn(cpu, riggedBag);
         }
         cpu.removeTiles(new LinkedList<LetterTile>(cpu.getRack()));
         riggedBag = new Bag(new int[] { 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2 });
         turn(cpu, riggedBag);
+        board.print();
 
 
 

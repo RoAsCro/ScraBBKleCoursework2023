@@ -27,10 +27,6 @@ public class Bag {
 		}
 	}
 
-	public static String[][] getAlphabet() {
-		return ALPHABET;
-	}
-
 	public boolean isEmpty() {
 		return bag.isEmpty();
 	}
