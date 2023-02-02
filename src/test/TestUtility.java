@@ -26,6 +26,7 @@ public class TestUtility {
         for (char c : word.toCharArray()) {
             list.add(new LetterTile(c + "", 1));
         }
-        board.placeTiles(coord.getX(), coord.getY(), direction, list);
+        BoardReader reader = new BoardReader(board, coord, direction);
+        reader.conditionalNext((tile) -> !list.isEmpty(), (x, y) -> board.placeTile(new ScraBBKleCoordinate(x, y), list.poll()));
     }
 }

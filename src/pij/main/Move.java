@@ -153,7 +153,12 @@ public class Move {
 	}
 
 	public void confirmMove() {
-		this.BOARD.placeTiles(this.x, this.y, this.direction, this.word.getTilesTwo());
+		LinkedList<LetterTile> tiles = this.word.getTilesTwo();
+		BoardReader reader = new BoardReader(this.BOARD, this.x, this.y, this.direction);
+		reader.conditionalNext((tile) -> !tiles.isEmpty(), (x, y) -> this.BOARD.placeTile(new ScraBBKleCoordinate(x, y), tiles.poll()));
+
+
+		//this.BOARD.placeTiles(this.x, this.y, this.direction, this.word.getTilesTwo());
 	}
 
 	public void setAll(int x, int y, char direction, LetterTile[] tiles) {

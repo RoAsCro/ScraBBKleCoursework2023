@@ -402,12 +402,12 @@ public class ScrabbleTest {
 		Validator.loadDictionary(new File("./resources/wordlist.txt"));
 		ComputerPlayer cpu = new ComputerPlayer(board);
 		Bag riggedBagTwo = new Bag(new int[] { 1, 1, 1, 1, 1, 1, 0 });
-		board.grid[7][7] = new LetterTile("A", 1);
-//		board.grid[6][6] = new LetterTile("X", 1);
-//		board.grid[6][8] = new LetterTile("X", 1);
-		board.grid[8][7] = new LetterTile("A", 1);
-		board.grid[7][6] = new LetterTile("A", 1);
-		board.grid[7][5] = new LetterTile("A", 1);
+//		board.grid[7][7] = new LetterTile("A", 1);
+////		board.grid[6][6] = new LetterTile("X", 1);
+////		board.grid[6][8] = new LetterTile("X", 1);
+//		board.grid[8][7] = new LetterTile("A", 1);
+//		board.grid[7][6] = new LetterTile("A", 1);
+//		board.grid[7][5] = new LetterTile("A", 1);
 		LinkedList<LetterTile> ltlt = new LinkedList<>(cpu.getRack());
 		System.out.println("X     :" + ltlt.size());
 		ltlt.poll();
@@ -435,9 +435,9 @@ public class ScrabbleTest {
 		//Game game = new Game();
 
 		Bag riggedBagTwo = new Bag(new int[] { 0, 1, 0, 0, 0, 0, 0 });
-		board.grid[7][7] = new LetterTile("B", 1);
-		board.grid[7][5] = new LetterTile("X", 1);
-		board.grid[8][7] = new LetterTile("D", 1);
+//		board.grid[7][7] = new LetterTile("B", 1);
+//		board.grid[7][5] = new LetterTile("X", 1);
+//		board.grid[8][7] = new LetterTile("D", 1);
 
 		cpu.draw(riggedBagTwo);
 		riggedBagTwo = new Bag(new int[] { 100, 0, 0, 0, 0, 0, 0 });

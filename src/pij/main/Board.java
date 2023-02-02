@@ -12,7 +12,7 @@ import java.util.LinkedList;
 public class Board {
 
 	/** A two-dimensional array of tiles representing the board. */
-	public Tile[][] grid;
+	private Tile[][] grid;
 
 	/** The size of the board's axes. */
 	private final int MAGNITUDE;
@@ -93,7 +93,7 @@ public class Board {
 	}
 
 	/**
-	 * 
+	 *
 	 *
 	 * @param coord
 	 * @param tile
@@ -106,10 +106,10 @@ public class Board {
 		return true;
 	}
 
-	public void placeTiles(int initialX, int initialY, char direction, LinkedList<LetterTile> tiles) {
-		BoardReader reader = new BoardReader(this, initialX, initialY, direction);
-		reader.conditionalNext((tile) -> !tiles.isEmpty(), (x, y) -> grid[x][y] = tiles.poll());
-	}
+//	public void placeTiles(int initialX, int initialY, char direction, LinkedList<LetterTile> tiles) {
+//		BoardReader reader = new BoardReader(this, initialX, initialY, direction);
+//		reader.conditionalNext((tile) -> !tiles.isEmpty(), (x, y) -> grid[x][y] = tiles.poll());
+//	}
 
 
 

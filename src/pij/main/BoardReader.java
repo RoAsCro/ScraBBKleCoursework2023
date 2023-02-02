@@ -32,7 +32,11 @@ public class BoardReader {
 	public BoardReader(Board board, char direction) {
 		this(board, board.getCentre(), board.getCentre(), direction);
 	}
-	
+
+	public BoardReader(Board board, ScraBBKleCoordinate coord, char direction) {
+		this(board, coord.getX(), coord.getY(), direction);
+	}
+
 	public BoardReader(BoardReader reader) {
 		this(reader.board, reader.currentX, reader.currentY, reader.getDirection());
 	}
