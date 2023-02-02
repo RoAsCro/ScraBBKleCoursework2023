@@ -1,7 +1,5 @@
 package pij.main;
 
-import java.util.LinkedList;
-
 /**
  * A board on which the game of ScraBBKle is played. A board's dimensions are S
  * x S where S is between 12 and 26.
@@ -61,7 +59,7 @@ public class Board {
 	 * @return Tile at given coordinates. Null if tile out of bounds.
 	 */
 	public Tile tileAt(int x, int y) {
-		if (x < 0 || y < 0 || x >= MAGNITUDE || y >= MAGNITUDE)
+		if (!inBounds(new ScraBBKleCoordinate(x, y)))
 			return null;
 		else
 			return grid[x][y];
@@ -105,7 +103,6 @@ public class Board {
 		grid[coord.getX()][coord.getY()] = tile;
 		return true;
 	}
-
 //	public void placeTiles(int initialX, int initialY, char direction, LinkedList<LetterTile> tiles) {
 //		BoardReader reader = new BoardReader(this, initialX, initialY, direction);
 //		reader.conditionalNext((tile) -> !tiles.isEmpty(), (x, y) -> grid[x][y] = tiles.poll());
