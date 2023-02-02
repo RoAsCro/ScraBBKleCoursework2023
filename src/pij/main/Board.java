@@ -23,9 +23,6 @@ public class Board {
 	 */
 	private final int CENTRE;
 
-	/** True if no tiles have been placed yet */
-	private boolean startState = true;
-
 
 	public Board(int magnitude, Tile[][] grid) {
 		this.MAGNITUDE = magnitude;
@@ -38,17 +35,13 @@ public class Board {
 	}
 
 	public boolean getStartState() {
-		return startState;
+		return tileAt(CENTRE, CENTRE) instanceof LetterTile;
 	}
 
 	public boolean inBounds(ScraBBKleCoordinate coord) {
 		int x = coord.getX();
 		int y = coord.getY();
 		return (x >= 0 && x < this.MAGNITUDE && y >= 0 && y < this.MAGNITUDE);
-	}
-
-	public void setStartState() {
-		startState = false;
 	}
 
 	/**

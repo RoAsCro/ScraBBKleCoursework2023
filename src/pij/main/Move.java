@@ -246,9 +246,7 @@ public class Move {
 					|| (x == centre && x + xInc == centre && (centre <= y + wordLength - 1 && centre >= y)))) {
 				System.out.println("Your word must cross over the centre tile.");
 				return false;
-			} else
-				BOARD.setStartState();
-
+			}
 		}
 
 		return true;
