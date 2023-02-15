@@ -13,17 +13,17 @@ import java.util.regex.Pattern;
 
 public class WildTest {
 
-    public class TestPlayer extends Player {
-        public TestPlayer(Board board) {
-            super(board);
-        }
-
-        @Override
-        public Move turn(Bag bag) {
-
-            return null;
-        }
-    }
+//    public class TestPlayer extends Player {
+//        public TestPlayer(Board board) {
+//            super(board);
+//        }
+//
+//        @Override
+//        public Move turn(Bag bag) {
+//
+//            return null;
+//        }
+//    }
 
     @Test
     public void testThis(){

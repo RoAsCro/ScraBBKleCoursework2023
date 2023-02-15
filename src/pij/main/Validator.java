@@ -83,10 +83,13 @@ public class Validator {
 		try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
 
 			String lineOne = reader.readLine();
-			char[] lineOneChars = lineOne.toCharArray();
+			if (lineOne == null){
+				invalidFile();
+				return null;
+			}
 
-			for (int i = 0 ; i < lineOneChars.length ; i++) {
-				char currentChar = lineOneChars[i];
+			for (int i = 0 ; i < lineOne.length() ; i++) {
+				char currentChar = lineOne.charAt(i);
 				if (!Character.isDigit(currentChar)) {
 					System.out.println("File not correctly formatted.");
 					return null;
