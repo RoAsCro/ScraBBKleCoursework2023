@@ -66,7 +66,8 @@ public class Game {
 
 
 
-		}			
+		}
+		checkVictory();
 	}
 
 	private boolean checkAvailableMoves(){
@@ -80,7 +81,21 @@ public class Game {
 	}
 
 	public void checkVictory() {
+		Player playerOne = players.poll();
+		Player playerTwo = players.poll();
+		double scoreOne = playerOne.getScore();
+		double scoreTwo = playerTwo.getScore();
+		String winningPlayerName;
 
+		if (scoreOne == scoreTwo) {
+			System.out.println("It's a draw!");
+			return;
+		}
+		else if (scoreOne > scoreTwo) {
+			winningPlayerName = playerOne.getName().toLowerCase();
+		}else
+			winningPlayerName = playerTwo.getName().toLowerCase();
+		System.out.println("The " + winningPlayerName + " player wins!");
 	}
 	
 //	/**
