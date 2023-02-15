@@ -107,7 +107,6 @@ public class WildTest {
 
 //        System.out.println(Validator.lookupWord("agh"));
         start = System.nanoTime();
-        System.out.println(Validator.lookupPrefix("aghast"));
         long stop = System.nanoTime();
         System.out.println(stop - start);
 

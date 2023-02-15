@@ -38,7 +38,6 @@ public class TestUtility {
     @Test
     public void read(){
         loadDictionary();
-        Validator.compare("s v ");
 //        TreeSet<String> set = new TreeSet<>(PREFIX_COMPARATOR);
 //        set.addAll(Validator.getDictionary());
 //        String strng = set.first();
