@@ -54,9 +54,20 @@ public class Game {
 					emptyRack = true;
 			}
 			
-			if ((passes >= 4) || (bag.isEmpty() && emptyRack))
+			if ((passes >= 4) || (this.bag.isEmpty() && emptyRack) || checkAvailableMoves())
 				go = false;
+			
 		}			
+	}
+
+	private boolean checkAvailableMoves(){
+		boolean noMoves = true;
+		for (Player p : this.players) {
+			if (new BoardParser(this.board, this.activePlayer, true).findMoves().size() != 0)
+				noMoves = false;
+			break;
+		}
+		return noMoves;
 	}
 	
 //	/**
