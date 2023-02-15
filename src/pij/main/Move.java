@@ -6,6 +6,10 @@ import java.util.*;
 
 public class Move {
 
+	private static final int RACK_SIZE = 7;
+
+	private static final int ALL_LETTERS_BONUS = 70;
+
 	private String input;
 
 	private boolean valid = true;
@@ -216,7 +220,7 @@ public class Move {
 		// across the grid.
 		int xInc = (this.direction - 100) / 14;
 		int yInc = (this.direction - 114) / 14 * -1;
-		int wordLength = this.getTiles().size();
+		int wordLength = getTiles().size();
 
 		//If there is a letter directly behind the one specified in the move, return false
 		if (this.BOARD.tileAt(this.x - xInc, this.y - yInc) instanceof LetterTile) {
@@ -282,7 +286,10 @@ public class Move {
 			resetWord();
 			return false;
 		}
-
+		this.word.finalise();
+		if (getTiles().size() == RACK_SIZE) {
+			this.word.addPoints(ALL_LETTERS_BONUS);
+		}
 		return true;
 	}
 
