@@ -35,6 +35,8 @@ public abstract class Player {
 		return tileRack;
 	}
 
+	public abstract String getName();
+
 	/**
 	 * Returns the player's score.
 	 * 

@@ -11,11 +11,19 @@ import java.util.TreeSet;
 	 *
 	 */
 public class ComputerPlayer extends Player {
-		private LinkedList<Move> moves = new LinkedList<>();
-		private int difficulty = 100000;
-		public ComputerPlayer(Board board) {
-			super(board);
-		}
+
+	private String name = "Computer";
+	private LinkedList<Move> moves = new LinkedList<>();
+	private int difficulty = 100000;
+	public ComputerPlayer(Board board) {
+		super(board);
+	}
+
+
+	@Override
+	public String getName() {
+		return this.name;
+	}
 
 		@Override
 	public Move turn(Bag bag) {

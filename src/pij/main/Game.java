@@ -48,7 +48,7 @@ public class Game {
 			}
 			boolean emptyRack = false;
 			for (Player p : players) {
-				System.out.println(p.getScore());
+				System.out.println(p.getName() + " player score: " + p.getScore());
 				if (p.getRack().isEmpty())
 					emptyRack = true;
 			}
@@ -63,7 +63,9 @@ public class Game {
 				}
 				go = false;
 			}
-			
+
+
+
 		}			
 	}
 
@@ -75,6 +77,10 @@ public class Game {
 			break;
 		}
 		return noMoves;
+	}
+
+	public void checkVictory() {
+
 	}
 	
 //	/**

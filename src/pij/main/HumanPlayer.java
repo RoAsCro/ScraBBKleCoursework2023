@@ -8,6 +8,8 @@ package pij.main;
  */
 public class HumanPlayer extends Player {
 
+	private String name = "Human";
+
 	public HumanPlayer(Board board) {
 		super(board);
 	}
@@ -22,6 +24,11 @@ public class HumanPlayer extends Player {
 			separator = ", ";
 		}
 		System.out.println();
+	}
+
+	@Override
+	public String getName() {
+		return this.name;
 	}
 
 	@Override
