@@ -21,34 +21,10 @@ public class Game {
 //		String input = "";
 		bag = new Bag();
 		Validator.loadDictionary();
-		
-//		System.out.println("Welcome to ScraBBKle!");
-//		while (go) {
-//			System.out.println("Would you like to _l_oad a board or use the _d_efault board?");
-//			System.out.print("Please enter your choice (l/d): ");
-//			input = System.console().readLine();
-//			if (!Validator.inputValidation(input, new String[]{"d", "l"})) {
-//				System.out.println("That is not a valid input.");
-//				System.out.println();
-//				continue;
-//			}
-//			go = false;
-//			System.out.println();
-//		}
-//		String file = "";
-//		board = null;
-//
-//		do {
-//			if (input.equals("l")) {
-//				System.out.print("Please enter the file name of the board: ");
-//				file = System.console().readLine();
-//			} else {
-//				file = "testBoard.txt";
-//			}
-//			file = "../resources/" + file;
-//			board = Validator.loadFile(file);
-//		} while (board == null);
-		
+
+		for (Player p : this.players) {
+			p.draw(bag);
+		}
 
 		go = true;
 		while (go) {

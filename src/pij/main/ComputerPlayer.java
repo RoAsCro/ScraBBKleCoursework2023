@@ -19,7 +19,6 @@ public class ComputerPlayer extends Player {
 
 		@Override
 	public Move turn(Bag bag) {
-		draw(bag);
 		moves.clear();
 
 		for (LetterTile lt : getRack()) {
@@ -47,11 +46,7 @@ public class ComputerPlayer extends Player {
 		System.out.println(moves.size());
 		bestMove.tryMove();
 
-		//		if (parseBoard(move)) {
-		//			getBoard().placeWord(move);
-		//			return move;
-		//		}
-
+		draw(bag);
 		return bestMove;
 	}
 

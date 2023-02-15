@@ -26,7 +26,7 @@ public class HumanPlayer extends Player {
 
 	@Override
 	public Move turn(Bag bag) {
-		draw(bag);
+
 
 		String input;
 		Move move = new Move(this, getBoard());
@@ -40,7 +40,7 @@ public class HumanPlayer extends Player {
 			input = System.console().readLine();
 
 		} while (!move.tryMove(input));
-
+		draw(bag);
 		return move;
 	}
 
