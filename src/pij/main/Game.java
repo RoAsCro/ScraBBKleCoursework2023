@@ -53,8 +53,16 @@ public class Game {
 					emptyRack = true;
 			}
 			
-			if ((passes >= 4) || (this.bag.isEmpty() && emptyRack) || checkAvailableMoves())
+			if ((passes >= 4) || (this.bag.isEmpty() && emptyRack) || checkAvailableMoves()) {
+				for (Player p : players) {
+					int deduction = 0;
+					for (LetterTile l : p.getRack()) {
+						deduction += l.getValue();
+					}
+					p.updateScore(-deduction);
+				}
 				go = false;
+			}
 			
 		}			
 	}
