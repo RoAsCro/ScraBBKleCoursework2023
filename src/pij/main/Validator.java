@@ -101,22 +101,42 @@ public class Validator {
 			String row;
 			for (int yCoord = 0; yCoord < magnitude; yCoord++) {
 				row = reader.readLine();
-				String tileText = "";
-				int tileValue = 0;
+				StringBuilder tileText = new StringBuilder();
+				StringBuilder tileValue = new StringBuilder();
 				int xCoord = 0;
 				
 				for (int i = 0; i < row.length(); i++) {
 					char current = row.charAt(i);
-					tileText += current;
+					tileText.append(current);
 
 					if (current == '.' || current == ')' || current == '}') {
-						Tile tile = new Tile(tileText, tileValue);
+						if (current != '.') {
+							if (tileValue.isEmpty()) {
+								invalidFile();
+								return null;
+							}
+							for (int c = 0 ; c < tileValue.length() ; c++) {
+								char currentChar = tileValue.charAt(c);
+								if (!Character.isDigit(currentChar) && !(currentChar == '-' && c == 0)) {
+									invalidFile();
+									return null;
+								}
+							}
+						}  else
+							tileValue.append('0');
+						int finalValue = Integer.parseInt(tileValue.toString());
+						if (finalValue < -9 || finalValue > 99) {
+							invalidFile();
+							return null;
+						}
+
+						Tile tile = new Tile(tileText.toString(), Integer.parseInt(tileValue.toString()));
 						grid[xCoord][yCoord] = tile;
-						tileText = "";
-						tileValue = 0;
+						tileText = new StringBuilder();
+						tileValue = new StringBuilder();
 						xCoord++;
 					} else if (current != '(' && current != '{') {
-						tileValue = (tileValue * 10) + current - '0';
+						tileValue.append(current);
 					}
 					// TODO: 18/01/2023  - else board file is not valid
 
@@ -130,6 +150,10 @@ public class Validator {
 		} catch (IOException ex) {
 			return null;
 		}
+	}
+
+	private static void invalidFile(){
+		System.out.println("File is not a valid format");
 	}
 	
 	public static boolean inputValidation(String input, String[] validInputs) {
