@@ -35,6 +35,7 @@ public class Game {
 			} while (board.getStartState());
 
 			activePlayer.removeTiles(move.getTiles());
+			activePlayer.draw(this.bag);
 			
 			System.out.println();
 			if (move.isPass()) {
