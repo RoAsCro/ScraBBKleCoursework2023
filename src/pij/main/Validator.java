@@ -91,13 +91,13 @@ public class Validator {
 			for (int i = 0 ; i < lineOne.length() ; i++) {
 				char currentChar = lineOne.charAt(i);
 				if (!Character.isDigit(currentChar)) {
-					System.out.println("File not correctly formatted.");
+					invalidFile();
 					return null;
 				}
 			}
 
 			if ((magnitude = Integer.parseInt(lineOne)) < 12 || magnitude > 26) {
-				System.out.println("File not correctly formatted.");
+				invalidFile();
 				return null;
 			}
 
@@ -106,6 +106,10 @@ public class Validator {
 			String row;
 			for (int yCoord = 0; yCoord < magnitude; yCoord++) {
 				row = reader.readLine();
+				if (row == null) {
+					invalidFile();
+					return null;
+				}
 				StringBuilder tileText = new StringBuilder();
 				StringBuilder tileValue = new StringBuilder();
 				int xCoord = 0;
