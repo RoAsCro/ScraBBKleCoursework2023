@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Validator {
 
-	private static final String[] VALID_BOARD_CHARACTERS = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "(", ")", "{", "}", ".", "-"};
+	private static final String[] VALID_BOARD_CHARACTERS = new String[]{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "(", ")", "{", "}", ".", "-"};
 
 	private static final Comparator<String> PREFIX_COMPARATOR = (o1, o2) -> {
 		int len1 = o1.length();
@@ -109,6 +109,7 @@ public class Validator {
 				
 				for (int i = 0; i < row.length(); i++) {
 					char current = row.charAt(i);
+
 					tileText.append(current);
 
 					if (!inputValidation("" + current, VALID_BOARD_CHARACTERS)) {
