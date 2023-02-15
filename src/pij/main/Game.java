@@ -18,7 +18,6 @@ public class Game {
 	
 	public void run() {
 		boolean go = true;
-//		String input = "";
 		bag = new Bag();
 		Validator.loadDictionary();
 
@@ -26,7 +25,6 @@ public class Game {
 			p.draw(bag);
 		}
 
-		go = true;
 		while (go) {
 			activePlayer = players.poll();
 			players.add(activePlayer);

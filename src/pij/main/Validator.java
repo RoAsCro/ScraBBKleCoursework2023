@@ -20,7 +20,6 @@ public class Validator {
 
 	private static TreeSet<String> dictionary = new TreeSet<>();
 	private static TreeSet<String> prefixDictionary = new TreeSet<>(PREFIX_COMPARATOR);
-
 	private static TreeSet<String> suffixDictionary = new TreeSet<>(PREFIX_COMPARATOR);
 
 	public static void loadDictionary(File file) {
@@ -82,8 +81,22 @@ public class Validator {
 		try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
 
 			String lineOne = reader.readLine();
+			char[] lineOneChars = lineOne.toCharArray();
 
-			magnitude = Integer.parseInt(lineOne);
+			for (int i = 0 ; i < lineOneChars.length ; i++) {
+				char currentChar = lineOneChars[i];
+				if (!Character.isDigit(currentChar)) {
+					System.out.println("File not correctly formatted.");
+					return null;
+				}
+			}
+
+			if ((magnitude = Integer.parseInt(lineOne)) < 12 || magnitude > 26) {
+				System.out.println("File not correctly formatted.");
+				return null;
+			}
+
+
 			grid = new Tile[magnitude][magnitude];
 			String row;
 			for (int yCoord = 0; yCoord < magnitude; yCoord++) {
