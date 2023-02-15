@@ -56,10 +56,10 @@ public class Game {
 			players.add(activePlayer);
 			//board.print();
 			Move move;
-			//do {
+			do {
 				move = activePlayer.turn(this.bag);
-			//} while (!board.placeWord(move));
-			
+			} while (board.getStartState());
+
 			activePlayer.removeTiles(move.getTiles());
 			
 			System.out.println();
@@ -68,11 +68,8 @@ public class Game {
 				System.out.println("Player passed their turn.");
 			} else {
 				passes = 0;
-
-				//System.out.println(move.toString());
 				System.out.println();
 				System.out.println("The result is: ");
-				
 			}
 			boolean emptyRack = false;
 			for (Player p : players) {

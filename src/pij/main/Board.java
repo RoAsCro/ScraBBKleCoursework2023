@@ -35,7 +35,7 @@ public class Board {
 	}
 
 	public boolean getStartState() {
-		return tileAt(CENTRE, CENTRE) instanceof LetterTile;
+		return !(tileAt(CENTRE, CENTRE) instanceof LetterTile);
 	}
 
 	public boolean inBounds(ScraBBKleCoordinate coord) {
