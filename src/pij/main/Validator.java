@@ -5,6 +5,8 @@ import java.util.*;
 
 public class Validator {
 
+	private static final String[] VALID_BOARD_CHARACTERS = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "(", ")", "{", "}", ".", "-"};
+
 	private static final Comparator<String> PREFIX_COMPARATOR = (o1, o2) -> {
 		int len1 = o1.length();
 		int len2 = o2.length();
@@ -109,6 +111,11 @@ public class Validator {
 					char current = row.charAt(i);
 					tileText.append(current);
 
+					if (!inputValidation("" + current, VALID_BOARD_CHARACTERS)) {
+						invalidFile();
+						return null;
+					}
+
 					if (current == '.' || current == ')' || current == '}') {
 						if (current != '.') {
 							if (tileValue.isEmpty()) {
@@ -124,13 +131,14 @@ public class Validator {
 							}
 						}  else
 							tileValue.append('0');
+
 						int finalValue = Integer.parseInt(tileValue.toString());
 						if (finalValue < -9 || finalValue > 99) {
 							invalidFile();
 							return null;
 						}
 
-						Tile tile = new Tile(tileText.toString(), Integer.parseInt(tileValue.toString()));
+						Tile tile = new Tile(tileText.toString(), finalValue);
 						grid[xCoord][yCoord] = tile;
 						tileText = new StringBuilder();
 						tileValue = new StringBuilder();
@@ -138,7 +146,6 @@ public class Validator {
 					} else if (current != '(' && current != '{') {
 						tileValue.append(current);
 					}
-					// TODO: 18/01/2023  - else board file is not valid
 
 				}
 			}
