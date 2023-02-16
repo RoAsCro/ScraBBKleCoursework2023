@@ -44,8 +44,10 @@ public class BoardLoadingTest {
         assertNull(loadBoardFromTestBoards("notANumber.txt"));
 
         //First line is a negative number
+        assertNull(loadBoardFromTestBoards("negativeInt.txt"));
 
         //First line is a float
+        assertNull(loadBoardFromTestBoards("float.txt"));
 
 
     }
