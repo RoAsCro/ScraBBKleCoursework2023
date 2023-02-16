@@ -156,6 +156,11 @@ public class Validator {
 					}
 
 				}
+
+			}
+			if (reader.readLine() != null){
+				invalidFile();
+				return null;
 			}
 			return new Board(magnitude, grid);
 		} catch (FileNotFoundException ex) {

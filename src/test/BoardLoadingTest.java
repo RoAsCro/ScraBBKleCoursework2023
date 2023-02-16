@@ -11,7 +11,7 @@ public class BoardLoadingTest {
     @Test
     public void testBoardSizes() {
         //Smallest Possible Board
-        assertNotNull(Validator.loadFile("./resources/TestBoards/minBoard.txt"));
+        assertNotNull(loadBoardFromTestBoards("minBoard.txt"));
 
         //Largest Possible Board
         assertNotNull(loadBoardFromTestBoards("bigBoard.txt"));
