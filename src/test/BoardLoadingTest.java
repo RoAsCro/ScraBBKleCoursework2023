@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import pij.main.*;
 public class BoardLoadingTest {
 
+
     public Board loadBoardFromTestBoards(String fileName) {
         return Validator.loadFile("./resources/TestBoards/" + fileName);
     }
@@ -11,10 +12,18 @@ public class BoardLoadingTest {
     @Test
     public void testBoardSizes() {
         //Smallest Possible Board
-        assertNotNull(loadBoardFromTestBoards("minBoard.txt"));
+        Board boardOne = loadBoardFromTestBoards("minBoard.txt");
+        assertNotNull(boardOne);
+        assertNotNull(boardOne.tileAt(11,11));
+        assertNull(boardOne.tileAt(12,0));
+        assertNull(boardOne.tileAt(0,12));
 
         //Largest Possible Board
-        assertNotNull(loadBoardFromTestBoards("bigBoard.txt"));
+        boardOne = loadBoardFromTestBoards("bigBoard.txt");
+        assertNotNull(boardOne);
+        assertNotNull(boardOne.tileAt(25,25));
+        assertNull(boardOne.tileAt(26,0));
+        assertNull(boardOne.tileAt(0,26));
 
         //Blank File
         assertNull(loadBoardFromTestBoards("notABoard.txt"));
@@ -48,7 +57,40 @@ public class BoardLoadingTest {
 
         //First line is a float
         assertNull(loadBoardFromTestBoards("float.txt"));
-
-
     }
+
+    @Test
+    public void testTileLoading() {
+
+        //Max sized premium tile
+        Board boardOne = loadBoardFromTestBoards("maxPremium.txt");
+        assertNotNull(boardOne);
+        assertEquals(99, boardOne.tileAt(0,0).getValue());
+
+        //Min sized premium tile
+        boardOne = loadBoardFromTestBoards("minPremium.txt");
+        assertNotNull(boardOne);
+        assertEquals(-9, boardOne.tileAt(0,0).getValue());
+
+        //Premium tile value 0
+        boardOne = loadBoardFromTestBoards("zeroPremium.txt");
+        assertNotNull(boardOne);
+        assertEquals(0, boardOne.tileAt(0,0).getValue());
+
+        //Premium tile value too great
+        assertNull(loadBoardFromTestBoards("largePremium.txt"));
+
+        //Premium tile value too small
+        assertNull(loadBoardFromTestBoards("smallPremium.txt"));
+
+        //Premium tile value not integer
+        assertNull(loadBoardFromTestBoards("floatPremium.txt"));
+
+        //Invalid characters
+        assertNull(loadBoardFromTestBoards("badChar.txt"));
+
+        //Spaces
+        assertNull(loadBoardFromTestBoards("badSpace.txt"));
+    }
+
 }
