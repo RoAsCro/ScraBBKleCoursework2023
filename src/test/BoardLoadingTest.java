@@ -37,10 +37,11 @@ public class BoardLoadingTest {
         //Number at the top does not match row length (too few)
         assertNull(loadBoardFromTestBoards("colMatchFew.txt"));
 
-
         //Number at the top does not match row length (too many)
+        assertNull(loadBoardFromTestBoards("colMatchMany.txt"));
 
         //First line is not a number
+        assertNull(loadBoardFromTestBoards("notANumber.txt"));
 
         //First line is a negative number
 

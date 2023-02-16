@@ -119,7 +119,7 @@ public class Validator {
 
 					tileText.append(current);
 
-					if (!inputValidation("" + current, VALID_BOARD_CHARACTERS)) {
+					if (!inputValidation("" + current, VALID_BOARD_CHARACTERS) || xCoord >= magnitude) {
 						invalidFile();
 						return null;
 					}
