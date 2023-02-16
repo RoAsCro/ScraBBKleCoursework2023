@@ -38,7 +38,7 @@ public class Board {
 		return !(tileAt(CENTRE, CENTRE) instanceof LetterTile);
 	}
 
-	public boolean inBounds(ScraBBKleCoordinate coord) {
+	private boolean inBounds(ScraBBKleCoordinate coord) {
 		int x = coord.getX();
 		int y = coord.getY();
 		return (x >= 0 && x < this.MAGNITUDE && y >= 0 && y < this.MAGNITUDE);
