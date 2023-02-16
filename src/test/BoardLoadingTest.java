@@ -5,92 +5,90 @@ import pij.main.*;
 public class BoardLoadingTest {
 
 
-    public Board loadBoardFromTestBoards(String fileName) {
-        return Validator.loadFile("./resources/TestBoards/" + fileName);
-    }
+
 
     @Test
     public void testBoardSizes() {
         //Smallest Possible Board
-        Board boardOne = loadBoardFromTestBoards("minBoard.txt");
+        Board boardOne = TestUtility.loadBoardFromTestBoards("minBoard.txt");
         assertNotNull(boardOne);
         assertNotNull(boardOne.tileAt(11,11));
         assertNull(boardOne.tileAt(12,0));
         assertNull(boardOne.tileAt(0,12));
 
         //Largest Possible Board
-        boardOne = loadBoardFromTestBoards("bigBoard.txt");
+        boardOne = TestUtility.loadBoardFromTestBoards("bigBoard.txt");
         assertNotNull(boardOne);
         assertNotNull(boardOne.tileAt(25,25));
         assertNull(boardOne.tileAt(26,0));
         assertNull(boardOne.tileAt(0,26));
 
         //Blank File
-        assertNull(loadBoardFromTestBoards("notABoard.txt"));
+        assertNull(TestUtility.loadBoardFromTestBoards("notABoard.txt"));
 
         //File with a number at the top but no lines below it
-        assertNull(loadBoardFromTestBoards("numberNoLinesBoard.txt"));
+        assertNull(TestUtility.loadBoardFromTestBoards("numberNoLinesBoard.txt"));
 
         //Board is too small
-        assertNull(loadBoardFromTestBoards("tooSmallBoard.txt"));
+        assertNull(TestUtility.loadBoardFromTestBoards("tooSmallBoard.txt"));
 
         //Board is too big
-        assertNull(loadBoardFromTestBoards("tooBigBoard.txt"));
+        assertNull(TestUtility.loadBoardFromTestBoards("tooBigBoard.txt"));
 
         //Number at the top does not match the number of rows (too few)
-        assertNull(loadBoardFromTestBoards("rowMatchFew.txt"));
+        assertNull(TestUtility.loadBoardFromTestBoards("rowMatchFew.txt"));
 
         //Number at the top does not match the number of rows (too many)
-        assertNull(loadBoardFromTestBoards("rowMatchMany.txt"));
+        assertNull(TestUtility.loadBoardFromTestBoards("rowMatchMany.txt"));
 
         //Number at the top does not match row length (too few)
-        assertNull(loadBoardFromTestBoards("colMatchFew.txt"));
+        assertNull(TestUtility.loadBoardFromTestBoards("colMatchFew.txt"));
 
         //Number at the top does not match row length (too many)
-        assertNull(loadBoardFromTestBoards("colMatchMany.txt"));
+        assertNull(TestUtility.loadBoardFromTestBoards("colMatchMany.txt"));
 
         //First line is not a number
-        assertNull(loadBoardFromTestBoards("notANumber.txt"));
+        assertNull(TestUtility.loadBoardFromTestBoards("notANumber.txt"));
 
         //First line is a negative number
-        assertNull(loadBoardFromTestBoards("negativeInt.txt"));
+        assertNull(TestUtility.loadBoardFromTestBoards("negativeInt.txt"));
 
         //First line is a float
-        assertNull(loadBoardFromTestBoards("float.txt"));
+        assertNull(TestUtility.loadBoardFromTestBoards("float.txt"));
     }
 
     @Test
     public void testTileLoading() {
 
         //Max sized premium tile
-        Board boardOne = loadBoardFromTestBoards("maxPremium.txt");
+        Board boardOne = TestUtility.loadBoardFromTestBoards("maxPremium.txt");
         assertNotNull(boardOne);
         assertEquals(99, boardOne.tileAt(0,0).getValue());
 
         //Min sized premium tile
-        boardOne = loadBoardFromTestBoards("minPremium.txt");
+        boardOne = TestUtility.loadBoardFromTestBoards("minPremium.txt");
         assertNotNull(boardOne);
         assertEquals(-9, boardOne.tileAt(0,0).getValue());
 
         //Premium tile value 0
-        boardOne = loadBoardFromTestBoards("zeroPremium.txt");
+        boardOne = TestUtility.loadBoardFromTestBoards("zeroPremium.txt");
         assertNotNull(boardOne);
         assertEquals(0, boardOne.tileAt(0,0).getValue());
 
         //Premium tile value too great
-        assertNull(loadBoardFromTestBoards("largePremium.txt"));
+        assertNull(TestUtility.loadBoardFromTestBoards("largePremium.txt"));
 
         //Premium tile value too small
-        assertNull(loadBoardFromTestBoards("smallPremium.txt"));
+        assertNull(TestUtility.loadBoardFromTestBoards("smallPremium.txt"));
 
         //Premium tile value not integer
-        assertNull(loadBoardFromTestBoards("floatPremium.txt"));
+        assertNull(TestUtility.loadBoardFromTestBoards("floatPremium.txt"));
 
         //Invalid characters
-        assertNull(loadBoardFromTestBoards("badChar.txt"));
+        assertNull(TestUtility.loadBoardFromTestBoards("badChar.txt"));
 
         //Spaces
-        assertNull(loadBoardFromTestBoards("badSpace.txt"));
+        assertNull(TestUtility.loadBoardFromTestBoards("badSpace.txt"));
     }
 
 }

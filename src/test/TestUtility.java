@@ -10,7 +10,7 @@ import java.util.*;
 public class TestUtility {
 
 
-    public Board loadBoardFromTestBoards(String fileName) {
+    public static Board loadBoardFromTestBoards(String fileName) {
         return Validator.loadFile("./resources/TestBoards/" + fileName);
     }
 
