@@ -35,6 +35,8 @@ public class BoardLoadingTest {
         assertNull(loadBoardFromTestBoards("rowMatchMany.txt"));
 
         //Number at the top does not match row length (too few)
+        assertNull(loadBoardFromTestBoards("colMatchFew.txt"));
+
 
         //Number at the top does not match row length (too many)
 

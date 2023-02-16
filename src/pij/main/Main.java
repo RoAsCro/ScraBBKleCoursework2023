@@ -29,7 +29,7 @@ public class Main {
 				System.out.print("Please enter the file name of the board: ");
 				file = System.console().readLine();
 			} else {
-				file = "testBoard.txt";
+				file = "defaultBoard.txt";
 			}
 			file = "../resources/" + file;
 			board = Validator.loadFile(file);

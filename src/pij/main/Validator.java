@@ -156,6 +156,10 @@ public class Validator {
 					}
 
 				}
+				if (xCoord != magnitude) {
+					invalidFile();
+					return null;
+				}
 
 			}
 			if (reader.readLine() != null){
