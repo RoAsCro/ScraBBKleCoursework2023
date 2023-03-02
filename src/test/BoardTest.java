@@ -24,7 +24,16 @@ public class BoardTest {
 
     @Test
     public void testCentre(){
+        //Odd magnitude board
         Board board = TestUtility.loadBoardFromTestBoards("testBoard.txt");
+        System.out.println(board.getCentre());
+        assertEquals(7, board.getCentre());
+
+        assertEquals(16, board.tileAt(board.getCentre(), board.getCentre()).getValue());
+
+        //Even magnitude board
+        board = TestUtility.loadBoardFromTestBoards("bigBoard.txt");
+        assertEquals(12, board.getCentre());
         assertEquals(16, board.tileAt(board.getCentre(), board.getCentre()).getValue());
 
     }
