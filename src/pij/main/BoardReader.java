@@ -70,6 +70,10 @@ public class BoardReader {
         return currentY;
     }
 
+    public ScraBBKleCoordinate getCoord() {
+        return new ScraBBKleCoordinate(this.currentX, this.currentY);
+    }
+
     public char getDirection() {
         return (char) (Math.abs(this.xInc) * 14 + 100);
     }
@@ -194,7 +198,7 @@ public class BoardReader {
             return false;
         }
 
-        if (!LetterTile.class.isInstance(tile)) {
+        if (!(tile instanceof LetterTile)) {
             //if (tile != null) tile.setText(" o ");
             if (method.execute(x, y))
                 return true;
