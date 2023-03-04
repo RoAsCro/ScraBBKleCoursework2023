@@ -27,17 +27,11 @@ public class ComputerPlayer extends Player {
 	public Move turn(Bag bag) {
 		moves.clear();
 
-		for (LetterTile lt : getRack()) {
-			System.out.print(lt.getChar() + ", ");
-		}
-		System.out.println();
-		long startTime = System.nanoTime();
-//		parseBoardBreadth();
-//		testWordsFindCombos();
+//		for (LetterTile lt : getRack()) {
+//			System.out.print(lt.getChar() + ", ");
+//		}
+
 		moves = new BoardParser(getBoard(), this, false).findMoves();
-		long endTime = System.nanoTime();
-		long duration = (endTime - startTime);
-		System.out.println(duration);
 
 		Move bestMove = new Move(this, getBoard());
 		bestMove.validateInput(",,");
@@ -47,9 +41,7 @@ public class ComputerPlayer extends Player {
 				bestMove = m;
 			}
 		}
-		System.out.println(bestMove.getWord());
-		System.out.println(bestMove.getWord().getScore());
-		System.out.println(moves.size());
+
 		bestMove.tryMove();
 
 		draw(bag);
