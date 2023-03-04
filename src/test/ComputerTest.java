@@ -15,6 +15,14 @@ public class ComputerTest {
         return move;
     }
 
+    @Test
+    public void testGetName() {
+        Board board = TestUtility.loadBoardFromTestBoards("testBoard.txt");
+        Player player = new ComputerPlayer(board);
+        Assertions.assertEquals(player.getName(), "Computer");
+
+    }
+
 
     @Test
     public void testComputer(){
