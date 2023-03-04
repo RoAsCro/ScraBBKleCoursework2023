@@ -18,6 +18,10 @@ public class TestUtility {
         Validator.loadDictionary(new File("./resources/wordlist.txt"));
     }
 
+    public static void loadTestDictionary() {
+        Validator.loadDictionary(new File("./resources/testWordList.txt"));
+    }
+
     public static Bag riggedBag() {
         return new Bag(new int[] { 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
     }

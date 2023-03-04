@@ -59,6 +59,7 @@ public class Game {
 					for (LetterTile l : p.getRack()) {
 						deduction += l.getValue();
 					}
+					System.out.println(deduction);
 					p.updateScore(-deduction);
 				}
 				go = false;
