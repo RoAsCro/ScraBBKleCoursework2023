@@ -8,7 +8,7 @@ package pij.main;
  */
 public class HumanPlayer extends Player {
 
-	private String name = "Human";
+	private static final String NAME = "Human";
 
 	public HumanPlayer(Board board) {
 		super(board);
@@ -28,7 +28,7 @@ public class HumanPlayer extends Player {
 
 	@Override
 	public String getName() {
-		return this.name;
+		return this.NAME;
 	}
 
 	@Override
