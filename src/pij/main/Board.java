@@ -96,11 +96,5 @@ public class Board {
 		grid[coord.getX()][coord.getY()] = tile;
 		return true;
 	}
-//	public void placeTiles(int initialX, int initialY, char direction, LinkedList<LetterTile> tiles) {
-//		BoardReader reader = new BoardReader(this, initialX, initialY, direction);
-//		reader.conditionalNext((tile) -> !tiles.isEmpty(), (x, y) -> grid[x][y] = tiles.poll());
-//	}
-
-
 
 }
