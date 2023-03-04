@@ -174,20 +174,20 @@ public class Move {
 		this.tiles = tiles;
 		this.direction = direction;
 	}
-	
-	public boolean isValid() {
-		return valid;
-	}
-
-
-	public int getX() {
-		return x;
-	}
-
-
-	public int getY() {
-		return y;
-	}
+//
+//	public boolean isValid() {
+//		return valid;
+//	}
+//
+//
+//	public int getX() {
+//		return x;
+//	}
+//
+//
+//	public int getY() {
+//		return y;
+//	}
 	
 	public LinkedList<LetterTile> getTiles() {
 		LinkedList<LetterTile> list = new LinkedList<>();
@@ -195,10 +195,10 @@ public class Move {
 		return list;
 	}
 
-
-	public char getDirection() {
-		return direction;
-	}
+//
+//	public char getDirection() {
+//		return direction;
+//	}
 	
 	public boolean isPass() {
 		return pass;
@@ -226,12 +226,12 @@ public class Move {
 
 		//If there is a letter directly behind the one specified in the move, return false
 		if (this.BOARD.tileAt(this.x - xInc, this.y - yInc) instanceof LetterTile) {
-			System.out.println(this.x + ", " + this.y + " : " + direction);
 			System.out.println("Please use the position of the first letter in the word as the input location.");
 			return false;
 		}
-		if (!constructWord())
+		if (!constructWord()) {
 			return false;
+		}
 
 		// Check word is either the first word being placed OR that it intersects with a
 		// pre-existing word.
@@ -255,9 +255,12 @@ public class Move {
 		resetWord();
 		LinkedList<LetterTile> tileQueue = new LinkedList<>(getTiles());
 		BoardReader reader = new BoardReader(this.BOARD, this.x, this.y, this.direction);
-		Tile currentTile = null;
+		Tile currentTile;
+		// Check it's possible to place the word on the board
 		do {
-			currentTile = reader.conditionalNext((tile) -> (!(tile instanceof LetterTile) && !tileQueue.isEmpty()), (x, y) -> {
+			// Try placing tiles in rack
+			reader.conditionalNext((tile) -> (!(tile instanceof LetterTile) && !tileQueue.isEmpty()), (x, y) -> {
+				// Test there are no words parallel to this one
 				reader.turn();
 				if (isLetter.test(reader.next())) {
 					reader.set(-2, -2);
@@ -273,10 +276,12 @@ public class Move {
 					}
 				}
 			});
+			// Gather existing letter tiles from the board
 			currentTile = reader.conditionalNext(isLetter, (x, y) -> this.word.addLetter(BOARD.tileAt(x, y)));
 
 		} while (!tileQueue.isEmpty() && currentTile != null);
 
+		// Check all letters have been placed
 		if ((!tileQueue.isEmpty() && currentTile == null)) {
 			resetWord();
 			return false;
