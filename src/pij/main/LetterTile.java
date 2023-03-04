@@ -1,5 +1,7 @@
 package pij.main;
 
+import java.util.Objects;
+
 public class LetterTile extends Tile {
 
 	public LetterTile(String tileText, int value) {
@@ -25,6 +27,19 @@ public class LetterTile extends Tile {
 	 */
 	public char getChar() {
 		return super.toString().charAt(0);
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof LetterTile l) {
+			return l.getChar() == getChar() && l.getValue() == getValue();
+		}
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(getChar(), getValue());
 	}
 
 }
