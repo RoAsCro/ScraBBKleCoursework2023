@@ -17,9 +17,10 @@ public class HumanPlayer extends Player {
 	/**
 	 * Prints the tile rack.
 	 */
-	public void printRack() {
+	private void printRack() {
 		String separator = "";
 		for (Tile tile : getRack()) {
+
 			System.out.print(separator + "[" + tile.toString() + "]");
 			separator = ", ";
 		}
