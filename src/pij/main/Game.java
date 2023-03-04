@@ -1,6 +1,7 @@
 package pij.main;
 
 import java.util.LinkedList;
+import java.util.List;
 
 public class Game {
 	
@@ -10,8 +11,8 @@ public class Game {
 	Bag bag;
 	LinkedList<Player> players;
 
-	public Game(LinkedList<Player> players, Board board){
-		this.players = players;
+	public Game(List<Player> players, Board board){
+		this.players = new LinkedList<>(players);
 		this.board = board;
 	}
 
@@ -19,7 +20,6 @@ public class Game {
 	public void run() {
 		boolean go = true;
 		bag = new Bag();
-		Validator.loadDictionary();
 
 		for (Player p : this.players) {
 			p.draw(bag);
@@ -63,11 +63,8 @@ public class Game {
 				}
 				go = false;
 			}
-
-
-
 		}
-		checkVictory();
+		System.out.println(checkVictory());
 	}
 
 	private boolean checkAvailableMoves(){
@@ -80,7 +77,7 @@ public class Game {
 		return noMoves;
 	}
 
-	public void checkVictory() {
+	public String checkVictory() {
 		Player playerOne = players.poll();
 		Player playerTwo = players.poll();
 		double scoreOne = playerOne.getScore();
@@ -88,14 +85,13 @@ public class Game {
 		String winningPlayerName;
 
 		if (scoreOne == scoreTwo) {
-			System.out.println("It's a draw!");
-			return;
+			return "It's a draw!";
 		}
 		else if (scoreOne > scoreTwo) {
 			winningPlayerName = playerOne.getName().toLowerCase();
 		}else
 			winningPlayerName = playerTwo.getName().toLowerCase();
-		System.out.println("The " + winningPlayerName + " player wins!");
+		return ("The " + winningPlayerName + " player wins!");
 	}
 	
 //	/**
