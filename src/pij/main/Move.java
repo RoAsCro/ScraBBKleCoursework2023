@@ -99,7 +99,7 @@ public class Move {
 				if (location.length() < 2 || location.length() > 3)
 					valid = false;
 				else {
-			//		System.out.println("length");
+					System.out.println("length");
 					x = location.substring(0,1);
 					y = location.substring(1);
 
@@ -109,7 +109,7 @@ public class Move {
 							|| !Character.isDigit(y.charAt(yLength - 1))
 							|| !Validator.inputValidation(direction, new String[] { "r", "d" })
 							|| letters.length() < 1) {
-			//			System.out.println("direction");
+						System.out.println("direction");
 						valid = false;
 					}
 					else {
@@ -134,20 +134,22 @@ public class Move {
 							}
 						}
 						if (counter != target) {
-			//				System.out.println("counter");
+							System.out.println("counter");
 							valid = false;
 						}
 					}
 				}
-			}else
+			}else {
+				System.out.println("Here");
 				valid = false;
+			}
 		}
 		if (pass) {
-			//System.out.println("Pass");
+			System.out.println("Pass");
 			return true;
 		}
 		if (!this.valid) {
-			//System.out.println("Invalid");
+			System.out.println("Invalid");
 			return false;
 		} else {
 			setAll(x.charAt(0) - 97, Integer.parseInt(y) - 1, direction.charAt(0), tiles.toArray(new LetterTile[0]));
@@ -156,7 +158,7 @@ public class Move {
 		}
 	}
 
-	public void confirmMove() {
+	private void confirmMove() {
 		LinkedList<LetterTile> tiles = this.word.getTilesTwo();
 		BoardReader reader = new BoardReader(this.BOARD, this.x, this.y, this.direction);
 		reader.conditionalNext((tile) -> !tiles.isEmpty(), (x, y) -> this.BOARD.placeTile(new ScraBBKleCoordinate(x, y), tiles.poll()));
@@ -216,7 +218,7 @@ public class Move {
 	}
 
 	public boolean checkPlacable() {
-		// xInc and yInc use the integer value of 'd' or 'r' to determine how to iterate
+		// xInc and yInc use the integer value of chars 'd' and 'r' to determine how to iterate
 		// across the grid.
 		int xInc = (this.direction - 100) / 14;
 		int yInc = (this.direction - 114) / 14 * -1;
@@ -230,12 +232,6 @@ public class Move {
 		}
 		if (!constructWord())
 			return false;
-		//System.out.println(this.word);
-		// Check word is in dictionary.
-//		if (!Validator.lookupWord(this.word.toString())) {
-//			System.out.println("Word not in dictionary.");
-//			return false;
-//		}
 
 		// Check word is either the first word being placed OR that it intersects with a
 		// pre-existing word.
@@ -252,7 +248,6 @@ public class Move {
 				return false;
 			}
 		}
-
 		return true;
 	}
 
