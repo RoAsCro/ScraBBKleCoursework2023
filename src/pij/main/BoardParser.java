@@ -60,7 +60,7 @@ public class BoardParser {
 
     private void testWordsWithCombos(ScraBBKleCoordinate c, ArrayList<TreeSet<String>> list) {
 
-        BoardReader reader = new BoardReader(board, c.getX(), c.getY(), 'r');
+        BoardReader reader = new BoardReader(board, c, 'r');
 
         for (int k = 0 ; k < 2 ; k++) {
 
