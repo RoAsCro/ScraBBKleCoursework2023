@@ -19,11 +19,11 @@ public class Word {
 	
 	@Override
 	public String toString() {
-		String stringWord = "";
+		StringBuilder stringWord = new StringBuilder();
 		for (LetterTile letter : this.word) {
-			stringWord += letter.getChar();
+			stringWord.append(letter.getChar());
 		}
-		return stringWord;
+		return stringWord.toString();
 	}
 	
 	public LetterTile[] getTiles() {
