@@ -1,6 +1,7 @@
 package pij.main;
 
 import java.util.LinkedList;
+import java.util.List;
 
 /**
 	 * The computer player
@@ -11,7 +12,7 @@ import java.util.LinkedList;
 public class ComputerPlayer extends Player {
 
 	private static final String NAME = "Computer";
-	private LinkedList<Move> moves = new LinkedList<>();
+	private List<Move> moves = new LinkedList<>();
 	public ComputerPlayer(Board board) {
 		super(board);
 	}
@@ -19,7 +20,7 @@ public class ComputerPlayer extends Player {
 
 	@Override
 	public String getName() {
-		return this.NAME;
+		return NAME;
 	}
 
 		@Override

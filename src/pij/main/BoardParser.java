@@ -6,7 +6,7 @@ import java.util.TreeSet;
 public class BoardParser {
     private final Board board;
 
-    private LinkedList<Move> moves = new LinkedList<>();
+    private final List<Move> moves = new LinkedList<>();
 
     private final Player player;
 
@@ -18,12 +18,12 @@ public class BoardParser {
         this.findAny = findAny;
     }
 
-    public LinkedList<Move> findMoves(){
+    public List<Move> findMoves(){
         testWordsFindCombos();
         return this.moves;
     }
 
-    public void testWordsFindCombos() {
+    private void testWordsFindCombos() {
 
         ArrayList<TreeSet<String>> words = new ArrayList<>();
         for (int i = 0; i < player.getRack().size() ; i++)
@@ -41,7 +41,7 @@ public class BoardParser {
         }
     }
 
-    public void allCombos(LinkedList<LetterTile> lettersInput, StringBuilder currentWordInput, ArrayList<TreeSet<String>> array, int depth){
+    private void allCombos(LinkedList<LetterTile> lettersInput, StringBuilder currentWordInput, ArrayList<TreeSet<String>> array, int depth){
         if (lettersInput.isEmpty())
             return;
 
@@ -58,7 +58,7 @@ public class BoardParser {
         }
     }
 
-    public void testWordsWithCombos(ScraBBKleCoordinate c, ArrayList<TreeSet<String>> list) {
+    private void testWordsWithCombos(ScraBBKleCoordinate c, ArrayList<TreeSet<String>> list) {
 
         BoardReader reader = new BoardReader(board, c.getX(), c.getY(), 'r');
 
