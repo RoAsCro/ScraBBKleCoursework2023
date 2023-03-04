@@ -168,59 +168,6 @@ public class BoardReader {
     }
 
     /**
-     * Initialises depthFirstSearch(int, int, BooleanTileOperation) starting at the centre of the board.
-     *
-     * @param method the method to be passed into the DFS.
-     * @return whether the DFS was successful.
-     */
-    public boolean depthFirstSearch(BooleanTileOperation method) {
-        set(board.getCentre(), board.getCentre());
-        tileTree = new TreeSet<>();
-        return depthFirstSearch(currentX, currentY, method);
-    }
-
-    /**
-     * Carries out a depth first search of LetterTiles on the Board. The specified operation will be carried out
-     * on every non-letter tile adjacent to a letter tile.
-     *
-     * @param x      the starting x coordinate.
-     * @param y      the starting y coordinate.
-     * @param method a boolean method carried out on the non-letter tiles.
-     * @return true if at any stage the method returns true. False if it never does.
-     */
-    private boolean depthFirstSearch(int x, int y, BooleanTileOperation method) {
-        set(x, y);
-        int treeRef = x * (board.getCentre() + 1) * 2 + y;
-        Tile tile = board.tileAt(x, y);
-
-        if (this.tileTree.contains(treeRef)) {
-            previous();
-            return false;
-        }
-
-        if (!(tile instanceof LetterTile)) {
-            //if (tile != null) tile.setText(" o ");
-            if (method.execute(x, y))
-                return true;
-            previous();
-            return false;
-        }
-        this.tileTree.add(treeRef);
-
-        for (int i = 0; i < 4; i++) {
-            next();
-            if (depthFirstSearch(currentX, currentY, method))
-                return true;
-            reverse();
-            if (i % 2 != 0)
-                turn();
-        }
-        previous();
-        //System.out.println("TT: " + tileTree.size());
-        return false;
-    }
-
-    /**
      * Carries out a breadth first search of the board.
      *
      * @return
