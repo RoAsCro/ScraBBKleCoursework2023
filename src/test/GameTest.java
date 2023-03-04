@@ -45,4 +45,21 @@ public class GameTest {
         Assertions.assertEquals("The two player wins!", game.checkVictory());
     }
 
+    @Test
+    public void testScoringSevenTiles() {
+        TestUtility.loadTestDictionary();
+        board = TestUtility.loadBoardFromTestBoards("blankBoard.txt");
+        List<Player> players = List.of(new MockComputerPlayer(board, "One"), new MockComputerPlayer(board, "Two"));
+        game = new Game(players, board);
+
+        riggedBag = new Bag(new int[]{ 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
+        board.placeTile(new ScraBBKleCoordinate(board.getCentre(), board.getCentre()), new LetterTile("A", 1));
+        board.placeTile(new ScraBBKleCoordinate(7, 8), new LetterTile("A", 1));
+
+        game.run();
+        Assertions.assertEquals(73, players.get(0).getScore());
+        Assertions.assertEquals(6, players.get(1).getScore());
+
+    }
+
 }
