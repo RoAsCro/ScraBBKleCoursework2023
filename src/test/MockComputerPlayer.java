@@ -2,6 +2,8 @@ package test;
 
 import pij.main.*;
 
+import java.util.ArrayList;
+
 public class MockComputerPlayer extends ComputerPlayer {
 
 
@@ -15,9 +17,12 @@ public class MockComputerPlayer extends ComputerPlayer {
     }
 
     @Override
+    public void draw(Bag bag) {
+        super.draw(GameTest.riggedBag);
+    }
+
+    @Override
     public Move turn(Bag bag) {
-        getRack().clear();
-        draw(GameTest.riggedBag);
         Move move = super.turn(bag);
         return move;
     }
