@@ -6,14 +6,16 @@ import java.util.ArrayList;
 
 public class MockComputerPlayer extends ComputerPlayer {
 
+    private final String myName;
 
-    public MockComputerPlayer(Board board) {
+    public MockComputerPlayer(Board board, String name) {
         super(board);
+        this.myName = name;
     }
 
     @Override
     public String getName() {
-        return "Mock";
+        return this.myName;
     }
 
     @Override

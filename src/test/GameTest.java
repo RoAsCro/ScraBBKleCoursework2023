@@ -17,7 +17,7 @@ public class GameTest {
     public void setUp() {
         board = TestUtility.loadBoardFromTestBoards("testBoard.txt");
         TestUtility.loadDictionary();
-        List<Player> players = List.of(new MockComputerPlayer(board), new MockComputerPlayer(board));
+        List<Player> players = List.of(new MockComputerPlayer(board, "One"), new MockComputerPlayer(board, "Two"));
         game = new Game(players, board);
     }
 
@@ -34,7 +34,9 @@ public class GameTest {
         riggedBag = new Bag(new int[]{1});
         board.placeTile(new ScraBBKleCoordinate(board.getCentre(), board.getCentre()), new LetterTile("A", 1));
         game.run();
-        Assertions.assertEquals("The mock player wins!", game.checkVictory());
+        Assertions.assertEquals("The one player wins!", game.checkVictory());
     }
+
+//    @Test void testEnding
 
 }
