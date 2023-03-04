@@ -26,7 +26,7 @@ public class Board {
 
 	public Board(int magnitude, Tile[][] grid) {
 		this.MAGNITUDE = magnitude;
-		this.CENTRE = magnitude / 2;
+		this.CENTRE = (magnitude - 1) / 2;
 		this.grid = grid;
 	}
 
