@@ -2,6 +2,7 @@ package pij.main;
 
 import java.util.LinkedList;
 import java.util.TreeSet;
+import java.util.function.Predicate;
 
 /**
  * A reader for iterating across a ScraBBKle Board object.
@@ -112,9 +113,9 @@ public class BoardReader {
      * @param method    the operation performed on each tile.
      * @return the first tile that is either null or does not fulfil the given condition.
      */
-    public Tile conditionalNext(Check condition, TileOperation method) {
+    public Tile conditionalNext(Predicate<Tile> condition, TileOperation method) {
         Tile currentTile = board.tileAt(currentX, currentY);
-        while (currentTile != null && condition.check(currentTile)) {
+        while (currentTile != null && condition.test(currentTile)) {
             method.execute(currentX, currentY);
             currentTile = next();
         }
@@ -128,7 +129,7 @@ public class BoardReader {
      * @param method    the operation performed on each tile.
      * @return the first tile that is either null or does not fulfil the given condition.
      */
-    public Tile conditionalPrevious(Check condition, TileOperation method) {
+    public Tile conditionalPrevious(Predicate<Tile> condition, TileOperation method) {
         reverse();
         Tile tile = conditionalNext(condition, method);
         reverse();
@@ -181,7 +182,7 @@ public class BoardReader {
         allTiles.add(currentCoord);
         do {
             currentCoord = foundTiles.poll();
-            set(currentCoord.getX(), currentCoord.getY());
+            set(currentCoord);
             for (int j = 0; j < 2; j++) {
                 next();
                 for (int i = 0; i < 2; i++) {

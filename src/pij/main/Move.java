@@ -1,8 +1,8 @@
 package pij.main;
 
 import java.util.*;
+import java.util.function.Predicate;
 
-	
 
 public class Move {
 
@@ -30,7 +30,7 @@ public class Move {
 
 	private Word word = new Word();
 
-	private Check isLetter = LetterTile.class::isInstance;
+	private Predicate<Tile> isLetter = LetterTile.class::isInstance;
 	
 	public Move(Player player, Board board) {
 		pass = false;
@@ -264,11 +264,11 @@ public class Move {
 		do {
 			currentTile = reader.conditionalNext((tile) -> (!(tile instanceof LetterTile) && !tileQueue.isEmpty()), (x, y) -> {
 				reader.turn();
-				if (isLetter.check(reader.next())) {
+				if (isLetter.test(reader.next())) {
 					reader.set(-2, -2);
 				} else {
 					reader.previous();
-					if (isLetter.check(reader.previous())) {
+					if (isLetter.test(reader.previous())) {
 						reader.set(-2, -2);
 					} else {
 						reader.next();
