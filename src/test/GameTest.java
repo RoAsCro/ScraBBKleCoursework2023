@@ -37,6 +37,12 @@ public class GameTest {
         Assertions.assertEquals("The one player wins!", game.checkVictory());
     }
 
-//    @Test void testEnding
+    @Test
+    public void testEndingWithDeduction() {
+        riggedBag = new Bag(new int[]{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
+        board.placeTile(new ScraBBKleCoordinate(board.getCentre(), board.getCentre()), new LetterTile("A", 1));
+        game.run();
+        Assertions.assertEquals("The two player wins!", game.checkVictory());
+    }
 
 }
