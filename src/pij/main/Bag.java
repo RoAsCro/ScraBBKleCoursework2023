@@ -50,8 +50,9 @@ public class Bag {
 		int size = bag.size();
 		if (size == 0)
 			return null;
-		LetterTile tile = bag.get((int) (Math.random() * size));
-		bag.remove(tile);
+		int randomNumber = (int) (Math.random() * size);
+		LetterTile tile = bag.get(randomNumber);
+		bag.remove(randomNumber);
 		return tile;
 	}
 

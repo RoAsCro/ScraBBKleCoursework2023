@@ -21,6 +21,5 @@ public class WildTile extends LetterTile {
 	public void setTempText(char c) {
 		tempText = c;
 	}
-
-
+	
 }
