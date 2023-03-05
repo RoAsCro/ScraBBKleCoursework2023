@@ -220,7 +220,7 @@ public class Move {
 		if (!(this.word.getTiles().length > wordLength)) {
 			int startX = this.startCoordinate.getX();
 			int startY = this.startCoordinate.getY();
-			int centre = this.BOARD.getCentre();
+			int centre = this.BOARD.getCentre().getX();
 			if (!this.BOARD.getStartState()) {
 				System.out.println("Your word must cross another word");
 				return false;

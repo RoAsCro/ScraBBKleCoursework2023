@@ -30,8 +30,8 @@ public class Board {
 		this.grid = grid;
 	}
 
-	public int getCentre() {
-		return CENTRE;
+	public Coordinate getCentre() {
+		return new Coordinate(this.CENTRE, this.CENTRE);
 	}
 
 	public boolean getStartState() {

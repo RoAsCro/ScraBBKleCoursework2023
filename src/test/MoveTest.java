@@ -51,7 +51,7 @@ public class MoveTest {
         Player player = new ComputerPlayer(board);
         Bag riggedBag = new Bag(new int[]{1});
         player.draw(riggedBag);
-        board.placeTile(new Coordinate(board.getCentre(), board.getCentre()), new LetterTile("A", 1));
+        board.placeTile(board.getCentre(), new LetterTile("A", 1));
 
         // Valid placement
         Move move = new Move(player, board);
@@ -80,7 +80,7 @@ public class MoveTest {
         Assertions.assertFalse(move.checkPlacable());
 
         // Check placing off board
-        TestUtility.writeOnBoard(new Coordinate(board.getCentre(), board.getCentre()), board, "AAAAAAAA", 'r');
+        TestUtility.writeOnBoard(board.getCentre(), board, "AAAAAAAA", 'r');
         move = new Move(player, board);
         Assertions.assertTrue(move.validateInput("A,h8,r"));
         Assertions.assertFalse(move.checkPlacable());

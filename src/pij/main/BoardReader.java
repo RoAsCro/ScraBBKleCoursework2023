@@ -44,7 +44,7 @@ public class BoardReader {
     private TreeSet<Integer> tileTree = new TreeSet<>();
 
     public BoardReader(Board board, char direction) {
-        this(board, board.getCentre(), board.getCentre(), direction);
+        this(board, board.getCentre(), direction);
     }
 
     public BoardReader(Board board, Coordinate coord, char direction) {
@@ -177,7 +177,7 @@ public class BoardReader {
     public TreeSet<Coordinate> breadthFirstSearch() {
         TreeSet<Coordinate> allTiles = new TreeSet<>();
         LinkedList<Coordinate> foundTiles = new LinkedList<>();
-        set(this.board.getCentre(), this.board.getCentre());
+        set(this.board.getCentre());
         Coordinate currentCoord = new Coordinate(this.currentX, this.currentY);
         foundTiles.add(currentCoord);
         allTiles.add(currentCoord);

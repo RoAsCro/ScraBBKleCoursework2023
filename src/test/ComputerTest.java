@@ -29,7 +29,7 @@ public class ComputerTest {
         Board board = TestUtility.loadBoardFromTestBoards("TestBoard.txt");
         TestUtility.loadDictionary();
         TestUtility.writeOnBoard(board, "X", 'd');
-        TestUtility.writeOnBoard(new Coordinate(board.getCentre(), 8), board, "XX", 'r');
+        TestUtility.writeOnBoard(new Coordinate(board.getCentre().getX(), 8), board, "XX", 'r');
 
         // Test placing prefix
         Bag riggedBag = new Bag(new int[] { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 });

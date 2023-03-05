@@ -24,7 +24,7 @@ public class GameTest {
     @Test
     public void testEndingDraw() {
         riggedBag = new Bag(new int[]{});
-        board.placeTile(new Coordinate(board.getCentre(), board.getCentre()), new LetterTile("A", 1));
+        board.placeTile(board.getCentre(), new LetterTile("A", 1));
         game.run();
         Assertions.assertEquals("It's a draw!", game.checkVictory());
     }
@@ -32,7 +32,7 @@ public class GameTest {
     @Test
     public void testEndingWinner() {
         riggedBag = new Bag(new int[]{1});
-        board.placeTile(new Coordinate(board.getCentre(), board.getCentre()), new LetterTile("A", 1));
+        board.placeTile(board.getCentre(), new LetterTile("A", 1));
         game.run();
         Assertions.assertEquals("The one player wins!", game.checkVictory());
     }
@@ -40,7 +40,7 @@ public class GameTest {
     @Test
     public void testEndingWithDeduction() {
         riggedBag = new Bag(new int[]{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
-        board.placeTile(new Coordinate(board.getCentre(), board.getCentre()), new LetterTile("A", 1));
+        board.placeTile(board.getCentre(), new LetterTile("A", 1));
         game.run();
         Assertions.assertEquals("The two player wins!", game.checkVictory());
     }
@@ -53,7 +53,7 @@ public class GameTest {
         game = new Game(players, board);
 
         riggedBag = new Bag(new int[]{ 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
-        board.placeTile(new Coordinate(board.getCentre(), board.getCentre()), new LetterTile("A", 1));
+        board.placeTile(board.getCentre(), new LetterTile("A", 1));
         board.placeTile(new Coordinate(7, 8), new LetterTile("A", 1));
 
         game.run();

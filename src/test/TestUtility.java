@@ -26,7 +26,7 @@ public class TestUtility {
     }
 
     public static void writeOnBoard(Board board, String word, char direction) {
-        writeOnBoard(new Coordinate(board.getCentre(), board.getCentre()), board, word, direction);
+        writeOnBoard(board.getCentre(), board, word, direction);
     }
     public static void writeOnBoard(Coordinate coord, Board board, String word, char direction) {
         LinkedList<LetterTile> list = new LinkedList<>();
