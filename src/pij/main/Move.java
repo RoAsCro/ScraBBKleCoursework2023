@@ -19,10 +19,8 @@ public class Move {
 	private char direction;
 	
 	private LetterTile[] tiles = new LetterTile[0];
-	
-	private int x;
-	
-	private int y;
+
+	private Coordinate startCoordinate;
 	
 	private final Player PLAYER;
 
@@ -151,7 +149,7 @@ public class Move {
 //			System.out.println("Invalid");
 			return false;
 		} else {
-			setAll(x.charAt(0) - 97, Integer.parseInt(y) - 1, direction.charAt(0), tiles.toArray(new LetterTile[0]));
+			setAll(new Coordinate(x.charAt(0), Integer.parseInt(y)), direction.charAt(0), tiles.toArray(new LetterTile[0]));
 			this.input = input;
 			return true;
 		}
@@ -164,17 +162,16 @@ public class Move {
 				((WildTile) l).setTempText(Dictionary.WILD_CHARACTERS.poll());
 			}
 		}
-		BoardReader reader = new BoardReader(this.BOARD, this.x, this.y, this.direction);
+		BoardReader reader = new BoardReader(this.BOARD, this.startCoordinate, this.direction);
 		reader.conditionalNext((tile) -> !tiles.isEmpty(), (x, y) -> this.BOARD.placeTile(new Coordinate(x, y), tiles.poll()));
 
 
 		//this.BOARD.placeTiles(this.x, this.y, this.direction, this.word.getTilesTwo());
 	}
 
-	public void setAll(int x, int y, char direction, LetterTile[] tiles) {
+	public void setAll(Coordinate coordinate, char direction, LetterTile[] tiles) {
 		pass = false;
-		this.x = x;
-		this.y = y;
+		this.startCoordinate = coordinate;
 		this.tiles = tiles;
 		this.direction = direction;
 	}
@@ -192,7 +189,7 @@ public class Move {
 	@ Override
 	public String toString() {
 		return "The move is:	Word: " + Arrays.toString(tiles) + " at position "
-				+ (char) (x + 97) + (y + 1) + ", direction: " +
+				+ startCoordinate + ", direction: " +
 				(direction == 'd' ? "Down" : "Right");
 	}
 	
@@ -208,7 +205,7 @@ public class Move {
 		int wordLength = getTiles().size();
 
 		//If there is a letter directly behind the one specified in the move, return false
-		if (this.BOARD.tileAt(this.x - xInc, this.y - yInc) instanceof LetterTile) {
+		if (this.BOARD.tileAt(this.startCoordinate.getX() - xInc, this.startCoordinate.getY() - yInc) instanceof LetterTile) {
 			System.out.println("Please use the position of the first letter in the word as the input location.");
 			return false;
 		}
@@ -221,12 +218,14 @@ public class Move {
 		// THIS MUST BE THE LAST CHECK because startState is turned off by all the
 		// conditionals below evaluating to false.
 		if (!(this.word.getTiles().length > wordLength)) {
+			int startX = this.startCoordinate.getX();
+			int startY = this.startCoordinate.getY();
 			int centre = this.BOARD.getCentre();
 			if (!this.BOARD.getStartState()) {
 				System.out.println("Your word must cross another word");
 				return false;
-			} else if (!((y == centre && y + yInc == centre && (centre <= x + wordLength - 1 && centre >= x))
-					|| (x == centre && x + xInc == centre && (centre <= y + wordLength - 1 && centre >= y)))) {
+			} else if (!((startY == centre && startY + yInc == centre && (centre <= startX + wordLength - 1 && centre >= startX))
+					|| (startX == centre && startX + xInc == centre && (centre <= startY + wordLength - 1 && centre >= startY)))) {
 				System.out.println("Your word must cross over the centre tile.");
 				return false;
 			}
@@ -237,7 +236,7 @@ public class Move {
 	private boolean constructWord() {
 		resetWord();
 		LinkedList<LetterTile> tileQueue = getTiles();
-		BoardReader reader = new BoardReader(this.BOARD, this.x, this.y, this.direction);
+		BoardReader reader = new BoardReader(this.BOARD, this.startCoordinate, this.direction);
 		Tile currentTile;
 		// Check it's possible to place the word on the board
 		do {
