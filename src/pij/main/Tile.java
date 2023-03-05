@@ -10,17 +10,17 @@ package pij.main;
 
 public class Tile{
 	/** The text displayed when a tile is displayed on the board or in a player's tile rack. */
-	private String TILE_TEXT;
+	private final String tileText;
 	
 	/** The value of the tile. for premium tiles, this is the multiplier,
 	 * and for letter tiles, this is the point value.
 	 */
-	private final int VALUE;
+	private final int value;
 
 
 	public Tile(String tileText, int value) {
-		this.VALUE = value;
-		this.TILE_TEXT = tileText;
+		this.value = value;
+		this.tileText = tileText;
 	}
 	
 	/**
@@ -30,7 +30,7 @@ public class Tile{
 	 */
 	@Override
 	public String toString() {
-		return TILE_TEXT;
+		return tileText;
 	}
 	
 	/**
@@ -39,7 +39,7 @@ public class Tile{
 	 * @return the tile's value. Always non-null.
 	 */
 	public int getValue() {
-		return VALUE;
+		return value;
 	}
 
 	
