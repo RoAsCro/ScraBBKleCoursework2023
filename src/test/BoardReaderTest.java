@@ -16,8 +16,6 @@ public class BoardReaderTest {
         BoardReader reader = new BoardReader(board, coord, 'r');
         // Getters
         // Coordinate Getters
-        Assertions.assertEquals(0, reader.getX());
-        Assertions.assertEquals(0, reader.getY());
         Assertions.assertEquals(0, reader.getCoord().getX());
         Assertions.assertEquals(0, reader.getCoord().getY());
 
@@ -29,7 +27,7 @@ public class BoardReaderTest {
 
         // Setters
         // Coordinate Setters
-        reader.set(14, 14);
+        reader.set(new Coordinate(14, 14));
         Assertions.assertEquals(14, reader.getCoord().getX());
         Assertions.assertEquals(14, reader.getCoord().getY());
         reader.set(coord);

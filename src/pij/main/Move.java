@@ -245,11 +245,11 @@ public class Move {
 				// Test there are no words parallel to this one
 				reader.turn();
 				if (isLetter.test(reader.next())) {
-					reader.set(-2, -2);
+					reader.set(new Coordinate(-2, -2));
 				} else {
 					reader.previous();
 					if (isLetter.test(reader.previous())) {
-						reader.set(-2, -2);
+						reader.set(new Coordinate(-2, -2));
 					} else {
 						reader.next();
 						reader.turn();

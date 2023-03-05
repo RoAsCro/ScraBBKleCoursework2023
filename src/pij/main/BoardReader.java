@@ -19,16 +19,6 @@ public class BoardReader {
      */
     private final Board board;
 
-    /**
-     * The current x coordinate of the reader.
-     */
-    private int currentX;
-
-    /**
-     * The current y coordinate of the reader.
-     */
-    private int currentY;
-
     private Coordinate currentCoordinate;
 
     /**
@@ -63,17 +53,7 @@ public class BoardReader {
         //xInc and yInc use the integer value of 'd' or 'r' to determine how to iterate across the grid.
         this.xInc = (direction - 100) / 14;
         this.yInc = (direction - 114) / 14 * -1;
-        this.currentX = x;
-        this.currentY = y;
         this.currentCoordinate = (new Coordinate(x, y));
-    }
-
-    public int getX() {
-        return currentX;
-    }
-
-    public int getY() {
-        return currentY;
     }
 
     public Coordinate getCoord() {
@@ -90,11 +70,12 @@ public class BoardReader {
      * @return the Tile at the next location. If this is out of bounds, returns null.
      */
     public Tile next() {
-        return board.tileAt(currentCoordinate = new Coordinate(currentX += xInc, currentY += yInc));
+        return board.tileAt(currentCoordinate =
+                new Coordinate(currentCoordinate.getX() + xInc, currentCoordinate.getY() + yInc));
     }
 
     public Tile getCurrent() {
-        return this.board.tileAt(this.currentX, this.currentY);
+        return this.board.tileAt(currentCoordinate);
     }
 
     /**
@@ -141,20 +122,8 @@ public class BoardReader {
         return tile;
     }
 
-    /**
-     * Sets the current coordinates to the given (x, y).
-     *
-     * @param x the x coordinate.
-     * @param y the y coordinate.
-     */
-    public void set(int x, int y) {
-        currentX = x;
-        currentY = y;
-        currentCoordinate = new Coordinate(x, y);
-    }
-
     public void set(Coordinate coord) {
-        set(coord.getX(), coord.getY());
+        currentCoordinate = coord;
     }
 
     /**
@@ -183,7 +152,7 @@ public class BoardReader {
         TreeSet<Coordinate> allTiles = new TreeSet<>();
         LinkedList<Coordinate> foundTiles = new LinkedList<>();
         set(this.board.getCentre());
-        Coordinate currentCoord = new Coordinate(this.currentX, this.currentY);
+        Coordinate currentCoord = this.currentCoordinate;
         foundTiles.add(currentCoord);
         allTiles.add(currentCoord);
         do {
@@ -192,7 +161,7 @@ public class BoardReader {
             for (int j = 0; j < 2; j++) {
                 next();
                 for (int i = 0; i < 2; i++) {
-                    currentCoord = new Coordinate(this.currentX, this.currentY);
+                    currentCoord = this.currentCoordinate;
                     if (getCurrent() instanceof LetterTile && !allTiles.contains(currentCoord)) {
                         foundTiles.add(currentCoord);
                         allTiles.add(currentCoord);
