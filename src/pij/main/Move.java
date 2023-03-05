@@ -163,7 +163,7 @@ public class Move {
 			}
 		}
 		BoardReader reader = new BoardReader(this.BOARD, this.startCoordinate, this.direction);
-		reader.conditionalNext((tile) -> !tiles.isEmpty(), (x, y) -> this.BOARD.placeTile(new Coordinate(x, y), tiles.poll()));
+		reader.conditionalNext((tile) -> !tiles.isEmpty(), (c) -> this.BOARD.placeTile(c, tiles.poll()));
 
 
 		//this.BOARD.placeTiles(this.x, this.y, this.direction, this.word.getTilesTwo());
@@ -241,7 +241,7 @@ public class Move {
 		// Check it's possible to place the word on the board
 		do {
 			// Try placing tiles in rack
-			reader.conditionalNext((tile) -> (!(tile instanceof LetterTile) && !tileQueue.isEmpty()), (x, y) -> {
+			reader.conditionalNext((tile) -> (!(tile instanceof LetterTile) && !tileQueue.isEmpty()), (c) -> {
 				// Test there are no words parallel to this one
 				reader.turn();
 				if (isLetter.test(reader.next())) {
@@ -254,12 +254,12 @@ public class Move {
 						reader.next();
 						reader.turn();
 						this.word.addLetter(tileQueue.poll());
-						this.word.addLetter(BOARD.tileAt(x, y));
+						this.word.addLetter(BOARD.tileAt(c));
 					}
 				}
 			});
 			// Gather existing letter tiles from the board
-			currentTile = reader.conditionalNext(isLetter, (x, y) -> this.word.addLetter(BOARD.tileAt(x, y)));
+			currentTile = reader.conditionalNext(isLetter, (c) -> this.word.addLetter(BOARD.tileAt(c)));
 
 		} while (!tileQueue.isEmpty() && currentTile != null);
 

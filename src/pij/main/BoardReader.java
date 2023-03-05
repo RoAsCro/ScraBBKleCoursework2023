@@ -3,6 +3,7 @@ package pij.main;
 import java.util.LinkedList;
 import java.util.TreeSet;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 /**
@@ -28,6 +29,8 @@ public class BoardReader {
      */
     private int currentY;
 
+    private Coordinate currentCoordinate;
+
     /**
      * 1 if the current direction is horizontal. 0 if it's vertical.
      */
@@ -52,7 +55,7 @@ public class BoardReader {
     }
 
     public BoardReader(BoardReader reader) {
-        this(reader.board, reader.currentX, reader.currentY, reader.getDirection());
+        this(reader.board, reader.currentCoordinate, reader.getDirection());
     }
 
     public BoardReader(Board board, int x, int y, char direction) {
@@ -62,6 +65,7 @@ public class BoardReader {
         this.yInc = (direction - 114) / 14 * -1;
         this.currentX = x;
         this.currentY = y;
+        this.currentCoordinate = (new Coordinate(x, y));
     }
 
     public int getX() {
@@ -73,7 +77,7 @@ public class BoardReader {
     }
 
     public Coordinate getCoord() {
-        return new Coordinate(this.currentX, this.currentY);
+        return this.currentCoordinate;
     }
 
     public char getDirection() {
@@ -86,7 +90,7 @@ public class BoardReader {
      * @return the Tile at the next location. If this is out of bounds, returns null.
      */
     public Tile next() {
-        return board.tileAt(currentX += xInc, currentY += yInc);
+        return board.tileAt(currentCoordinate = new Coordinate(currentX += xInc, currentY += yInc));
     }
 
     public Tile getCurrent() {
@@ -114,10 +118,10 @@ public class BoardReader {
      * @param method    the operation performed on each tile.
      * @return the first tile that is either null or does not fulfil the given condition.
      */
-    public Tile conditionalNext(Predicate<Tile> condition, BiConsumer<Integer, Integer> method) {
-        Tile currentTile = board.tileAt(currentX, currentY);
+    public Tile conditionalNext(Predicate<Tile> condition, Consumer<Coordinate> method) {
+        Tile currentTile = board.tileAt(currentCoordinate);
         while (currentTile != null && condition.test(currentTile)) {
-            method.accept(currentX, currentY);
+            method.accept(currentCoordinate);
             currentTile = next();
         }
         return currentTile;
@@ -130,7 +134,7 @@ public class BoardReader {
      * @param method    the operation performed on each tile.
      * @return the first tile that is either null or does not fulfil the given condition.
      */
-    public Tile conditionalPrevious(Predicate<Tile> condition, BiConsumer<Integer, Integer> method) {
+    public Tile conditionalPrevious(Predicate<Tile> condition, Consumer<Coordinate> method) {
         reverse();
         Tile tile = conditionalNext(condition, method);
         reverse();
@@ -146,6 +150,7 @@ public class BoardReader {
     public void set(int x, int y) {
         currentX = x;
         currentY = y;
+        currentCoordinate = new Coordinate(x, y);
     }
 
     public void set(Coordinate coord) {

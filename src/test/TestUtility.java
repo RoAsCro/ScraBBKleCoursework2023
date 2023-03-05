@@ -34,6 +34,6 @@ public class TestUtility {
             list.add(new LetterTile(c + "", 1));
         }
         BoardReader reader = new BoardReader(board, coord, direction);
-        reader.conditionalNext((tile) -> !list.isEmpty(), (x, y) -> board.placeTile(new Coordinate(x, y), list.poll()));
+        reader.conditionalNext((tile) -> !list.isEmpty(), (c) -> board.placeTile(c, list.poll()));
     }
 }

@@ -18,7 +18,7 @@ public class PlayerTest {
         Assertions.assertEquals(2, player.getScore());
 
         // Test getBoard
-        Assertions.assertEquals(board.getCentre(), player.getBoard().getCentre());
+        Assertions.assertEquals(board.getCentre().getX(), player.getBoard().getCentre().getX());
 
         // getRack and draw
         Bag bag = new Bag(new int[]{1});

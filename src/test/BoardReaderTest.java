@@ -47,11 +47,11 @@ public class BoardReaderTest {
         Assertions.assertEquals(7, reader.previous().getValue());
         // ConditionalNext
         reader.next();
-        reader.conditionalNext(t -> t.getValue() == 0, (u, v) -> {});
+        reader.conditionalNext(t -> t.getValue() == 0, (c) -> {});
         Assertions.assertEquals(2, reader.getCurrent().getValue());
         // Conditional Previous
         reader.previous();
-        reader.conditionalPrevious(t -> t.getValue() == 0, (u, v) -> {});
+        reader.conditionalPrevious(t -> t.getValue() == 0, (c) -> {});
         Assertions.assertEquals(7, reader.getCurrent().getValue());
 
         // breadthFirstSearch

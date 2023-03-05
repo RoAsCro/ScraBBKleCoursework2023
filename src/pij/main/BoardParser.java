@@ -80,7 +80,7 @@ public class BoardParser {
                 if ((!(tile instanceof LetterTile))) {
                     reader.next();
                 } else {
-                    reader.conditionalPrevious(LetterTile.class::isInstance, (x, y) -> {
+                    reader.conditionalPrevious(LetterTile.class::isInstance, (x) -> {
                     });
                     reader.next();
                 }

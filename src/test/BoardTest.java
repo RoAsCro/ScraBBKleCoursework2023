@@ -31,13 +31,13 @@ public class BoardTest {
     @Test
     public void testCentre(){
         //Odd magnitude board
-        assertEquals(7, board.getCentre());
+        assertEquals(7, board.getCentre().getX());
 
         assertEquals(16, board.tileAt(board.getCentre()).getValue());
 
         //Even magnitude board
         board = TestUtility.loadBoardFromTestBoards("bigBoard.txt");
-        assertEquals(12, board.getCentre());
+        assertEquals(12, board.getCentre().getX());
         assertEquals(16, board.tileAt(board.getCentre()).getValue());
 
     }
