@@ -41,7 +41,7 @@ public class MoveTest {
         Player player = new ComputerPlayer(board);
         Bag riggedBag = new Bag(new int[]{1});
         player.draw(riggedBag);
-        board.placeTile(new ScraBBKleCoordinate(board.getCentre(), board.getCentre()), new LetterTile("A", 1));
+        board.placeTile(new Coordinate(board.getCentre(), board.getCentre()), new LetterTile("A", 1));
 
         // Valid placement
         Move move = new Move(player, board);
@@ -64,13 +64,13 @@ public class MoveTest {
         Assertions.assertTrue(move.checkPlacable());
 
         // Check placing next to parallel word
-        board.placeTile(new ScraBBKleCoordinate(8, 6), new LetterTile("A", 1));
+        board.placeTile(new Coordinate(8, 6), new LetterTile("A", 1));
         move = new Move(player, board);
         Assertions.assertTrue(move.validateInput("A,h7,d"));
         Assertions.assertFalse(move.checkPlacable());
 
         // Check placing off board
-        TestUtility.writeOnBoard(new ScraBBKleCoordinate(board.getCentre(), board.getCentre()), board, "AAAAAAAA", 'r');
+        TestUtility.writeOnBoard(new Coordinate(board.getCentre(), board.getCentre()), board, "AAAAAAAA", 'r');
         move = new Move(player, board);
         Assertions.assertTrue(move.validateInput("A,h8,r"));
         Assertions.assertFalse(move.checkPlacable());

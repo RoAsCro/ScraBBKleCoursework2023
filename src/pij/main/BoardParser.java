@@ -32,8 +32,8 @@ public class BoardParser {
         allCombos(new LinkedList<>(player.getRack()), new StringBuilder(), words, 0);
 
         BoardReader reader = new BoardReader(board, 'r');
-        TreeSet<ScraBBKleCoordinate> coordinates = reader.breadthFirstSearch();
-        for (ScraBBKleCoordinate c : coordinates) {
+        TreeSet<Coordinate> coordinates = reader.breadthFirstSearch();
+        for (Coordinate c : coordinates) {
             if (findAny && this.moves.size() > 0) {
                 return;
             }
@@ -58,7 +58,7 @@ public class BoardParser {
         }
     }
 
-    private void testWordsWithCombos(ScraBBKleCoordinate c, ArrayList<TreeSet<String>> list) {
+    private void testWordsWithCombos(Coordinate c, ArrayList<TreeSet<String>> list) {
 
         BoardReader reader = new BoardReader(board, c, 'r');
 

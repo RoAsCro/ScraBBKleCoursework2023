@@ -1,6 +1,6 @@
 package pij.main;
 
-public class ScraBBKleCoordinate implements Comparable<ScraBBKleCoordinate> {
+public class Coordinate implements Comparable<Coordinate> {
     private final int x;
     private final int y;
 
@@ -8,7 +8,7 @@ public class ScraBBKleCoordinate implements Comparable<ScraBBKleCoordinate> {
 
     private final static int ASCII_OF_LOWER_A = 97;
 
-    public ScraBBKleCoordinate(int x, int y) {
+    public Coordinate(int x, int y) {
         this.x = x;
         this.y = y;
     }
@@ -20,7 +20,7 @@ public class ScraBBKleCoordinate implements Comparable<ScraBBKleCoordinate> {
      * @param x a character between 'a' and 'z'.
      * @param y an integer between 1 and 26.
      */
-    public ScraBBKleCoordinate(char x, int y) {
+    public Coordinate(char x, int y) {
         this.x = ((int) x) - ASCII_OF_LOWER_A;
         this.y = y - 1;
     }
@@ -44,7 +44,7 @@ public class ScraBBKleCoordinate implements Comparable<ScraBBKleCoordinate> {
     }
 
     @Override
-    public int compareTo(ScraBBKleCoordinate c) {
+    public int compareTo(Coordinate c) {
         return hashCode() - c.hashCode();
     }
 }

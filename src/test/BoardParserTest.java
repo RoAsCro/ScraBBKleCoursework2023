@@ -15,7 +15,7 @@ public class BoardParserTest {
         TestUtility.loadDictionary();
 
         computer.draw(new Bag(new int[]{1}));
-        board.placeTile(new ScraBBKleCoordinate(7, 7), new LetterTile("a", 1));
+        board.placeTile(new Coordinate(7, 7), new LetterTile("a", 1));
         assertEquals(1, parser.findMoves().size());
 
         parser = new BoardParser(board, computer, false);

@@ -5,13 +5,13 @@ import org.junit.jupiter.api.Test;
 import pij.main.Board;
 import pij.main.BoardReader;
 import pij.main.LetterTile;
-import pij.main.ScraBBKleCoordinate;
+import pij.main.Coordinate;
 
 public class BoardReaderTest {
 
     @Test
     public void testGettersAndSetter() {
-        ScraBBKleCoordinate coord = new ScraBBKleCoordinate(0, 0);
+        Coordinate coord = new Coordinate(0, 0);
         Board board = TestUtility.loadBoardFromTestBoards("testBoard.txt");
         BoardReader reader = new BoardReader(board, coord, 'r');
         // Getters
@@ -55,8 +55,8 @@ public class BoardReaderTest {
         Assertions.assertEquals(7, reader.getCurrent().getValue());
 
         // breadthFirstSearch
-        board.placeTile(new ScraBBKleCoordinate(7, 7), new LetterTile("a", 1));
-        board.placeTile(new ScraBBKleCoordinate(7, 8), new LetterTile("a", 1));
+        board.placeTile(new Coordinate(7, 7), new LetterTile("a", 1));
+        board.placeTile(new Coordinate(7, 8), new LetterTile("a", 1));
         Assertions.assertEquals(2, reader.breadthFirstSearch().size());
     }
 

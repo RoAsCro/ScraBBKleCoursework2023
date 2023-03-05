@@ -29,7 +29,7 @@ public class ComputerTest {
         Board board = TestUtility.loadBoardFromTestBoards("TestBoard.txt");
         TestUtility.loadDictionary();
         TestUtility.writeOnBoard(board, "X", 'd');
-        TestUtility.writeOnBoard(new ScraBBKleCoordinate(board.getCentre(), 8), board, "XX", 'r');
+        TestUtility.writeOnBoard(new Coordinate(board.getCentre(), 8), board, "XX", 'r');
 
         // Test placing prefix
         Bag riggedBag = new Bag(new int[] { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
@@ -39,7 +39,7 @@ public class ComputerTest {
         Assertions.assertEquals("A1", board.tileAt(6,7).toString());
 
         // Find move that involves placing tiles between tiles
-        TestUtility.writeOnBoard(new ScraBBKleCoordinate(4, 7), board, "F", 'r');
+        TestUtility.writeOnBoard(new Coordinate(4, 7), board, "F", 'r');
         riggedBag = new Bag(new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
         turn(cpu, riggedBag);
         board.print();
@@ -52,16 +52,16 @@ public class ComputerTest {
         Assertions.assertEquals( "O1", board.tileAt(4,6).toString());
 
         // Test placing suffix
-        TestUtility.writeOnBoard(new ScraBBKleCoordinate(5, 8), board, "X", 'r');
-        TestUtility.writeOnBoard(new ScraBBKleCoordinate(6, 6), board, "X", 'r');
-        TestUtility.writeOnBoard(new ScraBBKleCoordinate(9, 8), board, "S", 'r');
+        TestUtility.writeOnBoard(new Coordinate(5, 8), board, "X", 'r');
+        TestUtility.writeOnBoard(new Coordinate(6, 6), board, "X", 'r');
+        TestUtility.writeOnBoard(new Coordinate(9, 8), board, "S", 'r');
         riggedBag = new Bag(new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
         turn(cpu, riggedBag);
         board.print();
         Assertions.assertEquals("O1", board.tileAt(9,9).toString());
 
         // Test use of blank tiles and finding best move
-        TestUtility.writeOnBoard(new ScraBBKleCoordinate(10, 7), board, "X", 'r');
+        TestUtility.writeOnBoard(new Coordinate(10, 7), board, "X", 'r');
         cpu.removeTiles(cpu.getRack());
         riggedBag = new Bag(new int[] { 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2 });
         turn(cpu, riggedBag);

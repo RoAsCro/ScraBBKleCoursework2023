@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pij.main.*;
-import pij.main.Validator;
 
 public class BoardTest {
 
@@ -46,7 +45,7 @@ public class BoardTest {
     @Test
     public void testGetStartState() {
         assertTrue(board.getStartState());
-        board.placeTile(new ScraBBKleCoordinate(7, 7), new LetterTile("a", 1));
+        board.placeTile(new Coordinate(7, 7), new LetterTile("a", 1));
         assertFalse(board.getStartState());
     }
 
@@ -54,15 +53,15 @@ public class BoardTest {
     public void testPlaceTile() {
         LetterTile tile = new LetterTile("a", 1);
         // In bounds
-        assertTrue(board.placeTile(new ScraBBKleCoordinate(0, 0), tile));
+        assertTrue(board.placeTile(new Coordinate(0, 0), tile));
         assertEquals(1, board.tileAt(0, 0).getValue());
-        assertTrue(board.placeTile(new ScraBBKleCoordinate(14, 14), tile));
+        assertTrue(board.placeTile(new Coordinate(14, 14), tile));
         assertEquals(1, board.tileAt(14, 14).getValue());
         // Out of bounds
-        assertFalse(board.placeTile(new ScraBBKleCoordinate(-1, 0), tile));
-        assertFalse(board.placeTile(new ScraBBKleCoordinate(0, -1), tile));
-        assertFalse(board.placeTile(new ScraBBKleCoordinate(15, 0), tile));
-        assertFalse(board.placeTile(new ScraBBKleCoordinate(0, 15), tile));
+        assertFalse(board.placeTile(new Coordinate(-1, 0), tile));
+        assertFalse(board.placeTile(new Coordinate(0, -1), tile));
+        assertFalse(board.placeTile(new Coordinate(15, 0), tile));
+        assertFalse(board.placeTile(new Coordinate(0, 15), tile));
 
 
     }

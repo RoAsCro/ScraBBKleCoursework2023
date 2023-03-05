@@ -38,7 +38,7 @@ public class Board {
 		return !(tileAt(CENTRE, CENTRE) instanceof LetterTile);
 	}
 
-	private boolean inBounds(ScraBBKleCoordinate coord) {
+	private boolean inBounds(Coordinate coord) {
 		int x = coord.getX();
 		int y = coord.getY();
 		return (x >= 0 && x < this.MAGNITUDE && y >= 0 && y < this.MAGNITUDE);
@@ -52,7 +52,7 @@ public class Board {
 	 * @return Tile at given coordinates. Null if tile out of bounds.
 	 */
 	public Tile tileAt(int x, int y) {
-		if (!inBounds(new ScraBBKleCoordinate(x, y)))
+		if (!inBounds(new Coordinate(x, y)))
 			return null;
 		else
 			return grid[x][y];
@@ -90,7 +90,7 @@ public class Board {
 	 * @param tile
 	 * @return
 	 */
-	public boolean placeTile(ScraBBKleCoordinate coord, Tile tile) {
+	public boolean placeTile(Coordinate coord, Tile tile) {
 		if (!inBounds(coord))
 			return false;
 		grid[coord.getX()][coord.getY()] = tile;

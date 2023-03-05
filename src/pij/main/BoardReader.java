@@ -3,7 +3,6 @@ package pij.main;
 import java.util.LinkedList;
 import java.util.TreeSet;
 import java.util.function.BiConsumer;
-import java.util.function.BinaryOperator;
 import java.util.function.Predicate;
 
 /**
@@ -48,7 +47,7 @@ public class BoardReader {
         this(board, board.getCentre(), board.getCentre(), direction);
     }
 
-    public BoardReader(Board board, ScraBBKleCoordinate coord, char direction) {
+    public BoardReader(Board board, Coordinate coord, char direction) {
         this(board, coord.getX(), coord.getY(), direction);
     }
 
@@ -73,8 +72,8 @@ public class BoardReader {
         return currentY;
     }
 
-    public ScraBBKleCoordinate getCoord() {
-        return new ScraBBKleCoordinate(this.currentX, this.currentY);
+    public Coordinate getCoord() {
+        return new Coordinate(this.currentX, this.currentY);
     }
 
     public char getDirection() {
@@ -149,7 +148,7 @@ public class BoardReader {
         currentY = y;
     }
 
-    public void set(ScraBBKleCoordinate coord) {
+    public void set(Coordinate coord) {
         set(coord.getX(), coord.getY());
     }
 
@@ -175,11 +174,11 @@ public class BoardReader {
      *
      * @return
      */
-    public TreeSet<ScraBBKleCoordinate> breadthFirstSearch() {
-        TreeSet<ScraBBKleCoordinate> allTiles = new TreeSet<>();
-        LinkedList<ScraBBKleCoordinate> foundTiles = new LinkedList<>();
+    public TreeSet<Coordinate> breadthFirstSearch() {
+        TreeSet<Coordinate> allTiles = new TreeSet<>();
+        LinkedList<Coordinate> foundTiles = new LinkedList<>();
         set(this.board.getCentre(), this.board.getCentre());
-        ScraBBKleCoordinate currentCoord = new ScraBBKleCoordinate(this.currentX, this.currentY);
+        Coordinate currentCoord = new Coordinate(this.currentX, this.currentY);
         foundTiles.add(currentCoord);
         allTiles.add(currentCoord);
         do {
@@ -188,7 +187,7 @@ public class BoardReader {
             for (int j = 0; j < 2; j++) {
                 next();
                 for (int i = 0; i < 2; i++) {
-                    currentCoord = new ScraBBKleCoordinate(this.currentX, this.currentY);
+                    currentCoord = new Coordinate(this.currentX, this.currentY);
                     if (getCurrent() instanceof LetterTile && !allTiles.contains(currentCoord)) {
                         foundTiles.add(currentCoord);
                         allTiles.add(currentCoord);

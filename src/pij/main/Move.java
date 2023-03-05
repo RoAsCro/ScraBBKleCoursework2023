@@ -165,7 +165,7 @@ public class Move {
 			}
 		}
 		BoardReader reader = new BoardReader(this.BOARD, this.x, this.y, this.direction);
-		reader.conditionalNext((tile) -> !tiles.isEmpty(), (x, y) -> this.BOARD.placeTile(new ScraBBKleCoordinate(x, y), tiles.poll()));
+		reader.conditionalNext((tile) -> !tiles.isEmpty(), (x, y) -> this.BOARD.placeTile(new Coordinate(x, y), tiles.poll()));
 
 
 		//this.BOARD.placeTiles(this.x, this.y, this.direction, this.word.getTilesTwo());
