@@ -2,6 +2,8 @@ package pij.main;
 
 import java.util.LinkedList;
 import java.util.TreeSet;
+import java.util.function.BiConsumer;
+import java.util.function.BinaryOperator;
 import java.util.function.Predicate;
 
 /**
@@ -113,10 +115,10 @@ public class BoardReader {
      * @param method    the operation performed on each tile.
      * @return the first tile that is either null or does not fulfil the given condition.
      */
-    public Tile conditionalNext(Predicate<Tile> condition, TileOperation method) {
+    public Tile conditionalNext(Predicate<Tile> condition, BiConsumer<Integer, Integer> method) {
         Tile currentTile = board.tileAt(currentX, currentY);
         while (currentTile != null && condition.test(currentTile)) {
-            method.execute(currentX, currentY);
+            method.accept(currentX, currentY);
             currentTile = next();
         }
         return currentTile;
@@ -129,7 +131,7 @@ public class BoardReader {
      * @param method    the operation performed on each tile.
      * @return the first tile that is either null or does not fulfil the given condition.
      */
-    public Tile conditionalPrevious(Predicate<Tile> condition, TileOperation method) {
+    public Tile conditionalPrevious(Predicate<Tile> condition, BiConsumer<Integer, Integer> method) {
         reverse();
         Tile tile = conditionalNext(condition, method);
         reverse();
