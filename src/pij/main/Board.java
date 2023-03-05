@@ -58,6 +58,13 @@ public class Board {
 			return grid[x][y];
 	}
 
+	public Tile tileAt(Coordinate coordinate) {
+		if (!inBounds(new Coordinate(coordinate.getX(), coordinate.getY())))
+			return null;
+		else
+			return grid[coordinate.getX()][coordinate.getY()];
+	}
+
 	/**
 	 * Prints the board on the console
 	 */
