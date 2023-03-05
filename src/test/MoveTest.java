@@ -36,6 +36,16 @@ public class MoveTest {
     }
 
     @Test
+    public void testToString() {
+        Board board = TestUtility.loadBoardFromTestBoards("testBoard.txt");
+        Player player = new ComputerPlayer(board);
+        Move move = new Move(player, board);
+        move.setAll(new Coordinate(0 , 0), 'r', new LetterTile[0]);
+        Assertions.assertEquals("The move is:	Word: [] at position (a, 1), direction: Right",
+                move.toString());
+    }
+
+    @Test
     public void testCheckPlacable() {
         Board board = TestUtility.loadBoardFromTestBoards("testBoard.txt");
         Player player = new ComputerPlayer(board);
