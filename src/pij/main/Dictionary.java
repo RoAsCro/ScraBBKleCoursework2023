@@ -1,7 +1,5 @@
 package pij.main;
 
-import com.sun.source.tree.Tree;
-
 import java.io.*;
 import java.util.*;
 
@@ -9,6 +7,7 @@ public class Dictionary{
 
     private static int LOWER_A_CHAR_INT = 97;
     private static int LOWER_Z_CHAR_INT = 122;
+    public static final LinkedList<Character> WILD_CHARACTERS = new LinkedList<>();
 
     private static final Comparator<String> PREFIX_COMPARATOR = (o1, o2) -> {
         int len1 = o1.length();
@@ -63,6 +62,7 @@ public class Dictionary{
 
     public static boolean lookupWord(String word) {
         if (word.contains(" ")){
+            WILD_CHARACTERS.clear();
 
             String newWord = word.toLowerCase();
             boolean prefix = prefixDictionary.contains(newWord);
@@ -82,10 +82,14 @@ public class Dictionary{
         for (int i = LOWER_A_CHAR_INT; i <= LOWER_Z_CHAR_INT; i++) {
             String newWord = word.replaceFirst(" ", ((char) i) + "");
             if (newWord.contains(" "))
-                if (lookupWildWord(newWord, subDictionary))
+                if (lookupWildWord(newWord, subDictionary)) {
+                    WILD_CHARACTERS.addFirst((char) i);
                     return true;
-            if (subDictionary.contains(newWord.toLowerCase()))
+                }
+            if (subDictionary.contains(newWord.toLowerCase())) {
+                WILD_CHARACTERS.addFirst((char) i);
                 return true;
+            }
         }
         return false;
     }

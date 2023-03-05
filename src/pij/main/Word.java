@@ -57,4 +57,6 @@ public class Word {
 	public LinkedList<LetterTile> getTilesTwo() {
 		return word;
 	}
+
+
 }

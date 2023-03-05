@@ -119,16 +119,15 @@ public class Move {
 
 						//Check the player has the required tiles
 						for (char c : chars) {
-							for (LetterTile t : rack) {
+							Iterator<LetterTile> iter = rack.iterator();
+							while (iter.hasNext()) {
+								LetterTile t = iter.next();
 								char tChar = t.getChar();
 								if (tChar == c
 										|| (Character.isLowerCase(c) && t instanceof WildTile)) {
 									tiles.add(t);
-									rack.remove(t);
+									iter.remove();
 									counter++;
-									if (t instanceof WildTile w) {
-										w.setTempText(c);
-									}
 									break;
 								}
 							}
@@ -160,6 +159,11 @@ public class Move {
 
 	private void confirmMove() {
 		LinkedList<LetterTile> tiles = this.word.getTilesTwo();
+		for (LetterTile l : tiles) {
+			if (l instanceof WildTile) {
+				((WildTile) l).setTempText(Dictionary.WILD_CHARACTERS.poll());
+			}
+		}
 		BoardReader reader = new BoardReader(this.BOARD, this.x, this.y, this.direction);
 		reader.conditionalNext((tile) -> !tiles.isEmpty(), (x, y) -> this.BOARD.placeTile(new ScraBBKleCoordinate(x, y), tiles.poll()));
 
@@ -174,37 +178,16 @@ public class Move {
 		this.tiles = tiles;
 		this.direction = direction;
 	}
-//
-//	public boolean isValid() {
-//		return valid;
-//	}
-//
-//
-//	public int getX() {
-//		return x;
-//	}
-//
-//
-//	public int getY() {
-//		return y;
-//	}
 	
 	public LinkedList<LetterTile> getTiles() {
 		LinkedList<LetterTile> list = new LinkedList<>();
 		Collections.addAll(list, tiles);
 		return list;
 	}
-
-//
-//	public char getDirection() {
-//		return direction;
-//	}
 	
 	public boolean isPass() {
 		return pass;
 	}
-
-
 	
 	@ Override
 	public String toString() {
@@ -253,7 +236,7 @@ public class Move {
 
 	private boolean constructWord() {
 		resetWord();
-		LinkedList<LetterTile> tileQueue = new LinkedList<>(getTiles());
+		LinkedList<LetterTile> tileQueue = getTiles();
 		BoardReader reader = new BoardReader(this.BOARD, this.x, this.y, this.direction);
 		Tile currentTile;
 		// Check it's possible to place the word on the board
