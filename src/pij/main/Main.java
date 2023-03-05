@@ -8,7 +8,7 @@ public class Main {
 
 		boolean go = true;
 		String input = "";
-		Validator.loadDictionary();
+		Dictionary.loadDictionary();
 		System.out.println("Welcome to ScraBBKle!");
 		while (go) {
 			System.out.println("Would you like to _l_oad a board or use the _d_efault board?");
@@ -40,6 +40,7 @@ public class Main {
 		players.add(new ComputerPlayer(board));
 
 		Game game = new Game(players, board);
+		Dictionary.loadDictionary();
 		game.run();
 	}
 

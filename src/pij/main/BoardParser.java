@@ -107,7 +107,7 @@ public class BoardParser {
 
                             if (move.validateInput(builderTwo.toString()) && move.checkPlacable()) {
                                 String moveWord = move.getWord().toString();
-                                if (Validator.lookupWord(moveWord)) {
+                                if (Dictionary.lookupWord(moveWord)) {
                                     moves.add(move);
                                     if (findAny)
                                         return;

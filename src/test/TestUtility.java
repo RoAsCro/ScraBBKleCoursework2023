@@ -3,6 +3,7 @@ package test;
 import com.sun.source.tree.Tree;
 import org.junit.jupiter.api.Test;
 import pij.main.*;
+import pij.main.Dictionary;
 
 import java.io.File;
 import java.util.*;
@@ -15,11 +16,11 @@ public class TestUtility {
     }
 
     public static void loadDictionary() {
-        Validator.loadDictionary(new File("./resources/wordlist.txt"));
+        Dictionary.loadDictionary(new File("./resources/wordlist.txt"));
     }
 
     public static void loadTestDictionary() {
-        Validator.loadDictionary(new File("./resources/testWordList.txt"));
+        Dictionary.loadDictionary(new File("./resources/testWordList.txt"));
     }
 
     public static Bag riggedBag() {

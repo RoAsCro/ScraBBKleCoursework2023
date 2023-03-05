@@ -98,7 +98,7 @@ public class ComputerTest {
 
             board.print();
             count++;
-        } while (!move.isPass());
+        } while (!move.isPass() && count < 24);
         Assertions.assertEquals(23, count);
     }
 

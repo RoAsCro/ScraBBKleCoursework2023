@@ -1,9 +1,14 @@
 package pij.main;
 
+import com.sun.source.tree.Tree;
+
+import java.io.*;
 import java.util.*;
 
 public class Dictionary{
 
+    private static int LOWER_A_CHAR_INT = 97;
+    private static int LOWER_Z_CHAR_INT = 122;
 
     private static final Comparator<String> PREFIX_COMPARATOR = (o1, o2) -> {
         int len1 = o1.length();
@@ -29,45 +34,59 @@ public class Dictionary{
         }
         return o1.compareTo(o2);
     };
-    private Comparator<String> comparator = (o1, o2) -> {
-        if (o1.contains("1")) {
-            if (o1.replaceAll("1", ".").matches(o2))
-                return 0;
-            return 1;
+
+    private static TreeSet<String> dictionary = new TreeSet<>();
+    private static TreeSet<String> suffixDictionary = new TreeSet<>(PREFIX_COMPARATOR);
+    private static TreeSet<String> prefixDictionary = new TreeSet<>(PREFIX_COMPARATOR);
+
+    public static void loadDictionary(File file) {
+
+        dictionary = new TreeSet<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                dictionary.add(line);
+                suffixDictionary.add((new StringBuilder(line)).reverse().toString());
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        else if (o1.contains("2")) {
-            if (o1.replaceAll("2", ".").matches(o2))
-                return 0;
-            return -1;
+        prefixDictionary.addAll(dictionary);
+    }
+
+    public static void loadDictionary() {
+        loadDictionary(new File("../resources/wordlist.txt"));
+    }
+
+    public static boolean lookupWord(String word) {
+        if (word.contains(" ")){
+
+            String newWord = word.toLowerCase();
+            boolean prefix = prefixDictionary.contains(newWord);
+            boolean suffix = suffixDictionary.contains(new StringBuilder(newWord).reverse().toString());
+
+            if ((!suffix || !prefix)) {
+                return false;
+            }
+            SortedSet<String> subDictionary = dictionary.subSet(newWord.replace(" ", "a"), newWord.replace(" ", "z") + "a");
+            return lookupWildWord(word, subDictionary);
         }
+        return dictionary.contains(word.toLowerCase());
+    }
 
-        return o1.compareTo(o2);
-    };
+    public static boolean lookupWildWord(String word, SortedSet<String> subDictionary) {
 
-
-
-
-//    public boolean search(String word) {
-//        String newWord = word.toLowerCase();
-//        if (newWord.contains(" ")){
-//            while (newWord.contains(" ")){
-//
-//            }
-//
-//            SortedSet<String> tree = Validator.getDictionary().subSet(newWord.replaceAll(" ", "a"), newWord.replaceAll(" ", "z") + "a");
-//            if (tree.contains(newWord.replace(" ", "1"))){
-//                return true;
-//            } else if (tree.contains(newWord.replace(" ", "2"))) {
-//                return true;
-//            }
-//
-//        }
-//
-//        return Validator.lookupWord(newWord);
-//    }
-
-    public boolean searchIter(TreeSet<String > tree, String word) {
-
+        for (int i = LOWER_A_CHAR_INT; i <= LOWER_Z_CHAR_INT; i++) {
+            String newWord = word.replaceFirst(" ", ((char) i) + "");
+            if (newWord.contains(" "))
+                if (lookupWildWord(newWord, subDictionary))
+                    return true;
+            if (subDictionary.contains(newWord.toLowerCase()))
+                return true;
+        }
         return false;
     }
 

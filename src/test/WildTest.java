@@ -27,7 +27,7 @@ public class WildTest {
 
     @Test
     public void testThis(){
-        Validator.loadDictionary(new File("./resources/wordlist.txt"));
+        Dictionary.loadDictionary(new File("./resources/wordlist.txt"));
 
         String x = "a.b";
         StringBuilder a = new StringBuilder("[a]");
@@ -111,7 +111,7 @@ public class WildTest {
         System.out.println(stop - start);
 
         start = System.nanoTime();
-        System.out.println(Validator.lookupWord("aghast"));
+        System.out.println(Dictionary.lookupWord("aghast"));
         stop = System.nanoTime();
         System.out.println(stop - start);
 

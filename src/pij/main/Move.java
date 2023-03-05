@@ -64,7 +64,7 @@ public class Move {
 
 			return false;
 		}
-		if (!Validator.lookupWord(this.word.toString())) {
+		if (!Dictionary.lookupWord(this.word.toString())) {
 			System.out.println("Word not in dictionary.");
 			return false;
 		}
@@ -99,7 +99,7 @@ public class Move {
 				if (location.length() < 2 || location.length() > 3)
 					valid = false;
 				else {
-					System.out.println("length");
+//					System.out.println("length");
 					x = location.substring(0,1);
 					y = location.substring(1);
 
@@ -109,7 +109,7 @@ public class Move {
 							|| !Character.isDigit(y.charAt(yLength - 1))
 							|| !Validator.inputValidation(direction, new String[] { "r", "d" })
 							|| letters.length() < 1) {
-						System.out.println("direction");
+//						System.out.println("direction");
 						valid = false;
 					}
 					else {
@@ -134,22 +134,22 @@ public class Move {
 							}
 						}
 						if (counter != target) {
-							System.out.println("counter");
+//							System.out.println("counter");
 							valid = false;
 						}
 					}
 				}
 			}else {
-				System.out.println("Here");
+//				System.out.println("Here");
 				valid = false;
 			}
 		}
 		if (pass) {
-			System.out.println("Pass");
+//			System.out.println("Pass");
 			return true;
 		}
 		if (!this.valid) {
-			System.out.println("Invalid");
+//			System.out.println("Invalid");
 			return false;
 		} else {
 			setAll(x.charAt(0) - 97, Integer.parseInt(y) - 1, direction.charAt(0), tiles.toArray(new LetterTile[0]));
