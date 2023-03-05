@@ -15,7 +15,7 @@ public class Word {
 	public double getScore() {
 		return score;
 	}
-	
+
 	
 	@Override
 	public String toString() {

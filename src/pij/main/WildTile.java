@@ -7,11 +7,6 @@ public class WildTile extends LetterTile {
 	public WildTile() {
 		super(" ", 3);
 	}
-	
-	@Override
-	public char getChar() {
-		return ' ';
-	}
 
 	@Override
 	public String toString(){

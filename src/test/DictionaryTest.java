@@ -20,7 +20,7 @@ public class DictionaryTest {
         Dictionary.lookupWord(" a");
         Assertions.assertFalse(Dictionary.WILD_CHARACTERS.isEmpty());
         Assertions.assertEquals('a', Dictionary.WILD_CHARACTERS.get(0));
-        
+
     }
 
 
