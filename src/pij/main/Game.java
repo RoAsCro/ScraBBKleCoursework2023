@@ -4,11 +4,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Game {
-	
+
 
 	Player activePlayer;
 	Board board;
-	Bag bag;
 	LinkedList<Player> players;
 
 	public Game(List<Player> players, Board board){
@@ -21,7 +20,7 @@ public class Game {
 
 
 
-		bag = new Bag();
+		Bag bag = new Bag();
 		for (Player p : this.players) {
 			p.draw(bag);
 		}
@@ -33,11 +32,11 @@ public class Game {
 			//board.print();
 			Move move;
 			do {
-				move = activePlayer.turn(this.bag);
+				move = activePlayer.turn(bag);
 			} while (board.getStartState());
 
 			activePlayer.removeTiles(move.getTiles());
-			activePlayer.draw(this.bag);
+			activePlayer.draw(bag);
 			
 			System.out.println();
 			if (move.isPass()) {
@@ -55,7 +54,7 @@ public class Game {
 					emptyRack = true;
 			}
 			
-			if ((passes >= 4) || (this.bag.isEmpty() && emptyRack) || checkAvailableMoves()) {
+			if ((passes >= 4) || (bag.isEmpty() && emptyRack) || checkAvailableMoves()) {
 				for (Player p : players) {
 					int deduction = 0;
 					for (LetterTile l : p.getRack()) {
