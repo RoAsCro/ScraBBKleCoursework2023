@@ -4,8 +4,11 @@ import java.util.*;
 import java.util.function.Predicate;
 
 
+
 public class Move {
 
+	private static int LOWER_A_CHAR_INT = 97;
+	private static int LOWER_Z_CHAR_INT = 122;
 	private static final int RACK_SIZE = 7;
 
 	private static final int ALL_LETTERS_BONUS = 70;
@@ -58,11 +61,11 @@ public class Move {
 			return true;
 		}
 		if (!checkPlacable()) {
-			System.out.println("Word cannot be places there.");
+			System.out.println("Word cannot be placed there.");
 
 			return false;
 		}
-		if (!Dictionary.lookupWord(this.word.toString())) {
+		if (!lookupWord()) {
 			System.out.println("Word not in dictionary.");
 			return false;
 		}
@@ -71,6 +74,37 @@ public class Move {
 		confirmMove();
 		return true;
 	}
+
+	public boolean lookupWord() {
+		String wordString = this.word.toString();
+
+		List<LetterTile> tiles = this.word.getTilesTwo();
+
+		if (wordString.contains(" ") && Dictionary.lookupPrefixSuffix(wordString)){
+			return wildLookup(tiles);
+		}
+		return Dictionary.lookupWord(wordString);
+	}
+
+	private boolean wildLookup(List<LetterTile> tiles){
+
+		for (int i = LOWER_A_CHAR_INT; i <= LOWER_Z_CHAR_INT; i++) {
+
+			if (tiles.contains(new WildTile())) {
+				int  index = tiles.indexOf(new WildTile());
+
+				if (tiles.get(index) instanceof WildTile w) {
+					tiles.set(index, new LetterTile("" + ((char) i), 3));
+					if (wildLookup(tiles)) {
+						return true;
+					} else
+						tiles.set(index, w);
+				}
+			} else return Dictionary.lookupWord(this.word.toString());
+		}
+		return false;
+	}
+
 
 	public boolean validateInput(String input) {
 		//System.out.println("------------------------------");
@@ -120,9 +154,12 @@ public class Move {
 							Iterator<LetterTile> iter = rack.iterator();
 							while (iter.hasNext()) {
 								LetterTile t = iter.next();
+								if (Character.isLowerCase(c) && t instanceof WildTile w) {
+									t = new LetterTile("" + c, 3);
+								}
 								char tChar = t.getChar();
-								if (tChar == c
-										|| (Character.isLowerCase(c) && t instanceof WildTile)) {
+
+								if (tChar == c) {
 									tiles.add(t);
 									iter.remove();
 									counter++;

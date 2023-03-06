@@ -61,20 +61,27 @@ public class Dictionary{
     }
 
     public static boolean lookupWord(String word) {
-        if (word.contains(" ")){
-            WILD_CHARACTERS.clear();
-
-            String newWord = word.toLowerCase();
-            boolean prefix = prefixDictionary.contains(newWord);
-            boolean suffix = suffixDictionary.contains(new StringBuilder(newWord).reverse().toString());
-
-            if ((!suffix || !prefix)) {
-                return false;
-            }
-            SortedSet<String> subDictionary = dictionary.subSet(newWord.replace(" ", "a"), newWord.replace(" ", "z") + "a");
-            return lookupWildWord(word, subDictionary);
-        }
+//        System.out.println(word);
+//        if (word.contains(" ")){
+//            WILD_CHARACTERS.clear();
+//
+//            String newWord = word.toLowerCase();
+//            boolean prefix = prefixDictionary.contains(newWord);
+//            boolean suffix = suffixDictionary.contains(new StringBuilder(newWord).reverse().toString());
+//
+//            if ((!suffix || !prefix)) {
+//                return false;
+//            }
+//            SortedSet<String> subDictionary = dictionary.subSet(newWord.replace(" ", "a"), newWord.replace(" ", "z") + "a");
+//            return lookupWildWord(word, subDictionary);
+//        }
         return dictionary.contains(word.toLowerCase());
+    }
+
+    public static boolean lookupPrefixSuffix(String word){
+        boolean prefix = prefixDictionary.contains(word.toLowerCase());
+        boolean suffix = suffixDictionary.contains(new StringBuilder(word).reverse().toString().toLowerCase());
+        return prefix && suffix;
     }
 
     public static boolean lookupWildWord(String word, SortedSet<String> subDictionary) {

@@ -5,6 +5,10 @@ import pij.main.Board;
 import pij.main.Move;
 import pij.main.Player;
 
+/**
+ * Emulates the functions of a HumanPlayer without having to have console inputs
+ *
+ */
 public class SingleMovePlayer extends Player {
 
     private final String moveString;
