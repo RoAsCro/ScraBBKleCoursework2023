@@ -31,7 +31,6 @@ public class ComputerPlayer extends Player {
 		bestMove.validateInput(",,");
 		for (Move m : moves) {
 			if (m.getWord().getScore() > bestMove.getWord().getScore()) {
-
 				bestMove = m;
 			}
 		}
