@@ -12,7 +12,7 @@ import java.util.*;
 
 public abstract class Player {
 
-	private final static int RACK_SIZE = 7;
+	public final static int RACK_SIZE = 7;
 
 	/** An array of tiles a player has available to them */
 	private ArrayList<LetterTile> tileRack = new ArrayList<>();

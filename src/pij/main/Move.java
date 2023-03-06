@@ -1,18 +1,15 @@
 package pij.main;
 
-import org.junit.jupiter.api.Test;
-
 import java.util.*;
 import java.util.function.Predicate;
 
+import static pij.main.Player.RACK_SIZE;
 
 
 public class Move {
 
-	private static final int LOWER_A_CHAR_INT = 97;
-	private static final int LOWER_Z_CHAR_INT = 122;
-	private static final int RACK_SIZE = 7;
-
+	public static final int LOWER_A_CHAR_INT = 97;
+	public static final int LOWER_Z_CHAR_INT = 122;
 	private static final int ALL_LETTERS_BONUS = 70;
 
 	private String input;
