@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import pij.main.*;
 
+import java.util.LinkedList;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
@@ -40,8 +42,8 @@ public class MoveTest {
         Board board = TestUtility.loadBoardFromTestBoards("testBoard.txt");
         Player player = new ComputerPlayer(board);
         Move move = new Move(player, board);
-        move.setAll(new Coordinate(0 , 0), 'r', new LetterTile[0]);
-        Assertions.assertEquals("The move is:	Word: [] at position (a, 1), direction: Right",
+        move.setAll(new Coordinate(0 , 0), 'r', new LinkedList<>());
+        Assertions.assertEquals("The move is:	Word:  at position a1, direction: right",
                 move.toString());
     }
 

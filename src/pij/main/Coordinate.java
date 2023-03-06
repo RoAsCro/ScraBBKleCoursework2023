@@ -35,7 +35,7 @@ public class Coordinate implements Comparable<Coordinate> {
 
     @Override
     public String toString() {
-        return "(" + ((char) (x + ASCII_OF_LOWER_A)) + ", " + (y + 1) + ")";
+        return "" + ((char) (x + ASCII_OF_LOWER_A)) + (y + 1);
     }
 
     @Override

@@ -17,9 +17,6 @@ public class Game {
 
 	
 	public void run() {
-
-
-
 		Bag bag = new Bag();
 		for (Player p : this.players) {
 			p.draw(bag);
@@ -44,7 +41,7 @@ public class Game {
 				System.out.println("Player passed their turn.");
 			} else {
 				passes = 0;
-				System.out.println();
+				System.out.println(move);
 				System.out.println("The result is: ");
 			}
 			boolean emptyRack = false;

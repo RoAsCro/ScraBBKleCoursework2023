@@ -7,8 +7,8 @@ import java.util.function.Predicate;
 
 public class Move {
 
-	private static int LOWER_A_CHAR_INT = 97;
-	private static int LOWER_Z_CHAR_INT = 122;
+	private static final int LOWER_A_CHAR_INT = 97;
+	private static final int LOWER_Z_CHAR_INT = 122;
 	private static final int RACK_SIZE = 7;
 
 	private static final int ALL_LETTERS_BONUS = 70;
@@ -21,7 +21,7 @@ public class Move {
 	
 	private char direction;
 	
-	private LetterTile[] tiles = new LetterTile[0];
+	private List<LetterTile> tiles = new LinkedList<>();
 
 	private Coordinate startCoordinate;
 	
@@ -186,7 +186,7 @@ public class Move {
 //			System.out.println("Invalid");
 			return false;
 		} else {
-			setAll(new Coordinate(x.charAt(0), Integer.parseInt(y)), direction.charAt(0), tiles.toArray(new LetterTile[0]));
+			setAll(new Coordinate(x.charAt(0), Integer.parseInt(y)), direction.charAt(0), tiles);
 			this.input = input;
 			return true;
 		}
@@ -199,7 +199,7 @@ public class Move {
 		reader.conditionalNext((tile) -> !tiles.isEmpty(), (c) -> this.BOARD.placeTile(c, tiles.poll()));
 	}
 
-	public void setAll(Coordinate coordinate, char direction, LetterTile[] tiles) {
+	public void setAll(Coordinate coordinate, char direction, List<LetterTile> tiles) {
 		pass = false;
 		this.startCoordinate = coordinate;
 		this.tiles = tiles;
@@ -208,7 +208,7 @@ public class Move {
 	
 	public LinkedList<LetterTile> getTiles() {
 		LinkedList<LetterTile> list = new LinkedList<>();
-		Collections.addAll(list, tiles);
+		Collections.addAll(list, tiles.toArray(new LetterTile[0]));
 		return list;
 	}
 	
@@ -218,9 +218,11 @@ public class Move {
 	
 	@ Override
 	public String toString() {
-		return "The move is:	Word: " + Arrays.toString(tiles) + " at position "
+		return "The move is:	Word: " +
+				String.join("", this.tiles.stream().map(t->""+t.getChar()).toList())
+				+ " at position "
 				+ startCoordinate + ", direction: " +
-				(direction == 'd' ? "Down" : "Right");
+				(direction == 'd' ? "down" : "right");
 	}
 	
 	public void updateScore(Double score) {
