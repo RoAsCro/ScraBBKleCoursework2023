@@ -9,6 +9,11 @@ public class WildTile extends LetterTile {
 	}
 
 	@Override
+	public char getChar() {
+		return tempText;
+	}
+
+	@Override
 	public String toString(){
 		return "" + tempText + getValue();
 	}

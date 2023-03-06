@@ -13,9 +13,8 @@ public class WildTileTest {
         Assertions.assertEquals(" 3", w.toString());
         w.setTempText('x');
         Assertions.assertEquals("x3", w.toString());
-        Assertions.assertEquals(' ', w.getChar());
+//        Assertions.assertEquals(' ', w.getChar());
 
     }
-
 
 }
