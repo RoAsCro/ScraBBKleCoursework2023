@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Game {
 	
-	int passes = 0;
+
 	Player activePlayer;
 	Board board;
 	Bag bag;
@@ -18,13 +18,15 @@ public class Game {
 
 	
 	public void run() {
-		boolean go = true;
-		bag = new Bag();
 
+
+
+		bag = new Bag();
 		for (Player p : this.players) {
 			p.draw(bag);
 		}
-
+		boolean go = true;
+		int passes = 0;
 		while (go) {
 			activePlayer = players.poll();
 			players.add(activePlayer);
