@@ -1,5 +1,7 @@
 package pij.main;
 
+import org.junit.jupiter.api.Test;
+
 import java.util.*;
 import java.util.function.Predicate;
 
@@ -15,8 +17,6 @@ public class Move {
 
 	private String input;
 
-	private boolean valid = true;
-	
 	private boolean pass;
 	
 	private char direction;
@@ -62,7 +62,6 @@ public class Move {
 		}
 		if (!checkPlacable()) {
 			System.out.println("Word cannot be placed there.");
-
 			return false;
 		}
 		if (!lookupWord()) {
@@ -85,6 +84,7 @@ public class Move {
 		}
 		return Dictionary.lookupWord(wordString);
 	}
+
 
 	private boolean wildLookup(List<LetterTile> tiles){
 
@@ -112,6 +112,7 @@ public class Move {
 		String y = "0";
 		String direction = "d";
 		ArrayList<LetterTile> tiles = new ArrayList<>();
+		boolean valid = true;
 
 		if (input.equals(",,"))
 			pass = true;
@@ -182,7 +183,7 @@ public class Move {
 //			System.out.println("Pass");
 			return true;
 		}
-		if (!this.valid) {
+		if (!valid) {
 //			System.out.println("Invalid");
 			return false;
 		} else {
