@@ -194,11 +194,11 @@ public class Move {
 
 	private void confirmMove() {
 		LinkedList<LetterTile> tiles = this.word.getTilesTwo();
-		for (LetterTile l : tiles) {
-			if (l instanceof WildTile) {
-				((WildTile) l).setTempText(Dictionary.WILD_CHARACTERS.poll());
-			}
-		}
+//		for (LetterTile l : tiles) {
+//			if (l instanceof WildTile) {
+//				((WildTile) l).setTempText(Dictionary.WILD_CHARACTERS.poll());
+//			}
+//		}
 		BoardReader reader = new BoardReader(this.BOARD, this.startCoordinate, this.direction);
 		reader.conditionalNext((tile) -> !tiles.isEmpty(), (c) -> this.BOARD.placeTile(c, tiles.poll()));
 
