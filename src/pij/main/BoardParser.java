@@ -115,14 +115,13 @@ public class BoardParser {
                     for (int i = offset; i < combinations.size(); i++) {
                         for (String s : listThree.get(i)) {
 
-                            if (s.equals("")){
-                                continue ;
-                            }
+//                            if (s.equals("")){
+//                                continue ;
+//                            }
                             StringBuilder builderTwo = new StringBuilder(builder);
                             builderTwo.insert(0, s);
 
                             Move move = new Move(player, board);
-//                            move.setAll(reader.getCoord(), reader.getDirection(), );
                             if (move.validateInput(builderTwo.toString()) && move.checkPlacable()) {
                                 if (move.lookupWord()) {
                                     moves.add(move);
