@@ -93,41 +93,6 @@ public class Validator {
 						grid[xCoord][yCoord] = tile;
 						xCoord++;
 					}
-
-//					if (current == '.' || current == ')' || current == '}') {
-//						// Check the tile has a value if it's a premium tile
-//						if (current != '.') {
-//							if (tileValue.isEmpty()) {
-//								invalidFile();
-//								return null;
-//							}
-//							// Check the characters collected as the tileValue are digits or a dash
-//							for (int c = 0 ; c < tileValue.length() ; c++) {
-//								char currentChar = tileValue.charAt(c);
-//								if (!Character.isDigit(currentChar) && !(currentChar == '-' && c == 0)) {
-//									invalidFile();
-//									return null;
-//								}
-//							}
-//						}  else
-//							tileValue.append('0');
-//
-//						int finalValue = Integer.parseInt(tileValue.toString());
-//						// Check the tile's value is in the proper range
-//						if (finalValue < MIN_PREMIUM_VALUE || finalValue > MAX_PREMIUM_VALUE) {
-//							invalidFile();
-//							return null;
-//						}
-//
-//						tile = new Tile(tileText.toString(), finalValue);
-//						grid[xCoord][yCoord] = tile;
-//						tileText = new StringBuilder();
-//						tileValue = new StringBuilder();
-//						xCoord++;
-//					} else if (current != '(' && current != '{') {
-//						tileValue.append(current);
-//					}
-
 				}
 				if (xCoord != magnitude) {
 					invalidFile();

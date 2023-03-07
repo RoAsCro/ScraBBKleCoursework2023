@@ -44,11 +44,11 @@ public class Word {
 			baseScore += value;
 			word.add(letter);
 		} else {
-			if (tile.toString().charAt(0) == '(') {
+			if (tile instanceof BonusLetterTile) {
 				int letterValue = word.getLast().getValue();
 				baseScore += (value * letterValue) - letterValue;
 				
-			} else if (tile.toString().charAt(0) == '{') {
+			} else if (tile instanceof BonusWordTile) {
 				this.multiplier *= value;
 			}
 		}
