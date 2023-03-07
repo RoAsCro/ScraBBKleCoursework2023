@@ -74,7 +74,7 @@ public class Move {
 	public boolean lookupWord() {
 		String wordString = this.word.toString();
 
-		List<LetterTile> tiles = this.word.getTilesTwo();
+		List<LetterTile> tiles = this.word.getTiles();
 
 		if (wordString.contains(" ") && Dictionary.lookupPrefixSuffix(wordString)){
 			return wildLookup(tiles);
@@ -191,7 +191,7 @@ public class Move {
 	}
 
 	private void confirmMove() {
-		LinkedList<LetterTile> tiles = this.word.getTilesTwo();
+		LinkedList<LetterTile> tiles = this.word.getTiles();
 
 		BoardReader reader = new BoardReader(this.BOARD, this.startCoordinate, this.direction);
 		reader.conditionalNext((tile) -> !tiles.isEmpty(), (c) -> this.BOARD.placeTile(c, tiles.poll()));
@@ -247,7 +247,7 @@ public class Move {
 		// pre-existing word.
 		// THIS MUST BE THE LAST CHECK because startState is turned off by all the
 		// conditionals below evaluating to false.
-		if (!(this.word.getTiles().length > wordLength)) {
+		if (!(this.word.getTiles().size() > wordLength)) {
 			int startX = this.startCoordinate.getX();
 			int startY = this.startCoordinate.getY();
 			int centre = this.BOARD.getCentre().getX();

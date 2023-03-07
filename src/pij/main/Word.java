@@ -25,11 +25,7 @@ public class Word {
 		}
 		return stringWord.toString();
 	}
-	
-	public LetterTile[] getTiles() {
-		return word.toArray(new LetterTile[0]);
-	}
-	
+
 	public void addPoints(double points) {
 		this.score += points;
 	}
@@ -54,7 +50,7 @@ public class Word {
 		}
 	}
 	
-	public LinkedList<LetterTile> getTilesTwo() {
+	public LinkedList<LetterTile> getTiles() {
 		return word;
 	}
 
