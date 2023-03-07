@@ -49,6 +49,7 @@ public class Validator {
 				StringBuilder tileText = new StringBuilder();
 				StringBuilder tileValue = new StringBuilder();
 				int xCoord = 0;
+				char closingBracket = ' ';
 				for (int i = 0; i < row.length(); i++) {
 					char current = row.charAt(i);
 
@@ -58,40 +59,74 @@ public class Validator {
 						invalidFile();
 						return null;
 					}
-
-					if (current == '.' || current == ')' || current == '}') {
-						// Check the tile has a value if it's a premium tile
-						if (current != '.') {
-							if (tileValue.isEmpty()) {
-								invalidFile();
-								return null;
-							}
-							// Check the characters collected as the tileValue are digits or a dash
-							for (int c = 0 ; c < tileValue.length() ; c++) {
-								char currentChar = tileValue.charAt(c);
-								if (!Character.isDigit(currentChar) && !(currentChar == '-' && c == 0)) {
-									invalidFile();
-									return null;
-								}
-							}
-						}  else
-							tileValue.append('0');
-
-						int finalValue = Integer.parseInt(tileValue.toString());
-						// Check the tile's value is in the proper range
-						if (finalValue < MIN_PREMIUM_VALUE || finalValue > MAX_PREMIUM_VALUE) {
+					Tile tile = null;
+					if (current == '.') {
+						tile = new NullTile();
+					} else if (current == '{') {
+						closingBracket = '}';
+					} else if (current == '(') {
+						closingBracket = ')';
+					} else if (Character.isDigit(current) || (current == '-' && tileValue.isEmpty())) {
+						tileValue.append(current);
+					} else {
+						int finalValue;
+						if (tileValue.isEmpty() || current != closingBracket) {
+							System.out.println(current);
+							invalidFile();
+							return null;
+						} else if (tileValue.toString().equals("-") ||
+								(finalValue = Integer.parseInt(tileValue.toString())) < MIN_PREMIUM_VALUE
+								|| finalValue > MAX_PREMIUM_VALUE) {
 							invalidFile();
 							return null;
 						}
-
-						Tile tile = new Tile(tileText.toString(), finalValue);
-						grid[xCoord][yCoord] = tile;
-						tileText = new StringBuilder();
+						if (closingBracket == '}') {
+							tile = new BonusWordTile(finalValue);
+						}
+						else if (closingBracket == ')') {
+							tile = new BonusLetterTile(finalValue);
+						}
 						tileValue = new StringBuilder();
-						xCoord++;
-					} else if (current != '(' && current != '{') {
-						tileValue.append(current);
+						closingBracket = ' ';
 					}
+					if (tile != null) {
+						grid[xCoord][yCoord] = tile;
+						xCoord++;
+					}
+
+//					if (current == '.' || current == ')' || current == '}') {
+//						// Check the tile has a value if it's a premium tile
+//						if (current != '.') {
+//							if (tileValue.isEmpty()) {
+//								invalidFile();
+//								return null;
+//							}
+//							// Check the characters collected as the tileValue are digits or a dash
+//							for (int c = 0 ; c < tileValue.length() ; c++) {
+//								char currentChar = tileValue.charAt(c);
+//								if (!Character.isDigit(currentChar) && !(currentChar == '-' && c == 0)) {
+//									invalidFile();
+//									return null;
+//								}
+//							}
+//						}  else
+//							tileValue.append('0');
+//
+//						int finalValue = Integer.parseInt(tileValue.toString());
+//						// Check the tile's value is in the proper range
+//						if (finalValue < MIN_PREMIUM_VALUE || finalValue > MAX_PREMIUM_VALUE) {
+//							invalidFile();
+//							return null;
+//						}
+//
+//						tile = new Tile(tileText.toString(), finalValue);
+//						grid[xCoord][yCoord] = tile;
+//						tileText = new StringBuilder();
+//						tileValue = new StringBuilder();
+//						xCoord++;
+//					} else if (current != '(' && current != '{') {
+//						tileValue.append(current);
+//					}
 
 				}
 				if (xCoord != magnitude) {

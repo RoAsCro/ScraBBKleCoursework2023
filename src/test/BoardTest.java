@@ -18,8 +18,8 @@ public class BoardTest {
     @Test
     public void testTileAt() {
         //testBoard is 15x15
-        assertEquals(Tile.class, board.tileAt(0,0).getClass());
-        assertEquals(Tile.class, board.tileAt(14,14).getClass());
+        assertNotNull(board.tileAt(0, 0));
+        assertNotNull(board.tileAt(14,14));
         assertNull(board.tileAt(15, 0));
         assertNull(board.tileAt(0, 15));
         assertNull(board.tileAt(-1, 0));

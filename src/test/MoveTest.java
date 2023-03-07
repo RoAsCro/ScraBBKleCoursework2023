@@ -102,8 +102,8 @@ public class MoveTest {
         Tile outOfBoundsTwo = board.tileAt(15, 15);
 
         // Tests the lower and upper bounds of the grid, plus tileAt function.
-        assertEquals(Tile.class, lower.getClass());
-        assertEquals(Tile.class, upper.getClass());
+        assertNotNull(lower);
+        assertNotNull(upper);
         assertNull(outOfBounds);
         assertNull(outOfBoundsTwo);
 
