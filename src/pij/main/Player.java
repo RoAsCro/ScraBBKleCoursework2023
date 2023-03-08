@@ -1,5 +1,8 @@
 package pij.main;
-import java.util.*;
+
+import java.util.List;
+import java.util.ArrayList;
+
 
 /**
  *
@@ -15,7 +18,7 @@ public abstract class Player {
 	public final static int RACK_SIZE = 7;
 
 	/** An array of tiles a player has available to them */
-	private ArrayList<LetterTile> tileRack = new ArrayList<>();
+	private List<LetterTile> tileRack = new ArrayList<>();
 
 	/** A player's score. */
 	private double score = 0;
@@ -31,7 +34,7 @@ public abstract class Player {
 	 * 
 	 * @return the player's tile rack.
 	 */
-	public ArrayList<LetterTile> getRack() {
+	public List<LetterTile> getRack() {
 		return tileRack;
 	}
 
@@ -73,14 +76,7 @@ public abstract class Player {
 				tileRack.add(tile);
 		}
 	}
-
-	/**
-	 * A series of methods to be carried out on a player's turn. Should be
-	 * overridden by classes extending Player.
-	 * 
-	 * @param game
-	 * @return TODO
-	 */
+	
 	public abstract Move turn(Bag bag);
 
 	/**
