@@ -71,28 +71,23 @@ public class Move {
 		return true;
 	}
 
-	public boolean lookupWord() {
-		String wordString = this.word.toString();
-		List<LetterTile> tiles = this.word.getTiles();
-		if (wordString.contains(" ") && Dictionary.lookupPrefixSuffix(wordString)){
-			return wildLookup(tiles);
-		}
-		return Dictionary.lookupWord(wordString);
-	}
+//	public boolean lookupWord() {
+//		return lookupWordIter();
+//	}
 
 
-	private boolean wildLookup(List<LetterTile> tiles){
+	public boolean lookupWord(){
 		LetterTile letterTile;
-
-		if ((letterTile = tiles.stream().filter(t->!Character.isLetter(t.getChar())).findFirst().orElse(null)) != null) {
-			int  index = tiles.indexOf(letterTile);
-			LetterTile original = tiles.get(index);
+		List<LetterTile> wordTiles = this.word.getTiles();
+		if ((letterTile = wordTiles.stream().filter(t->!Character.isLetter(t.getChar())).findFirst().orElse(null)) != null) {
+			int  index = wordTiles.indexOf(letterTile);
+			LetterTile original = wordTiles.get(index);
 			for (int i = LOWER_A_CHAR_INT; i <= LOWER_Z_CHAR_INT; i++) {
-				tiles.set(index, new LetterTile("" + ((char) i), letterTile.getValue()));
-				if (wildLookup(tiles)) {
+				wordTiles.set(index, new LetterTile("" + ((char) i), letterTile.getValue()));
+				if (lookupWord()) {
 					return true;
 				} else
-					tiles.set(index, original);
+					wordTiles.set(index, original);
 			}
 		} else return Dictionary.lookupWord(this.word.toString());
 		return false;
