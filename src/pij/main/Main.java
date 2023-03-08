@@ -21,8 +21,8 @@ public class Main {
 			go = false;
 			System.out.println();
 		}
-		String file = "";
-		Board board = null;
+		String file;
+		Board board;
 		do {
 			if (input.equals("l")) {
 				System.out.print("Please enter the file name of the board: ");

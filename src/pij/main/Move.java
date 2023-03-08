@@ -28,7 +28,7 @@ public class Move {
 
 	private Word word = new Word();
 
-	private Predicate<Tile> isLetter = LetterTile.class::isInstance;
+	private final static Predicate<Tile> IS_LETTER = LetterTile.class::isInstance;
 	
 	public Move(Player player, Board board) {
 		pass = false;
@@ -221,12 +221,12 @@ public class Move {
 		// Check it's possible to place the word on the board
 		do {
 			// Try placing tiles in rack
-			reader.conditionalNext((tile) -> (!(isLetter.test(tile)) && !tileQueue.isEmpty()), (c) -> {
+			reader.conditionalNext((tile) -> (!(IS_LETTER.test(tile)) && !tileQueue.isEmpty()), (c) -> {
 				// Test there are no words parallel to this one
 				reader.turn();
-				boolean parallelWord = isLetter.test(reader.next());
+				boolean parallelWord = IS_LETTER.test(reader.next());
 				reader.previous();
-				if (isLetter.test(reader.previous())) {
+				if (IS_LETTER.test(reader.previous())) {
 					parallelWord = true;
 				}
 				if (!parallelWord) {
@@ -239,12 +239,12 @@ public class Move {
 				}
 			});
 			// Gather existing letter tiles from the board
-			currentTile = reader.conditionalNext(isLetter, (c) -> this.word.addLetter(BOARD.tileAt(c)));
+			currentTile = reader.conditionalNext(IS_LETTER, (c) -> this.word.addLetter(BOARD.tileAt(c)));
 
 		} while (!tileQueue.isEmpty() && currentTile != null);
 
 		// Check all letters have been placed
-		if ((!tileQueue.isEmpty() && currentTile == null)) {
+		if ((!tileQueue.isEmpty())) {
 			resetWord();
 			return false;
 		}
