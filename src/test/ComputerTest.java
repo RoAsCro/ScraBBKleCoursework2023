@@ -66,7 +66,7 @@ public class ComputerTest {
         riggedBag = new Bag(new int[] { 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2 });
         turn(cpu, riggedBag);
         board.print();
-        Assertions.assertEquals("D2", board.tileAt(3,7).toString());
+        Assertions.assertEquals("t3", board.tileAt(0,7).toString());
 
     }
 

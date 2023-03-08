@@ -16,7 +16,6 @@ public class Validator {
 //			new String[]{
 //					"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "(", ")", "{", "}", ".", "-"};
 
-	
 	public static Board loadFile(String fileName) {
 		File file = new File(fileName);
 		try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
@@ -93,7 +92,6 @@ public class Validator {
 	}
 
 	private static Tile tileFactory(String tileString){
-		System.out.println(tileString);
 		if (tileString.equals(".")) {
 			return new NullTile();
 		}
@@ -128,8 +126,8 @@ public class Validator {
 	public static boolean inputValidation(String input, String[] validInputs) {
 		for (String s : validInputs) 
 			if (s.equals(input))
-				return true;
-		return false;
+				return false;
+		return true;
 	}
 
 }

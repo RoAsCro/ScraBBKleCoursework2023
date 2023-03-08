@@ -90,75 +90,51 @@ public class Move {
 
 
 	public boolean validateInput(String input) {
-		//System.out.println("------------------------------");
-		String x = "0";
-		String y = "0";
-		String direction = "d";
-		ArrayList<LetterTile> tiles = new ArrayList<>();
-		boolean valid = true;
-
-		if (input.equals(",,"))
+		if (input.equals(",,")) {
 			pass = true;
-		else {
+			return true;
+		} else
 			pass = false;
 
-			String[] movesToTest = input.split(",");
+		String[] movesToTest = input.split(",");
 
-			ArrayList<LetterTile> rack = new ArrayList<>(this.PLAYER.getRack());
-
-			if (movesToTest.length == 3) {
-
-				String letters = movesToTest[0];
-				String location = movesToTest[1];
-				direction = movesToTest[2].toLowerCase();
-
-				if (location.length() < 2 || location.length() > 3)
-					valid = false;
-				else {
-//					System.out.println("length");
-					x = location.substring(0,1);
-					y = location.substring(1);
-
-					int yLength = y.length();
-					//Check the x coordinate is a letter
-					if (!Character.isLetter(x.charAt(0)) || !Character.isDigit(y.charAt(0))
-							|| !Character.isDigit(y.charAt(yLength - 1))
-							|| !Validator.inputValidation(direction, new String[] { "r", "d" })
-							|| letters.length() < 1) {
-//						System.out.println("direction");
-						valid = false;
-					}
-					else {
-						char[] chars = letters.toCharArray();
-						//Check the player has the required tiles
-						for (char c : chars) {
-							LetterTile letterTile = rack.stream().filter(t->t.matchChar(c)).findFirst().orElse(null);
-							if (letterTile == null) {
-								valid = false;
-								break;
-							}
-							rack.remove(letterTile);
-							tiles.add(new LetterTile(""+c, letterTile.getValue()));
-						}
-					}
-				}
-			}else {
-//				System.out.println("Here");
-				valid = false;
-			}
-		}
-		if (pass) {
-//			System.out.println("Pass");
-			return true;
-		}
-		if (!valid) {
-//			System.out.println("Invalid");
+		if (movesToTest.length != 3) {
 			return false;
-		} else {
-			setAll(new Coordinate(x.charAt(0), Integer.parseInt(y)), direction.charAt(0), tiles);
-			this.input = input;
-			return true;
 		}
+		String letters = movesToTest[0];
+		String location = movesToTest[1];
+		String direction = movesToTest[2];
+
+		if (location.length() < 2 || location.length() > 3)
+			return false;
+
+		String x = location.substring(0,1);
+		String y = location.substring(1);
+
+		int yLength = y.length();
+		//Check the x coordinate is a letter, th
+		if (!Character.isLetter(x.charAt(0)) || !Character.isDigit(y.charAt(0))
+				|| !Character.isDigit(y.charAt(yLength - 1))
+				|| (!direction.equals("r") && !direction.equals("d"))
+				|| letters.length() < 1) {
+			return false;
+		}
+		char[] chars = letters.toCharArray();
+		//Check the player has the required tiles
+		ArrayList<LetterTile> moveTiles = new ArrayList<>();
+		ArrayList<LetterTile> playerRack = new ArrayList<>(this.PLAYER.getRack());
+		for (char c : chars) {
+			LetterTile letterTile = playerRack.stream().filter(t->t.matchChar(c)).findFirst().orElse(null);
+			if (letterTile == null) {
+				return false;
+			}
+			playerRack.remove(letterTile);
+			moveTiles.add(new LetterTile(""+c, letterTile.getValue()));
+		}
+
+		setAll(new Coordinate(x.charAt(0), Integer.parseInt(y)), direction.charAt(0), moveTiles);
+		this.input = input;
+		return true;
 	}
 
 	private void confirmMove() {
