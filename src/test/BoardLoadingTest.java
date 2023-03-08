@@ -99,6 +99,9 @@ public class BoardLoadingTest {
         // Dash between brackets
         assertNull(TestUtility.loadBoardFromTestBoards("dashInBrackets.txt"));
 
+        // Dot between brackets
+        assertNull(TestUtility.loadBoardFromTestBoards("dotInBrackets.txt"));
+
     }
 
 }
