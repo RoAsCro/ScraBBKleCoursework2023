@@ -8,7 +8,7 @@ package pij.main;
  *
  */
 
-public class Tile{
+public abstract class Tile{
 	/** The text displayed when a tile is displayed on the board or in a player's tile rack. */
 	private final String tileText;
 	
