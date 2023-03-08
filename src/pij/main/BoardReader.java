@@ -14,6 +14,10 @@ import java.util.function.Predicate;
  * @author Roland Crompton
  */
 public class BoardReader {
+    private static final int LOWER_D_ASCII_VALUE = 100;
+    private static final int LOWER_R_ASCII_VALUE = 114;
+    private static final int DIRECTION_DIVISOR = 14;
+
     /**
      * The Board over which the reader iterates .
      */
@@ -51,8 +55,8 @@ public class BoardReader {
     public BoardReader(Board board, int x, int y, char direction) {
         this.board = board;
         //xInc and yInc use the integer value of 'd' or 'r' to determine how to iterate across the grid.
-        this.xInc = (direction - 100) / 14;
-        this.yInc = (direction - 114) / 14 * -1;
+        this.xInc = (direction - LOWER_D_ASCII_VALUE) / DIRECTION_DIVISOR;
+        this.yInc = (direction - LOWER_R_ASCII_VALUE) / DIRECTION_DIVISOR * -1;
         this.currentCoordinate = (new Coordinate(x, y));
     }
 
@@ -61,7 +65,7 @@ public class BoardReader {
     }
 
     public char getDirection() {
-        return (char) (Math.abs(this.xInc) * 14 + 100);
+        return (char) (Math.abs(this.xInc) * DIRECTION_DIVISOR + LOWER_D_ASCII_VALUE);
     }
 
     /**
