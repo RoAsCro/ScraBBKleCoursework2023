@@ -10,7 +10,7 @@ package pij.main;
 public class Board {
 
 	/** A two-dimensional array of tiles representing the board. */
-	private Tile[][] grid;
+	private final Tile[][] grid;
 
 	/** The size of the board's axes. */
 	private final int MAGNITUDE;

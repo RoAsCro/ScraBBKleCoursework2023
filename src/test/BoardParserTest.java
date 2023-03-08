@@ -11,14 +11,14 @@ public class BoardParserTest {
     public void testBoardParser() {
         Board board = TestUtility.loadBoardFromTestBoards("testBoard.txt");
         Player computer = new ComputerPlayer(board);
-        BoardParser parser = new BoardParser(board, computer, true);
+        MoveFinder parser = new MoveFinder(board, computer, true);
         TestUtility.loadDictionary();
 
         computer.draw(new Bag(new int[]{1}));
         board.placeTile(new Coordinate(7, 7), new LetterTile("a", 1));
         assertEquals(1, parser.findMoves().size());
 
-        parser = new BoardParser(board, computer, false);
+        parser = new MoveFinder(board, computer, false);
         assertEquals(4, parser.findMoves().size());
     }
 

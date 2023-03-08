@@ -3,7 +3,7 @@ package pij.main;
 import java.util.*;
 import java.util.TreeSet;
 
-public class BoardParser {
+public class MoveFinder {
     private final Board board;
 
     private final List<Move> moves = new LinkedList<>();
@@ -12,7 +12,7 @@ public class BoardParser {
 
     private final boolean findAny;
 
-    public BoardParser(Board board, Player player, boolean findAny) {
+    public MoveFinder(Board board, Player player, boolean findAny) {
         this.board = board;
         this.player = player;
         this.findAny = findAny;
@@ -114,10 +114,6 @@ public class BoardParser {
                     ArrayList<TreeSet<String>> listThree = new ArrayList<>(newCombinations);
                     for (int i = offset; i < combinations.size(); i++) {
                         for (String s : listThree.get(i)) {
-
-//                            if (s.equals("")){
-//                                continue ;
-//                            }
                             StringBuilder builderTwo = new StringBuilder(builder);
                             builderTwo.insert(0, s);
 

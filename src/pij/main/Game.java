@@ -69,7 +69,7 @@ public class Game {
 	private boolean checkAvailableMoves(){
 		boolean noMoves = true;
 		for (Player p : this.players) {
-			if (new BoardParser(this.board, this.activePlayer, true).findMoves().size() != 0)
+			if (new MoveFinder(this.board, this.activePlayer, true).findMoves().size() != 0)
 				noMoves = false;
 			break;
 		}
