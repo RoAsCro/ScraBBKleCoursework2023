@@ -225,11 +225,15 @@ public class Move {
 			int startX = this.startCoordinate.getX();
 			int startY = this.startCoordinate.getY();
 			int centre = this.BOARD.getCentre().getX();
+
 			if (!this.BOARD.getStartState()) {
 				System.out.println("Your word must cross another word");
 				return false;
-			} else if (!((startY == centre && startY + yInc == centre && (centre <= startX + wordLength - 1 && centre >= startX))
-					|| (startX == centre && startX + xInc == centre && (centre <= startY + wordLength - 1 && centre >= startY)))) {
+			} else if (!(startX + xInc * (wordLength - 1) >= centre && startX <= centre
+					&& startY + yInc * (wordLength - 1) >= centre && startY <= centre))
+//					((startY == centre && startY + yInc == centre && (centre <= startX + wordLength - 1 && centre >= startX))
+//					|| (startX == centre && startX + xInc == centre && (centre <= startY + wordLength - 1 && centre >= startY))))
+			{
 				System.out.println("Your word must cross over the centre tile.");
 				return false;
 			}
