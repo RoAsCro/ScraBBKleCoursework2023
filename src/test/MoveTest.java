@@ -123,6 +123,22 @@ public class MoveTest {
         assertFalse(move.tryMove("FACE,c4,d"));
 
         move = new Move(human, board);
+        assertFalse(move.tryMove("FACE,h7,r"));
+
+        move = new Move(human, board);
+        assertFalse(move.tryMove("FACE,i8,d"));
+
+        move = new Move(human, board);
+        assertTrue(move.tryMove("FACE,h8,d"));
+
+        board = TestUtility.loadBoardFromTestBoards("testBoard.txt");
+
+        move = new Move(human, board);
+        assertTrue(move.tryMove("FACE,h5,d"));
+
+        board = TestUtility.loadBoardFromTestBoards("testBoard.txt");
+
+        move = new Move(human, board);
         assertTrue(move.tryMove("FACE,e8,r"));
 
         board = TestUtility.loadBoardFromTestBoards("testBoard.txt");
