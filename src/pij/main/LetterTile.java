@@ -20,6 +20,12 @@ public class LetterTile extends Tile {
 		return super.toString() + getValue();
 	}
 
+	@Override
+	public void addToWord(Word tileSequence) {
+		tileSequence.getTiles().add(this);
+		tileSequence.increaseBaseScore(getValue());
+	}
+
 	/**
 	 * Returns the tile's letter as a character.
 	 * 

@@ -10,7 +10,7 @@ public class Word {
 
 	private double score = 0;
 	
-	private LinkedList<LetterTile> word = new LinkedList<>();
+	private final LinkedList<LetterTile> word = new LinkedList<>();
 	
 	public double getScore() {
 		return score;
@@ -30,24 +30,20 @@ public class Word {
 		this.score += points;
 	}
 
+	public void increaseBaseScore(int value) {
+		baseScore += value;
+	}
+
+	public void increaseMultiplier(int value) {
+		multiplier *= value;
+	}
+
 	public void finalise() {
 		this.score = this.baseScore * this.multiplier;
 	}
 	
 	public void addLetter(Tile tile) {
-		int value = tile.getValue();
-		if (tile instanceof LetterTile letter) {
-			baseScore += value;
-			word.add(letter);
-		} else {
-			if (tile instanceof BonusLetterTile) {
-				int letterValue = word.getLast().getValue();
-				baseScore += (value * letterValue) - letterValue;
-				
-			} else if (tile instanceof BonusWordTile) {
-				this.multiplier *= value;
-			}
-		}
+		tile.addToWord(this);
 	}
 	
 	public LinkedList<LetterTile> getTiles() {

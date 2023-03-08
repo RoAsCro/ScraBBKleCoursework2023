@@ -130,11 +130,7 @@ public class Move {
 					}
 					else {
 						char[] chars = letters.toCharArray();
-						int counter = 0;
-						int target = chars.length;
-
 						//Check the player has the required tiles
-
 						for (char c : chars) {
 							LetterTile letterTile = rack.stream().filter(t->t.matchChar(c)).findFirst().orElse(null);
 							if (letterTile == null) {
