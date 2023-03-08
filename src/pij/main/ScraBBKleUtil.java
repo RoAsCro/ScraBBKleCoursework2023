@@ -2,7 +2,7 @@ package pij.main;
 
 import java.io.*;
 
-public final class Validator {
+public final class ScraBBKleUtil {
 
 	public static final int MAX_MAGNITUDE = 26;
 
@@ -12,7 +12,7 @@ public final class Validator {
 
 	private static final int MAX_PREMIUM_VALUE = 99;
 
-	private Validator(){}
+	private ScraBBKleUtil(){}
 
 	public static Board loadFile(String fileName) {
 		File file = new File(fileName);

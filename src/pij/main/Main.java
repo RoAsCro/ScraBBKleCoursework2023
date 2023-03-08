@@ -13,7 +13,7 @@ public class Main {
 			System.out.println("Would you like to _l_oad a board or use the _d_efault board?");
 			System.out.print("Please enter your choice (l/d): ");
 			input = System.console().readLine();
-			if (Validator.inputValidation(input, new String[]{"d", "l"})) {
+			if (ScraBBKleUtil.inputValidation(input, new String[]{"d", "l"})) {
 				System.out.println("That is not a valid input.");
 				System.out.println();
 				continue;
@@ -31,7 +31,7 @@ public class Main {
 				file = "defaultBoard.txt";
 			}
 			file = "../resources/" + file;
-			board = Validator.loadFile(file);
+			board = ScraBBKleUtil.loadFile(file);
 		} while (board == null);
 
 		LinkedList<Player> players = new LinkedList<>();

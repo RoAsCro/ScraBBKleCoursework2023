@@ -10,7 +10,7 @@ public class TestUtility {
 
 
     public static Board loadBoardFromTestBoards(String fileName) {
-        return Validator.loadFile("./resources/TestBoards/" + fileName);
+        return ScraBBKleUtil.loadFile("./resources/TestBoards/" + fileName);
     }
 
     public static void loadDictionary() {

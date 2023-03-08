@@ -37,7 +37,7 @@ public class Coordinate implements Comparable<Coordinate> {
 
     @Override
     public int hashCode() {
-        return x * Validator.MAX_MAGNITUDE + y;
+        return x * ScraBBKleUtil.MAX_MAGNITUDE + y;
     }
 
     @Override
