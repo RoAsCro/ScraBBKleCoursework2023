@@ -1,5 +1,7 @@
 package pij.main;
 
+import java.util.stream.IntStream;
+
 /**
  * A board on which the game of ScraBBKle is played. A board's dimensions are S
  * x S where S is between 12 and 26.
@@ -72,22 +74,15 @@ public class Board {
 		char xLabel = 'a';
 		int yLabel = 1;
 		System.out.print("   ");
-		for (int i = 0; i < MAGNITUDE; i++) {
-			System.out.format("%-4c", xLabel);
-			xLabel++;
-		}
+		IntStream.range(0, MAGNITUDE).forEach(i->System.out.format("%-4c", xLabel+i));
 
 		System.out.println();
-		for (int yCoord = 0; yCoord < MAGNITUDE; yCoord++) {
-			System.out.format("%-3d", yLabel);
-			yLabel++;
-			for (int xCoord = 0; xCoord < MAGNITUDE; xCoord++) {
-				Tile tile = tileAt(xCoord, yCoord);
-				System.out.format("%-4s", tile.toString());
-			}
+		IntStream.range(0, MAGNITUDE).forEach(i-> {
+			System.out.format("%-3d", yLabel+i);
+			IntStream.range(0, MAGNITUDE)
+					.forEach(j->System.out.format("%-4s", tileAt(j,i).toString()));
 			System.out.println();
-		}
-
+		});
 	}
 
 	/**
