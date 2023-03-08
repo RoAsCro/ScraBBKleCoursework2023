@@ -71,11 +71,6 @@ public class Move {
 		return true;
 	}
 
-//	public boolean lookupWord() {
-//		return lookupWordIter();
-//	}
-
-
 	public boolean lookupWord(){
 		LetterTile letterTile;
 		List<LetterTile> wordTiles = this.word.getTiles();
@@ -171,10 +166,9 @@ public class Move {
 	}
 
 	private void confirmMove() {
-		LinkedList<LetterTile> tiles = this.word.getTiles();
-
+		LinkedList<LetterTile> wordTiles = this.word.getTiles();
 		BoardReader reader = new BoardReader(this.BOARD, this.startCoordinate, this.direction);
-		reader.conditionalNext((tile) -> !tiles.isEmpty(), (c) -> this.BOARD.placeTile(c, tiles.poll()));
+		reader.conditionalNext((tile) -> !wordTiles.isEmpty(), (c) -> this.BOARD.placeTile(c, wordTiles.poll()));
 	}
 
 	public void setAll(Coordinate coordinate, char direction, List<LetterTile> tiles) {
@@ -194,7 +188,7 @@ public class Move {
 		return pass;
 	}
 	
-	@ Override
+	@Override
 	public String toString() {
 		return "The move is:	Word: " +
 				String.join("", this.tiles.stream().map(t->""+t.getChar()).toList())
@@ -251,21 +245,21 @@ public class Move {
 		// Check it's possible to place the word on the board
 		do {
 			// Try placing tiles in rack
-			reader.conditionalNext((tile) -> (!(tile instanceof LetterTile) && !tileQueue.isEmpty()), (c) -> {
+			reader.conditionalNext((tile) -> (!(isLetter.test(tile)) && !tileQueue.isEmpty()), (c) -> {
 				// Test there are no words parallel to this one
 				reader.turn();
-				if (isLetter.test(reader.next())) {
-					reader.set(new Coordinate(-2, -2));
+				boolean parallelWord = isLetter.test(reader.next());
+				reader.previous();
+				if (isLetter.test(reader.previous())) {
+					parallelWord = true;
+				}
+				if (!parallelWord) {
+					reader.next();
+					reader.turn();
+					this.word.addLetter(tileQueue.poll());
+					this.word.addLetter(BOARD.tileAt(c));
 				} else {
-					reader.previous();
-					if (isLetter.test(reader.previous())) {
-						reader.set(new Coordinate(-2, -2));
-					} else {
-						reader.next();
-						reader.turn();
-						this.word.addLetter(tileQueue.poll());
-						this.word.addLetter(BOARD.tileAt(c));
-					}
+					reader.set(new Coordinate(-2, -2));
 				}
 			});
 			// Gather existing letter tiles from the board
