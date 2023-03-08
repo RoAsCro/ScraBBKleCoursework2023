@@ -3,9 +3,6 @@ package pij.main;
 public class Coordinate implements Comparable<Coordinate> {
     private final int x;
     private final int y;
-
-    private final static int MAX_BOARD_SIZE = 26;
-
     private final static int ASCII_OF_LOWER_A = 97;
 
     public Coordinate(int x, int y) {
@@ -40,7 +37,7 @@ public class Coordinate implements Comparable<Coordinate> {
 
     @Override
     public int hashCode() {
-        return x * MAX_BOARD_SIZE + y;
+        return x * Validator.MAX_MAGNITUDE + y;
     }
 
     @Override

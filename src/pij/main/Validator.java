@@ -4,17 +4,13 @@ import java.io.*;
 
 public class Validator {
 
-	private static final int MAX_MAGNITUDE = 26;
+	public static final int MAX_MAGNITUDE = 26;
 
-	private static final int MIN_MAGNITUDE = 12;
+	public static final int MIN_MAGNITUDE = 12;
 
 	private static final int MIN_PREMIUM_VALUE = -9;
 
 	private static final int MAX_PREMIUM_VALUE = 99;
-
-//	private static final String[] VALID_BOARD_CHARACTERS =
-//			new String[]{
-//					"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "(", ")", "{", "}", ".", "-"};
 
 	public static Board loadFile(String fileName) {
 		File file = new File(fileName);
