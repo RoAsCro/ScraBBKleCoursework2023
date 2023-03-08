@@ -12,7 +12,10 @@ public class Validator {
 
 	private static final int MAX_PREMIUM_VALUE = 99;
 
-	private static final String[] VALID_BOARD_CHARACTERS = new String[]{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "(", ")", "{", "}", ".", "-"};
+//	private static final String[] VALID_BOARD_CHARACTERS =
+//			new String[]{
+//					"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "(", ")", "{", "}", ".", "-"};
+
 	
 	public static Board loadFile(String fileName) {
 		File file = new File(fileName);
@@ -31,7 +34,7 @@ public class Validator {
 					return null;
 				}
 			}
-			// Check the declared maginitude is within bounds
+			// Check the declared magnitude is within bounds
 			int magnitude;
 			if ((magnitude = Integer.parseInt(lineOne)) < MIN_MAGNITUDE || magnitude > MAX_MAGNITUDE) {
 				invalidFile();
@@ -47,58 +50,32 @@ public class Validator {
 					return null;
 				}
 				StringBuilder tileText = new StringBuilder();
-				StringBuilder tileValue = new StringBuilder();
 				int xCoord = 0;
-				char closingBracket = ' ';
 				for (int i = 0; i < row.length(); i++) {
-					char current = row.charAt(i);
-
-					tileText.append(current);
 					// Check the current character is a valid character
-					if (!inputValidation("" + current, VALID_BOARD_CHARACTERS) || xCoord >= magnitude) {
+					if (xCoord >= magnitude) {
 						invalidFile();
 						return null;
 					}
-					Tile tile = null;
-					if (current == '.') {
-						tile = new NullTile();
-					} else if (current == '{') {
-						closingBracket = '}';
-					} else if (current == '(') {
-						closingBracket = ')';
-					} else if (Character.isDigit(current) || (current == '-' && tileValue.isEmpty())) {
-						tileValue.append(current);
-					} else {
-						int finalValue;
-						if (tileValue.isEmpty() || current != closingBracket) {
-							System.out.println(current);
-							invalidFile();
-							return null;
-						} else if (tileValue.toString().equals("-") ||
-								(finalValue = Integer.parseInt(tileValue.toString())) < MIN_PREMIUM_VALUE
-								|| finalValue > MAX_PREMIUM_VALUE) {
+					char currentCharacter = row.charAt(i);
+					tileText.append(currentCharacter);
+					if (currentCharacter == '.' || currentCharacter == ')' || currentCharacter == '}') {
+						Tile tile = tileFactory(tileText.toString());
+						if (tile != null) {
+							grid[xCoord][yCoord] = tile;
+							xCoord++;
+							tileText = new StringBuilder();
+						} else {
 							invalidFile();
 							return null;
 						}
-						if (closingBracket == '}') {
-							tile = new BonusWordTile(finalValue);
-						}
-						else if (closingBracket == ')') {
-							tile = new BonusLetterTile(finalValue);
-						}
-						tileValue = new StringBuilder();
-						closingBracket = ' ';
-					}
-					if (tile != null) {
-						grid[xCoord][yCoord] = tile;
-						xCoord++;
 					}
 				}
+				// Check whether line is too short
 				if (xCoord != magnitude) {
 					invalidFile();
 					return null;
 				}
-
 			}
 			// Check there are not extra lines at the end of the file
 			if (reader.readLine() != null){
@@ -113,6 +90,35 @@ public class Validator {
 		} catch (IOException ex) {
 			return null;
 		}
+	}
+
+	private static Tile tileFactory(String tileString){
+		System.out.println(tileString);
+		if (tileString.equals(".")) {
+			return new NullTile();
+		}
+		int tileValue;
+		try {
+			tileValue = Integer.parseInt(tileString.substring(1, tileString.length() - 1));
+		} catch (NumberFormatException e) {
+			return null;
+		}
+		if (tileValue > MAX_PREMIUM_VALUE || tileValue < MIN_PREMIUM_VALUE) {
+			return null;
+		}
+		Tile returnTile = null;
+		switch (tileString.charAt(0)) {
+			case '{' -> {
+				if (tileString.charAt(tileString.length() - 1) == '}') {
+					returnTile = new BonusWordTile(tileValue);
+				}
+			}
+			case '(' -> {
+				if (tileString.charAt(tileString.length() - 1) == ')')
+					returnTile = new BonusLetterTile(tileValue);
+			}
+		}
+		return returnTile;
 	}
 
 	private static void invalidFile(){
