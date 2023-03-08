@@ -29,6 +29,10 @@ public class LetterTile extends Tile {
 		return super.toString().charAt(0);
 	}
 
+	public boolean matchChar(char c) {
+		return c == this.getChar();
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (o instanceof LetterTile l) {

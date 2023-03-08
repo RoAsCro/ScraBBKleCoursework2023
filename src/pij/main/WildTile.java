@@ -6,4 +6,8 @@ public class WildTile extends LetterTile {
 		super(" ", 3);
 	}
 
+	public boolean matchChar(char c) {
+		return Character.isLowerCase(c) || c == ' ';
+	}
+
 }
