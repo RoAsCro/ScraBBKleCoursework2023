@@ -73,9 +73,7 @@ public class Move {
 
 	public boolean lookupWord() {
 		String wordString = this.word.toString();
-
 		List<LetterTile> tiles = this.word.getTiles();
-
 		if (wordString.contains(" ") && Dictionary.lookupPrefixSuffix(wordString)){
 			return wildLookup(tiles);
 		}
@@ -84,21 +82,19 @@ public class Move {
 
 
 	private boolean wildLookup(List<LetterTile> tiles){
+		LetterTile letterTile;
 
-		for (int i = LOWER_A_CHAR_INT; i <= LOWER_Z_CHAR_INT; i++) {
-
-			if (tiles.contains(new WildTile())) {
-				int  index = tiles.indexOf(new WildTile());
-
-				if (tiles.get(index) instanceof WildTile w) {
-					tiles.set(index, new LetterTile("" + ((char) i), 3));
-					if (wildLookup(tiles)) {
-						return true;
-					} else
-						tiles.set(index, w);
-				}
-			} else return Dictionary.lookupWord(this.word.toString());
-		}
+		if ((letterTile = tiles.stream().filter(t->!Character.isLetter(t.getChar())).findFirst().orElse(null)) != null) {
+			int  index = tiles.indexOf(letterTile);
+			LetterTile original = tiles.get(index);
+			for (int i = LOWER_A_CHAR_INT; i <= LOWER_Z_CHAR_INT; i++) {
+				tiles.set(index, new LetterTile("" + ((char) i), letterTile.getValue()));
+				if (wildLookup(tiles)) {
+					return true;
+				} else
+					tiles.set(index, original);
+			}
+		} else return Dictionary.lookupWord(this.word.toString());
 		return false;
 	}
 
@@ -148,26 +144,15 @@ public class Move {
 						int target = chars.length;
 
 						//Check the player has the required tiles
-						for (char c : chars) {
-							Iterator<LetterTile> iter = rack.iterator();
-							while (iter.hasNext()) {
-								LetterTile t = iter.next();
-								if (Character.isLowerCase(c) && t instanceof WildTile w) {
-									t = new LetterTile("" + c, 3);
-								}
-								char tChar = t.getChar();
 
-								if (tChar == c) {
-									tiles.add(t);
-									iter.remove();
-									counter++;
-									break;
-								}
+						for (char c : chars) {
+							LetterTile letterTile = rack.stream().filter(t->t.matchChar(c)).findFirst().orElse(null);
+							if (letterTile == null) {
+								valid = false;
+								break;
 							}
-						}
-						if (counter != target) {
-//							System.out.println("counter");
-							valid = false;
+							rack.remove(letterTile);
+							tiles.add(new LetterTile(""+c, letterTile.getValue()));
 						}
 					}
 				}
