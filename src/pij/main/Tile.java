@@ -32,6 +32,8 @@ public abstract class Tile{
 	public String toString() {
 		return tileText;
 	}
+
+	public abstract void addToWord(Word tileSequence);
 	
 	/**
 	 * Returns the tile's value.
