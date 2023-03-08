@@ -76,7 +76,7 @@ public abstract class Player {
 				tileRack.add(tile);
 		}
 	}
-	
+
 	public abstract Move turn(Bag bag);
 
 	/**

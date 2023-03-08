@@ -17,13 +17,12 @@ public class ComputerPlayer extends Player {
 		super(board);
 	}
 
-
 	@Override
 	public String getName() {
 		return NAME;
 	}
 
-		@Override
+	@Override
 	public Move turn(Bag bag) {
 		moves.clear();
 		moves = new MoveFinder(getBoard(), this, false).findMoves();

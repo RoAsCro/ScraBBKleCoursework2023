@@ -2,7 +2,7 @@ package pij.main;
 
 import java.io.*;
 
-public class Validator {
+public final class Validator {
 
 	public static final int MAX_MAGNITUDE = 26;
 
@@ -11,6 +11,8 @@ public class Validator {
 	private static final int MIN_PREMIUM_VALUE = -9;
 
 	private static final int MAX_PREMIUM_VALUE = 99;
+
+	private Validator(){}
 
 	public static Board loadFile(String fileName) {
 		File file = new File(fileName);
