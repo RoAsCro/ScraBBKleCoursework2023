@@ -6,7 +6,7 @@ public class BonusWordTile extends BonusTile{
     }
 
     @Override
-    public void addToWord(Word tileSequence) {
+    public void addToSequence(TileSequence tileSequence) {
         tileSequence.increaseMultiplier(getValue());
     }
 }

@@ -169,7 +169,7 @@ public class Move {
 				(direction == 'd' ? "down" : "right");
 	}
 	
-	public void updateScore(Double score) {
+	public void updateScore(int score) {
 		this.PLAYER.updateScore(score);
 	}
 
@@ -232,14 +232,14 @@ public class Move {
 				if (!parallelWord) {
 					reader.next();
 					reader.turn();
-					this.word.addLetter(tileQueue.poll());
-					this.word.addLetter(BOARD.tileAt(c));
+					this.word.addTile(tileQueue.poll());
+					this.word.addTile(BOARD.tileAt(c));
 				} else {
 					reader.set(new Coordinate(-2, -2));
 				}
 			});
 			// Gather existing letter tiles from the board
-			currentTile = reader.conditionalNext(IS_LETTER, (c) -> this.word.addLetter(BOARD.tileAt(c)));
+			currentTile = reader.conditionalNext(IS_LETTER, (c) -> this.word.addTile(BOARD.tileAt(c)));
 
 		} while (!tileQueue.isEmpty() && currentTile != null);
 

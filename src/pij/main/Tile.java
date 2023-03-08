@@ -33,7 +33,7 @@ public abstract class Tile{
 		return tileText;
 	}
 
-	public abstract void addToWord(Word tileSequence);
+	public abstract void addToSequence(TileSequence tileSequence);
 	
 	/**
 	 * Returns the tile's value.

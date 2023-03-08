@@ -2,21 +2,27 @@ package pij.main;
 
 import java.util.LinkedList;
 
-public class Word {
-	
-	private double baseScore = 0;
-	
-	private double multiplier = 1;
+/**
+ * A list of Tiles combined to form a scored word. Stores the tiles that
+ * form the Word as well as a score that
+ *
+ * @author Roland Crompton
+ */
+public class Word implements TileSequence {
 
-	private double score = 0;
-	
+	private int baseScore = 0;
+
+	private int multiplier = 1;
+
+	private int score = 0;
+
 	private final LinkedList<LetterTile> word = new LinkedList<>();
-	
-	public double getScore() {
+
+	public int getScore() {
 		return score;
 	}
 
-	
+
 	@Override
 	public String toString() {
 		StringBuilder stringWord = new StringBuilder();
@@ -41,11 +47,11 @@ public class Word {
 	public void finalise() {
 		this.score = this.baseScore * this.multiplier;
 	}
-	
-	public void addLetter(Tile tile) {
-		tile.addToWord(this);
+
+	public void addTile(Tile tile) {
+		tile.addToSequence(this);
 	}
-	
+
 	public LinkedList<LetterTile> getTiles() {
 		return word;
 	}

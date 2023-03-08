@@ -21,7 +21,7 @@ public class LetterTile extends Tile {
 	}
 
 	@Override
-	public void addToWord(Word tileSequence) {
+	public void addToSequence(TileSequence tileSequence) {
 		tileSequence.getTiles().add(this);
 		tileSequence.increaseBaseScore(getValue());
 	}

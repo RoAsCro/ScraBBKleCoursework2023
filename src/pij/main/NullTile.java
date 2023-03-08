@@ -6,5 +6,5 @@ public class NullTile extends Tile{
     }
 
     @Override
-    public void addToWord(Word tileSequence) {}
+    public void addToSequence(TileSequence tileSequence) {}
 }
