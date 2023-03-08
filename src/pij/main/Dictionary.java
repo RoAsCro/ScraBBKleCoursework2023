@@ -3,7 +3,7 @@ package pij.main;
 import java.io.*;
 import java.util.*;
 
-public class Dictionary{
+public final class Dictionary{
 
     private static final Comparator<String> PREFIX_COMPARATOR = (o1, o2) -> {
         int len1 = o1.length();
@@ -30,13 +30,14 @@ public class Dictionary{
         return o1.compareTo(o2);
     };
 
-    private static TreeSet<String> dictionary = new TreeSet<>();
-    private static TreeSet<String> suffixDictionary = new TreeSet<>(PREFIX_COMPARATOR);
-    private static TreeSet<String> prefixDictionary = new TreeSet<>(PREFIX_COMPARATOR);
+    private static final TreeSet<String> dictionary = new TreeSet<>();
+    private static final TreeSet<String> suffixDictionary = new TreeSet<>(PREFIX_COMPARATOR);
+    private static final TreeSet<String> prefixDictionary = new TreeSet<>(PREFIX_COMPARATOR);
+
+    private Dictionary() {}
 
     public static void loadDictionary(File file) {
 
-        dictionary = new TreeSet<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
 
