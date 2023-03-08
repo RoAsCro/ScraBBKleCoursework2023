@@ -104,7 +104,7 @@ public class MoveFinder {
                 }
                 StringBuilder builder = new StringBuilder();
                 builder.append(",");
-                builder.append((char) (reader.getCoord().getX() + Move.LOWER_A_CHAR_INT));
+                builder.append((char) (reader.getCoord().getX() + ScraBBKleUtil.LOWER_A_ASCII_VALUE));
                 builder.append(reader.getCoord().getY() + 1);
                 builder.append(",");
                 builder.append(reader.getDirection());

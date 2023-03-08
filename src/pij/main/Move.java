@@ -4,12 +4,15 @@ import java.util.*;
 import java.util.function.Predicate;
 
 import static pij.main.Player.RACK_SIZE;
+import static pij.main.ScraBBKleUtil.LOWER_D_ASCII_VALUE;
+import static pij.main.ScraBBKleUtil.LOWER_R_ASCII_VALUE;
+import static pij.main.ScraBBKleUtil.LOWER_A_ASCII_VALUE;
+import static pij.main.ScraBBKleUtil.LOWER_Z_ASCII_VALUE;
+import static pij.main.ScraBBKleUtil.DIRECTION_DIVISOR;
+
 
 
 public class Move {
-
-	public static final int LOWER_A_CHAR_INT = 97;
-	public static final int LOWER_Z_CHAR_INT = 122;
 	private static final int ALL_LETTERS_BONUS = 70;
 
 	private String input;
@@ -77,7 +80,7 @@ public class Move {
 		if ((letterTile = wordTiles.stream().filter(t->!Character.isLetter(t.getChar())).findFirst().orElse(null)) != null) {
 			int  index = wordTiles.indexOf(letterTile);
 			LetterTile original = wordTiles.get(index);
-			for (int i = LOWER_A_CHAR_INT; i <= LOWER_Z_CHAR_INT; i++) {
+			for (int i = LOWER_A_ASCII_VALUE; i <= LOWER_Z_ASCII_VALUE; i++) {
 				wordTiles.set(index, new LetterTile("" + ((char) i), letterTile.getValue()));
 				if (lookupWord()) {
 					return true;
@@ -176,8 +179,8 @@ public class Move {
 	public boolean checkPlacable() {
 		// xInc and yInc use the integer value of chars 'd' and 'r' to determine how to iterate
 		// across the grid.
-		int xInc = (this.direction - 100) / 14;
-		int yInc = (this.direction - 114) / 14 * -1;
+		int xInc = (this.direction - LOWER_D_ASCII_VALUE) / DIRECTION_DIVISOR;
+		int yInc = (this.direction - LOWER_R_ASCII_VALUE) / DIRECTION_DIVISOR * -1;
 		int wordLength = getTiles().size();
 
 		//If there is a letter directly behind the one specified in the move, return false

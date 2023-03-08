@@ -3,8 +3,6 @@ package pij.main;
 public class Coordinate implements Comparable<Coordinate> {
     private final int x;
     private final int y;
-    private final static int ASCII_OF_LOWER_A = 97;
-
     public Coordinate(int x, int y) {
         this.x = x;
         this.y = y;
@@ -18,7 +16,7 @@ public class Coordinate implements Comparable<Coordinate> {
      * @param y an integer between 1 and 26.
      */
     public Coordinate(char x, int y) {
-        this.x = ((int) x) - ASCII_OF_LOWER_A;
+        this.x = ((int) x) - ScraBBKleUtil.LOWER_A_ASCII_VALUE;
         this.y = y - 1;
     }
 
@@ -32,7 +30,7 @@ public class Coordinate implements Comparable<Coordinate> {
 
     @Override
     public String toString() {
-        return "" + ((char) (x + ASCII_OF_LOWER_A)) + (y + 1);
+        return "" + ((char) (x + ScraBBKleUtil.LOWER_A_ASCII_VALUE)) + (y + 1);
     }
 
     @Override

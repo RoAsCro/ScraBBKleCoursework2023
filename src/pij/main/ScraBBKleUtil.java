@@ -12,6 +12,12 @@ public final class ScraBBKleUtil {
 
 	private static final int MAX_PREMIUM_VALUE = 99;
 
+	public static final int LOWER_A_ASCII_VALUE = 97;
+	public static final int LOWER_D_ASCII_VALUE = 100;
+	public static final int LOWER_R_ASCII_VALUE = 114;
+	public static final int LOWER_Z_ASCII_VALUE = 122;
+	public static final int DIRECTION_DIVISOR = 14;
+
 	private ScraBBKleUtil(){}
 
 	public static Board loadFile(String fileName) {

@@ -2,9 +2,11 @@ package pij.main;
 
 import java.util.LinkedList;
 import java.util.TreeSet;
-import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
+
+import static pij.main.ScraBBKleUtil.*;
+
 
 /**
  * A reader for iterating across a ScraBBKle Board object.
@@ -14,9 +16,6 @@ import java.util.function.Predicate;
  * @author Roland Crompton
  */
 public class BoardReader {
-    private static final int LOWER_D_ASCII_VALUE = 100;
-    private static final int LOWER_R_ASCII_VALUE = 114;
-    private static final int DIRECTION_DIVISOR = 14;
 
     /**
      * The Board over which the reader iterates .
