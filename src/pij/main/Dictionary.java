@@ -46,8 +46,6 @@ public final class Dictionary{
                 dictionary.add(line);
                 suffixDictionary.add((new StringBuilder(line)).reverse().toString());
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
