@@ -13,7 +13,7 @@ public class WildTile implements CharacterTile {
 
 	@Override
 	public boolean matchChar(char c) {
-		boolean matches = Character.isLowerCase(c) || c == ' ';
+		boolean matches = Character.isLowerCase(c);
 		if (matches) {
 			character = c;
 		}
