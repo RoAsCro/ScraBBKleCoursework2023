@@ -87,9 +87,13 @@ public abstract class Player {
 	 */
 	public void removeTiles(List<LetterTile> tiles) {
 		for (LetterTile tile : tiles) {
-			tileRack.remove(tile);
+			for (LetterTile tile2 : tileRack) {
+				if (tile2.matchChar(tile.getChar())) {
+					tileRack.remove(tile2);
+					break;
+				}
+			}
 		}
-
 	}
 
 }

@@ -2,6 +2,7 @@ package test;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import pij.main.LetterTile;
 import pij.main.WildTile;
 
 public class WildTileTest {
