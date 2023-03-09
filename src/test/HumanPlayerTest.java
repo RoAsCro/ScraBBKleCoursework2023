@@ -9,7 +9,7 @@ public class HumanPlayerTest {
 
     private Board board;
 
-    public class SingleMovePlayer extends Player {
+    public static class SingleMovePlayer extends Player {
 
         private String moveString;
 
@@ -99,7 +99,14 @@ public class HumanPlayerTest {
         player.turn(riggedBag);
         Assertions.assertNotEquals("d3", this.board.tileAt(new Coordinate('h', 10)).toString());
 
+        player.setMoveString(" ,h7,d");
+        player.turn(riggedBag);
+        board.print();
+
+        Assertions.assertNotEquals("a3", this.board.tileAt(new Coordinate('h', 10)).toString());
+
         Assertions.assertEquals(' ', player.getRack().get(0).getChar());
+
 
 
     }
