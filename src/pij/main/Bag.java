@@ -1,7 +1,9 @@
 package pij.main;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.TreeMap;
 
 /**
  * The pool of letter tiles to be used in a game of ScraBBKle.
@@ -15,11 +17,12 @@ public class Bag {
 	/**
 	 * A two-dimensional array of the standard letter tiles and their values in Scrabble.
 	 */
-	private static final String[][] ALPHABET = new String[][] { { "A", "1" }, { "B", "3" }, { "C", "3" }, { "D", "2" },
-			{ "E", "1" }, { "F", "4" }, { "G", "2" }, { "H", "4" }, { "I", "1" }, { "J", "8" }, { "K", "5" },
-			{ "L", "1" }, { "M", "3" }, { "N", "1" }, { "O", "1" }, { "P", "3" }, { "Q", "10" }, { "R", "1" },
-			{ "S", "1" }, { "T", "1" }, { "U", "1" }, { "V", "4" }, { "W", "4" }, { "X", "8" }, { "Y", "4" },
-			{ "Z", "10" } };
+	private static final TreeMap<String, Integer> ALPHABET = new TreeMap<>(){ {
+		put("A", 1); put("B", 3); put("C", 3); put("D", 2);
+		put("E", 1); put("F", 4); put("G", 2); put("H", 4); put("I", 1); put("J", 8); put("K", 5);
+		put("L", 1); put("M", 3); put("N", 1); put("O", 1); put("P", 3); put("Q", 10); put("R", 1);
+		put("S", 1); put("T", 1); put("U", 1); put("V", 4); put("W", 4); put("X", 8); put("Y", 4);
+		put("Z", 10); }};
 
 	/** ArrayList storing the contents of the bag. */
 	private final List<CharacterTile> bag = new ArrayList<>();
@@ -46,8 +49,8 @@ public class Bag {
 	public Bag(int[] quantities) {
 		int i = 0;
 		// Add letter tiles
-		for (; i < quantities.length && i < ALPHABET.length; i++) {
-			tileGenerator(ALPHABET[i][0], Integer.parseInt(ALPHABET[i][1]), quantities[i]);
+		for (; i < quantities.length && i < ALPHABET.size(); i++) {
+			tileGenerator("" + ((char)(i+65)), this.bag, quantities[i]);
 		}
 		// Add wildcard tiles
 		if (i != quantities.length) {
@@ -85,12 +88,14 @@ public class Bag {
 	 * Adds tiles to bag. Helps the constructor with repeatedly adding identical tiles.
 	 *
 	 * @param tileText the text of the tile to be generated
-	 * @param tileValue the value of the tile to be generated
+//	 * @param tileValue the value of the tile to be generated
 	 * @param quantity the amount of the tile to be generated
 	 */
-	private void tileGenerator(String tileText, int tileValue, int quantity) {
-		for (int i = 0; i < quantity; i++) {
-			bag.add(new LetterTile(tileText, tileValue));
+	public static void tileGenerator(String tileText, List<CharacterTile> tileList, int quantity) {
+		if (ALPHABET.containsKey(tileText)) {
+			for (int i = 0; i < quantity; i++) {
+				tileList.add(new LetterTile(tileText, ALPHABET.get(tileText)));
+			}
 		}
 	}
 
