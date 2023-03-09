@@ -12,6 +12,8 @@ public interface Tile {
 
     int getValue();
 
+    void addToSequence(TileSequence tileSequence);
+
     @Override
     String toString();
 
