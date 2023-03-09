@@ -80,7 +80,7 @@ public class MoveFinder {
     private void testWordsWithCombos(Coordinate c, List<TreeSet<String>> combinations) {
 
         BoardReader reader = new BoardReader(board, c, 'r');
-
+        // For loop ensures both down and right directions are checked
         for (int k = 0 ; k < 2 ; k++) {
 
             reader.set(c);
@@ -101,19 +101,18 @@ public class MoveFinder {
                 if ((!(tile instanceof LetterTile))) {
                     reader.next();
                 } else {
-                    reader.conditionalPrevious(LetterTile.class::isInstance, (x)->{});
+                    reader.conditionalPrevious(LetterTile.class::isInstance, x->{});
                     reader.next();
                 }
                 StringBuilder builder = new StringBuilder();
-                builder.append(",");
-                builder.append((char) (reader.getCoord().getX() + ScraBBKleUtil.LOWER_A_ASCII_VALUE));
-                builder.append(reader.getCoord().getY() + 1);
-                builder.append(",");
-                builder.append(reader.getDirection());
+                builder.append(",")
+                        .append(reader.getCoord().toString())
+                        .append(",")
+                        .append(reader.getDirection());
 
                 loopBlock:
                 {
-                    //Begin trying combinations
+                    // Begin trying every combination of letters at the coordinate
 //                    ArrayList<TreeSet<String>> listThree = new ArrayList<>(newCombinations);
                     for (int i = offset; i < combinations.size(); i++) {
                         for (String s : combinations.get(i)) {
@@ -128,12 +127,13 @@ public class MoveFinder {
                                         return;
                                 }
                             } else {
+                                // If a combination of letters isn't placable, stop trying
+                                // with anything the size of current combo or larger
                                 break loopBlock;
                             }
                         }
                     }
                 }
-
                 reader.previous();
                 offset += offsetInc;
                 offsetInc = 1;
