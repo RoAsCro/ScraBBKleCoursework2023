@@ -44,7 +44,7 @@ public final class ScraBBKleUtil {
 				return null;
 			}
 
-			AbstractBoardTile[][] grid = new AbstractBoardTile[magnitude][magnitude];
+			BoardTile[][] grid = new BoardTile[magnitude][magnitude];
 			for (int yCoord = 0; yCoord < magnitude; yCoord++) {
 				String row = reader.readLine();
 				//Check a given row exists
@@ -63,7 +63,7 @@ public final class ScraBBKleUtil {
 					char currentCharacter = row.charAt(i);
 					tileText.append(currentCharacter);
 					if (currentCharacter == '.' || currentCharacter == ')' || currentCharacter == '}') {
-						AbstractBoardTile tile = tileFactory(tileText.toString());
+						BoardTile tile = tileFactory(tileText.toString());
 						if (tile != null) {
 							grid[xCoord][yCoord] = tile;
 							xCoord++;
@@ -95,7 +95,7 @@ public final class ScraBBKleUtil {
 		}
 	}
 
-	private static AbstractBoardTile tileFactory(String tileString){
+	private static BoardTile tileFactory(String tileString){
 		if (tileString.equals(".")) {
 			return new NullTile();
 		}
@@ -108,7 +108,7 @@ public final class ScraBBKleUtil {
 		if (tileValue > MAX_PREMIUM_VALUE || tileValue < MIN_PREMIUM_VALUE) {
 			return null;
 		}
-		AbstractBoardTile returnTile = null;
+		BoardTile returnTile = null;
 		switch (tileString.charAt(0)) {
 			case '{' -> {
 				if (tileString.charAt(tileString.length() - 1) == '}') {

@@ -1,12 +1,6 @@
 package pij.main;
 
-/**
- * 
- * A tile is placed on the board. It can be a blank, premium, or letter tile.
- * 
- * @author Roland Crompton
- *
- */
+
 
 public abstract class AbstractBoardTile implements BoardTile {
 	/** The text displayed when a tile is displayed on the board or in a player's tile rack. */
@@ -38,6 +32,7 @@ public abstract class AbstractBoardTile implements BoardTile {
 	 * 
 	 * @return the tile's value. Always non-null.
 	 */
+	@Override
 	public int getValue() {
 		return value;
 	}

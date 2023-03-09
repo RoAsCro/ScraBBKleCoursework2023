@@ -2,6 +2,13 @@ package pij.main;
 
 import java.util.Objects;
 
+/**
+ * A LetterTile implements both CharacterTile and BoardTile.
+ * It can be present in a Player's tile rack, form part of a TileSequence
+ *
+ * @author Roland Crompton
+ *
+ */
 public class LetterTile extends AbstractBoardTile implements CharacterTile {
 
 	public LetterTile(String tileText, int value) {
