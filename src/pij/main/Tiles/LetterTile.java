@@ -1,4 +1,7 @@
-package pij.main;
+package pij.main.Tiles;
+
+import pij.main.CharacterTile;
+import pij.main.TileSequence;
 
 import java.util.Objects;
 

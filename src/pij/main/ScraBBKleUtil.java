@@ -1,5 +1,9 @@
 package pij.main;
 
+import pij.main.Tiles.BonusLetterTile;
+import pij.main.Tiles.BonusWordTile;
+import pij.main.Tiles.NullTile;
+
 import java.io.*;
 
 public final class ScraBBKleUtil {

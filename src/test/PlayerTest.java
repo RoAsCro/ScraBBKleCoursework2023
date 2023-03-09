@@ -3,6 +3,8 @@ package test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import pij.main.*;
+import pij.main.Tiles.LetterTile;
+import pij.main.Tiles.WildTile;
 
 import java.util.List;
 

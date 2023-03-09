@@ -2,7 +2,7 @@ package test;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import pij.main.LetterTile;
+import pij.main.Tiles.LetterTile;
 
 public class LetterTileTest {
 

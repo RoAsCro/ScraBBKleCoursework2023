@@ -1,6 +1,7 @@
-package pij.main;
+package pij.main.Tiles;
 
 
+import pij.main.BoardTile;
 
 public abstract class AbstractBoardTile implements BoardTile {
 	/** The text displayed when a tile is displayed on the board or in a player's tile rack. */

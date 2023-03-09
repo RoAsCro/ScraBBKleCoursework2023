@@ -3,6 +3,7 @@ package test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import pij.main.*;
+import pij.main.Tiles.LetterTile;
 
 import java.util.LinkedList;
 

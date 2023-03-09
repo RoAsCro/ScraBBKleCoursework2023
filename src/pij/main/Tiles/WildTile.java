@@ -1,4 +1,8 @@
-package pij.main;
+package pij.main.Tiles;
+
+import pij.main.CharacterTile;
+import pij.main.TileSequence;
+import pij.main.Tiles.LetterTile;
 
 public class WildTile implements CharacterTile {
 

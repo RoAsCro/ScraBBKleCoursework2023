@@ -3,6 +3,9 @@ package test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import pij.main.*;
+import pij.main.Tiles.BonusLetterTile;
+import pij.main.Tiles.BonusWordTile;
+import pij.main.Tiles.LetterTile;
 
 public class WordTest {
     @Test

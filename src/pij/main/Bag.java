@@ -1,7 +1,9 @@
 package pij.main;
 
+import pij.main.Tiles.LetterTile;
+import pij.main.Tiles.WildTile;
+
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.TreeMap;
 

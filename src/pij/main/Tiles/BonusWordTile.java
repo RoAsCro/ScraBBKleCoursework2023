@@ -1,6 +1,9 @@
-package pij.main;
+package pij.main.Tiles;
 
-public class BonusWordTile extends BonusTile{
+import pij.main.TileSequence;
+import pij.main.Tiles.BonusTile;
+
+public class BonusWordTile extends BonusTile {
     public BonusWordTile(int value) {
         super("{" + value + "}", value);
     }

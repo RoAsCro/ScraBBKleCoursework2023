@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import pij.main.Board;
 import pij.main.BoardReader;
-import pij.main.LetterTile;
+import pij.main.Tiles.LetterTile;
 import pij.main.Coordinate;
 
 public class BoardReaderTest {

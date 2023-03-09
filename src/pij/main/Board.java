@@ -37,7 +37,7 @@ public class Board {
 	}
 
 	public boolean getStartState() {
-		return !(tileAt(getCentre()) instanceof LetterTile);
+		return !(tileAt(getCentre()) instanceof CharacterTile);
 	}
 
 	private boolean inBounds(Coordinate coord) {

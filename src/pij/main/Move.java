@@ -1,5 +1,7 @@
 package pij.main;
 
+import pij.main.Tiles.LetterTile;
+
 import java.util.*;
 import java.util.function.Predicate;
 
@@ -234,8 +236,8 @@ public class Move {
 				if (!parallelWord) {
 					reader.next();
 					reader.turn();
-					CharacterTile chracterTile = tileQueue.poll();
-					this.word.addTile(chracterTile);
+					CharacterTile characterTile = tileQueue.poll();
+					this.word.addTile(characterTile);
 					this.word.addTile(BOARD.tileAt(c));
 				} else {
 					reader.set(new Coordinate(-2, -2));
