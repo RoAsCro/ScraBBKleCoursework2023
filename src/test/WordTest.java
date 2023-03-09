@@ -2,10 +2,10 @@ package test;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import pij.main.*;
 import pij.main.Tiles.BonusLetterTile;
 import pij.main.Tiles.BonusWordTile;
 import pij.main.Tiles.LetterTile;
+import pij.main.Word;
 
 public class WordTest {
     @Test

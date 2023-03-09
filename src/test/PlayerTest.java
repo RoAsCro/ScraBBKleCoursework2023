@@ -2,7 +2,10 @@ package test;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import pij.main.*;
+import pij.main.Bag;
+import pij.main.Board;
+import pij.main.CharacterTile;
+import pij.main.Player;
 import pij.main.Players.ComputerPlayer;
 import pij.main.Tiles.LetterTile;
 import pij.main.Tiles.WildTile;

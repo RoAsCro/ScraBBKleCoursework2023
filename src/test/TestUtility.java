@@ -1,11 +1,10 @@
 package test;
 
 import pij.main.*;
-import pij.main.Dictionary;
 import pij.main.Tiles.LetterTile;
 
 import java.io.File;
-import java.util.*;
+import java.util.LinkedList;
 
 public class TestUtility {
 

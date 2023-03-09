@@ -1,6 +1,8 @@
 package test;
 
-import pij.main.*;
+import pij.main.Bag;
+import pij.main.Board;
+import pij.main.Move;
 import pij.main.Players.ComputerPlayer;
 
 public class MockComputerPlayer extends ComputerPlayer {

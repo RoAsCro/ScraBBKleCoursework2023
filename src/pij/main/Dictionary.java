@@ -1,7 +1,12 @@
 package pij.main;
 
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.TreeSet;
 
 public final class Dictionary{
 

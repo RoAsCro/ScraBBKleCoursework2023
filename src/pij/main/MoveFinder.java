@@ -1,6 +1,8 @@
 package pij.main;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.TreeSet;
 import java.util.stream.IntStream;
 
@@ -95,7 +97,6 @@ public class MoveFinder {
             int offset = 0;
             int offsetInc = 0;
             do {
-//                ArrayList<TreeSet<String>> newCombinations = new ArrayList<>(combinations);
                 // Check there are no letters behind this one. If there are, go backwards until
                 // it reaches the back-most letter
                 tile = reader.previous();
@@ -108,13 +109,12 @@ public class MoveFinder {
                 loopBlock:
                 {
                     // Begin trying every combination of letters at the coordinate
-//                    ArrayList<TreeSet<String>> listThree = new ArrayList<>(newCombinations);
                     for (int i = offset; i < combinations.size(); i++) {
                         for (String s : combinations.get(i)) {
                             Move move = new Move(player, board);
                             List<CharacterTile> moveTiles = new LinkedList<>();
                             IntStream.range(0, s.length())
-                                    .forEach(sub->Bag.tileGenerator(s.substring(sub, sub+1), moveTiles, 1));
+                                    .forEach(sub->Bag.generateTiles(s.substring(sub, sub+1), moveTiles, 1));
                             move.setAll(reader.getCoord(), reader.getDirection(), moveTiles);
                             if (move.checkPlacable()) {
                                 if (move.getWord().lookupWord()) {

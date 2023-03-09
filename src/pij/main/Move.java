@@ -1,12 +1,13 @@
 package pij.main;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.function.Predicate;
 
 import static pij.main.Player.RACK_SIZE;
-import static pij.main.ScraBBKleUtil.LOWER_D_ASCII_VALUE;
-import static pij.main.ScraBBKleUtil.LOWER_R_ASCII_VALUE;
-import static pij.main.ScraBBKleUtil.DIRECTION_DIVISOR;
+import static pij.main.ScraBBKleUtil.*;
 
 
 

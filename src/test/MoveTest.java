@@ -10,7 +10,6 @@ import pij.main.Tiles.LetterTile;
 import java.util.LinkedList;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class MoveTest {
     @Test

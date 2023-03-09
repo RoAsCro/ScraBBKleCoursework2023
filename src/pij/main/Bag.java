@@ -8,7 +8,8 @@ import java.util.List;
 import java.util.TreeMap;
 
 /**
- * The pool of letter tiles to be used in a game of ScraBBKle.
+ * The pool of CharacterTiles to be used in a game of ScraBBKle.
+ * Also acts as a static CharacterTile factory.
  * <p></>
  * This class uses the standard Scrabble values for tiles and the standard quantities of each tile
  * as found at <a href="https://scrabble.hasbro.com/en-us/faq">...</a> on 06/03/2023.
@@ -52,7 +53,7 @@ public class Bag {
 		int i = 0;
 		// Add letter tiles
 		for (; i < quantities.length && i < ALPHABET.size(); i++) {
-			tileGenerator("" + ((char)(i+65)), this.bag, quantities[i]);
+			generateTiles("" + ((char)(i+65)), this.bag, quantities[i]);
 		}
 		// Add wildcard tiles
 		if (i != quantities.length) {
@@ -93,7 +94,7 @@ public class Bag {
 //	 * @param tileValue the value of the tile to be generated
 	 * @param quantity the amount of the tile to be generated
 	 */
-	public static void tileGenerator(String tileText, List<CharacterTile> tileList, int quantity) {
+	public static void generateTiles(String tileText, List<CharacterTile> tileList, int quantity) {
 		if (ALPHABET.containsKey(tileText)) {
 			for (int i = 0; i < quantity; i++) {
 				tileList.add(new LetterTile(tileText, ALPHABET.get(tileText)));

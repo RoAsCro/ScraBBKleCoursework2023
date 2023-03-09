@@ -1,11 +1,12 @@
 package test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pij.main.*;
+import pij.main.Board;
+import pij.main.Coordinate;
 import pij.main.Tiles.LetterTile;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class BoardTest {
 

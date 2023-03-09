@@ -1,7 +1,9 @@
 package test;
+
 import org.junit.Test;
+import pij.main.Board;
+
 import static org.junit.jupiter.api.Assertions.*;
-import pij.main.*;
 public class BoardLoadingTest {
 
 
