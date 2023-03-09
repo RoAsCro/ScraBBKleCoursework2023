@@ -34,29 +34,13 @@ public class BoardReader {
      */
     private int yInc;
 
-    /**
-     * A TreeSet for storing every visited tile on the board during a search of the board.
-     */
-    private TreeSet<Integer> tileTree = new TreeSet<>();
-
-    public BoardReader(Board board, char direction) {
-        this(board, board.getCentre(), direction);
-    }
-
     public BoardReader(Board board, Coordinate coord, char direction) {
-        this(board, coord.getX(), coord.getY(), direction);
-    }
-
-    public BoardReader(BoardReader reader) {
-        this(reader.board, reader.currentCoordinate, reader.getDirection());
-    }
-
-    public BoardReader(Board board, int x, int y, char direction) {
+//        this(board, coord.getX(), coord.getY(), direction);
         this.board = board;
         //xInc and yInc use the integer value of 'd' or 'r' to determine how to iterate across the grid.
         this.xInc = (direction - LOWER_D_ASCII_VALUE) / DIRECTION_DIVISOR;
         this.yInc = (direction - LOWER_R_ASCII_VALUE) / DIRECTION_DIVISOR * -1;
-        this.currentCoordinate = (new Coordinate(x, y));
+        this.currentCoordinate = coord;
     }
 
     public Coordinate getCoord() {

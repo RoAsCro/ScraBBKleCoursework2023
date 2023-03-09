@@ -29,11 +29,11 @@ public class MoveFinder {
 
         ArrayList<TreeSet<String>> words = new ArrayList<>();
         for (int i = 0; i < player.getRack().size() ; i++)
-            words.add(new TreeSet<String>());
+            words.add(new TreeSet<>());
 
         allCombos(new LinkedList<>(player.getRack()), new StringBuilder(), words, 0);
 
-        BoardReader reader = new BoardReader(board, 'r');
+        BoardReader reader = new BoardReader(board, board.getCentre(), 'r');
         TreeSet<Coordinate> coordinates = reader.breadthFirstSearch();
         for (Coordinate c : coordinates) {
             if (findAny && this.moves.size() > 0) {
