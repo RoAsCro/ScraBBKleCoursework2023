@@ -1,7 +1,6 @@
 package pij.main.Tiles;
 
 import pij.main.TileSequence;
-import pij.main.Tiles.BonusTile;
 
 public class BonusLetterTile extends BonusTile {
     public BonusLetterTile(int value) {

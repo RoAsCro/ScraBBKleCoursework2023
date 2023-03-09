@@ -29,7 +29,7 @@ public class HumanPlayer extends Player {
 
 	@Override
 	public String getName() {
-		return this.NAME;
+		return NAME;
 	}
 
 	@Override
