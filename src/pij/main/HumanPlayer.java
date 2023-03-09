@@ -19,7 +19,7 @@ public class HumanPlayer extends Player {
 	 */
 	private void printRack() {
 		String separator = "";
-		for (AbstractBoardTile tile : getRack()) {
+		for (CharacterTile tile : getRack()) {
 
 			System.out.print(separator + "[" + tile.toString() + "]");
 			separator = ", ";

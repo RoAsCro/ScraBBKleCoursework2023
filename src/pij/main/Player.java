@@ -18,7 +18,7 @@ public abstract class Player {
 	public final static int RACK_SIZE = 7;
 
 	/** An array of tiles a player has available to them */
-	private List<LetterTile> tileRack = new ArrayList<>();
+	private List<CharacterTile> tileRack = new ArrayList<>();
 
 	/** A player's score. */
 	private double score = 0;
@@ -34,7 +34,7 @@ public abstract class Player {
 	 * 
 	 * @return the player's tile rack.
 	 */
-	public List<LetterTile> getRack() {
+	public List<CharacterTile> getRack() {
 		return tileRack;
 	}
 
@@ -71,7 +71,7 @@ public abstract class Player {
 	public void draw(Bag bag) {
 		int size = tileRack.size();
 		for (int i = 0; i < RACK_SIZE - size; i++) {
-			LetterTile tile = bag.draw();
+			CharacterTile tile = bag.draw();
 			if (tile != null)
 				tileRack.add(tile);
 		}
@@ -86,8 +86,8 @@ public abstract class Player {
 	 * @param 
 	 */
 	public void removeTiles(List<LetterTile> tiles) {
-		for (LetterTile tile : tiles) {
-			for (LetterTile tile2 : tileRack) {
+		for (CharacterTile tile : tiles) {
+			for (CharacterTile tile2 : tileRack) {
 				if (tile2.matchChar(tile.getChar())) {
 					tileRack.remove(tile2);
 					break;
