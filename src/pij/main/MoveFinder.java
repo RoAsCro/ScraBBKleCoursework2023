@@ -85,16 +85,18 @@ public class MoveFinder {
 
             reader.set(c);
             reader.turn();
-            int offset = 0;
-            int offsetInc = 0;
+            // Check letter at this coordinate has no letters behind it
             Tile tile = reader.previous();
-
             if ((!(tile instanceof LetterTile))) {
                 reader.next();
             }else
                 continue;
+            int offset = 0;
+            int offsetInc = 0;
             do {
-                ArrayList<TreeSet<String>> newCombinations = new ArrayList<>(combinations);
+//                ArrayList<TreeSet<String>> newCombinations = new ArrayList<>(combinations);
+                // Check there are no letters behind this one. If there are, go backwards until
+                // it reaches the back-most letter
                 tile = reader.previous();
                 if ((!(tile instanceof LetterTile))) {
                     reader.next();
@@ -111,9 +113,10 @@ public class MoveFinder {
 
                 loopBlock:
                 {
-                    ArrayList<TreeSet<String>> listThree = new ArrayList<>(newCombinations);
+                    //Begin trying combinations
+//                    ArrayList<TreeSet<String>> listThree = new ArrayList<>(newCombinations);
                     for (int i = offset; i < combinations.size(); i++) {
-                        for (String s : listThree.get(i)) {
+                        for (String s : combinations.get(i)) {
                             StringBuilder builderTwo = new StringBuilder(builder);
                             builderTwo.insert(0, s);
 
