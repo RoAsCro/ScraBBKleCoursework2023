@@ -2,6 +2,7 @@ package pij.main;
 
 import java.util.*;
 import java.util.TreeSet;
+import java.util.stream.IntStream;
 
 public class MoveFinder {
     private final Board board;
@@ -104,11 +105,11 @@ public class MoveFinder {
                     reader.conditionalPrevious(CharacterTile.class::isInstance, x->{});
                     reader.next();
                 }
-                StringBuilder builder = new StringBuilder();
-                builder.append(",")
-                        .append(reader.getCoord().toString())
-                        .append(",")
-                        .append(reader.getDirection());
+//                StringBuilder builder = new StringBuilder();
+//                builder.append(",")
+//                        .append(reader.getCoord().toString())
+//                        .append(",")
+//                        .append(reader.getDirection());
 
                 loopBlock:
                 {
@@ -116,11 +117,15 @@ public class MoveFinder {
 //                    ArrayList<TreeSet<String>> listThree = new ArrayList<>(newCombinations);
                     for (int i = offset; i < combinations.size(); i++) {
                         for (String s : combinations.get(i)) {
-                            StringBuilder builderTwo = new StringBuilder(builder);
-                            builderTwo.insert(0, s);
+//                            StringBuilder builderTwo = new StringBuilder(builder);
+//                            builderTwo.insert(0, s);
 
                             Move move = new Move(player, board);
-                            if (move.validateInput(builderTwo.toString()) && move.checkPlacable()) {
+                            List<CharacterTile> moveTiles = new LinkedList<CharacterTile>();
+                            IntStream.range(0, s.length())
+                                    .forEach(sub->Bag.tileGenerator(s.substring(sub, sub+1), moveTiles, 1));
+                            move.setAll(reader.getCoord(), reader.getDirection(), moveTiles);
+                            if (move.checkPlacable()) {
                                 if (move.lookupWord()) {
                                     moves.add(move);
                                     if (findAny)

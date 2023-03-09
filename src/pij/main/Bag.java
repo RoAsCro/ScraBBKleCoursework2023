@@ -96,6 +96,8 @@ public class Bag {
 			for (int i = 0; i < quantity; i++) {
 				tileList.add(new LetterTile(tileText, ALPHABET.get(tileText)));
 			}
+		} else if (tileText.equals(" ")) {
+			tileList.add(new WildTile());
 		}
 	}
 

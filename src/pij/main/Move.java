@@ -15,8 +15,6 @@ import static pij.main.ScraBBKleUtil.DIRECTION_DIVISOR;
 public class Move {
 	private static final int ALL_LETTERS_BONUS = 70;
 
-	private String input;
-
 	private boolean pass;
 	
 	private char direction;
@@ -44,18 +42,20 @@ public class Move {
 		return word;
 	}
 
-	public boolean tryMove() {
-		if (this.input == null)
-			return false;
-		return tryMove(this.input);
-	}
-
 	public boolean tryMove(String input) {
 		if (!validateInput(input)) {
 			//System.out.println(input);
 			System.out.println("That is not a valid move.");
 			return false;
 		}
+
+		return tryMove();
+	}
+
+	public boolean tryMove() {
+//		if (this.input == null)
+//			return false;
+//
 		if (pass) {
 			//System.out.println("Pass");
 			return true;
@@ -136,7 +136,6 @@ public class Move {
 		}
 
 		setAll(new Coordinate(x.charAt(0), Integer.parseInt(y)), direction.charAt(0), moveTiles);
-		this.input = input;
 		return true;
 	}
 
