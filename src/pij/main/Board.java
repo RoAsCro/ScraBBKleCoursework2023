@@ -40,10 +40,10 @@ public class Board {
 		return !(tileAt(getCentre()) instanceof CharacterTile);
 	}
 
-	private boolean inBounds(Coordinate coord) {
+	private boolean outOfBounds(Coordinate coord) {
 		int x = coord.getX();
 		int y = coord.getY();
-		return (x >= 0 && x < this.MAGNITUDE && y >= 0 && y < this.MAGNITUDE);
+		return (x < 0 || x >= this.MAGNITUDE || y < 0 || y >= this.MAGNITUDE);
 	}
 
 	/**
@@ -54,14 +54,14 @@ public class Board {
 	 * @return BoardTile at given coordinates. Null if tile out of bounds.
 	 */
 	public BoardTile tileAt(int x, int y) {
-		if (!inBounds(new Coordinate(x, y)))
+		if (outOfBounds(new Coordinate(x, y)))
 			return null;
 		else
 			return grid[x][y];
 	}
 
 	public BoardTile tileAt(Coordinate coordinate) {
-		if (!inBounds(new Coordinate(coordinate.getX(), coordinate.getY())))
+		if (outOfBounds(new Coordinate(coordinate.getX(), coordinate.getY())))
 			return null;
 		else
 			return grid[coordinate.getX()][coordinate.getY()];
@@ -93,7 +93,7 @@ public class Board {
 	 * @return
 	 */
 	public boolean placeTile(Coordinate coord, BoardTile tile) {
-		if (!inBounds(coord))
+		if (outOfBounds(coord))
 			return false;
 		grid[coord.getX()][coord.getY()] = tile;
 		return true;

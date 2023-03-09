@@ -105,23 +105,14 @@ public class MoveFinder {
                     reader.conditionalPrevious(CharacterTile.class::isInstance, x->{});
                     reader.next();
                 }
-//                StringBuilder builder = new StringBuilder();
-//                builder.append(",")
-//                        .append(reader.getCoord().toString())
-//                        .append(",")
-//                        .append(reader.getDirection());
-
                 loopBlock:
                 {
                     // Begin trying every combination of letters at the coordinate
 //                    ArrayList<TreeSet<String>> listThree = new ArrayList<>(newCombinations);
                     for (int i = offset; i < combinations.size(); i++) {
                         for (String s : combinations.get(i)) {
-//                            StringBuilder builderTwo = new StringBuilder(builder);
-//                            builderTwo.insert(0, s);
-
                             Move move = new Move(player, board);
-                            List<CharacterTile> moveTiles = new LinkedList<CharacterTile>();
+                            List<CharacterTile> moveTiles = new LinkedList<>();
                             IntStream.range(0, s.length())
                                     .forEach(sub->Bag.tileGenerator(s.substring(sub, sub+1), moveTiles, 1));
                             move.setAll(reader.getCoord(), reader.getDirection(), moveTiles);
