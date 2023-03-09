@@ -22,7 +22,7 @@ public class Bag {
 			{ "Z", "10" } };
 
 	/** ArrayList storing the contents of the bag. */
-	private final List<LetterTile> bag = new ArrayList<>();
+	private final List<CharacterTile> bag = new ArrayList<>();
 
 	/**
 	 * Standard constructor for a game of ScraBBKle using the standard Scrabble quantities of each letter.
@@ -63,12 +63,12 @@ public class Bag {
 	 *
 	 * @return a random AbstractBoardTile or null if bag is empty.
 	 */
-	public LetterTile draw() {
+	public CharacterTile draw() {
 		int size = bag.size();
 		if (size == 0)
 			return null;
 		int randomNumber = (int) (Math.random() * size);
-		LetterTile tile = bag.get(randomNumber);
+		CharacterTile tile = bag.get(randomNumber);
 		bag.remove(randomNumber);
 		return tile;
 	}
