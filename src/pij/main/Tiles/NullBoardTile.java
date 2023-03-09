@@ -2,8 +2,8 @@ package pij.main.Tiles;
 
 import pij.main.TileSequence;
 
-public class NullTile extends AbstractBoardTile {
-    public NullTile() {
+public class NullBoardTile extends AbstractBoardTile {
+    public NullBoardTile() {
         super(".", 0);
     }
 

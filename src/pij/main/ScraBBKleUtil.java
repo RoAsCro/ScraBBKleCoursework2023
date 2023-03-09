@@ -2,7 +2,7 @@ package pij.main;
 
 import pij.main.Tiles.BonusLetterTile;
 import pij.main.Tiles.BonusWordTile;
-import pij.main.Tiles.NullTile;
+import pij.main.Tiles.NullBoardTile;
 
 import java.io.*;
 
@@ -101,7 +101,7 @@ public final class ScraBBKleUtil {
 
 	private static BoardTile tileFactory(String tileString){
 		if (tileString.equals(".")) {
-			return new NullTile();
+			return new NullBoardTile();
 		}
 		int tileValue;
 		try {

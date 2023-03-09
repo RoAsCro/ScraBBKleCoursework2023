@@ -55,9 +55,6 @@ public class Move {
 	}
 
 	public boolean tryMove() {
-//		if (this.input == null)
-//			return false;
-//
 		if (pass) {
 			//System.out.println("Pass");
 			return true;
@@ -182,10 +179,10 @@ public class Move {
 		// across the grid.
 		int xInc = (this.direction - LOWER_D_ASCII_VALUE) / DIRECTION_DIVISOR;
 		int yInc = (this.direction - LOWER_R_ASCII_VALUE) / DIRECTION_DIVISOR * -1;
-		int wordLength = getTiles().size();
 
 		//If there is a letter directly behind the one specified in the move, return false
-		if (this.BOARD.tileAt(this.startCoordinate.getX() - xInc, this.startCoordinate.getY() - yInc) instanceof CharacterTile) {
+		if (this.BOARD.tileAt(this.startCoordinate.getX() - xInc,
+				this.startCoordinate.getY() - yInc) instanceof CharacterTile) {
 			System.out.println("Please use the position of the first letter in the word as the input location.");
 			return false;
 		}
@@ -195,8 +192,7 @@ public class Move {
 
 		// Check word is either the first word being placed OR that it intersects with a
 		// pre-existing word.
-		// THIS MUST BE THE LAST CHECK because startState is turned off by all the
-		// conditionals below evaluating to false.
+		int wordLength = getTiles().size();
 		if (!(this.word.getTiles().size() > wordLength)) {
 			int startX = this.startCoordinate.getX();
 			int startY = this.startCoordinate.getY();
@@ -206,10 +202,7 @@ public class Move {
 				System.out.println("Your word must cross another word");
 				return false;
 			} else if (!(startX + xInc * (wordLength - 1) >= centre && startX <= centre
-					&& startY + yInc * (wordLength - 1) >= centre && startY <= centre))
-//					((startY == centre && startY + yInc == centre && (centre <= startX + wordLength - 1 && centre >= startX))
-//					|| (startX == centre && startX + xInc == centre && (centre <= startY + wordLength - 1 && centre >= startY))))
-			{
+					&& startY + yInc * (wordLength - 1) >= centre && startY <= centre)) {
 				System.out.println("Your word must cross over the centre tile.");
 				return false;
 			}
