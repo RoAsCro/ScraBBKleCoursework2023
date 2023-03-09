@@ -31,6 +31,11 @@ public class PlayerTest {
         player.removeTiles(list);
         Assertions.assertTrue(player.getRack().isEmpty());
 
+        player.getRack().add(new WildTile());
+        list = List.of(new LetterTile(" ", 3));
+        Assertions.assertTrue(player.getRack().isEmpty());
+
+
     }
 
 }
