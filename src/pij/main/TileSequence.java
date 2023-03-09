@@ -15,7 +15,7 @@ public interface TileSequence {
      * Add a AbstractBoardTile to the TileSequence according to the AbstractBoardTile's addToSequence method.
      * @param tile the tile to be added
      */
-    void addTile(AbstractBoardTile tile);
+    void addTile(BoardTile tile);
 
     /**
      * Increase the base score of the TileSequence by the integer value given.

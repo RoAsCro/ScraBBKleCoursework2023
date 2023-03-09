@@ -33,8 +33,6 @@ public abstract class AbstractBoardTile implements BoardTile {
 		return tileText;
 	}
 
-	public abstract void addToSequence(TileSequence tileSequence);
-	
 	/**
 	 * Returns the tile's value.
 	 * 

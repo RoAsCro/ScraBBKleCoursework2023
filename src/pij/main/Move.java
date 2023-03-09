@@ -31,7 +31,7 @@ public class Move {
 
 	private Word word = new Word();
 
-	private final static Predicate<AbstractBoardTile> IS_LETTER = CharacterTile.class::isInstance;
+	private final static Predicate<BoardTile> IS_LETTER = CharacterTile.class::isInstance;
 	
 	public Move(Player player, Board board) {
 		pass = false;
@@ -220,7 +220,7 @@ public class Move {
 		resetWord();
 		LinkedList<CharacterTile> tileQueue = getTiles();
 		BoardReader reader = new BoardReader(this.BOARD, this.startCoordinate, this.direction);
-		AbstractBoardTile currentTile;
+		BoardTile currentTile;
 		// Check it's possible to place the word on the board
 		do {
 			// Try placing tiles in rack

@@ -96,10 +96,10 @@ public class MoveTest {
         HumanPlayer human = new HumanPlayer(board);
         TestUtility.loadDictionary();
 
-        AbstractBoardTile lower = board.tileAt(0, 0);
-        AbstractBoardTile upper = board.tileAt(14, 14);
-        AbstractBoardTile outOfBounds = board.tileAt(-1, -1);
-        AbstractBoardTile outOfBoundsTwo = board.tileAt(15, 15);
+        BoardTile lower = board.tileAt(0, 0);
+        BoardTile upper = board.tileAt(14, 14);
+        BoardTile outOfBounds = board.tileAt(-1, -1);
+        BoardTile outOfBoundsTwo = board.tileAt(15, 15);
 
         // Tests the lower and upper bounds of the grid, plus tileAt function.
         assertNotNull(lower);
