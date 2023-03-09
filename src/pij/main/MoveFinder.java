@@ -117,7 +117,7 @@ public class MoveFinder {
                                     .forEach(sub->Bag.tileGenerator(s.substring(sub, sub+1), moveTiles, 1));
                             move.setAll(reader.getCoord(), reader.getDirection(), moveTiles);
                             if (move.checkPlacable()) {
-                                if (move.lookupWord()) {
+                                if (move.getWord().lookupWord()) {
                                     moves.add(move);
                                     if (findAny)
                                         return;

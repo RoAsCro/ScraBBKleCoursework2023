@@ -63,7 +63,7 @@ public class Move {
 			System.out.println("Word cannot be placed there.");
 			return false;
 		}
-		if (!lookupWord()) {
+		if (!this.word.lookupWord()) {
 			System.out.println("Word not in dictionary.");
 			return false;
 		}
@@ -72,24 +72,6 @@ public class Move {
 		confirmMove();
 		return true;
 	}
-
-	public boolean lookupWord(){
-		LetterTile letterTile;
-		List<LetterTile> wordTiles = this.word.getTiles();
-		if ((letterTile = wordTiles.stream().filter(t->!Character.isLetter(t.getChar())).findFirst().orElse(null)) != null) {
-			int  index = wordTiles.indexOf(letterTile);
-			LetterTile original = wordTiles.get(index);
-			for (int i = LOWER_A_ASCII_VALUE; i <= LOWER_Z_ASCII_VALUE; i++) {
-				wordTiles.set(index, new LetterTile("" + ((char) i), letterTile.getValue()));
-				if (lookupWord()) {
-					return true;
-				} else
-					wordTiles.set(index, original);
-			}
-		} else return Dictionary.lookupWord(this.word.toString());
-		return false;
-	}
-
 
 	public boolean validateInput(String input) {
 		if (input.equals(",,")) {
