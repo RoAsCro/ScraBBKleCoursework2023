@@ -1,15 +1,11 @@
 package pij.main;
 
-import pij.main.Tiles.LetterTile;
-
 import java.util.*;
 import java.util.function.Predicate;
 
 import static pij.main.Player.RACK_SIZE;
 import static pij.main.ScraBBKleUtil.LOWER_D_ASCII_VALUE;
 import static pij.main.ScraBBKleUtil.LOWER_R_ASCII_VALUE;
-import static pij.main.ScraBBKleUtil.LOWER_A_ASCII_VALUE;
-import static pij.main.ScraBBKleUtil.LOWER_Z_ASCII_VALUE;
 import static pij.main.ScraBBKleUtil.DIRECTION_DIVISOR;
 
 
@@ -121,7 +117,7 @@ public class Move {
 	}
 
 	private void confirmMove() {
-		LinkedList<LetterTile> wordTiles = this.word.getTiles();
+		LinkedList<BoardTile> wordTiles = this.word.getTiles();
 		BoardReader reader = new BoardReader(this.BOARD, this.startCoordinate, this.direction);
 		reader.conditionalNext((tile) -> !wordTiles.isEmpty(), (c) -> this.BOARD.placeTile(c, wordTiles.poll()));
 	}

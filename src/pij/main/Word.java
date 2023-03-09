@@ -23,7 +23,7 @@ public class Word implements TileSequence {
 
 	private int score = 0;
 
-	private final LinkedList<LetterTile> word = new LinkedList<>();
+	private final LinkedList<BoardTile> word = new LinkedList<>();
 
 	public int getScore() {
 		return score;
@@ -33,8 +33,8 @@ public class Word implements TileSequence {
 	@Override
 	public String toString() {
 		StringBuilder stringWord = new StringBuilder();
-		for (LetterTile letter : this.word) {
-			stringWord.append(letter.getChar());
+		for (BoardTile letter : this.word) {
+			stringWord.append(letter.toString().charAt(0));
 		}
 		return stringWord.toString();
 	}
@@ -59,18 +59,19 @@ public class Word implements TileSequence {
 		tile.addToSequence(this);
 	}
 
-	public LinkedList<LetterTile> getTiles() {
+	public LinkedList<BoardTile> getTiles() {
 		return word;
 	}
 
 	public boolean lookupWord(){
-		LetterTile letterTile;
-//		List<LetterTile> wordTiles = this.word.getTiles();
-		if ((letterTile = this.word.stream().filter(t->!Character.isLetter(t.getChar())).findFirst().orElse(null)) != null) {
-			int  index = this.word.indexOf(letterTile);
-			LetterTile original = this.word.get(index);
+		BoardTile boardTile;
+		if ((boardTile = this.word.stream()
+				.filter(t->!Character.isLetter(t.toString()
+						.charAt(0))).findFirst().orElse(null)) != null) {
+			int  index = this.word.indexOf(boardTile);
+			BoardTile original = this.word.get(index);
 			for (int i = LOWER_A_ASCII_VALUE; i <= LOWER_Z_ASCII_VALUE; i++) {
-				this.word.set(index, new LetterTile("" + ((char) i), letterTile.getValue()));
+				this.word.set(index, new LetterTile("" + ((char) i), boardTile.getValue()));
 				if (lookupWord()) {
 					return true;
 				} else

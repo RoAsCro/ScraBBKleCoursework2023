@@ -1,12 +1,10 @@
 package pij.main;
 
-import pij.main.Tiles.LetterTile;
-
 import java.util.LinkedList;
 
 /**
  * A sequence of Tiles combined to form a scored word. A TileSequence allows for tiles
- * to be combined according to a AbstractBoardTile's addToSequence method. This interface
+ * to be combined according to a Tile's addToSequence method. This interface
  * provides methods for accessing and modifying its LetterTiles, score,
  * and multiplier.
  *
@@ -14,7 +12,7 @@ import java.util.LinkedList;
  */
 public interface TileSequence {
     /**
-     * Add a AbstractBoardTile to the TileSequence according to the AbstractBoardTile's addToSequence method.
+     * Add a AbstractBoardTile to the TileSequence according to the Tile's addToSequence method.
      * @param tile the tile to be added
      */
     void addTile(Tile tile);
@@ -41,5 +39,5 @@ public interface TileSequence {
      * @return the finalised score, the base score multiplied by the multiplier
      */
     int getScore();
-    LinkedList<LetterTile> getTiles();
+    LinkedList<BoardTile> getTiles();
 }
