@@ -16,6 +16,11 @@ public class WildTile implements CharacterTile {
 	public int getValue() {
 		return 3;
 	}
+
+	@Override
+	public String toString() {
+		return " 3";
+	}
 }
 
 
