@@ -1,6 +1,6 @@
 package pij.main;
 
-public class NullTile extends Tile{
+public class NullTile extends AbstractBoardTile {
     public NullTile() {
         super(".", 0);
     }

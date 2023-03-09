@@ -2,7 +2,7 @@ package pij.main;
 
 import java.util.Objects;
 
-public class LetterTile extends Tile {
+public class LetterTile extends AbstractBoardTile implements CharacterTile {
 
 	public LetterTile(String tileText, int value) {
 		super(tileText, value);
@@ -31,10 +31,12 @@ public class LetterTile extends Tile {
 	 * 
 	 * @return the tile's letter as a character.
 	 */
+	@Override
 	public char getChar() {
 		return super.toString().charAt(0);
 	}
 
+	@Override
 	public boolean matchChar(char c) {
 		return c == this.getChar();
 	}

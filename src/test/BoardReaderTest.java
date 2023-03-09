@@ -22,7 +22,7 @@ public class BoardReaderTest {
         // Direction
         Assertions.assertEquals('r', reader.getDirection());
 
-        // Tile
+        // AbstractBoardTile
         Assertions.assertEquals(7, reader.getCurrent().getValue());
 
         // Setters

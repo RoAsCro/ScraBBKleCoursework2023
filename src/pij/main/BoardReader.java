@@ -70,25 +70,25 @@ public class BoardReader {
     /**
      * Moves the reader to the next tile according to its current location and increment.
      *
-     * @return the Tile at the next location. If this is out of bounds, returns null.
+     * @return the AbstractBoardTile at the next location. If this is out of bounds, returns null.
      */
-    public Tile next() {
+    public AbstractBoardTile next() {
         return board.tileAt(currentCoordinate =
                 new Coordinate(currentCoordinate.getX() + xInc, currentCoordinate.getY() + yInc));
     }
 
-    public Tile getCurrent() {
+    public AbstractBoardTile getCurrent() {
         return this.board.tileAt(currentCoordinate);
     }
 
     /**
      * Moves the reader in the opposite direction to its direction.
      *
-     * @return the Tile at the previous location. If this is out of bounds, returns null.
+     * @return the AbstractBoardTile at the previous location. If this is out of bounds, returns null.
      */
-    public Tile previous() {
+    public AbstractBoardTile previous() {
         reverse();
-        Tile tile = next();
+        AbstractBoardTile tile = next();
         reverse();
         return tile;
     }
@@ -102,8 +102,8 @@ public class BoardReader {
      * @param method    the operation performed on each tile.
      * @return the first tile that is either null or does not fulfil the given condition.
      */
-    public Tile conditionalNext(Predicate<Tile> condition, Consumer<Coordinate> method) {
-        Tile currentTile = board.tileAt(currentCoordinate);
+    public AbstractBoardTile conditionalNext(Predicate<AbstractBoardTile> condition, Consumer<Coordinate> method) {
+        AbstractBoardTile currentTile = board.tileAt(currentCoordinate);
         while (currentTile != null && condition.test(currentTile)) {
             method.accept(currentCoordinate);
             currentTile = next();
@@ -118,9 +118,9 @@ public class BoardReader {
      * @param method    the operation performed on each tile.
      * @return the first tile that is either null or does not fulfil the given condition.
      */
-    public Tile conditionalPrevious(Predicate<Tile> condition, Consumer<Coordinate> method) {
+    public AbstractBoardTile conditionalPrevious(Predicate<AbstractBoardTile> condition, Consumer<Coordinate> method) {
         reverse();
-        Tile tile = conditionalNext(condition, method);
+        AbstractBoardTile tile = conditionalNext(condition, method);
         reverse();
         return tile;
     }

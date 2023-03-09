@@ -4,7 +4,7 @@ import java.util.LinkedList;
 
 /**
  * A sequence of Tiles combined to form a scored word. A TileSequence allows for tiles
- * to be combined according to a Tile's addToSequence method. This interface
+ * to be combined according to a AbstractBoardTile's addToSequence method. This interface
  * provides methods for accessing and modifying its LetterTiles, score,
  * and multiplier.
  *
@@ -12,10 +12,10 @@ import java.util.LinkedList;
  */
 public interface TileSequence {
     /**
-     * Add a Tile to the TileSequence according to the Tile's addToSequence method.
+     * Add a AbstractBoardTile to the TileSequence according to the AbstractBoardTile's addToSequence method.
      * @param tile the tile to be added
      */
-    void addTile(Tile tile);
+    void addTile(AbstractBoardTile tile);
 
     /**
      * Increase the base score of the TileSequence by the integer value given.

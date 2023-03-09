@@ -12,7 +12,7 @@ import java.util.stream.IntStream;
 public class Board {
 
 	/** A two-dimensional array of tiles representing the board. */
-	private final Tile[][] grid;
+	private final AbstractBoardTile[][] grid;
 
 	/** The size of the board's axes. */
 	private final int MAGNITUDE;
@@ -26,7 +26,7 @@ public class Board {
 	private final int CENTRE;
 
 
-	public Board(int magnitude, Tile[][] grid) {
+	public Board(int magnitude, AbstractBoardTile[][] grid) {
 		this.MAGNITUDE = magnitude;
 		this.CENTRE = (magnitude - 1) / 2;
 		this.grid = grid;
@@ -51,16 +51,16 @@ public class Board {
 	 * 
 	 * @param x x coordinate.
 	 * @param y y coordinate.
-	 * @return Tile at given coordinates. Null if tile out of bounds.
+	 * @return AbstractBoardTile at given coordinates. Null if tile out of bounds.
 	 */
-	public Tile tileAt(int x, int y) {
+	public AbstractBoardTile tileAt(int x, int y) {
 		if (!inBounds(new Coordinate(x, y)))
 			return null;
 		else
 			return grid[x][y];
 	}
 
-	public Tile tileAt(Coordinate coordinate) {
+	public AbstractBoardTile tileAt(Coordinate coordinate) {
 		if (!inBounds(new Coordinate(coordinate.getX(), coordinate.getY())))
 			return null;
 		else
@@ -92,7 +92,7 @@ public class Board {
 	 * @param tile
 	 * @return
 	 */
-	public boolean placeTile(Coordinate coord, Tile tile) {
+	public boolean placeTile(Coordinate coord, AbstractBoardTile tile) {
 		if (!inBounds(coord))
 			return false;
 		grid[coord.getX()][coord.getY()] = tile;

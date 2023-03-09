@@ -8,7 +8,7 @@ package pij.main;
  *
  */
 
-public abstract class Tile{
+public abstract class AbstractBoardTile implements BoardTile {
 	/** The text displayed when a tile is displayed on the board or in a player's tile rack. */
 	private final String tileText;
 	
@@ -18,7 +18,7 @@ public abstract class Tile{
 	private final int value;
 
 
-	public Tile(String tileText, int value) {
+	public AbstractBoardTile(String tileText, int value) {
 		this.value = value;
 		this.tileText = tileText;
 	}

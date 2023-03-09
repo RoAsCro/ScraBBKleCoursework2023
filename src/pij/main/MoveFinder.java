@@ -86,7 +86,7 @@ public class MoveFinder {
             reader.set(c);
             reader.turn();
             // Check letter at this coordinate has no letters behind it
-            Tile tile = reader.previous();
+            AbstractBoardTile tile = reader.previous();
             if ((!(tile instanceof LetterTile))) {
                 reader.next();
             }else

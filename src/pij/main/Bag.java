@@ -61,7 +61,7 @@ public class Bag {
 	 * Returns a random tile from the bag, and deletes that tile. Returns null if
 	 * the bag is empty.
 	 *
-	 * @return a random Tile or null if bag is empty.
+	 * @return a random AbstractBoardTile or null if bag is empty.
 	 */
 	public LetterTile draw() {
 		int size = bag.size();
