@@ -54,7 +54,7 @@ public class Game {
 			if ((passes >= 4) || (bag.isEmpty() && emptyRack) || checkAvailableMoves()) {
 				for (Player p : players) {
 					int deduction = 0;
-					for (LetterTile l : p.getRack()) {
+					for (CharacterTile l : p.getRack()) {
 						deduction += l.getValue();
 					}
 					System.out.println(deduction);

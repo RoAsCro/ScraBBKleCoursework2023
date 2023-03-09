@@ -21,7 +21,7 @@ public class Move {
 	
 	private char direction;
 	
-	private List<LetterTile> tiles = new LinkedList<>();
+	private List<CharacterTile> tiles = new LinkedList<>();
 
 	private Coordinate startCoordinate;
 	
@@ -31,7 +31,7 @@ public class Move {
 
 	private Word word = new Word();
 
-	private final static Predicate<AbstractBoardTile> IS_LETTER = LetterTile.class::isInstance;
+	private final static Predicate<AbstractBoardTile> IS_LETTER = CharacterTile.class::isInstance;
 	
 	public Move(Player player, Board board) {
 		pass = false;
@@ -124,15 +124,15 @@ public class Move {
 		}
 		char[] chars = letters.toCharArray();
 		//Check the player has the required tiles
-		ArrayList<LetterTile> moveTiles = new ArrayList<>();
-		ArrayList<LetterTile> playerRack = new ArrayList<>(this.PLAYER.getRack());
+		ArrayList<CharacterTile> moveTiles = new ArrayList<>();
+		ArrayList<CharacterTile> playerRack = new ArrayList<>(this.PLAYER.getRack());
 		for (char c : chars) {
-			LetterTile letterTile = playerRack.stream().filter(t->t.matchChar(c)).findFirst().orElse(null);
-			if (letterTile == null) {
+			CharacterTile characterTile = playerRack.stream().filter(t->t.matchChar(c)).findFirst().orElse(null);
+			if (characterTile == null) {
 				return false;
 			}
-			playerRack.remove(letterTile);
-			moveTiles.add(new LetterTile(""+c, letterTile.getValue()));
+			playerRack.remove(characterTile);
+			moveTiles.add(new LetterTile(""+c, characterTile.getValue()));
 		}
 
 		setAll(new Coordinate(x.charAt(0), Integer.parseInt(y)), direction.charAt(0), moveTiles);
@@ -146,16 +146,16 @@ public class Move {
 		reader.conditionalNext((tile) -> !wordTiles.isEmpty(), (c) -> this.BOARD.placeTile(c, wordTiles.poll()));
 	}
 
-	public void setAll(Coordinate coordinate, char direction, List<LetterTile> tiles) {
+	public void setAll(Coordinate coordinate, char direction, List<CharacterTile> tiles) {
 		pass = false;
 		this.startCoordinate = coordinate;
 		this.tiles = tiles;
 		this.direction = direction;
 	}
 	
-	public LinkedList<LetterTile> getTiles() {
-		LinkedList<LetterTile> list = new LinkedList<>();
-		Collections.addAll(list, tiles.toArray(new LetterTile[0]));
+	public LinkedList<CharacterTile> getTiles() {
+		LinkedList<CharacterTile> list = new LinkedList<>();
+		Collections.addAll(list, tiles.toArray(new CharacterTile[0]));
 		return list;
 	}
 	
@@ -184,7 +184,7 @@ public class Move {
 		int wordLength = getTiles().size();
 
 		//If there is a letter directly behind the one specified in the move, return false
-		if (this.BOARD.tileAt(this.startCoordinate.getX() - xInc, this.startCoordinate.getY() - yInc) instanceof LetterTile) {
+		if (this.BOARD.tileAt(this.startCoordinate.getX() - xInc, this.startCoordinate.getY() - yInc) instanceof CharacterTile) {
 			System.out.println("Please use the position of the first letter in the word as the input location.");
 			return false;
 		}
@@ -218,7 +218,7 @@ public class Move {
 
 	private boolean constructWord() {
 		resetWord();
-		LinkedList<LetterTile> tileQueue = getTiles();
+		LinkedList<CharacterTile> tileQueue = getTiles();
 		BoardReader reader = new BoardReader(this.BOARD, this.startCoordinate, this.direction);
 		AbstractBoardTile currentTile;
 		// Check it's possible to place the word on the board
@@ -235,7 +235,8 @@ public class Move {
 				if (!parallelWord) {
 					reader.next();
 					reader.turn();
-					this.word.addTile(tileQueue.poll());
+					CharacterTile chracterTile = tileQueue.poll();
+					this.word.addTile(new LetterTile("" + chracterTile.getChar(), chracterTile.getValue()));
 					this.word.addTile(BOARD.tileAt(c));
 				} else {
 					reader.set(new Coordinate(-2, -2));

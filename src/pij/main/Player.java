@@ -85,7 +85,7 @@ public abstract class Player {
 	 * 
 	 * @param 
 	 */
-	public void removeTiles(List<LetterTile> tiles) {
+	public void removeTiles(List<CharacterTile> tiles) {
 		for (CharacterTile tile : tiles) {
 			for (CharacterTile tile2 : tileRack) {
 				if (tile2.matchChar(tile.getChar())) {

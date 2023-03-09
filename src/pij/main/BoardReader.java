@@ -165,7 +165,7 @@ public class BoardReader {
                 next();
                 for (int i = 0; i < 2; i++) {
                     currentCoord = this.currentCoordinate;
-                    if (getCurrent() instanceof LetterTile && !allTiles.contains(currentCoord)) {
+                    if (getCurrent() instanceof CharacterTile && !allTiles.contains(currentCoord)) {
                         foundTiles.add(currentCoord);
                         allTiles.add(currentCoord);
                     }

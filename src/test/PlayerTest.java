@@ -27,7 +27,7 @@ public class PlayerTest {
         Assertions.assertEquals('A', player.getRack().get(0).getChar());
 
         // Remove
-        List<LetterTile> list = List.of(new LetterTile("A", 1));
+        List<CharacterTile> list = List.of(new LetterTile("A", 1));
         player.removeTiles(list);
         Assertions.assertTrue(player.getRack().isEmpty());
 

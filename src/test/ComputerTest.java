@@ -79,7 +79,7 @@ public class ComputerTest {
 
         Move move;
         // By removing the tiles in list, the computer will behave deterministically
-        LinkedList<LetterTile> list = new LinkedList<>();
+        LinkedList<CharacterTile> list = new LinkedList<>();
         list.add(new LetterTile("A", 1));
         list.add(new LetterTile("B", 3));
         list.add(new LetterTile("C", 3));

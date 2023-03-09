@@ -51,14 +51,14 @@ public class MoveFinder {
      * @param depth the current depth of recursion. Initially 0. Should not exceed the size of
      *              combinations
      */
-    private void allCombos(LinkedList<LetterTile> lettersInput, StringBuilder currentWordInput,
+    private void allCombos(LinkedList<CharacterTile> lettersInput, StringBuilder currentWordInput,
                            List<TreeSet<String>> combinations, int depth){
         if (lettersInput.isEmpty())
             return;
 
-        for (LetterTile l : lettersInput) {
+        for (CharacterTile l : lettersInput) {
 
-            LinkedList<LetterTile> letters = new LinkedList<>(lettersInput);
+            LinkedList<CharacterTile> letters = new LinkedList<>(lettersInput);
 
             letters.remove(l);
 
@@ -71,7 +71,7 @@ public class MoveFinder {
 
     /**
      * Finds every possible way a set combinations of String can be placed at
-     * a given coordinate on the board, if that coordinate holds a LetterTile that
+     * a given coordinate on the board, if that coordinate holds a CharacterTile that
      * is the left- or top-most letter in a word already on the board.
      *
      * @param c the coordinate of the tile to be tested
@@ -87,7 +87,7 @@ public class MoveFinder {
             reader.turn();
             // Check letter at this coordinate has no letters behind it
             AbstractBoardTile tile = reader.previous();
-            if ((!(tile instanceof LetterTile))) {
+            if ((!(tile instanceof CharacterTile))) {
                 reader.next();
             }else
                 continue;
@@ -98,10 +98,10 @@ public class MoveFinder {
                 // Check there are no letters behind this one. If there are, go backwards until
                 // it reaches the back-most letter
                 tile = reader.previous();
-                if ((!(tile instanceof LetterTile))) {
+                if ((!(tile instanceof CharacterTile))) {
                     reader.next();
                 } else {
-                    reader.conditionalPrevious(LetterTile.class::isInstance, x->{});
+                    reader.conditionalPrevious(CharacterTile.class::isInstance, x->{});
                     reader.next();
                 }
                 StringBuilder builder = new StringBuilder();
