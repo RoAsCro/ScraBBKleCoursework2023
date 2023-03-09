@@ -1,4 +1,7 @@
 package pij.main;
+import pij.main.Players.ComputerPlayer;
+import pij.main.Players.HumanPlayer;
+
 import java.util.LinkedList;
 
 public class Main {

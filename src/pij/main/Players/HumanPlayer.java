@@ -1,4 +1,7 @@
-package pij.main;
+package pij.main.Players;
+
+import pij.main.*;
+
 /**
  * 
  * The human player.

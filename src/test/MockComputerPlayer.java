@@ -1,8 +1,7 @@
 package test;
 
 import pij.main.*;
-
-import java.util.ArrayList;
+import pij.main.Players.ComputerPlayer;
 
 public class MockComputerPlayer extends ComputerPlayer {
 

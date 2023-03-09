@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pij.main.*;
+import pij.main.Players.HumanPlayer;
 import pij.main.Tiles.LetterTile;
 
 public class HumanPlayerTest {

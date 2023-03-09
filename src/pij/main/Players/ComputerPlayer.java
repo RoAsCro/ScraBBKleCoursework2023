@@ -1,4 +1,6 @@
-package pij.main;
+package pij.main.Players;
+
+import pij.main.*;
 
 import java.util.LinkedList;
 import java.util.List;

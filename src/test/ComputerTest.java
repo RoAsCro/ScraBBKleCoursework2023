@@ -3,6 +3,7 @@ package test;
 import org.junit.jupiter.api.*;
 
 import pij.main.*;
+import pij.main.Players.ComputerPlayer;
 import pij.main.Tiles.LetterTile;
 
 import java.util.LinkedList;
