@@ -2,6 +2,10 @@ package pij.main;
 
 public class WildTile implements CharacterTile {
 
+	private static final int VALUE = 3;
+
+	private char character = ' ';
+
 	@Override
 	public char getChar() {
 		return ' ';
@@ -9,12 +13,22 @@ public class WildTile implements CharacterTile {
 
 	@Override
 	public boolean matchChar(char c) {
-		return Character.isLowerCase(c) || c == ' ';
+		boolean matches = Character.isLowerCase(c) || c == ' ';
+		if (matches) {
+			character = c;
+		}
+		return matches;
 	}
 
 	@Override
 	public int getValue() {
-		return 3;
+		return VALUE;
+	}
+
+	@Override
+	public void addToSequence(TileSequence tileSequence) {
+		tileSequence.getTiles().add(new LetterTile(""+character, VALUE));
+		tileSequence.increaseBaseScore(VALUE);
 	}
 
 	@Override

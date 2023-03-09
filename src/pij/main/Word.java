@@ -48,7 +48,7 @@ public class Word implements TileSequence {
 		this.score = this.baseScore * this.multiplier;
 	}
 
-	public void addTile(BoardTile tile) {
+	public void addTile(Tile tile) {
 		tile.addToSequence(this);
 	}
 

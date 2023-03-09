@@ -132,7 +132,7 @@ public class Move {
 				return false;
 			}
 			playerRack.remove(characterTile);
-			moveTiles.add(new LetterTile(""+c, characterTile.getValue()));
+			moveTiles.add(characterTile);
 		}
 
 		setAll(new Coordinate(x.charAt(0), Integer.parseInt(y)), direction.charAt(0), moveTiles);
@@ -236,7 +236,7 @@ public class Move {
 					reader.next();
 					reader.turn();
 					CharacterTile chracterTile = tileQueue.poll();
-					this.word.addTile(new LetterTile("" + chracterTile.getChar(), chracterTile.getValue()));
+					this.word.addTile(chracterTile);
 					this.word.addTile(BOARD.tileAt(c));
 				} else {
 					reader.set(new Coordinate(-2, -2));
