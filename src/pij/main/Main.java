@@ -4,14 +4,23 @@ import pij.main.Players.HumanPlayer;
 
 import java.util.LinkedList;
 
+/**
+ * Main class for ScraBBKle. Initialises a standard Game based on user inputs.
+ *
+ * @author Roland Crompton
+ */
 public class Main {
-	
-	public static void main(String[] args) {
 
-		boolean go = true;
-		String input = "";
-		Dictionary.loadDictionary();
+	/**
+	 * Initialises the Game setup.
+	 *
+	 * @param args there should be no args.
+	 */
+	public static void main(String[] args) {
 		System.out.println("Welcome to ScraBBKle!");
+		String input = "";
+		boolean go = true;
+		// Get the user input on whether to load a board or use the default
 		while (go) {
 			System.out.println("Would you like to _l_oad a board or use the _d_efault board?");
 			System.out.print("Please enter your choice (l/d): ");
@@ -26,6 +35,7 @@ public class Main {
 		}
 		String file;
 		Board board;
+		// Load the Board
 		do {
 			if (input.equals("l")) {
 				System.out.print("Please enter the file name of the board: ");
@@ -40,12 +50,14 @@ public class Main {
 			}
 		} while (board == null);
 
+		// Instantiate players
 		LinkedList<Player> players = new LinkedList<>();
 		players.add(new HumanPlayer(board));
 		players.add(new ComputerPlayer(board));
-
-		Game game = new Game(players, board);
+		// Load the dictionary
 		Dictionary.loadDictionary();
+		// Run the game
+		Game game = new Game(players, board);
 		game.run();
 	}
 
