@@ -6,6 +6,8 @@ import pij.main.Tiles.WildTile;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
+import java.util.function.IntConsumer;
+import java.util.stream.IntStream;
 
 /**
  * The pool of CharacterTiles to be used in a game of ScraBBKle.
@@ -53,7 +55,7 @@ public class Bag {
 		int i = 0;
 		// Add letter tiles
 		for (; i < quantities.length && i < ALPHABET.size(); i++) {
-			generateTiles("" + ((char)(i+65)), this.bag, quantities[i]);
+			generateTiles("" + ((char)(i + ScraBBKleUtil.UPPER_A_ASCII_VALUE)), this.bag, quantities[i]);
 		}
 		// Add wildcard tiles
 		if (i != quantities.length) {
@@ -70,13 +72,33 @@ public class Bag {
 	 * @return a random AbstractBoardTile or null if bag is empty.
 	 */
 	public CharacterTile draw() {
-		int size = bag.size();
+		int size = this.bag.size();
 		if (size == 0)
 			return null;
 		int randomNumber = (int) (Math.random() * size);
-		CharacterTile tile = bag.get(randomNumber);
-		bag.remove(randomNumber);
+		CharacterTile tile = this.bag.get(randomNumber);
+		this.bag.remove(randomNumber);
 		return tile;
+	}
+
+	/**
+	 * Factory method for generating CharacterTiles
+	 *
+	 * @param tileText the text of the Tile to be generated
+	 * @param tileList the list for generated Tiles to be added to
+	 * @param quantity the number of Tiles to be generated
+	 */
+	public static void generateTiles(String tileText, List<CharacterTile> tileList, int quantity) {
+		IntConsumer consumer = null;
+		if (ALPHABET.containsKey(tileText)) {
+			consumer = i->tileList.add(new LetterTile(tileText, ALPHABET.get(tileText)));
+		} else if (tileText.equals(" ")) {
+			consumer = i->tileList.add(new WildTile());
+		}
+		if (consumer != null) {
+			IntStream.range(0, quantity).forEach(consumer);
+		}
+
 	}
 
 	/**
@@ -84,24 +106,7 @@ public class Bag {
 	 * @return true if the bag is empty. False otherwise.
 	 */
 	public boolean isEmpty() {
-		return bag.isEmpty();
-	}
-
-	/**
-	 * Adds tiles to bag. Helps the constructor with repeatedly adding identical tiles.
-	 *
-	 * @param tileText the text of the tile to be generated
-//	 * @param tileValue the value of the tile to be generated
-	 * @param quantity the amount of the tile to be generated
-	 */
-	public static void generateTiles(String tileText, List<CharacterTile> tileList, int quantity) {
-		if (ALPHABET.containsKey(tileText)) {
-			for (int i = 0; i < quantity; i++) {
-				tileList.add(new LetterTile(tileText, ALPHABET.get(tileText)));
-			}
-		} else if (tileText.equals(" ")) {
-			tileList.add(new WildTile());
-		}
+		return this.bag.isEmpty();
 	}
 
 }
