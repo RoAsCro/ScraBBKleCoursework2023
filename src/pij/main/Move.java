@@ -43,7 +43,6 @@ public class Move {
 
 	public boolean tryMove(String input) {
 		if (!validateInput(input)) {
-			//System.out.println(input);
 			System.out.println("That is not a valid move.");
 			return false;
 		}
@@ -53,7 +52,6 @@ public class Move {
 
 	public boolean tryMove() {
 		if (pass) {
-			//System.out.println("Pass");
 			return true;
 		}
 		if (!checkPlacable()) {
@@ -143,7 +141,7 @@ public class Move {
 	@Override
 	public String toString() {
 		return "The move is:	Word: "
-				+ this.word.toString()
+				+ String.join("", this.tiles.stream().map(t->""+t.getChar()).toList())
 				+ " at position "
 				+ startCoordinate + ", direction: " +
 				(direction == 'd' ? "down" : "right");

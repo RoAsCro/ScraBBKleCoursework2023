@@ -80,6 +80,5 @@ public class Word implements TileSequence {
 		} else return Dictionary.lookupWord(toString());
 		return false;
 	}
-
-
+	
 }
