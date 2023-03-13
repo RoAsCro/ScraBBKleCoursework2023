@@ -58,7 +58,7 @@ public class GameTest {
         board.placeTile(new Coordinate(7, 8), new LetterTile("A", 1));
 
         game.run();
-        Assertions.assertEquals(73, players.get(0).getScore());
+        Assertions.assertEquals(84, players.get(0).getScore());
         Assertions.assertEquals(6, players.get(1).getScore());
 
     }

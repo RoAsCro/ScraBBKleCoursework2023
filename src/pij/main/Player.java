@@ -21,7 +21,7 @@ public abstract class Player {
 	private final List<CharacterTile> tileRack = new ArrayList<>();
 
 	/** A player's score. */
-	private double score = 0;
+	private int score = 0;
 
 	private final Board board;
 
@@ -45,7 +45,7 @@ public abstract class Player {
 	 * 
 	 * @return the player's score.
 	 */
-	public double getScore() {
+	public int getScore() {
 		return this.score;
 	}
 
