@@ -8,7 +8,7 @@ import java.util.Objects;
 /**
  * A LetterTile implements both CharacterTile and BoardTile.
  * It can be present in a Player's tile rack and be placed on a Board.
- * A LetterTile represents a single letter character specified at construction
+ * A LetterTile represents a single character specified at construction
  * and adds itself and its value to a TileSequence.
  *
  * @author Roland Crompton
@@ -22,7 +22,7 @@ public class LetterTile extends AbstractBoardTile implements CharacterTile {
 	 * and c is its value.
 	 *
 	 * @param tileText the character this Tile represents as a CharacterTile. Should only be one
-	 *                 character long, and should be a letter
+	 *                 character long
 	 * @param value the value of this tile
 	 */
 	public LetterTile(String tileText, int value) {

@@ -31,7 +31,7 @@ public class WildTile implements CharacterTile {
 	 */
 	@Override
 	public void addToSequence(TileSequence tileSequence) {
-		tileSequence.getTiles().add(new LetterTile(""+character, VALUE));
+		tileSequence.getTiles().add(new LetterTile("" + this.character, VALUE));
 		tileSequence.increaseBaseScore(VALUE);
 	}
 
@@ -68,7 +68,7 @@ public class WildTile implements CharacterTile {
 	public boolean matchChar(char c) {
 		boolean matches = Character.isLowerCase(c);
 		if (matches) {
-			character = c;
+			this.character = c;
 		}
 		return matches;
 	}
