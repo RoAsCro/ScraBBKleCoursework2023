@@ -69,7 +69,7 @@ public class Move {
 	 * @param board the Board on which this Move is being made
 	 */
 	public Move(Player player, Board board) {
-		this.pass = false;
+		this.pass = true;
 		this.player = player;
 		this.board = board;
 	}
@@ -257,6 +257,7 @@ public class Move {
 	 * @param input the String representing the move the Player wants to make
 	 * @return true if the move is possible, false otherwise.
 	 */
+	@Deprecated
 	public boolean tryMove(String input) {
 		if (!validateInput(input)) {
 			System.out.println("That is not a valid move.");
@@ -287,6 +288,7 @@ public class Move {
 	 * @param input the String representing the move the Player wants to make
 	 * @return true if the input String is valid, false otherwise
 	 */
+	@Deprecated
 	public boolean validateInput(String input) {
 		if (input.equals(",,")) {
 			this.pass = true;

@@ -11,7 +11,7 @@ public class HumanPlayerTest {
 
     private Board board;
 
-    public static class SingleMovePlayer extends Player {
+    public static class SingleMovePlayer extends HumanPlayer {
 
         private String moveString;
 
@@ -29,7 +29,8 @@ public class HumanPlayerTest {
         @Override
         public Move turn(Bag bag) {
             Move move = new Move(this, getBoard());
-            move.tryMove(this.moveString);
+            validateInput(this.moveString, move);
+            move.tryMove();
             draw(bag);
             return move;
         }

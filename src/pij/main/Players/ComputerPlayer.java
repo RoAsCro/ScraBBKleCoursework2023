@@ -29,7 +29,7 @@ public class ComputerPlayer extends Player {
 		moves.clear();
 		moves = new MoveFinder(getBoard(), this, false).findMoves();
 		Move bestMove = new Move(this, getBoard());
-		bestMove.validateInput(",,");
+//		bestMove.tryMove(",,");
 		for (Move m : moves) {
 			if (m.getWord().getScore() > bestMove.getWord().getScore()) {
 				bestMove = m;
