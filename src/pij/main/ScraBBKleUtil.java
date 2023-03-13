@@ -81,7 +81,7 @@ public final class ScraBBKleUtil {
 			if (reader.readLine() != null){
 				return null;
 			}
-			return new Board(magnitude, grid);
+			return new Board(grid);
 		} catch (IOException ex) {
 			return null;
 		}
