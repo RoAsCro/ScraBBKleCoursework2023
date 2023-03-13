@@ -39,11 +39,8 @@ public class HumanPlayer extends Player {
 
 	@Override
 	public Move turn(Bag bag) {
-
-
 		String input;
 		Move move = new Move(this, getBoard());
-
 		do {
 			getBoard().print();
 			printRack();
@@ -53,8 +50,8 @@ public class HumanPlayer extends Player {
 			input = System.console().readLine();
 
 		} while (
-				!validateInput(input, move) &&
-						!move.tryMove());
+				!(validateInput(input, move) &&
+						move.tryMove()));
 		draw(bag);
 		return move;
 	}
@@ -80,8 +77,9 @@ public class HumanPlayer extends Player {
 		String location = movesToTest[1];
 		String direction = movesToTest[2];
 
-		if (location.length() < 2 || location.length() > 3)
+		if (location.length() < 2 || location.length() > 3) {
 			return false;
+		}
 
 		String x = location.substring(0,1);
 		String y = location.substring(1);
@@ -102,6 +100,7 @@ public class HumanPlayer extends Player {
 		for (char c : chars) {
 			CharacterTile characterTile = playerRack.stream().filter(t->t.matchChar(c)).findFirst().orElse(null);
 			if (characterTile == null) {
+				System.out.println("X");
 				return false;
 			}
 			playerRack.remove(characterTile);
