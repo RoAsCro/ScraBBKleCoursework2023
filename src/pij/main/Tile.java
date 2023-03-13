@@ -14,8 +14,4 @@ public interface Tile {
 
     void addToSequence(TileSequence tileSequence);
 
-    @Override
-    String toString();
-
-
 }

@@ -118,7 +118,7 @@ public class Move {
 	}
 
 	private void confirmMove() {
-		LinkedList<BoardTile> wordTiles = this.word.getTiles();
+		LinkedList<BoardTile> wordTiles = new LinkedList<>(this.word.getTiles());
 		BoardReader reader = new BoardReader(this.BOARD, this.startCoordinate, this.direction);
 		reader.conditionalNext((tile) -> !wordTiles.isEmpty(), (c) -> this.BOARD.placeTile(c, wordTiles.poll()));
 	}
@@ -142,8 +142,8 @@ public class Move {
 	
 	@Override
 	public String toString() {
-		return "The move is:	Word: " +
-				String.join("", this.tiles.stream().map(t->""+t.getChar()).toList())
+		return "The move is:	Word: "
+				+ this.word.toString()
 				+ " at position "
 				+ startCoordinate + ", direction: " +
 				(direction == 'd' ? "down" : "right");
