@@ -7,27 +7,24 @@ import java.util.Objects;
 
 /**
  * A LetterTile implements both CharacterTile and BoardTile.
- * It can be present in a Player's tile rack, form part of a TileSequence
+ * It can be present in a Player's tile rack and be placed on a Board.
+ * A LetterTile represents a single character specified at construction and adds itself and
+ * its value to a TileSequence.
  *
  * @author Roland Crompton
  *
  */
 public class LetterTile extends AbstractBoardTile implements CharacterTile {
 
-	public LetterTile(String tileText, int value) {
-		super(tileText, value);
-
-	}
-
 	/**
-	 * Returns the text for purposes of displaying on the board and a player's tile
-	 * rack.
-	 * 
-	 * @return the tile text concatenated with its value.
+	 * Constructs a new LetterTile, setting the character of the tile and its value.
+	 *
+	 * @param tileText the character this Tile represents as a CharacterTile
+	 * @param value the value of this tile
 	 */
-	@Override
-	public String toString() {
-		return super.toString() + getValue();
+	public LetterTile(String tileText, int value) {
+		super(tileText + value, value);
+
 	}
 
 	@Override
