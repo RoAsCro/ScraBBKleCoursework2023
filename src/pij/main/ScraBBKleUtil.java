@@ -15,7 +15,7 @@ public final class ScraBBKleUtil {
 	private static final int MIN_PREMIUM_VALUE = -9;
 
 	private static final int MAX_PREMIUM_VALUE = 99;
-
+	public static final int UPPER_A_ASCII_VALUE = 65;
 	public static final int LOWER_A_ASCII_VALUE = 97;
 	public static final int LOWER_D_ASCII_VALUE = 100;
 	public static final int LOWER_R_ASCII_VALUE = 114;
