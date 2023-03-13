@@ -1,9 +1,6 @@
 package pij.main;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.TreeSet;
+import java.util.*;
 import java.util.stream.IntStream;
 
 public class MoveFinder {
@@ -36,7 +33,7 @@ public class MoveFinder {
         allCombos(new LinkedList<>(player.getRack()), new StringBuilder(), words, 0);
 
         BoardReader reader = new BoardReader(board, board.getCentre(), 'r');
-        TreeSet<Coordinate> coordinates = reader.breadthFirstSearch();
+        SortedSet<Coordinate> coordinates = reader.breadthFirstSearch();
         for (Coordinate c : coordinates) {
             if (findAny && this.moves.size() > 0) {
                 return;
@@ -86,7 +83,7 @@ public class MoveFinder {
         // For loop ensures both down and right directions are checked
         for (int k = 0 ; k < 2 ; k++) {
 
-            reader.set(c);
+            reader.setCoordinate(c);
             reader.turn();
             // Check letter at this coordinate has no letters behind it
             BoardTile tile = reader.previous();

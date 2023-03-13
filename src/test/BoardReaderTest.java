@@ -27,10 +27,10 @@ public class BoardReaderTest {
 
         // Setters
         // Coordinate Setters
-        reader.set(new Coordinate(14, 14));
+        reader.setCoordinate(new Coordinate(14, 14));
         Assertions.assertEquals(14, reader.getCoord().getX());
         Assertions.assertEquals(14, reader.getCoord().getY());
-        reader.set(coord);
+        reader.setCoordinate(coord);
         Assertions.assertEquals(0, reader.getCoord().getX());
         Assertions.assertEquals(0, reader.getCoord().getY());
 

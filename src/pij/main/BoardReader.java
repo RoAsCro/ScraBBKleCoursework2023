@@ -1,6 +1,7 @@
 package pij.main;
 
 import java.util.LinkedList;
+import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
@@ -9,7 +10,7 @@ import static pij.main.ScraBBKleUtil.*;
 
 
 /**
- * A reader for iterating across a ScraBBKle Board object.
+ * A reader for iterating across a Board.
  * The reader can travel across the board in the specified direction, returning Tiles and/or carrying
  * out given operations on tiles as it passes over them.
  *
@@ -22,20 +23,32 @@ public class BoardReader {
      */
     private final Board board;
 
+    /**
+     * The BoardReader's current location as a Coordinate
+     */
     private Coordinate currentCoordinate;
 
     /**
+     * Describes how the BoardReader moves along the x-axis.
      * 1 if the current direction is horizontal. 0 if it's vertical.
      */
     private int xInc;
 
     /**
+     * Describes how the BoardReader moves along the y-axis.
      * 1 if the current direction is vertical. 0 if it's horizontal.
      */
     private int yInc;
 
+    /**
+     * Constructs a BoardReader over a given Board, initially at the given Coordinate,
+     * and facing the given direction.
+     *
+     * @param board the Board the reader will read
+     * @param coord the initial location of the reader on the board
+     * @param direction the initial direction of the reader
+     */
     public BoardReader(Board board, Coordinate coord, char direction) {
-//        this(board, coord.getX(), coord.getY(), direction);
         this.board = board;
         //xInc and yInc use the integer value of 'd' or 'r' to determine how to iterate across the grid.
         this.xInc = (direction - LOWER_D_ASCII_VALUE) / DIRECTION_DIVISOR;
@@ -43,64 +56,65 @@ public class BoardReader {
         this.currentCoordinate = coord;
     }
 
-    public Coordinate getCoord() {
-        return this.currentCoordinate;
-    }
-
-    public char getDirection() {
-        return (char) (Math.abs(this.xInc) * DIRECTION_DIVISOR + LOWER_D_ASCII_VALUE);
-    }
-
     /**
-     * Moves the reader to the next tile according to its current location and increment.
+     * Carries out a breadth first search of the Board, returning a SortedSet of every Coordinate
+     * containing a CharacterTile.
      *
-     * @return the BoardTile at the next location. If this is out of bounds, returns null.
+     * @return a SortedSet of the Coordinates of every CharacterTile on the Board
      */
-    public BoardTile next() {
-        return board.tileAt(currentCoordinate =
-                new Coordinate(currentCoordinate.getX() + xInc, currentCoordinate.getY() + yInc));
-    }
-
-    public BoardTile getCurrent() {
-        return this.board.tileAt(currentCoordinate);
+    public SortedSet<Coordinate> breadthFirstSearch() {
+        SortedSet<Coordinate> allTiles = new TreeSet<>();
+        LinkedList<Coordinate> foundTiles = new LinkedList<>();
+        allTiles.add(this.board.getCentre());
+        foundTiles.add(this.board.getCentre());
+        do {
+            Coordinate currentCoord = foundTiles.poll();
+            for (int j = 0; j < 2; j++) {
+                setCoordinate(currentCoord);
+                next();
+                for (int i = 0; i < 2; i++) {
+                    if (getCurrent() instanceof CharacterTile && !allTiles.contains(this.currentCoordinate)) {
+                        foundTiles.add(this.currentCoordinate);
+                        allTiles.add(this.currentCoordinate);
+                    }
+                    previous();
+                    previous();
+                }
+                turn();
+            }
+        } while (!foundTiles.isEmpty());
+        return allTiles;
     }
 
     /**
-     * Moves the reader in the opposite direction to its direction.
+     * Starting at the current Tile, iterates across the board in the reader's direction
+     * stopping at the first Tile that is either null or does not fulfil the given condition.
+     * Performs a Consumer method on every Coordinate location it iterates,
+     * including the first, but not including the last.
      *
-     * @return the BoardTile at the previous location. If this is out of bounds, returns null.
-     */
-    public BoardTile previous() {
-        reverse();
-        BoardTile tile = next();
-        reverse();
-        return tile;
-    }
-
-    /**
-     * Starting at the current tile, iterates across the board in the reader's direction
-     * until it comes across a tile that is either null or does not fulfil the given condition.
-     * Performs a method on every tile.
-     *
-     * @param condition the condition the tile must fulfil.
-     * @param method    the operation performed on each tile.
-     * @return the first tile that is either null or does not fulfil the given condition.
+     * @param condition the condition the tile must fulfil
+     * @param method the operation performed on each tile
+     * @return the first tile that is either null or does not fulfil the given condition
      */
     public BoardTile conditionalNext(Predicate<BoardTile> condition, Consumer<Coordinate> method) {
-        BoardTile currentTile = board.tileAt(currentCoordinate);
+        BoardTile currentTile = this.board.tileAt(this.currentCoordinate);
         while (currentTile != null && condition.test(currentTile)) {
-            method.accept(currentCoordinate);
+            method.accept(this.currentCoordinate);
             currentTile = next();
         }
         return currentTile;
     }
 
     /**
-     * Carries out the same operation as conditionalNext, but in the opposite direction.
+     * Starting at the current Tile, iterates across the board in the opposite direction to the
+     * reader's current direction, stopping at the first Tile that is either
+     * null or does not fulfil the given condition.
+     * Performs a Consumer method on every Coordinate location it iterates,
+     * including the first, but not including the last.
      *
-     * @param condition the condition the tile must fulfil.
-     * @param method    the operation performed on each tile.
-     * @return the first tile that is either null or does not fulfil the given condition.
+     * @param condition the condition the tile must fulfil
+     * @param method the operation performed on each tile
+     * @return the first tile that is either null or does not fulfil the given condition
      */
     public BoardTile conditionalPrevious(Predicate<BoardTile> condition, Consumer<Coordinate> method) {
         reverse();
@@ -109,8 +123,55 @@ public class BoardReader {
         return tile;
     }
 
-    public void set(Coordinate coord) {
-        currentCoordinate = coord;
+    /**
+     * Returns the current location of the BoardReader as a Coordinate
+     *
+     * @return the current coordinate of the BoardReader
+     */
+    public Coordinate getCoord() {
+        return this.currentCoordinate;
+    }
+
+
+    /**
+     * Returns the Tile at the BoardReader;s current location.
+     *
+     * @return the BoardTile at the reader's current location
+     */
+    public BoardTile getCurrent() {
+        return this.board.tileAt(currentCoordinate);
+    }
+
+    /**
+     * Returns the direction the BoardReader is facing as a character, either 'd' or 'r'.
+     *
+     * @return r if the reader is facing right, d if it is facing down
+     */
+    public char getDirection() {
+        return (char) (Math.abs(this.xInc) * DIRECTION_DIVISOR + LOWER_D_ASCII_VALUE);
+    }
+
+    /**
+     * Moves the reader to the next Tile according to its current location and direction.
+     *
+     * @return the BoardTile at the next location. Null if this is out of bounds of the Board
+     */
+    public BoardTile next() {
+        return this.board.tileAt(this.currentCoordinate =
+                new Coordinate(this.currentCoordinate.getX() + xInc,
+                        this.currentCoordinate.getY() + yInc));
+    }
+
+    /**
+     * Moves the reader in the opposite direction to its direction.
+     *
+     * @return the BoardTile at the previous location. Null if this is out of bounds of the Board
+     */
+    public BoardTile previous() {
+        reverse();
+        BoardTile tile = next();
+        reverse();
+        return tile;
     }
 
     /**
@@ -122,49 +183,21 @@ public class BoardReader {
     }
 
     /**
-     * Switches the direction of the reader.
+     * Sets the reader's location to the given Coordinate.
+     *
+     * @param coord the Coordinate location for the Reader to be set to
      */
-    public void turn() {
-        this.xInc += this.yInc;
-        this.yInc = xInc - yInc;
-        this.xInc = xInc - yInc;
+    public void setCoordinate(Coordinate coord) {
+        this.currentCoordinate = coord;
     }
 
     /**
-     * Carries out a breadth first search of the board.
-     *
-     * @return
+     * Switches the direction of the reader from down to right, or right to down.
      */
-    public TreeSet<Coordinate> breadthFirstSearch() {
-        TreeSet<Coordinate> allTiles = new TreeSet<>();
-        LinkedList<Coordinate> foundTiles = new LinkedList<>();
-        set(this.board.getCentre());
-        Coordinate currentCoord = this.currentCoordinate;
-        foundTiles.add(currentCoord);
-        allTiles.add(currentCoord);
-        do {
-            currentCoord = foundTiles.poll();
-            set(currentCoord);
-            for (int j = 0; j < 2; j++) {
-                next();
-                for (int i = 0; i < 2; i++) {
-                    currentCoord = this.currentCoordinate;
-                    if (getCurrent() instanceof CharacterTile && !allTiles.contains(currentCoord)) {
-                        foundTiles.add(currentCoord);
-                        allTiles.add(currentCoord);
-                    }
-                    previous();
-                    previous();
-                }
-                next();
-                next();
-                next();
-                turn();
-            }
-
-        } while (!foundTiles.isEmpty());
-
-        return allTiles;
+    public void turn() {
+        this.xInc += this.yInc;
+        this.yInc = this.xInc - this.yInc;
+        this.xInc = this.xInc - this.yInc;
     }
 
 }

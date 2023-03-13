@@ -210,7 +210,7 @@ public class Move {
 					this.word.addTile(characterTile);
 					this.word.addTile(BOARD.tileAt(c));
 				} else {
-					reader.set(new Coordinate(-2, -2));
+					reader.setCoordinate(new Coordinate(-2, -2));
 				}
 			});
 			// Gather existing letter tiles from the board
