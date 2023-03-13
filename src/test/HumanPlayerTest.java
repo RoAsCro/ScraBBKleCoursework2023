@@ -7,6 +7,9 @@ import pij.main.*;
 import pij.main.Players.HumanPlayer;
 import pij.main.Tiles.LetterTile;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 public class HumanPlayerTest {
 
     private Board board;
@@ -112,6 +115,157 @@ public class HumanPlayerTest {
 
 
 
+    }
+
+    @Test
+    public void testMoreWordPlacement() {
+        SingleMovePlayer human = new SingleMovePlayer(board, ",,");
+        Bag riggedBag = new Bag(new int[] { 1, 1, 1, 1, 1, 1, 1 });
+        // Tests initial word placement
+        human.draw(riggedBag);
+        Move move;
+        human.setMoveString("FACE,a1,r");
+        human.turn(riggedBag);
+        assertTrue(board.getStartState());
+
+        human.setMoveString("FACE,d1,r");
+        human.turn(riggedBag);
+        assertTrue(board.getStartState());
+
+        human.setMoveString("FACE,c4,d");
+        human.turn(riggedBag);
+        assertTrue(board.getStartState());
+
+        human.setMoveString("FACE,h7,r");
+        human.turn(riggedBag);
+        assertTrue(board.getStartState());
+
+        human.setMoveString("FACE,i8,d");
+        human.turn(riggedBag);
+        assertTrue(board.getStartState());
+
+        human.setMoveString("FACE,h8,d");
+        human.turn(riggedBag);
+        assertFalse(board.getStartState());
+
+        board = TestUtility.loadBoardFromTestBoards("testBoard.txt");
+
+        human = new SingleMovePlayer(board, "FACE,h5,d");
+        riggedBag = new Bag(new int[] { 1, 1, 1, 1, 1, 1, 1 });
+        human.draw(riggedBag);
+        human.turn(riggedBag);
+        assertFalse(board.getStartState());
+
+        board = TestUtility.loadBoardFromTestBoards("testBoard.txt");
+
+        human = new SingleMovePlayer(board, "FACE,e8,r");
+        riggedBag = new Bag(new int[] { 1, 1, 1, 1, 1, 1, 1 });
+        human.draw(riggedBag);
+        human.turn(riggedBag);
+        assertFalse(board.getStartState());
+
+        board = TestUtility.loadBoardFromTestBoards("testBoard.txt");
+
+        human = new SingleMovePlayer(board, "FACE,h8,r");
+        riggedBag = new Bag(new int[] { 1, 1, 1, 1, 1, 1, 1 });
+        human.draw(riggedBag);
+        human.turn(riggedBag);
+        assertFalse(board.getStartState());
+
+        // Tests intersection test
+
+        human.setMoveString("FACE,a1,r");
+        human.turn(riggedBag);
+        Assertions.assertNotEquals(1, board.tileAt(0, 0).getValue());
+
+        human.setMoveString("FACE,a1,d");
+        human.turn(riggedBag);
+        Assertions.assertNotEquals(1, board.tileAt(0, 0).getValue());
+
+        human.setMoveString("CE,i8,d");
+        human.turn(riggedBag);
+        Assertions.assertNotEquals(3, board.tileAt(9, 8).getValue());
+
+        human.setMoveString("FAC,k5,d");
+        human.turn(riggedBag);
+        Assertions.assertEquals(4, board.tileAt(new Coordinate('k', 5)).getValue());
+
+        human.setMoveString("FCE,j6,r");
+        human.turn(riggedBag);
+        Assertions.assertEquals(4, board.tileAt(new Coordinate('j', 6)).getValue());
+
+        human.setMoveString("F,i7,d");
+        human.turn(riggedBag);
+        Assertions.assertEquals(4, board.tileAt(new Coordinate('i', 7)).getValue());
+
+        human.setMoveString("D,k5,d");
+        human.turn(riggedBag);
+        Assertions.assertEquals(2, board.tileAt(new Coordinate('k', 9)).getValue());
+
+        human.setMoveString("BADG,m2,d");
+        human.turn(riggedBag);
+        Assertions.assertEquals(3, board.tileAt(new Coordinate('m', 2)).getValue());
+
+		// Tests not forming two words at once
+        human.setMoveString("FAE,l4,d");
+        human.turn(riggedBag);
+        Assertions.assertNotEquals(4, board.tileAt(new Coordinate('l', 4)).getValue());
+
+		// Tests double intersection
+        human.setMoveString("DE,k3,d");
+        human.turn(riggedBag);
+        Assertions.assertEquals(2, board.tileAt(new Coordinate('k', 3)).getValue());
+
+        human.setMoveString("FE,j4,r");
+        human.turn(riggedBag);
+        Assertions.assertEquals(4, board.tileAt(new Coordinate('j', 4)).getValue());
+
+    	// Tests out of bounds right
+
+        human.setMoveString("AB,m5,r");
+        human.turn(riggedBag);
+        Assertions.assertEquals(3, board.tileAt(new Coordinate('o', 5)).getValue());
+
+        human.setMoveString("ADGE,m2,r");
+        human.turn(riggedBag);
+        Assertions.assertNotEquals(1, board.tileAt(new Coordinate('n', 2)).getValue());
+
+		// Tests dictionary is taking into account all letters
+
+        human.setMoveString("BADGE,o5,d");
+        human.turn(riggedBag);
+        Assertions.assertNotEquals(1, board.tileAt(new Coordinate('o', 6)).getValue());
+
+        // Tests out of bounds down
+        human.setMoveString("ADGE,o5,d");
+        human.turn(riggedBag);
+        Assertions.assertEquals(1, board.tileAt(new Coordinate('o', 6)).getValue());
+
+        human.setMoveString("AD,k9,r");
+        human.turn(riggedBag);
+        Assertions.assertEquals(1, board.tileAt(new Coordinate('l', 9)).getValue());
+
+        human.setMoveString("CED,l9,d");
+        human.turn(riggedBag);
+        Assertions.assertEquals(3, board.tileAt(new Coordinate('l', 10)).getValue());
+
+        human.setMoveString("AD,l12,r");
+        human.turn(riggedBag);
+        Assertions.assertEquals(1, board.tileAt(new Coordinate('m', 12)).getValue());
+
+        human.setMoveString("CED,m12,d");
+        human.turn(riggedBag);
+        Assertions.assertEquals(3, board.tileAt(new Coordinate('m', 13)).getValue());
+
+        human.setMoveString("FA,k14,r");
+        human.turn(riggedBag);
+        Assertions.assertEquals(4, board.tileAt(new Coordinate('k', 14)).getValue());
+
+        human.setMoveString("ACE,k14,d");
+        human.turn(riggedBag);
+        Assertions.assertNotEquals(1, board.tileAt(new Coordinate('k', 15)).getValue());
+
+        board.print();
     }
 
 }

@@ -250,24 +250,6 @@ public class Move {
 	}
 
 	/**
-	 * Goes through all checks on the information stored in the Move to check it's possible to
-	 * make the input Move. Then, if it is possible, places the Tiles on the Board and updates the
-	 * Player's score. If a move is not possible, will print the reason on the console.
-	 *
-	 * @param input the String representing the move the Player wants to make
-	 * @return true if the move is possible, false otherwise.
-	 */
-	@Deprecated
-	public boolean tryMove(String input) {
-		if (!validateInput(input)) {
-			System.out.println("That is not a valid move.");
-			return false;
-		}
-
-		return tryMove();
-	}
-
-	/**
 	 * Returns a String representing all the details of the Move in a human-readable format.
 	 *
 	 * @return a String representing this Move
