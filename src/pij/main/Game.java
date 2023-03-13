@@ -33,6 +33,47 @@ public class Game {
 	}
 
 	/**
+	 * Checks if any Player has available moves.
+	 *
+	 * @return whether it's possible for any Player to make a move
+	 */
+	private boolean checkAvailableMoves(){
+		boolean movesPossible = false;
+		for (Player p : this.players) {
+			if (new MoveFinder(this.board, p, true).findMoves().size() != 0)
+				movesPossible = true;
+			break;
+		}
+		return movesPossible;
+	}
+
+	/**
+	 * Checks who the Game and returns a String according to the result.
+	 * The Player with the highest score wins. If this is neither Player, it is a draw.
+	 *
+	 * @return a String stating which Player, if any, won
+	 */
+	public String checkVictory() {
+		String returnString = this.players.get(0).getName();
+		int highestScore = this.players.get(0).getScore() - 1;
+
+		for (Player p : this.players) {
+			int score = p.getScore();
+			String playerName = p.getName().toLowerCase();
+			System.out.println("The " + playerName
+					+ " player scored " + score + " points.");
+			if (score == highestScore) {
+				returnString = "It's a draw!";
+			}
+			else if (score > highestScore) {
+				highestScore = score;
+				returnString = "The " + playerName + " player wins!";
+			}
+		}
+		return returnString;
+	}
+
+	/**
 	 * Runs the game. Players will take it in turns to make moves, the console displaying
 	 * the details of each move between each move.
 	 * <p></p>
@@ -41,7 +82,7 @@ public class Game {
 	 * <p></p>
 	 * The Bag is empty and a player has no Tiles in their rack; All players have passed twice;
 	 * There are no moves available for either Player.
- 	 */
+	 */
 	public void run() {
 		// have each player draw tiles
 		Bag bag = new Bag();
@@ -82,7 +123,7 @@ public class Game {
 				if (p.getRack().isEmpty())
 					emptyRack = true;
 			}
-			
+
 			if ((passes >= this.players.size() * 2) || (bag.isEmpty() && emptyRack) || !checkAvailableMoves()) {
 				System.out.println("Game Over!");
 				// Deduct points equal to the value of all Tiles in each Player's rack
@@ -98,45 +139,5 @@ public class Game {
 		}
 		System.out.println(checkVictory());
 	}
-
-	/**
-	 * Checks if any Player has available moves.
-	 *
-	 * @return whether it's possible for any Player to make a move
-	 */
-	private boolean checkAvailableMoves(){
-		boolean movesPossible = false;
-		for (Player p : this.players) {
-			if (new MoveFinder(this.board, p, true).findMoves().size() != 0)
-				movesPossible = true;
-			break;
-		}
-		return movesPossible;
-	}
-
-	/**
-	 * Checks who the Game and returns a String according to the result.
-	 * The Player with the highest score wins. If this is neither Player, it is a draw.
-	 *
-	 * @return a String stating which Player, if any, won
-	 */
-	public String checkVictory() {
-		String returnString = this.players.get(0).getName();
-		int highestScore = this.players.get(0).getScore() - 1;
-
-		for (Player p : this.players) {
-			int score = p.getScore();
-			String playerName = p.getName().toLowerCase();
-			System.out.println("The " + playerName
-					+ " player scored " + score + " points.");
-			if (score == highestScore) {
-				returnString = "It's a draw!";
-			}
-			else if (score > highestScore) {
-				highestScore = score;
-				returnString = "The " + playerName + " player wins!";
-			}
-		}
-		return returnString;
-	}
+	
 }
