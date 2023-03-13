@@ -16,7 +16,7 @@ public class Main {
 			System.out.println("Would you like to _l_oad a board or use the _d_efault board?");
 			System.out.print("Please enter your choice (l/d): ");
 			input = System.console().readLine();
-			if (ScraBBKleUtil.inputValidation(input, new String[]{"d", "l"})) {
+			if (!input.equals("d") && !input.equals("l")) {
 				System.out.println("That is not a valid input.");
 				System.out.println();
 				continue;
@@ -35,6 +35,9 @@ public class Main {
 			}
 			file = "../resources/" + file;
 			board = ScraBBKleUtil.loadFile(file);
+			if (board == null) {
+				System.out.print("This is not a valid file. ");
+			}
 		} while (board == null);
 
 		LinkedList<Player> players = new LinkedList<>();

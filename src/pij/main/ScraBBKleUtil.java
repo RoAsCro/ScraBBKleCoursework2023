@@ -31,20 +31,17 @@ public final class ScraBBKleUtil {
 			// Check first line exists
 			String lineOne = reader.readLine();
 			if (lineOne == null){
-				invalidFile();
 				return null;
 			}
 			// Check first line consists only of digits
 			for (int i = 0 ; i < lineOne.length() ; i++) {
 				if (!Character.isDigit(lineOne.charAt(i))) {
-					invalidFile();
 					return null;
 				}
 			}
 			// Check the declared magnitude is within bounds
 			int magnitude;
 			if ((magnitude = Integer.parseInt(lineOne)) < MIN_MAGNITUDE || magnitude > MAX_MAGNITUDE) {
-				invalidFile();
 				return null;
 			}
 
@@ -53,7 +50,6 @@ public final class ScraBBKleUtil {
 				String row = reader.readLine();
 				//Check a given row exists
 				if (row == null) {
-					invalidFile();
 					return null;
 				}
 				StringBuilder tileText = new StringBuilder();
@@ -61,7 +57,6 @@ public final class ScraBBKleUtil {
 				for (int i = 0; i < row.length(); i++) {
 					// Check the current character is a valid character
 					if (xCoord >= magnitude) {
-						invalidFile();
 						return null;
 					}
 					char currentCharacter = row.charAt(i);
@@ -73,27 +68,20 @@ public final class ScraBBKleUtil {
 							xCoord++;
 							tileText = new StringBuilder();
 						} else {
-							invalidFile();
 							return null;
 						}
 					}
 				}
 				// Check whether line is too short
 				if (xCoord != magnitude) {
-					invalidFile();
 					return null;
 				}
 			}
 			// Check there are not extra lines at the end of the file
 			if (reader.readLine() != null){
-				invalidFile();
 				return null;
 			}
 			return new Board(magnitude, grid);
-		} catch (FileNotFoundException ex) {
-			System.out.print("This is not a valid file. ");
-			return null;
-			
 		} catch (IOException ex) {
 			return null;
 		}
@@ -125,17 +113,6 @@ public final class ScraBBKleUtil {
 			}
 		}
 		return returnTile;
-	}
-
-	private static void invalidFile(){
-		System.out.println("File is not a valid format");
-	}
-	
-	public static boolean inputValidation(String input, String[] validInputs) {
-		for (String s : validInputs) 
-			if (s.equals(input))
-				return false;
-		return true;
 	}
 
 }
