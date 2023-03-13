@@ -2,16 +2,25 @@ package pij.main;
 
 /**
  *
- * A tile has a value and some kind of character or character sequence.
- * All implementations of Tile should override toString.
+ * A Tile holds a value and some kind of String. It can also be added to a TileSequence.
  *
  * @author Roland Crompton
  *
  */
 public interface Tile {
 
-    int getValue();
-
+    /**
+     * The method describing how this Tile combines with other Tiles in a TileSequence.
+     *
+     * @param tileSequence the TileSequence this Tile is being added to
+     */
     void addToSequence(TileSequence tileSequence);
+
+    /**
+     * Returns the value of the Tile.
+     *
+     * @return the value of the Tile
+     */
+    int getValue();
 
 }
