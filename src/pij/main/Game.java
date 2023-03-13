@@ -19,10 +19,6 @@ public class Game {
 	 * The list of Players playing the game.
 	 */
 	private final LinkedList<Player> players;
-	/**
-	 * The Player whose turn it currently is.
-	 */
-	private Player activePlayer;
 
 	/**
 	 * Constructor for the Game. Takes a List of Players playing the Game and a Board
@@ -56,23 +52,23 @@ public class Game {
 		int passes = 0;
 		// Main loop of the game as it runs
 		while (go) {
-			this.activePlayer = this.players.poll();
-			this.players.add(this.activePlayer);
+			Player activePlayer = this.players.poll();
+			this.players.add(activePlayer);
 			Move move;
 			// Loop ensures the HumanPlayer cannot pass on the first move
 			do {
-				move = this.activePlayer.turn(bag);
+				move = activePlayer.turn(bag);
 			} while (this.board.getStartState());
 
 			// Remove the active player's played tiles and have them draw
-			this.activePlayer.removeTiles(move.getTiles());
-			this.activePlayer.draw(bag);
+			activePlayer.removeTiles(move.getTiles());
+			activePlayer.draw(bag);
 
 			// Display the result of the move
 			System.out.println();
 			if (move.isPass()) {
 				passes++;
-				System.out.println(this.activePlayer.getName() + " player passed their turn.");
+				System.out.println(activePlayer.getName() + " player passed their turn.");
 			} else {
 				passes = 0;
 				System.out.println(move);
