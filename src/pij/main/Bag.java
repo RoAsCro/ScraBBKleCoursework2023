@@ -5,6 +5,7 @@ import pij.main.Tiles.WildTile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.TreeMap;
 import java.util.function.IntConsumer;
 import java.util.stream.IntStream;
@@ -27,7 +28,7 @@ public class Bag {
 		put("E", 1); put("F", 4); put("G", 2); put("H", 4); put("I", 1); put("J", 8); put("K", 5);
 		put("L", 1); put("M", 3); put("N", 1); put("O", 1); put("P", 3); put("Q", 10); put("R", 1);
 		put("S", 1); put("T", 1); put("U", 1); put("V", 4); put("W", 4); put("X", 8); put("Y", 4);
-		put("Z", 10); }};
+		put("Z", 10);}};
 
 	/** ArrayList storing the contents of the bag. */
 	private final List<CharacterTile> bag = new ArrayList<>();
@@ -52,16 +53,15 @@ public class Bag {
 	 * @param quantities the array determining the quantity of each tile to be used.
 	 */
 	public Bag(int[] quantities) {
-		int i = 0;
-		// Add letter tiles
-		for (; i < quantities.length && i < ALPHABET.size(); i++) {
-			generateTiles("" + ((char)(i + ScraBBKleUtil.UPPER_A_ASCII_VALUE)), this.bag, quantities[i]);
-		}
-		// Add wildcard tiles
-		if (i != quantities.length) {
-			for (int j = 0; j < quantities[i]; j++) {
-				bag.add(new WildTile());
+		String[] alphabet = ALPHABET.keySet().toArray(new String[0]);
+		for (int i = 0; i < quantities.length; i++) {
+			String tileText;
+			if (i < ALPHABET.size()) {
+				 tileText = alphabet[i];
+			} else {
+				tileText = " ";
 			}
+			generateTiles(tileText, this.bag, quantities[i]);
 		}
 	}
 
@@ -82,7 +82,7 @@ public class Bag {
 	}
 
 	/**
-	 * Factory method for generating CharacterTiles
+	 * Factory method for generating CharacterTiles using the standard tile values.
 	 *
 	 * @param tileText the text of the Tile to be generated
 	 * @param tileList the list for generated Tiles to be added to
