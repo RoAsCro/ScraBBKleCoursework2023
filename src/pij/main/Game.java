@@ -112,6 +112,7 @@ public class Game {
 				System.out.println(activePlayer.getName() + " player passed their turn.");
 			} else {
 				passes = 0;
+				activePlayer.updateScore(move.getWord().getScore());
 				System.out.println(move);
 				System.out.println("The result is: ");
 			}

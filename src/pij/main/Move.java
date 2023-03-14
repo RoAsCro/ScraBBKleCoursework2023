@@ -27,11 +27,6 @@ public class Move {
 	private final static Predicate<BoardTile> IS_LETTER = CharacterTile.class::isInstance;
 
 	/**
-	 * The Player making this Move.
-	 */
-	private final Player player;
-
-	/**
 	 * The Board on which this Move is being played.
 	 */
 	private final Board board;
@@ -69,7 +64,6 @@ public class Move {
 	 */
 	public Move(Player player, Board board) {
 		this.pass = true;
-		this.player = player;
 		this.board = board;
 	}
 
@@ -225,8 +219,8 @@ public class Move {
 
 	/**
 	 * Goes through all checks on the information stored in the Move to check it's possible to
-	 * make this Move. Then, if it is possible, places the Tiles on the Board and updates the
-	 * Player's score. If a move is not possible, will print the reason on the console.
+	 * make this Move. Then, if it is possible, places the Tiles on the Board.
+	 * If a move is not possible, will print the reason on the console.
 	 *
 	 * @return true if the move is possible, false otherwise.
 	 */
@@ -243,7 +237,6 @@ public class Move {
 			return false;
 		}
 
-		updateScore(this.word.getScore());
 		confirmMove();
 		return true;
 	}
@@ -260,15 +253,6 @@ public class Move {
 				+ " at position "
 				+ startCoordinate + ", direction: " +
 				(direction == 'd' ? "down" : "right");
-	}
-
-	/**
-	 * Updates the Player's score.
-	 *
-	 * @param score the score to be added to the Player's score
-	 */
-	private void updateScore(int score) {
-		this.player.updateScore(score);
 	}
 
 }
