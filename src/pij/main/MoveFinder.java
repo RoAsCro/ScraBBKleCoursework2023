@@ -74,7 +74,7 @@ public class MoveFinder {
      * Finds every combination of letter possible with a Player's rack,
      * then finds every letter on the Board and attempts to place every letter combination there.
      */
-    private void findAllMoves() {
+    public List<Move> findMoves() {
 
         ArrayList<TreeSet<String>> words = new ArrayList<>();
         for (int i = 0; i < this.playerTiles.size() ; i++)
@@ -86,19 +86,10 @@ public class MoveFinder {
         SortedSet<Coordinate> coordinates = reader.breadthFirstSearch();
         for (Coordinate c : coordinates) {
             if (this.findAny && this.moves.size() > 0) {
-                return;
+                break;
             }
             testWordsWithCombos(c, words);
         }
-    }
-
-    /**
-     * Initialises the process of finding moves.
-     *
-     * @return the List of Moves founds
-     */
-    public List<Move> findMoves(){
-        findAllMoves();
         return this.moves;
     }
 
