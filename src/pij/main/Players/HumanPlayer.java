@@ -40,7 +40,7 @@ public class HumanPlayer extends Player {
 	@Override
 	public Move turn(Bag bag) {
 		String input;
-		Move move = new Move(this, getBoard());
+		Move move = new Move(getBoard());
 		do {
 			getBoard().print();
 			printRack();

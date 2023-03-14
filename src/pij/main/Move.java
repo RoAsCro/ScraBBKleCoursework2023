@@ -10,7 +10,7 @@ import static pij.main.ScraBBKleUtil.*;
 
 
 /**
- * A class that contains and validates a ScraBBKle move.
+ * A class that contains all information about a ScraBBKle move and checks if the move is possible.
  *
  * @author Roland Crompton
  */
@@ -34,7 +34,7 @@ public class Move {
 	/**
 	 * Stores whether the Move is a pass.
 	 */
-	private boolean pass;
+	private boolean pass = true;
 
 	/**
 	 * The Coordinate representing the origin of the word being played with the Move.
@@ -57,13 +57,11 @@ public class Move {
 	private Word word = new Word();
 
 	/**
-	 * Constructor taking a Player and a Board.
+	 * Constructor taking a Board.
 	 *
-	 * @param player the Player making this Move
 	 * @param board the Board on which this Move is being made
 	 */
-	public Move(Player player, Board board) {
-		this.pass = true;
+	public Move(Board board) {
 		this.board = board;
 	}
 

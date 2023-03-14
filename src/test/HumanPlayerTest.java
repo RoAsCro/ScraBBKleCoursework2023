@@ -32,7 +32,7 @@ public class HumanPlayerTest {
 
         @Override
         public Move turn(Bag bag) {
-            Move move = new Move(this, getBoard());
+            Move move = new Move(getBoard());
             validateInput(this.moveString, move);
             move.tryMove();
             draw(bag);
@@ -64,25 +64,25 @@ public class HumanPlayerTest {
     public void testValidateInput() {
         Board board = TestUtility.loadBoardFromTestBoards("testBoard.txt");
         HumanPlayer player = new HumanPlayer(board);
-        Move move = new Move(player, board);
+        Move move = new Move(board);
         // No tiles
         Assertions.assertFalse(player.validateInput("A,f8,r", move));
 
         // Has the tiles
         Bag riggedBag = new Bag(new int[]{1});
         player.draw(riggedBag);
-        Assertions.assertTrue(player.validateInput("A,f8,r", new Move(player, board)));
+        Assertions.assertTrue(player.validateInput("A,f8,r", new Move(board)));
 
         // Pass
-        Assertions.assertTrue(player.validateInput(",,", new Move(player, board)));
+        Assertions.assertTrue(player.validateInput(",,", new Move(board)));
         Assertions.assertTrue(move.isPass());
 
         // Direction wrong
-        Assertions.assertFalse(player.validateInput("A,f8,f", new Move(player, board)));
+        Assertions.assertFalse(player.validateInput("A,f8,f", new Move(board)));
 
         // Wrong formats
-        Assertions.assertFalse(player.validateInput("A, f8,r", new Move(player, board)));
-        Assertions.assertFalse(player.validateInput("A,f8 r", new Move(player, board)));
+        Assertions.assertFalse(player.validateInput("A, f8,r", new Move(board)));
+        Assertions.assertFalse(player.validateInput("A,f8 r", new Move(board)));
 
     }
 

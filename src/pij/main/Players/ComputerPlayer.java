@@ -28,7 +28,7 @@ public class ComputerPlayer extends Player {
 	public Move turn(Bag bag) {
 		moves.clear();
 		moves = new MoveFinder(getBoard(), this, false).findMoves();
-		Move bestMove = new Move(this, getBoard());
+		Move bestMove = new Move(getBoard());
 //		bestMove.tryMove(",,");
 		for (Move m : moves) {
 			if (m.getWord().getScore() > bestMove.getWord().getScore()) {
