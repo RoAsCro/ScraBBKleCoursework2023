@@ -262,63 +262,7 @@ public class Move {
 				+ startCoordinate + ", direction: " +
 				(direction == 'd' ? "down" : "right");
 	}
-
-	/**
-	 * Checks if the input String has been formatted correctly and uses Tiles the Player
-	 * actually has. Then sets this Move's fields accordingly.
-	 *
-	 * @param input the String representing the move the Player wants to make
-	 * @return true if the input String is valid, false otherwise
-	 */
-	@Deprecated
-	public boolean validateInput(String input) {
-		if (input.equals(",,")) {
-			this.pass = true;
-			return true;
-		} else
-			this.pass = false;
-
-		String[] movesToTest = input.split(",");
-
-		if (movesToTest.length != 3) {
-			return false;
-		}
-		String letters = movesToTest[0];
-		String location = movesToTest[1];
-		String direction = movesToTest[2];
-
-		if (location.length() < 2 || location.length() > 3)
-			return false;
-
-		String x = location.substring(0,1);
-		String y = location.substring(1);
-
-		int yLength = y.length();
-		// Check the x coordinate is a letter, th y coordinate is a number,
-		// the direction is either right or down, and there is at least one letter being played
-		if (!Character.isLetter(x.charAt(0)) || !Character.isDigit(y.charAt(0))
-				|| !Character.isDigit(y.charAt(yLength - 1))
-				|| (!direction.equals("r") && !direction.equals("d"))
-				|| letters.length() < 1) {
-			return false;
-		}
-		char[] chars = letters.toCharArray();
-		// Check the player has the required tiles
-		ArrayList<CharacterTile> moveTiles = new ArrayList<>();
-		ArrayList<CharacterTile> playerRack = new ArrayList<>(this.player.getRack());
-		for (char c : chars) {
-			CharacterTile characterTile = playerRack.stream().filter(t->t.matchChar(c)).findFirst().orElse(null);
-			if (characterTile == null) {
-				return false;
-			}
-			playerRack.remove(characterTile);
-			moveTiles.add(characterTile);
-		}
-
-		setAll(new Coordinate(x.charAt(0), Integer.parseInt(y)), direction.charAt(0), moveTiles);
-		return true;
-	}
-
+	
 	/**
 	 * Updates the Player's score.
 	 *
