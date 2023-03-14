@@ -1,6 +1,5 @@
 package pij.main;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -168,7 +167,7 @@ public class Move {
 			return false;
 		}
 		this.word.finalise();
-		if (getTiles().size() == RACK_SIZE) {
+		if (playerTiles.size() == RACK_SIZE) {
 			this.word.addPoints(ALL_LETTERS_BONUS);
 		}
 		return true;
@@ -206,7 +205,7 @@ public class Move {
 	/**
 	 * Resets this Move's Word.
 	 */
-	public void resetWord() {
+	private void resetWord() {
 		this.word = new Word();
 	}
 
@@ -214,7 +213,7 @@ public class Move {
 	 * Sets the Coordinate, direction, and set of Tiles to be used in the Move.
 	 *
 	 * @param coordinate the Coordinate location of the first tile in the Move
-	 * @param direction the direction the Move is being played in, 'd' or 'r'
+	 * @param direction the direction the Move is being played in, must be 'd' or 'r'
 	 * @param playerTiles the set of Tiles belonging to the Player to be used in the Move
 	 */
 	public void setAll(Coordinate coordinate, char direction, List<CharacterTile> playerTiles) {
@@ -262,7 +261,7 @@ public class Move {
 				+ startCoordinate + ", direction: " +
 				(direction == 'd' ? "down" : "right");
 	}
-	
+
 	/**
 	 * Updates the Player's score.
 	 *
