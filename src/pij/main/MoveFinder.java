@@ -33,11 +33,18 @@ public class MoveFinder {
      */
     private final List<CharacterTile> playerTiles;
 
-
+    /**
+     * Constructs a new MoveFinder with a Board to be searched and a List of Tiles to be
+     * used in the search. findAny determines whether the MoveFinder should search for exactly
+     * one Move (true), or every possible Move (false).
+     *
+     * @param board the Board to be searched
+     * @param playerTiles the set of Tiles used in the search
+     * @param findAny true for finding any Move, false for finding every Move
+     */
     public MoveFinder(Board board, List<CharacterTile> playerTiles, boolean findAny) {
         this.playerTiles = playerTiles;
         this.board = board;
-//        this.player = player;
         this.findAny = findAny;
     }
 
@@ -77,8 +84,7 @@ public class MoveFinder {
     public List<Move> findMoves() {
 
         ArrayList<TreeSet<String>> words = new ArrayList<>();
-        for (int i = 0; i < this.playerTiles.size() ; i++)
-            words.add(new TreeSet<>());
+        IntStream.range(0, this.playerTiles.size()).forEach(i -> words.add(new TreeSet<>()));
 
         allCombos(new LinkedList<>(this.playerTiles), new StringBuilder(), words, 0);
 
