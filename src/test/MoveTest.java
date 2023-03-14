@@ -8,6 +8,7 @@ import pij.main.Players.HumanPlayer;
 import pij.main.Tiles.LetterTile;
 
 import java.util.LinkedList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -59,34 +60,34 @@ public class MoveTest {
 
         // Valid placement
         Move move = new Move(player, board);
-        Assertions.assertTrue(move.validateInput("A,h8,r"));
+        move.setAll(new Coordinate('h', 8), 'r', List.of(new LetterTile("A", 1)));
         Assertions.assertTrue(move.checkPlacable());
 
         // Position doesn't intersect
         move = new Move(player, board);
-        Assertions.assertTrue(move.validateInput("A,c8,r"));
+        move.setAll(new Coordinate('c', 8), 'r', List.of(new LetterTile("A", 1)));
         Assertions.assertFalse(move.checkPlacable());
 
         // Position does not start with the earliest letter in word
         move = new Move(player, board);
-        Assertions.assertTrue(move.validateInput("A,h9,d"));
+        move.setAll(new Coordinate('h', 9), 'd', List.of(new LetterTile("A", 1)));
         Assertions.assertFalse(move.checkPlacable());
 
         // Position is behind a letter
         move = new Move(player, board);
-        Assertions.assertTrue(move.validateInput("A,h7,d"));
+        move.setAll(new Coordinate('h', 7), 'd', List.of(new LetterTile("A", 1)));
         Assertions.assertTrue(move.checkPlacable());
 
         // Check placing next to parallel word
         board.placeTile(new Coordinate(8, 6), new LetterTile("A", 1));
         move = new Move(player, board);
-        Assertions.assertTrue(move.validateInput("A,h7,d"));
+        move.setAll(new Coordinate('h', 7), 'd', List.of(new LetterTile("A", 1)));
         Assertions.assertFalse(move.checkPlacable());
 
         // Check placing off board
         TestUtility.writeOnBoard(board.getCentre(), board, "AAAAAAAA", 'r');
         move = new Move(player, board);
-        Assertions.assertTrue(move.validateInput("A,h8,r"));
+        move.setAll(new Coordinate('h', 8), 'r', List.of(new LetterTile("A", 1)));
         Assertions.assertFalse(move.checkPlacable());
     }
 
