@@ -12,7 +12,7 @@ public class ComputerTest {
 
     private Move turn(ComputerPlayer cpu, Bag bag) {
         cpu.draw(bag);
-        Move move = cpu.turn(bag);
+        Move move = cpu.turn();
         cpu.removeTiles(move.getTiles());
         return move;
     }

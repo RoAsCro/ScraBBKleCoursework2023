@@ -25,8 +25,8 @@ public class MockComputerPlayer extends ComputerPlayer {
     }
 
     @Override
-    public Move turn(Bag bag) {
-        Move move = super.turn(bag);
+    public Move turn() {
+        Move move = super.turn();
         return move;
     }
 }

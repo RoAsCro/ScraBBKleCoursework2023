@@ -77,7 +77,7 @@ public abstract class Player {
 		}
 	}
 
-	public abstract Move turn(Bag bag);
+	public abstract Move turn();
 
 	/**
 	 * Removes the specified letter from the tile rack. Should only be called

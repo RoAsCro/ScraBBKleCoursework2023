@@ -98,7 +98,7 @@ public class Game {
 			Move move;
 			// Loop ensures the HumanPlayer cannot pass on the first move
 			do {
-				move = activePlayer.turn(bag);
+				move = activePlayer.turn();
 			} while (this.board.getStartState());
 
 			// Remove the active player's played tiles and have them draw

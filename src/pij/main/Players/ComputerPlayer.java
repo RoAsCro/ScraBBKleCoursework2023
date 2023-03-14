@@ -25,7 +25,7 @@ public class ComputerPlayer extends Player {
 	}
 
 	@Override
-	public Move turn(Bag bag) {
+	public Move turn() {
 		moves.clear();
 		moves = MoveFinder.findMoves(getBoard(), this.getRack(), false);
 		Move bestMove = new Move(getBoard());
@@ -36,7 +36,6 @@ public class ComputerPlayer extends Player {
 			}
 		}
 		bestMove.tryMove();
-		draw(bag);
 		return bestMove;
 	}
 
