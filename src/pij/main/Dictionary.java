@@ -8,7 +8,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 /**
- * A static dictionary for looking up words in ScraBBKle.
+ * A dictionary for looking up words in ScraBBKle. Should only be used through its  static methods.
  *
  * @author Roland Crompton
  */

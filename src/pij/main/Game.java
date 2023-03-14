@@ -40,7 +40,7 @@ public class Game {
 	private boolean checkAvailableMoves(){
 		boolean movesPossible = false;
 		for (Player p : this.players) {
-			if (new MoveFinder(this.board, p.getRack(), true).findMoves().size() != 0)
+			if (MoveFinder.findMoves(this.board, p.getRack(), true).size() != 0)
 				movesPossible = true;
 			break;
 		}
