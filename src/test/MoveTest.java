@@ -13,32 +13,6 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class MoveTest {
-    @Test
-    public void testValidateInput() {
-        Board board = TestUtility.loadBoardFromTestBoards("testBoard.txt");
-        Player player = new ComputerPlayer(board);
-        Move move = new Move(player, board);
-        // No tiles
-        Assertions.assertFalse(move.validateInput("A,f8,r"));
-
-        // Has the tiles
-        Bag riggedBag = new Bag(new int[]{1});
-        player.draw(riggedBag);
-        Assertions.assertTrue(new Move(player, board).validateInput("A,f8,r"));
-
-        // Pass
-        move = new Move(player, board);
-        Assertions.assertTrue(move.validateInput(",,"));
-        Assertions.assertTrue(move.isPass());
-
-        // Direction wrong
-        Assertions.assertFalse(new Move(player, board).validateInput("A,f8,f"));
-
-        // Wrong formats
-        Assertions.assertFalse(new Move(player, board).validateInput("A, f8,r"));
-        Assertions.assertFalse(new Move(player, board).validateInput("A,f8 r"));
-
-    }
 
     @Test
     public void testToString() {

@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pij.main.*;
+import pij.main.Players.ComputerPlayer;
 import pij.main.Players.HumanPlayer;
 import pij.main.Tiles.LetterTile;
 
@@ -56,6 +57,32 @@ public class HumanPlayerTest {
     public void testGetName() {
         Player player = new HumanPlayer(this.board);
         Assertions.assertEquals(player.getName(), "Human");
+
+    }
+
+    @Test
+    public void testValidateInput() {
+        Board board = TestUtility.loadBoardFromTestBoards("testBoard.txt");
+        HumanPlayer player = new HumanPlayer(board);
+        Move move = new Move(player, board);
+        // No tiles
+        Assertions.assertFalse(player.validateInput("A,f8,r", move));
+
+        // Has the tiles
+        Bag riggedBag = new Bag(new int[]{1});
+        player.draw(riggedBag);
+        Assertions.assertTrue(player.validateInput("A,f8,r", new Move(player, board)));
+
+        // Pass
+        Assertions.assertTrue(player.validateInput(",,", new Move(player, board)));
+        Assertions.assertTrue(move.isPass());
+
+        // Direction wrong
+        Assertions.assertFalse(player.validateInput("A,f8,f", new Move(player, board)));
+
+        // Wrong formats
+        Assertions.assertFalse(player.validateInput("A, f8,r", new Move(player, board)));
+        Assertions.assertFalse(player.validateInput("A,f8 r", new Move(player, board)));
 
     }
 
