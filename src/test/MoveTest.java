@@ -2,15 +2,13 @@ package test;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import pij.main.*;
-import pij.main.Players.ComputerPlayer;
-import pij.main.Players.HumanPlayer;
+import pij.main.Board;
+import pij.main.Coordinate;
+import pij.main.Move;
 import pij.main.Tiles.LetterTile;
 
 import java.util.LinkedList;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class MoveTest {
 

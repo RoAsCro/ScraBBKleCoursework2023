@@ -23,6 +23,16 @@ public class GameTest {
     }
 
     @Test
+    public void testPasses() {
+        board.placeTile(board.getCentre(), new LetterTile("A", 1));
+        HumanPlayerTest.SingleMovePlayer playerOne = new HumanPlayerTest.SingleMovePlayer(board, ",,");
+        List<Player> players = List.of(playerOne, new HumanPlayerTest.SingleMovePlayer(board, ",,"));
+        Game gameTwo = new Game(players, board);
+        gameTwo.run();
+        Assertions.assertEquals(2, playerOne.getMoves());
+    }
+
+    @Test
     public void testEndingDraw() {
         riggedBag = new Bag(new int[]{});
         board.placeTile(board.getCentre(), new LetterTile("A", 1));

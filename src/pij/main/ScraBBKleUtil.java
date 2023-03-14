@@ -4,7 +4,10 @@ import pij.main.Tiles.BonusLetterTile;
 import pij.main.Tiles.BonusWordTile;
 import pij.main.Tiles.NullBoardTile;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 
 /**
  * Utility class for ScraBBKle. Should only be used through its static methods.

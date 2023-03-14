@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pij.main.*;
-import pij.main.Players.ComputerPlayer;
 import pij.main.Players.HumanPlayer;
 import pij.main.Tiles.LetterTile;
 
@@ -19,6 +18,8 @@ public class HumanPlayerTest {
 
         private String moveString;
 
+        private int moves = 0;
+
         public SingleMovePlayer(Board board, String move) {
             super(board);
             this.moveString = move;
@@ -30,8 +31,13 @@ public class HumanPlayerTest {
             return "SINGLE";
         }
 
+        public int getMoves() {
+            return moves;
+        }
+
         @Override
         public Move turn(Bag bag) {
+            moves++;
             Move move = new Move(getBoard());
             validateInput(this.moveString, move);
             move.tryMove();
