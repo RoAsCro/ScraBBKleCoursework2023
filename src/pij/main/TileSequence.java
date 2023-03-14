@@ -5,8 +5,8 @@ import java.util.LinkedList;
 /**
  * A sequence of Tiles combined to form a scored word. A TileSequence allows for tiles
  * to be combined according to a Tile's addToSequence method. This interface
- * provides methods for accessing and modifying its LetterTiles, score,
- * and multiplier.
+ * provides methods for accessing and modifying the tiles to be placed on the Board,
+ * its score, and its multiplier.
  *
  * @author Roland Crompton
  */
@@ -16,6 +16,11 @@ public interface TileSequence {
      * @param tile the tile to be added
      */
     void addTile(Tile tile);
+
+    /**
+     * Finalise the score. Multiply the base score by the base score.
+     */
+    void finalise();
 
     /**
      * Increase the base score of the TileSequence by the integer value given.
@@ -30,14 +35,15 @@ public interface TileSequence {
     void increaseMultiplier(int value);
 
     /**
-     * Finalise the score. Multiply the base score by the base score.
-     */
-    void finalise();
-
-    /**
      * Return the finalised score.
      * @return the finalised score, the base score multiplied by the multiplier
      */
     int getScore();
+
+    /**
+     * Returns a LinkedList of BoardTiles to actually be placed on a Board
+     *
+     * @return a LinkedList of BoardTiles to be placed on a Board
+     */
     LinkedList<BoardTile> getTiles();
 }
