@@ -58,7 +58,8 @@ public class BoardReader {
 
     /**
      * Carries out a breadth first search of the Board, returning a SortedSet of every Coordinate
-     * containing a CharacterTile.
+     * containing a CharacterTile. Assumes that all words placed on a Board intersect
+     * with one another according to the rules of ScraBBKle.
      *
      * @return a SortedSet of the Coordinates of every CharacterTile on the Board
      */

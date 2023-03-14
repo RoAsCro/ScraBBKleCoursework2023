@@ -7,20 +7,20 @@ import pij.main.Tiles.LetterTile;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class BoardParserTest {
+public class MoveFinderTest {
 
     @Test
-    public void testBoardParser() {
+    public void testMoveFinder() {
         Board board = TestUtility.loadBoardFromTestBoards("testBoard.txt");
         Player computer = new ComputerPlayer(board);
-        MoveFinder parser = new MoveFinder(board, computer, true);
+        MoveFinder parser = new MoveFinder(board, computer.getRack(), true);
         TestUtility.loadDictionary();
 
         computer.draw(new Bag(new int[]{1}));
         board.placeTile(new Coordinate(7, 7), new LetterTile("a", 1));
         assertEquals(1, parser.findMoves().size());
 
-        parser = new MoveFinder(board, computer, false);
+        parser = new MoveFinder(board, computer.getRack(), false);
         assertEquals(4, parser.findMoves().size());
     }
 

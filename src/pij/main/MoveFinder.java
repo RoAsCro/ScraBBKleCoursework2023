@@ -3,44 +3,44 @@ package pij.main;
 import java.util.*;
 import java.util.stream.IntStream;
 
+/**
+ * Class for finding Moves on ScraBBKle Board.
+ * It can be set to find any Move or find all Moves available to a given Player.
+ * Assumes that all words placed on a Board intersect with one another according to the rules
+ * of ScraBBKle.
+ *
+ * @author Roland Crompton
+ */
 public class MoveFinder {
+    /**
+     * The Board to search or available Moves.
+     */
     private final Board board;
 
-    private final List<Move> moves = new LinkedList<>();
-
-    private final Player player;
-
+    /**
+     * The MoveFinder's mode. If true, the MoveFinder will find exactly one Move. If false,
+     * it will find all possible Moves.
+     */
     private final boolean findAny;
 
-    public MoveFinder(Board board, Player player, boolean findAny) {
+    /**
+     * A Linked List containing the Moves the MoveFinder finds.
+     */
+    private final List<Move> moves = new LinkedList<>();
+
+    /**
+     * The set of Tiles drawn on to search for available Moves
+     */
+    private final List<CharacterTile> playerTiles;
+
+
+    public MoveFinder(Board board, List<CharacterTile> playerTiles, boolean findAny) {
+        this.playerTiles = playerTiles;
         this.board = board;
-        this.player = player;
+//        this.player = player;
         this.findAny = findAny;
     }
 
-    public List<Move> findMoves(){
-        findAllMoves();
-        return this.moves;
-    }
-
-
-    private void findAllMoves() {
-
-        ArrayList<TreeSet<String>> words = new ArrayList<>();
-        for (int i = 0; i < player.getRack().size() ; i++)
-            words.add(new TreeSet<>());
-
-        allCombos(new LinkedList<>(player.getRack()), new StringBuilder(), words, 0);
-
-        BoardReader reader = new BoardReader(board, board.getCentre(), 'r');
-        SortedSet<Coordinate> coordinates = reader.breadthFirstSearch();
-        for (Coordinate c : coordinates) {
-            if (findAny && this.moves.size() > 0) {
-                return;
-            }
-            testWordsWithCombos(c, words);
-        }
-    }
     /**
      * Recursively finds all possible String combinations that can be constructed with the
      * player's tile rack.
@@ -70,16 +70,49 @@ public class MoveFinder {
     }
 
     /**
-     * Finds every possible way a set combinations of String can be placed at
+     * Finds one or all Moves playable on the Board with the given Player's Tiles.
+     * Finds every combination of letter possible with a Player's rack,
+     * then finds every letter on the Board and attempts to place every letter combination there.
+     */
+    private void findAllMoves() {
+
+        ArrayList<TreeSet<String>> words = new ArrayList<>();
+        for (int i = 0; i < this.playerTiles.size() ; i++)
+            words.add(new TreeSet<>());
+
+        allCombos(new LinkedList<>(this.playerTiles), new StringBuilder(), words, 0);
+
+        BoardReader reader = new BoardReader(this.board, this.board.getCentre(), 'r');
+        SortedSet<Coordinate> coordinates = reader.breadthFirstSearch();
+        for (Coordinate c : coordinates) {
+            if (this.findAny && this.moves.size() > 0) {
+                return;
+            }
+            testWordsWithCombos(c, words);
+        }
+    }
+
+    /**
+     * Initialises the process of finding moves.
+     *
+     * @return the List of Moves founds
+     */
+    public List<Move> findMoves(){
+        findAllMoves();
+        return this.moves;
+    }
+
+    /**
+     * Finds every possible way a set combinations of letters can be placed at
      * a given coordinate on the board, if that coordinate holds a CharacterTile that
      * is the left- or top-most letter in a word already on the board.
      *
-     * @param c the coordinate of the tile to be tested
-     * @param combinations a set of all combinations of Strings to be tested
+     * @param c the Coordinate of the Tile to be tested
+     * @param combinations a set of all combinations of letters to be tested
      */
     private void testWordsWithCombos(Coordinate c, List<TreeSet<String>> combinations) {
 
-        BoardReader reader = new BoardReader(board, c, 'r');
+        BoardReader reader = new BoardReader(this.board, c, 'r');
         // For loop ensures both down and right directions are checked
         for (int k = 0 ; k < 2 ; k++) {
 
@@ -91,6 +124,7 @@ public class MoveFinder {
                 reader.next();
             }else
                 continue;
+            // offset determines how far back from the initial Tile is currently being tested
             int offset = 0;
             int offsetInc = 0;
             do {
@@ -108,15 +142,15 @@ public class MoveFinder {
                     // Begin trying every combination of letters at the coordinate
                     for (int i = offset; i < combinations.size(); i++) {
                         for (String s : combinations.get(i)) {
-                            Move move = new Move(player, board);
+                            Move move = new Move(this.board);
                             List<CharacterTile> moveTiles = new LinkedList<>();
                             IntStream.range(0, s.length())
                                     .forEach(sub->Bag.generateTiles(s.substring(sub, sub+1), moveTiles, 1));
                             move.setAll(reader.getCoord(), reader.getDirection(), moveTiles);
                             if (move.checkPlacable()) {
                                 if (move.getWord().lookupWord()) {
-                                    moves.add(move);
-                                    if (findAny)
+                                    this.moves.add(move);
+                                    if (this.findAny)
                                         return;
                                 }
                             } else {
