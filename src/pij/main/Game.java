@@ -24,7 +24,7 @@ public class Game {
 	 * Constructor for the Game. Takes a List of Players playing the Game and a Board
 	 * on which the Game is to be played. The first Player in players should be a HumanPlayer.
 	 *
-	 * @param players a List of Players playing the Game
+	 * @param players a List of Players playing the Game. This list cannot be empty
 	 * @param board a Board on which the Game will be played
 	 */
 	public Game(List<Player> players, Board board){
@@ -91,15 +91,15 @@ public class Game {
 		}
 		boolean go = true;
 		int passes = 0;
-		// Main loop of the game as it runs
-		while (go) {
+		// Game only runs if there are Players
+		while (go && !this.players.isEmpty()) {
 			Player activePlayer = this.players.poll();
 			this.players.add(activePlayer);
 			Move move;
 			// Loop ensures the HumanPlayer cannot pass on the first move
 			do {
 				move = activePlayer.turn();
-			} while (this.board.getStartState());
+			} while (this.board.getStartState() );
 
 			// Remove the active player's played tiles and have them draw
 			activePlayer.removeTiles(move.getTiles());
