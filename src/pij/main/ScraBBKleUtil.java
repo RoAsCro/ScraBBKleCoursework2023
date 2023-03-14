@@ -6,24 +6,53 @@ import pij.main.Tiles.NullBoardTile;
 
 import java.io.*;
 
+/**
+ * Utility class for ScraBBKle. Should only be used through its static methods.
+ * <p></p>
+ * Allows for safely loading Boards from files while validating the files
+ * and contains various static integers used throughout the ScraBBKle program.
+ *
+ * @author Roland Crompton
+ */
 public final class ScraBBKleUtil {
 
+	/** Divisor used throughout the program for converting direction input to a usable integer.*/
+	public static final int DIRECTION_DIVISOR = 14;
+	/** The ASCII value of a lowercase 'a'. Used for converting characters to integers.*/
+	public static final int LOWER_A_ASCII_VALUE = 97;
+	/**
+	 * The ASCII value of a lowercase 'd'. Used for converting direction input to
+	 * a usable integer.
+	 */
+	public static final int LOWER_D_ASCII_VALUE = 100;
+	/**
+	 * The ASCII value of a lowercase 'r'. Used for converting direction input to
+	 * a usable integer.
+	 */
+	public static final int LOWER_R_ASCII_VALUE = 114;
+	/** The ASCII value of a lowercase 'z'. Used for looping through alphabetic characters.*/
+	public static final int LOWER_Z_ASCII_VALUE = 122;
+	/** The maximum size of a Board.*/
 	public static final int MAX_MAGNITUDE = 26;
-
+	/** The minimum size of a Board.*/
 	public static final int MIN_MAGNITUDE = 12;
-
+	/** The maximum value of a premium tile.*/
+	private static final int MAX_PREMIUM_VALUE = 99;
+	/** The minimum value of a premium tile.*/
 	private static final int MIN_PREMIUM_VALUE = -9;
 
-	private static final int MAX_PREMIUM_VALUE = 99;
-	public static final int UPPER_A_ASCII_VALUE = 65;
-	public static final int LOWER_A_ASCII_VALUE = 97;
-	public static final int LOWER_D_ASCII_VALUE = 100;
-	public static final int LOWER_R_ASCII_VALUE = 114;
-	public static final int LOWER_Z_ASCII_VALUE = 122;
-	public static final int DIRECTION_DIVISOR = 14;
-
+	/**
+	 * Private constructor. This class should not be instantiated.
+	 */
 	private ScraBBKleUtil(){}
 
+	/**
+	 * Loads a Board from a file. Checks it for errors and returns null if there are any errors
+	 * or there's an IO problem.
+	 *
+	 * @param fileName the qualified file location
+	 * @return the loaded Board if loading is successful, null if not
+	 */
 	public static Board loadFile(String fileName) {
 		File file = new File(fileName);
 		try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
@@ -87,6 +116,13 @@ public final class ScraBBKleUtil {
 		}
 	}
 
+	/**
+	 * Helper method for generating the initial Tiles on a Board.
+	 * Generates BonusLetterTiles, BonusWordTiles, and NullTiles
+	 *
+	 * @param tileString the String of a Tile loaded from a file
+	 * @return the Tile created from the String, null if the String isn't formatted correctly
+	 */
 	private static BoardTile tileFactory(String tileString){
 		if (tileString.equals(".")) {
 			return new NullBoardTile();
