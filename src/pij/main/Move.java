@@ -16,44 +16,28 @@ import static pij.main.ScraBBKleUtil.*;
  */
 public class Move {
 
-	/**
-	 * The bonus earned for playing all seven tiles in one move.
-	 */
+	/**The bonus earned for playing all seven tiles in one move.*/
 	private static final int ALL_LETTERS_BONUS = 70;
 
-	/**
-	 * A Predicate checking a given BoardTile is a CharacterTile
-	 */
+	/**A Predicate checking a given BoardTile is a CharacterTile*/
 	private final static Predicate<BoardTile> IS_LETTER = CharacterTile.class::isInstance;
 
-	/**
-	 * The Board on which this Move is being played.
-	 */
+	/**The Board on which this Move is being played.*/
 	private final Board board;
 
-	/**
-	 * Stores whether the Move is a pass.
-	 */
+	/**Stores whether the Move is a pass.*/
 	private boolean pass = true;
 
-	/**
-	 * The Coordinate representing the origin of the word being played with the Move.
-	 */
+	/**The Coordinate representing the origin of the word being played with the Move.*/
 	private Coordinate startCoordinate;
 
-	/**
-	 * The direction of the Move expressed as a character, 'r' for right, 'd' for down
-	 */
+	/**The direction of the Move expressed as a character, 'r' for right, 'd' for down*/
 	private char direction;
 
-	/**
-	 * A List containing the Tiles the Player is using for this Move.
-	 */
+	/**A List containing the Tiles the Player is using for this Move.*/
 	private List<CharacterTile> playerTiles = new LinkedList<>();
 
-	/**
-	 * The word that will be formed using this Move
-	 */
+	/**The word that will be formed using this Move*/
 	private Word word = new Word();
 
 	/**
@@ -148,7 +132,7 @@ public class Move {
 					reader.setCoordinate(new Coordinate(-2, -2));
 				}
 			});
-			// Gather existing letter tiles from the board
+			// Gather existing letters from the board
 			currentTile = reader.conditionalNext(IS_LETTER, (c) -> this.word.addTile(board.tileAt(c)));
 
 		} while (!tileQueue.isEmpty() && currentTile != null);
@@ -158,8 +142,9 @@ public class Move {
 			resetWord();
 			return false;
 		}
+
 		this.word.finalise();
-		if (playerTiles.size() == RACK_SIZE) {
+		if (this.playerTiles.size() == RACK_SIZE) {
 			this.word.addPoints(ALL_LETTERS_BONUS);
 		}
 		return true;
@@ -171,9 +156,9 @@ public class Move {
 	 * @return a LinkedList of Tiles from the Player's rack to be used in the Move
 	 */
 	public LinkedList<CharacterTile> getTiles() {
-		LinkedList<CharacterTile> list = new LinkedList<>();
-		Collections.addAll(list, playerTiles.toArray(new CharacterTile[0]));
-		return list;
+		LinkedList<CharacterTile> tiles = new LinkedList<>();
+		Collections.addAll(tiles, this.playerTiles.toArray(new CharacterTile[0]));
+		return tiles;
 	}
 
 	/**
@@ -191,7 +176,7 @@ public class Move {
 	 * @return true if the move is a pass, false otherwise
 	 */
 	public boolean isPass() {
-		return pass;
+		return this.pass;
 	}
 
 	/**
@@ -223,7 +208,7 @@ public class Move {
 	 * @return true if the move is possible, false otherwise.
 	 */
 	public boolean tryMove() {
-		if (pass) {
+		if (this.pass) {
 			return true;
 		}
 		if (!checkPlacable()) {
@@ -249,8 +234,8 @@ public class Move {
 		return "The move is:	Word: "
 				+ String.join("", this.playerTiles.stream().map(t->""+t.getChar()).toList())
 				+ " at position "
-				+ startCoordinate + ", direction: " +
-				(direction == 'd' ? "down" : "right");
+				+ this.startCoordinate + ", direction: " +
+				(this.direction == 'd' ? "down" : "right");
 	}
 
 }
