@@ -2,6 +2,7 @@ package pij.main.Players;
 
 import pij.main.*;
 
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -44,12 +45,9 @@ public class ComputerPlayer extends Player {
 	@Override
 	public Move turn() {
 		List<Move> moves = MoveFinder.findMoves(getBoard(), this.getRack(), false);
-		Move bestMove = new Move(getBoard());
-		for (Move m : moves) {
-			if (m.getWord().getScore() > bestMove.getWord().getScore()) {
-				bestMove = m;
-			}
-		}
+		Move bestMove = moves.stream()
+				.max(Comparator.comparingInt(m -> m.getWord().getScore()))
+				.orElse(new Move(getBoard()));
 		bestMove.tryMove();
 		return bestMove;
 	}
