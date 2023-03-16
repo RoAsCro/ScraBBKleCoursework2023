@@ -1,4 +1,4 @@
-package pij.main.Players;
+package pij.main.players;
 
 import pij.main.*;
 

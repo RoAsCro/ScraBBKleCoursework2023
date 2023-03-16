@@ -2,8 +2,8 @@ package test;
 
 import org.junit.jupiter.api.Test;
 import pij.main.*;
-import pij.main.Players.ComputerPlayer;
-import pij.main.Tiles.LetterTile;
+import pij.main.players.ComputerPlayer;
+import pij.main.tiles.LetterTile;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

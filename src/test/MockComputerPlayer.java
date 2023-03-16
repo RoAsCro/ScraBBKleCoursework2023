@@ -3,7 +3,7 @@ package test;
 import pij.main.Bag;
 import pij.main.Board;
 import pij.main.Move;
-import pij.main.Players.ComputerPlayer;
+import pij.main.players.ComputerPlayer;
 
 public class MockComputerPlayer extends ComputerPlayer {
 

@@ -1,4 +1,4 @@
-package pij.main.Tiles;
+package pij.main.tiles;
 
 import pij.main.BoardTile;
 

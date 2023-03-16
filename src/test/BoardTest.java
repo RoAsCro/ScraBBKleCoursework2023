@@ -4,7 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pij.main.Board;
 import pij.main.Coordinate;
-import pij.main.Tiles.LetterTile;
+import pij.main.tiles.LetterTile;
 
 import static org.junit.jupiter.api.Assertions.*;
 

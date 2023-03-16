@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pij.main.*;
-import pij.main.Tiles.LetterTile;
+import pij.main.tiles.LetterTile;
 
 import java.util.List;
 

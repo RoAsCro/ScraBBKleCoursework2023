@@ -1,6 +1,6 @@
 package pij.main;
 
-import pij.main.Tiles.LetterTile;
+import pij.main.tiles.LetterTile;
 
 import java.util.LinkedList;
 

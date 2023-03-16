@@ -2,7 +2,7 @@ package test;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import pij.main.Tiles.NullBoardTile;
+import pij.main.tiles.NullBoardTile;
 import pij.main.Word;
 
 public class NullBoardTileTest {

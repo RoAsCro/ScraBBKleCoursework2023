@@ -1,6 +1,6 @@
 package pij.main;
-import pij.main.Players.ComputerPlayer;
-import pij.main.Players.HumanPlayer;
+import pij.main.players.ComputerPlayer;
+import pij.main.players.HumanPlayer;
 
 import java.util.LinkedList;
 

@@ -2,7 +2,7 @@ package test;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import pij.main.Tiles.WildTile;
+import pij.main.tiles.WildTile;
 import pij.main.Word;
 
 public class WildTileTest {

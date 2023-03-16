@@ -6,9 +6,9 @@ import pij.main.Bag;
 import pij.main.Board;
 import pij.main.CharacterTile;
 import pij.main.Player;
-import pij.main.Players.ComputerPlayer;
-import pij.main.Tiles.LetterTile;
-import pij.main.Tiles.WildTile;
+import pij.main.players.ComputerPlayer;
+import pij.main.tiles.LetterTile;
+import pij.main.tiles.WildTile;
 
 import java.util.List;
 

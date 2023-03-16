@@ -1,7 +1,7 @@
 package pij.main;
 
-import pij.main.Tiles.LetterTile;
-import pij.main.Tiles.WildTile;
+import pij.main.tiles.LetterTile;
+import pij.main.tiles.WildTile;
 
 import java.util.ArrayList;
 import java.util.List;

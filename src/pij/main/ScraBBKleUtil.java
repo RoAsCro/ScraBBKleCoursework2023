@@ -1,8 +1,8 @@
 package pij.main;
 
-import pij.main.Tiles.BonusLetterTile;
-import pij.main.Tiles.BonusWordTile;
-import pij.main.Tiles.NullBoardTile;
+import pij.main.tiles.BonusLetterTile;
+import pij.main.tiles.BonusWordTile;
+import pij.main.tiles.NullBoardTile;
 
 import java.io.BufferedReader;
 import java.io.File;

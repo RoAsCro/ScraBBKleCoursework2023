@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import pij.main.Board;
 import pij.main.Coordinate;
 import pij.main.Move;
-import pij.main.Tiles.LetterTile;
+import pij.main.tiles.LetterTile;
 
 import java.util.LinkedList;
 import java.util.List;

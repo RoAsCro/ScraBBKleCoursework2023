@@ -4,8 +4,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pij.main.*;
-import pij.main.Players.HumanPlayer;
-import pij.main.Tiles.LetterTile;
+import pij.main.players.HumanPlayer;
+import pij.main.tiles.LetterTile;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
