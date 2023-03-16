@@ -3,6 +3,7 @@ package test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import pij.main.Tiles.LetterTile;
+import pij.main.Word;
 
 public class LetterTileTest {
 
@@ -15,6 +16,26 @@ public class LetterTileTest {
     public void testGetChar() {
         Assertions.assertEquals('A', new LetterTile("A", 1).getChar());
     }
+
+    @Test
+    public void testMatchChar() {
+        LetterTile letter = new LetterTile("A", 1);
+        Assertions.assertTrue(letter.matchChar('A'));
+        Assertions.assertFalse(letter.matchChar('a'));
+        Assertions.assertFalse(letter.matchChar('B'));
+        Assertions.assertFalse(letter.matchChar('.'));
+        Assertions.assertFalse(letter.matchChar(','));
+        Assertions.assertFalse(letter.matchChar(' '));
+    }
+
+    @Test
+    public void testAddToSequence() {
+        Word word = new Word();
+        word.addTile(new LetterTile("A", 1));
+        Assertions.assertEquals("A", word.toString());
+        Assertions.assertEquals(1, word.getScore());
+    }
+
 
     @Test
     public void testEqualsAndHash() {

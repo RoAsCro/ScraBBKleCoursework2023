@@ -9,31 +9,38 @@ public class WildTileTest {
     WildTile w = new WildTile();
 
     @Test
-    public void testGetters() {
-        Assertions.assertEquals(' ', w.getChar());
-        Assertions.assertEquals(3, w.getValue());
-        Assertions.assertEquals(" 3", w.toString());
+    public void testGettersAndString() {
+        Assertions.assertEquals(' ', this.w.getChar());
+        Assertions.assertEquals(3, this.w.getValue());
+        Assertions.assertEquals(" 3", this.w.toString());
     }
 
     @Test
     public void testMatchChar() {
-        Assertions.assertTrue(w.matchChar('l'));
-        Assertions.assertTrue(w.matchChar('a'));
-        Assertions.assertFalse(w.matchChar('A'));
-        Assertions.assertFalse(w.matchChar(' '));
-        Assertions.assertFalse(w.matchChar('.'));
-        Assertions.assertFalse(w.matchChar(','));
+        Assertions.assertTrue(this.w.matchChar('l'));
+        Assertions.assertTrue(this.w.matchChar('a'));
+        Assertions.assertFalse(this.w.matchChar('A'));
+        Assertions.assertFalse(this.w.matchChar(' '));
+        Assertions.assertFalse(this.w.matchChar('.'));
+        Assertions.assertFalse(this.w.matchChar(','));
     }
 
     @Test
     public void testAddToSequence() {
         Word word = new Word();
-        w.matchChar('a');
-        word.addTile(w);
+
+        this.w.matchChar('a');
+        word.addTile(this.w);
         Assertions.assertEquals("a", word.toString());
-        w = new WildTile();
-        word.addTile(w);
+        word.finalise();
+        Assertions.assertEquals(3, word.getScore());
+
+        this.w = new WildTile();
+        word.addTile(this.w);
         Assertions.assertEquals("a ", word.toString());
+        word.finalise();
+        Assertions.assertEquals(6, word.getScore());
+
     }
 
 }
