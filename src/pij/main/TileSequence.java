@@ -21,7 +21,7 @@ public interface TileSequence {
     /**
      * Finalise the score. Multiply the base score by the base score.
      */
-    void finalise();
+    void finaliseScore();
 
     /**
      * Increase the base score of the TileSequence by the integer value given.

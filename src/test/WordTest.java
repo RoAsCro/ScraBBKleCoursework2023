@@ -15,24 +15,24 @@ public class WordTest {
         word.addTile(new LetterTile("A", 1));
         word.addTile(new LetterTile("D", 1));
         word.addTile(new BonusLetterTile(3));
-        word.finalise();
+        word.finaliseScore();
         Assertions.assertEquals("AD", word.toString());
         Assertions.assertEquals(4, word.getScore());
 
         word.addTile(new BonusWordTile(4));
-        word.finalise();
+        word.finaliseScore();
         Assertions.assertEquals(16, word.getScore());
 
         word = new Word();
         word.addTile(new LetterTile("A", 5));
         word.addTile(new BonusLetterTile(0));
-        word.finalise();
+        word.finaliseScore();
         Assertions.assertEquals(0, word.getScore());
 
         word = new Word();
         word.addTile(new LetterTile("A", 2));
         word.addTile(new BonusLetterTile(-2));
-        word.finalise();
+        word.finaliseScore();
         Assertions.assertEquals(-4, word.getScore());
 
         word.addPoints(70);

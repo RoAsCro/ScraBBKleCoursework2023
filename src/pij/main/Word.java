@@ -61,9 +61,10 @@ public class Word implements TileSequence {
 
     /**
      * Finalises the Word's score. This involves setting the score to the base score
-     * multiplied by the multiplier.
+     * multiplied by the multiplier. Note that this will undo any points added using
+     * addPoints.
      */
-    public void finalise() {
+    public void finaliseScore() {
         this.score = this.baseScore * this.multiplier;
     }
 

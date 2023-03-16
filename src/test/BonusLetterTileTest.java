@@ -23,12 +23,12 @@ public class BonusLetterTileTest {
         Tile letter = new LetterTile("A", 1);
         Word word = new Word();
         word.addTile(bonus);
-        word.finalise();
+        word.finaliseScore();
         Assertions.assertEquals(0, word.getScore());
         // Test bonus tile with other tiles
         word.addTile(letter);
         word.addTile(bonus);
-        word.finalise();
+        word.finaliseScore();
         Assertions.assertEquals(3, word.getScore());
         Assertions.assertEquals("A", word.toString());
     }

@@ -159,7 +159,7 @@ public class Move {
             return false;
         }
 
-        this.word.finalise();
+        this.word.finaliseScore();
         if (this.playerTiles.size() == RACK_SIZE) {
             this.word.addPoints(ALL_LETTERS_BONUS);
         }

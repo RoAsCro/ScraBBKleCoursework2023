@@ -61,14 +61,14 @@ public class WildTile implements CharacterTile {
      * If it matches, the WildTile will then change the character it represents
      * to the given character.
      *
-     * @param c the character for this Tile to be checked against
+     * @param character the character for this Tile to be checked against
      * @return true if the character is a lowercase letter, false otherwise
      */
     @Override
-    public boolean matchChar(char c) {
-        boolean matches = Character.isLowerCase(c);
+    public boolean matchChar(char character) {
+        boolean matches = Character.isLowerCase(character);
         if (matches) {
-            this.character = c;
+            this.character = character;
         }
         return matches;
     }

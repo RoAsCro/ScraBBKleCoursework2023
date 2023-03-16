@@ -88,10 +88,10 @@ public class Game {
         for (Player p : this.players) {
             p.draw(bag);
         }
-        boolean go = true;
+        boolean play = true;
         int passes = 0;
         // Game only runs if there are Players
-        while (go && !this.players.isEmpty()) {
+        while (play && !this.players.isEmpty()) {
             Player activePlayer = this.players.poll();
             this.players.add(activePlayer);
             Move move;
@@ -134,7 +134,7 @@ public class Game {
                     }
                     p.updateScore(-deduction);
                 }
-                go = false;
+                play = false;
             }
         }
         System.out.println(checkVictory());

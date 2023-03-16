@@ -20,9 +20,9 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Welcome to ScraBBKle!");
         String input = "";
-        boolean go = true;
+        boolean getInput = true;
         // Get the user input on whether to load a board or use the default
-        while (go) {
+        while (getInput) {
             System.out.println("Would you like to _l_oad a board or use the _d_efault board?");
             System.out.print("Please enter your choice (l/d): ");
             input = System.console().readLine();
@@ -31,7 +31,7 @@ public class Main {
                 System.out.println();
                 continue;
             }
-            go = false;
+            getInput = false;
             System.out.println();
         }
         String file;

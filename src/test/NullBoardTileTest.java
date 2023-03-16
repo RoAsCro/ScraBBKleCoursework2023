@@ -17,7 +17,7 @@ public class NullBoardTileTest {
     public void testAddToSequence() {
         Word word = new Word();
         word.addTile(new NullBoardTile());
-        word.finalise();
+        word.finaliseScore();
         Assertions.assertTrue(word.getTiles().isEmpty());
         Assertions.assertEquals(0, word.getScore());
         Assertions.assertEquals("", word.toString());

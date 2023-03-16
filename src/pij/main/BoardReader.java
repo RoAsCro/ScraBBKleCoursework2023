@@ -57,37 +57,6 @@ public class BoardReader {
     }
 
     /**
-     * Carries out a breadth first search of the Board, returning a SortedSet of every Coordinate
-     * containing a CharacterTile. Assumes that all words placed on a Board intersect
-     * with one another according to the rules of ScraBBKle.
-     *
-     * @return a SortedSet of the Coordinates of every CharacterTile on the Board
-     */
-    public SortedSet<Coordinate> breadthFirstSearch() {
-        SortedSet<Coordinate> allTiles = new TreeSet<>();
-        LinkedList<Coordinate> foundTiles = new LinkedList<>();
-        allTiles.add(this.board.getCentre());
-        foundTiles.add(this.board.getCentre());
-        do {
-            Coordinate currentCoord = foundTiles.poll();
-            for (int j = 0; j < 2; j++) {
-                setCoordinate(currentCoord);
-                next();
-                for (int i = 0; i < 2; i++) {
-                    if (getCurrent() instanceof CharacterTile && !allTiles.contains(this.currentCoordinate)) {
-                        foundTiles.add(this.currentCoordinate);
-                        allTiles.add(this.currentCoordinate);
-                    }
-                    previous();
-                    previous();
-                }
-                turn();
-            }
-        } while (!foundTiles.isEmpty());
-        return allTiles;
-    }
-
-    /**
      * Starting at the current Tile, iterates across the board in the reader's direction
      * stopping at the first Tile that is either null or does not fulfil the given condition.
      * Performs a Consumer method on every Coordinate location it iterates,
@@ -125,11 +94,43 @@ public class BoardReader {
     }
 
     /**
+     * Carries out a breadth first search of the Board, returning a SortedSet of every Coordinate
+     * containing a CharacterTile. Assumes that all words placed on a Board intersect
+     * with one another according to the rules of ScraBBKle.
+     *
+     * @return a SortedSet of the Coordinates of every CharacterTile on the Board
+     */
+    public SortedSet<Coordinate> findAllLetters() {
+        // Every CharacterTile coordinate found
+        SortedSet<Coordinate> allCoordinates = new TreeSet<>();
+        LinkedList<Coordinate> coordQueue = new LinkedList<>();
+        allCoordinates.add(this.board.getCentre());
+        coordQueue.add(this.board.getCentre());
+        do {
+            Coordinate checkingCoordinate = coordQueue.poll();
+            for (int j = 0; j < 2; j++) {
+                setCoordinate(checkingCoordinate);
+                next();
+                for (int i = 0; i < 2; i++) {
+                    if (getCurrentTile() instanceof CharacterTile && !allCoordinates.contains(this.currentCoordinate)) {
+                        coordQueue.add(this.currentCoordinate);
+                        allCoordinates.add(this.currentCoordinate);
+                    }
+                    previous();
+                    previous();
+                }
+                turn();
+            }
+        } while (!coordQueue.isEmpty());
+        return allCoordinates;
+    }
+
+    /**
      * Returns the current location of the BoardReader as a Coordinate
      *
      * @return the current coordinate of the BoardReader
      */
-    public Coordinate getCoord() {
+    public Coordinate getCoordinate() {
         return this.currentCoordinate;
     }
 
@@ -139,7 +140,7 @@ public class BoardReader {
      *
      * @return the BoardTile at the reader's current location
      */
-    public BoardTile getCurrent() {
+    public BoardTile getCurrentTile() {
         return this.board.tileAt(currentCoordinate);
     }
 
@@ -186,10 +187,10 @@ public class BoardReader {
     /**
      * Sets the reader's location to the given Coordinate.
      *
-     * @param coord the Coordinate location for the Reader to be set to
+     * @param coordinate the Coordinate location for the Reader to be set to
      */
-    public void setCoordinate(Coordinate coord) {
-        this.currentCoordinate = coord;
+    public void setCoordinate(Coordinate coordinate) {
+        this.currentCoordinate = coordinate;
     }
 
     /**

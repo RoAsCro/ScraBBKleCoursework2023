@@ -18,9 +18,9 @@ public interface CharacterTile extends Tile {
     /**
      * Checks whether the given character matches the character this Tile represents
      *
-     * @param c the character for this Tile to be checked against
+     * @param character the character for this Tile to be checked against
      * @return true if the character matches, false otherwise
      */
-    boolean matchChar(char c);
+    boolean matchChar(char character);
 
 }

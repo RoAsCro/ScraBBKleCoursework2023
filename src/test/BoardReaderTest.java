@@ -16,23 +16,23 @@ public class BoardReaderTest {
         BoardReader reader = new BoardReader(board, coord, 'r');
         // Getters
         // Coordinate Getters
-        Assertions.assertEquals(0, reader.getCoord().getX());
-        Assertions.assertEquals(0, reader.getCoord().getY());
+        Assertions.assertEquals(0, reader.getCoordinate().getX());
+        Assertions.assertEquals(0, reader.getCoordinate().getY());
 
         // Direction
         Assertions.assertEquals('r', reader.getDirection());
 
         // AbstractBoardTile
-        Assertions.assertEquals(7, reader.getCurrent().getValue());
+        Assertions.assertEquals(7, reader.getCurrentTile().getValue());
 
         // Setters
         // Coordinate Setters
         reader.setCoordinate(new Coordinate(14, 14));
-        Assertions.assertEquals(14, reader.getCoord().getX());
-        Assertions.assertEquals(14, reader.getCoord().getY());
+        Assertions.assertEquals(14, reader.getCoordinate().getX());
+        Assertions.assertEquals(14, reader.getCoordinate().getY());
         reader.setCoordinate(coord);
-        Assertions.assertEquals(0, reader.getCoord().getX());
-        Assertions.assertEquals(0, reader.getCoord().getY());
+        Assertions.assertEquals(0, reader.getCoordinate().getX());
+        Assertions.assertEquals(0, reader.getCoordinate().getY());
 
         // Turn
         reader.turn();
@@ -47,17 +47,17 @@ public class BoardReaderTest {
         reader.next();
         reader.conditionalNext(t -> t.getValue() == 0, (c) -> {
         });
-        Assertions.assertEquals(2, reader.getCurrent().getValue());
+        Assertions.assertEquals(2, reader.getCurrentTile().getValue());
         // Conditional Previous
         reader.previous();
         reader.conditionalPrevious(t -> t.getValue() == 0, (c) -> {
         });
-        Assertions.assertEquals(7, reader.getCurrent().getValue());
+        Assertions.assertEquals(7, reader.getCurrentTile().getValue());
 
         // breadthFirstSearch
         board.placeTile(new Coordinate(7, 7), new LetterTile("a", 1));
         board.placeTile(new Coordinate(7, 8), new LetterTile("a", 1));
-        Assertions.assertEquals(2, reader.breadthFirstSearch().size());
+        Assertions.assertEquals(2, reader.findAllLetters().size());
     }
 
 }

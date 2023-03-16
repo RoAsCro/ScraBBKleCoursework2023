@@ -32,13 +32,13 @@ public class WildTileTest {
         this.w.matchChar('a');
         word.addTile(this.w);
         Assertions.assertEquals("a", word.toString());
-        word.finalise();
+        word.finaliseScore();
         Assertions.assertEquals(3, word.getScore());
 
         this.w = new WildTile();
         word.addTile(this.w);
         Assertions.assertEquals("a ", word.toString());
-        word.finalise();
+        word.finaliseScore();
         Assertions.assertEquals(6, word.getScore());
     }
 

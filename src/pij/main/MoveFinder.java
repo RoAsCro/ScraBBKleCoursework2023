@@ -77,7 +77,7 @@ public class MoveFinder {
         allCombos(new LinkedList<>(playerTiles), new StringBuilder(), words, 0);
 
         BoardReader reader = new BoardReader(board, board.getCentre(), 'r');
-        SortedSet<Coordinate> coordinates = reader.breadthFirstSearch();
+        SortedSet<Coordinate> coordinates = reader.findAllLetters();
         for (Coordinate c : coordinates) {
             if (staticFindAny && moves.size() > 0) {
                 break;
@@ -136,7 +136,7 @@ public class MoveFinder {
                                     .forEach(sub ->
                                             Bag.generateTiles(s.substring(sub, sub + 1),
                                                     moveTiles, 1));
-                            move.setAll(reader.getCoord(), reader.getDirection(), moveTiles);
+                            move.setAll(reader.getCoordinate(), reader.getDirection(), moveTiles);
                             if (move.checkPlacable()) {
                                 if (move.getWord().lookupWord()) {
                                     moves.add(move);
