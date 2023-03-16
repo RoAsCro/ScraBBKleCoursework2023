@@ -53,7 +53,7 @@ public class Game {
      *
      * @return a String stating which Player, if any, won
      */
-    public String checkVictory() {
+    private String checkVictory() {
         String returnString = this.players.get(0).getName();
         int highestScore = this.players.get(0).getScore() - 1;
 
