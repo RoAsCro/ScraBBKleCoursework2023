@@ -57,6 +57,7 @@ public class HumanPlayer extends Player {
     public Move turn() {
         String input;
         Move move = new Move(getBoard());
+        boolean valid;
         do {
             getBoard().print();
             System.out.println("It's your turn! Your tiles:");
@@ -65,9 +66,15 @@ public class HumanPlayer extends Player {
                     + "and direction(d for down, r for right) separated by commas. "
                     + "Entering just two commas passes.");
             input = System.console().readLine();
+            if (!validateInput(input, move)) {
+                valid = false;
+                System.out.println("That move was not formatted correctly.");
+            } else {
+                valid = true;
+            }
 
         } while (
-                !(validateInput(input, move) &&
+                !(valid &&
                         move.tryMove()));
         return move;
     }
@@ -116,7 +123,6 @@ public class HumanPlayer extends Player {
         for (char c : chars) {
             CharacterTile characterTile = playerRack.stream().filter(t -> t.matchChar(c)).findFirst().orElse(null);
             if (characterTile == null) {
-                System.out.println("X");
                 return false;
             }
             playerRack.remove(characterTile);
