@@ -6,94 +6,116 @@ import java.util.List;
 
 /**
  *
- * A player makes moves based on the Board in front of them.
- * A player has a tile rack and draws tiles from a bag.
- * A player has a score.
+ * A player makes Moves based on their Board and the CharacterTiles in their tile rack
+ * and can draw new Tiles from a Bag.
+ * A player has a score that can be updated.
  *
  * @author Roland Crompton
  */
 
 public abstract class Player {
 
+	/** The maximum number of Tiles a Player can have in their rack. */
 	public final static int RACK_SIZE = 7;
 
-	/** An array of tiles a player has available to them */
+	/** A List of tiles a Player has available to them. */
 	private final List<CharacterTile> tileRack = new ArrayList<>();
 
 	/** A player's score. */
 	private int score = 0;
-
+	/** The Board a Player makes moves on. */
 	private final Board board;
 
+	/**
+	 * Constructor. Takes the Board the Player will make moves on.
+	 *
+	 * @param board the Board a Player will make moves on
+	 */
 	public Player(Board board) {
 		this.board = board;
 	}
 
 	/**
-	 * Returns the player's tile rack.
-	 * 
-	 * @return the player's tile rack.
+	 * Fills all blank spaces in the Player's tile rack with Tiles from the given
+	 * Bag.
+	 *
+	 * @param bag the Bag to be drawn from
 	 */
-	public List<CharacterTile> getRack() {
-		return tileRack;
+	public void draw(Bag bag) {
+		int size = this.tileRack.size();
+		for (int i = 0; i < RACK_SIZE - size; i++) {
+			CharacterTile tile = bag.draw();
+			if (tile != null)
+				this.tileRack.add(tile);
+		}
 	}
-
-	public abstract String getName();
 
 	/**
-	 * Returns the player's score.
-	 * 
-	 * @return the player's score.
+	 * Returns the Player's Board.
+	 *
+	 * @return the Player's Board
 	 */
-	public int getScore() {
-		return this.score;
-	}
-
 	public Board getBoard(){
 		return this.board;
 	}
 
 	/**
-	 * Updates the player's score with the input double.
-	 * 
-	 * @param update the number that will be added to the player's score.
+	 * Return the Player's name - this should be based on the type of Player this Player is.
+	 *
+	 * @return the Player's name
 	 */
-	public void updateScore(double update) {
-		score += update;
+	public abstract String getName();
+
+	/**
+	 * Returns the Player's tile rack.
+	 * 
+	 * @return the Player's tile rack
+	 */
+	public List<CharacterTile> getRack() {
+		return this.tileRack;
 	}
 
 	/**
-	 * Fills all blank spaces in the player's tile rack with tiles from the given
-	 * bag.
+	 * Returns the Player's score.
 	 * 
-	 * @param bag the bag to be drawn from.
+	 * @return the Player's score
 	 */
-	public void draw(Bag bag) {
-		int size = tileRack.size();
-		for (int i = 0; i < RACK_SIZE - size; i++) {
-			CharacterTile tile = bag.draw();
-			if (tile != null)
-				tileRack.add(tile);
-		}
+	public int getScore() {
+		return this.score;
 	}
 
-	public abstract Move turn();
-
 	/**
-	 * Removes the specified letter from the tile rack. Should only be called
-	 * alongside a Board's placeWord() method.
-	 * 
-	 * @param 
+	 * Removes the given CharacterTiles from the tile rack. The given CharacterTiles
+	 * only need to match the characters of the Tiles in the Player's rack using the Tiles'
+	 * matchChar method.
+	 *
+	 * @param tiles a List of CharacterTiles to be removed from the Player's rack
 	 */
 	public void removeTiles(List<CharacterTile> tiles) {
 		for (CharacterTile tile : tiles) {
-			for (CharacterTile tile2 : tileRack) {
+			for (CharacterTile tile2 : this.tileRack) {
 				if (tile2.matchChar(tile.getChar())) {
-					tileRack.remove(tile2);
+					this.tileRack.remove(tile2);
 					break;
 				}
 			}
 		}
 	}
 
+	/**
+	 * The actions a Player carries out on their turn. Implementation should determine how a
+	 * Player decides what move to make, and then make that into a Move object to be returned.
+	 *
+	 * @return the Move the Player decided to make
+	 */
+	public abstract Move turn();
+
+	/**
+	 * Updates the Player's score with the input integer.
+	 * 
+	 * @param update the number that will be added to the Player's score
+	 */
+	public void updateScore(int update) {
+		this.score += update;
+	}
 }
