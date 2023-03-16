@@ -5,11 +5,12 @@ import org.junit.jupiter.api.Test;
 import pij.main.Tiles.BonusLetterTile;
 import pij.main.Tiles.BonusWordTile;
 import pij.main.Tiles.LetterTile;
+import pij.main.Tiles.WildTile;
 import pij.main.Word;
 
 public class WordTest {
     @Test
-    public void testFunctions() {
+    public void testAddingTilesAndScore() {
         Word word = new Word();
         word.addTile(new LetterTile("A", 1));
         word.addTile(new LetterTile("D", 1));
@@ -36,6 +37,24 @@ public class WordTest {
 
         word.addPoints(70);
         Assertions.assertEquals(66, word.getScore());
+    }
+
+    @Test
+    public void testLookupWord() {
+        TestUtility.loadDictionary();
+        Word word = new Word();
+
+        LetterTile letter = new LetterTile("A", 1);
+        word.addTile(letter);
+        Assertions.assertFalse(word.lookupWord());
+
+        word.addTile(letter);
+        Assertions.assertTrue(word.lookupWord());
+
+        word.addTile(new WildTile());
+        Assertions.assertEquals("AA ", word.toString());
+        Assertions.assertTrue(word.lookupWord());
+        Assertions.assertEquals("AAh", word.toString());
 
     }
 

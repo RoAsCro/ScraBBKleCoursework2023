@@ -129,7 +129,9 @@ public class Word implements TileSequence {
 				} else
 					this.word.set(index, original);
 			}
-		} else return Dictionary.lookupWord(toString());
+		} else {
+			return Dictionary.lookupWord(toString());
+		}
 		return false;
 	}
 
