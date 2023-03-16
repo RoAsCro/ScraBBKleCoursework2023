@@ -23,7 +23,6 @@ public class HumanPlayerTest {
         public SingleMovePlayer(Board board, String move) {
             super(board);
             this.moveString = move;
-
         }
 
         @Override
@@ -32,12 +31,12 @@ public class HumanPlayerTest {
         }
 
         public int getMoves() {
-            return moves;
+            return this.moves;
         }
 
         @Override
         public Move turn() {
-            moves++;
+            this.moves++;
             Move move = new Move(getBoard());
             validateInput(this.moveString, move);
             move.tryMove();

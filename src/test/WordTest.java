@@ -55,7 +55,6 @@ public class WordTest {
         Assertions.assertEquals("AA ", word.toString());
         Assertions.assertTrue(word.lookupWord());
         Assertions.assertEquals("AAh", word.toString());
-
     }
 
 }

@@ -40,7 +40,7 @@ public class PlayerTest {
 
         // remove a single WildTile
         bag = new Bag(new int[]
-                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1});
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1});
         player.draw(bag);
         list = List.of(new LetterTile("a", 3));
         player.removeTiles(list);
@@ -70,7 +70,6 @@ public class PlayerTest {
                 new LetterTile("B", 1));
         player.removeTiles(list);
         Assertions.assertEquals(0, player.getRack().size());
-
     }
 
 }

@@ -21,19 +21,17 @@ public class TestUtility {
         Dictionary.loadDictionary(new File("./resources/testWordList.txt"));
     }
 
-    public static Bag riggedBag() {
-        return new Bag(new int[] { 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
-    }
-
     public static void writeOnBoard(Board board, String word, char direction) {
         writeOnBoard(board.getCentre(), board, word, direction);
     }
+
     public static void writeOnBoard(Coordinate coord, Board board, String word, char direction) {
         LinkedList<LetterTile> list = new LinkedList<>();
         for (char c : word.toCharArray()) {
             list.add(new LetterTile(c + "", 1));
         }
         BoardReader reader = new BoardReader(board, coord, direction);
-        reader.conditionalNext((tile) -> !list.isEmpty(), (c) -> board.placeTile(c, list.poll()));
+        reader.conditionalNext((tile) -> !list.isEmpty(),
+                (c) -> board.placeTile(c, list.poll()));
     }
 }

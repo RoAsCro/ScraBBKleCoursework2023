@@ -40,7 +40,6 @@ public class WildTileTest {
         Assertions.assertEquals("a ", word.toString());
         word.finalise();
         Assertions.assertEquals(6, word.getScore());
-
     }
 
 }

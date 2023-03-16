@@ -4,9 +4,8 @@ import org.junit.Test;
 import pij.main.Board;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 public class BoardLoadingTest {
-
-
 
 
     @Test
@@ -14,16 +13,16 @@ public class BoardLoadingTest {
         // Smallest Possible Board
         Board boardOne = TestUtility.loadBoardFromTestBoards("minBoard.txt");
         assertNotNull(boardOne);
-        assertNotNull(boardOne.tileAt(11,11));
-        assertNull(boardOne.tileAt(12,0));
-        assertNull(boardOne.tileAt(0,12));
+        assertNotNull(boardOne.tileAt(11, 11));
+        assertNull(boardOne.tileAt(12, 0));
+        assertNull(boardOne.tileAt(0, 12));
 
         // Largest Possible Board
         boardOne = TestUtility.loadBoardFromTestBoards("bigBoard.txt");
         assertNotNull(boardOne);
-        assertNotNull(boardOne.tileAt(25,25));
-        assertNull(boardOne.tileAt(26,0));
-        assertNull(boardOne.tileAt(0,26));
+        assertNotNull(boardOne.tileAt(25, 25));
+        assertNull(boardOne.tileAt(26, 0));
+        assertNull(boardOne.tileAt(0, 26));
 
         // Blank File
         assertNull(TestUtility.loadBoardFromTestBoards("notABoard.txt"));
@@ -65,17 +64,17 @@ public class BoardLoadingTest {
         // Max sized premium tile
         Board boardOne = TestUtility.loadBoardFromTestBoards("maxPremium.txt");
         assertNotNull(boardOne);
-        assertEquals(99, boardOne.tileAt(0,0).getValue());
+        assertEquals(99, boardOne.tileAt(0, 0).getValue());
 
         // Min sized premium tile
         boardOne = TestUtility.loadBoardFromTestBoards("minPremium.txt");
         assertNotNull(boardOne);
-        assertEquals(-9, boardOne.tileAt(0,0).getValue());
+        assertEquals(-9, boardOne.tileAt(0, 0).getValue());
 
         // Premium tile value 0
         boardOne = TestUtility.loadBoardFromTestBoards("zeroPremium.txt");
         assertNotNull(boardOne);
-        assertEquals(0, boardOne.tileAt(0,0).getValue());
+        assertEquals(0, boardOne.tileAt(0, 0).getValue());
 
         // Premium tile value too great
         assertNull(TestUtility.loadBoardFromTestBoards("largePremium.txt"));

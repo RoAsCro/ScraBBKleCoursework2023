@@ -14,42 +14,44 @@ import java.util.List;
  */
 public class ComputerPlayer extends Player {
 
-	/** The ComputerPlayer's name is "Computer". */
-	private static final String NAME = "Computer";
+    /**
+     * The ComputerPlayer's name is "Computer".
+     */
+    private static final String NAME = "Computer";
 
-	/**
-	 * Constructs a new ComputerPlayer with the given Board.
-	 *
-	 * @param board the Board the ComputerPlayer will play on and use to decide on its Moves
-	 */
-	public ComputerPlayer(Board board) {
-		super(board);
-	}
+    /**
+     * Constructs a new ComputerPlayer with the given Board.
+     *
+     * @param board the Board the ComputerPlayer will play on and use to decide on its Moves
+     */
+    public ComputerPlayer(Board board) {
+        super(board);
+    }
 
-	/**
-	 * Returns the ComputerPlayer's name "Computer".
-	 *
-	 * @return the ComputerPlayer's name
-	 */
-	@Override
-	public String getName() {
-		return NAME;
-	}
+    /**
+     * Returns the ComputerPlayer's name "Computer".
+     *
+     * @return the ComputerPlayer's name
+     */
+    @Override
+    public String getName() {
+        return NAME;
+    }
 
-	/**
-	 * Decides on and makes the Move for the ComputerPlayer. Finds all possible Moves
-	 * using the MoveFinder, then finds the highest scoring Move and makes it.
-	 *
-	 * @return the Move the ComputerPlayer makes
-	 */
-	@Override
-	public Move turn() {
-		List<Move> moves = MoveFinder.findMoves(getBoard(), this.getRack(), false);
-		Move bestMove = moves.stream()
-				.max(Comparator.comparingInt(m -> m.getWord().getScore()))
-				.orElse(new Move(getBoard()));
-		bestMove.tryMove();
-		return bestMove;
-	}
+    /**
+     * Decides on and makes the Move for the ComputerPlayer. Finds all possible Moves
+     * using the MoveFinder, then finds the highest scoring Move and makes it.
+     *
+     * @return the Move the ComputerPlayer makes
+     */
+    @Override
+    public Move turn() {
+        List<Move> moves = MoveFinder.findMoves(getBoard(), this.getRack(), false);
+        Move bestMove = moves.stream()
+                .max(Comparator.comparingInt(m -> m.getWord().getScore()))
+                .orElse(new Move(getBoard()));
+        bestMove.tryMove();
+        return bestMove;
+    }
 
 }

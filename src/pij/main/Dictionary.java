@@ -12,7 +12,7 @@ import java.util.TreeSet;
  *
  * @author Roland Crompton
  */
-public final class Dictionary{
+public final class Dictionary {
 
     /**
      * A TreeSet containing all the possible words. Must be loaded on program start.
@@ -22,7 +22,8 @@ public final class Dictionary{
     /**
      * Private constructor. This class should not be instantiated.
      */
-    private Dictionary(){}
+    private Dictionary() {
+    }
 
     /**
      * Loads the default dictionary for ScraBBKle.

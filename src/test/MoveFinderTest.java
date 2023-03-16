@@ -19,7 +19,6 @@ public class MoveFinderTest {
         board.placeTile(new Coordinate(7, 7), new LetterTile("a", 1));
         assertEquals(1, MoveFinder.findMoves(board, computer.getRack(), true).size());
 
-//        parser = new MoveFinder(board, computer.getRack(), false);
         assertEquals(4, MoveFinder.findMoves(board, computer.getRack(), false).size());
     }
 

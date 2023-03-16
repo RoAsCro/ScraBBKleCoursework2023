@@ -9,12 +9,14 @@ public class LetterTileTest {
 
     @Test
     public void testToString() {
-        Assertions.assertEquals("A1", new LetterTile("A", 1).toString());
+        Assertions.assertEquals("A1",
+                new LetterTile("A", 1).toString());
     }
 
     @Test
     public void testGetChar() {
-        Assertions.assertEquals('A', new LetterTile("A", 1).getChar());
+        Assertions.assertEquals('A',
+                new LetterTile("A", 1).getChar());
     }
 
     @Test

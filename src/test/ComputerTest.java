@@ -28,7 +28,7 @@ public class ComputerTest {
 
 
     @Test
-    public void testTurn(){
+    public void testTurn() {
         Board board = TestUtility.loadBoardFromTestBoards("TestBoard.txt");
         TestUtility.loadDictionary();
 
@@ -37,47 +37,54 @@ public class ComputerTest {
         ComputerPlayer cpu = new ComputerPlayer(board);
         Assertions.assertTrue(cpu.turn().isPass());
         // ...when no valid moves
-        Bag riggedBag = new Bag(new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 });
+        Bag riggedBag = new Bag(new int[]
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1});
         TestUtility.writeOnBoard(board, "X", 'd');
         cpu.draw(riggedBag);
         Assertions.assertTrue(cpu.turn().isPass());
         cpu.removeTiles(List.of(new LetterTile("Z", 10)));
 
-        TestUtility.writeOnBoard(new Coordinate(board.getCentre().getX(), 8), board, "XX", 'r');
+        TestUtility.writeOnBoard(
+                new Coordinate(board.getCentre().getX(), 8), board, "XX", 'r');
 
         // Test placing prefix
-        riggedBag = new Bag(new int[] { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
+        riggedBag = new Bag(new int[]
+                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
         turn(cpu, riggedBag);
         board.print();
-        Assertions.assertEquals("A1", board.tileAt(6,7).toString());
+        Assertions.assertEquals("A1", board.tileAt(6, 7).toString());
 
         // Find move that involves placing tiles between tiles
         TestUtility.writeOnBoard(new Coordinate(4, 7), board, "F", 'r');
-        riggedBag = new Bag(new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
+        riggedBag = new Bag(new int[]
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
         turn(cpu, riggedBag);
         board.print();
-        Assertions.assertEquals( "L1", board.tileAt(5,7).toString());
+        Assertions.assertEquals("L1", board.tileAt(5, 7).toString());
 
         // Test placing vertically
-        riggedBag = new Bag(new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
+        riggedBag = new Bag(new int[]
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
         turn(cpu, riggedBag);
-        Assertions.assertEquals( "O1", board.tileAt(4,6).toString());
+        Assertions.assertEquals("O1", board.tileAt(4, 6).toString());
 
         // Test placing suffix
         TestUtility.writeOnBoard(new Coordinate(5, 8), board, "X", 'r');
         TestUtility.writeOnBoard(new Coordinate(6, 6), board, "X", 'r');
         TestUtility.writeOnBoard(new Coordinate(9, 8), board, "S", 'r');
-        riggedBag = new Bag(new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
+        riggedBag = new Bag(new int[]
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
         turn(cpu, riggedBag);
-        Assertions.assertEquals("O1", board.tileAt(9,9).toString());
+        Assertions.assertEquals("O1", board.tileAt(9, 9).toString());
 
         // Test use of blank tiles and finding best move
         TestUtility.writeOnBoard(new Coordinate(10, 7), board, "X", 'r');
         cpu.removeTiles(cpu.getRack());
-        riggedBag = new Bag(new int[] { 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2 });
+        riggedBag = new Bag(new int[]
+                {1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2});
         turn(cpu, riggedBag);
         board.print();
-        Assertions.assertEquals("t3", board.tileAt(0,7).toString());
+        Assertions.assertEquals("t3", board.tileAt(0, 7).toString());
 
     }
 
@@ -102,7 +109,7 @@ public class ComputerTest {
         int count = 0;
         Bag riggedBag;
         do {
-            riggedBag = new Bag(new int[]{1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+            riggedBag = new Bag(new int[]{1, 1, 1, 1, 1, 1, 1});
             move = turn(cpu, riggedBag);
 
             cpu.removeTiles(list);

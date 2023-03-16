@@ -1,11 +1,9 @@
 package pij.main;
 
 /**
- *
  * A Tile holds a value and some kind of String. It can also be added to a TileSequence.
  *
  * @author Roland Crompton
- *
  */
 public interface Tile {
 

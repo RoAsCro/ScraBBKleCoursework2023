@@ -29,7 +29,9 @@ public class Bag {
 		put("S", 1); put("T", 1); put("U", 1); put("V", 4); put("W", 4); put("X", 8); put("Y", 4);
 		put("Z", 10);}};
 
-	/** ArrayList storing the contents of the bag. */
+	/**
+     * ArrayList storing the contents of the bag.
+     */
 	private final List<CharacterTile> bag = new ArrayList<>();
 
 	/**

@@ -44,8 +44,8 @@ public class BoardReader {
      * Constructs a BoardReader over a given Board, initially at the given Coordinate,
      * and facing the given direction.
      *
-     * @param board the Board the reader will read
-     * @param coord the initial location of the reader on the board
+     * @param board     the Board the reader will read
+     * @param coord     the initial location of the reader on the board
      * @param direction the initial direction of the reader
      */
     public BoardReader(Board board, Coordinate coord, char direction) {
@@ -94,7 +94,7 @@ public class BoardReader {
      * including the first, but not including the last.
      *
      * @param condition the condition the tile must fulfil
-     * @param method the operation performed on each tile
+     * @param method    the operation performed on each tile
      * @return the first tile that is either null or does not fulfil the given condition
      */
     public BoardTile conditionalNext(Predicate<BoardTile> condition, Consumer<Coordinate> method) {
@@ -114,7 +114,7 @@ public class BoardReader {
      * including the first, but not including the last.
      *
      * @param condition the condition the tile must fulfil
-     * @param method the operation performed on each tile
+     * @param method    the operation performed on each tile
      * @return the first tile that is either null or does not fulfil the given condition
      */
     public BoardTile conditionalPrevious(Predicate<BoardTile> condition, Consumer<Coordinate> method) {

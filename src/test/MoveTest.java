@@ -16,7 +16,7 @@ public class MoveTest {
     public void testToString() {
         Board board = TestUtility.loadBoardFromTestBoards("testBoard.txt");
         Move move = new Move(board);
-        move.setAll(new Coordinate(0 , 0), 'r', new LinkedList<>());
+        move.setAll(new Coordinate(0, 0), 'r', new LinkedList<>());
         Assertions.assertEquals("The move is:	Word:  at position a1, direction: right",
                 move.toString());
     }

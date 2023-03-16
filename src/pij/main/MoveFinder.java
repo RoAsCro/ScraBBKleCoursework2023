@@ -23,20 +23,23 @@ public class MoveFinder {
     /**
      * Private constructor. MoveFinder should not be instantiated.
      */
-    private MoveFinder() {}
+    private MoveFinder() {
+    }
 
     /**
      * Recursively finds all possible String combinations that can be constructed with List
      * of Tiles.
      *
-     * @param lettersInput initially a player's tile rack
+     * @param lettersInput     initially a player's tile rack
      * @param currentWordInput initially an empty StringBuilder
-     * @param combinations the List of TreeSets where the combinations found will be stored
-     * @param depth the current depth of recursion. Initially 0. Should not exceed the size of
-     *              combinations
+     * @param combinations     the List of TreeSets where the combinations found will be stored
+     * @param depth            the current depth of recursion. Initially 0. Should not exceed the size of
+     *                         combinations
      */
-    private static void allCombos(LinkedList<CharacterTile> lettersInput, StringBuilder currentWordInput,
-                           List<TreeSet<String>> combinations, int depth){
+    private static void allCombos(LinkedList<CharacterTile> lettersInput,
+                                  StringBuilder currentWordInput,
+                                  List<TreeSet<String>> combinations,
+                                  int depth) {
         if (lettersInput.isEmpty())
             return;
 
@@ -58,11 +61,13 @@ public class MoveFinder {
      * Finds every combination of letter possible with a set of Tiles,
      * then finds every letter on the Board and attempts to place every letter combination there.
      *
-     * @param board the Board to be searched
+     * @param board       the Board to be searched
      * @param playerTiles the set of Tiles used in the search
-     * @param findAny true for finding any Move, false for finding every Move
+     * @param findAny     true for finding any Move, false for finding every Move
      */
-    public static List<Move> findMoves(Board board, List<CharacterTile> playerTiles, boolean findAny) {
+    public static List<Move> findMoves(Board board,
+                                       List<CharacterTile> playerTiles,
+                                       boolean findAny) {
         staticFindAny = findAny;
         List<Move> moves = new LinkedList<>();
 
@@ -87,22 +92,24 @@ public class MoveFinder {
      * a given coordinate on the board, if that coordinate holds a CharacterTile that
      * is the left- or top-most letter in a word already on the board.
      *
-     * @param c the Coordinate of the Tile to be tested
+     * @param coordinate   the Coordinate of the Tile to be tested
      * @param combinations a set of all combinations of letters to be tested
      */
-    private static void testWordsWithCombos(Coordinate c, List<TreeSet<String>> combinations, Board board, List<Move> moves) {
+    private static void testWordsWithCombos(Coordinate coordinate,
+                                            List<TreeSet<String>> combinations,
+                                            Board board, List<Move> moves) {
 
-        BoardReader reader = new BoardReader(board, c, 'r');
+        BoardReader reader = new BoardReader(board, coordinate, 'r');
         // For loop ensures both down and right directions are checked
-        for (int k = 0 ; k < 2 ; k++) {
+        for (int k = 0; k < 2; k++) {
 
-            reader.setCoordinate(c);
+            reader.setCoordinate(coordinate);
             reader.turn();
             // Check letter at this coordinate has no letters behind it
             BoardTile tile = reader.previous();
             if ((!(tile instanceof CharacterTile))) {
                 reader.next();
-            }else
+            } else
                 continue;
             // offset determines how far back from the initial Tile is currently being tested
             int offset = 0;
@@ -114,7 +121,8 @@ public class MoveFinder {
                 if ((!(tile instanceof CharacterTile))) {
                     reader.next();
                 } else {
-                    reader.conditionalPrevious(CharacterTile.class::isInstance, x->{});
+                    reader.conditionalPrevious(CharacterTile.class::isInstance, x -> {
+                    });
                     reader.next();
                 }
                 loopBlock:
@@ -125,7 +133,9 @@ public class MoveFinder {
                             Move move = new Move(board);
                             List<CharacterTile> moveTiles = new LinkedList<>();
                             IntStream.range(0, s.length())
-                                    .forEach(sub->Bag.generateTiles(s.substring(sub, sub+1), moveTiles, 1));
+                                    .forEach(sub ->
+                                            Bag.generateTiles(s.substring(sub, sub + 1),
+                                                    moveTiles, 1));
                             move.setAll(reader.getCoord(), reader.getDirection(), moveTiles);
                             if (move.checkPlacable()) {
                                 if (move.getWord().lookupWord()) {

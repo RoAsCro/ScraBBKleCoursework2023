@@ -24,5 +24,6 @@ public class NullBoardTile extends AbstractBoardTile {
      * @param tileSequence the TileSequence this Tile is being added to
      */
     @Override
-    public void addToSequence(TileSequence tileSequence) {}
+    public void addToSequence(TileSequence tileSequence) {
+    }
 }

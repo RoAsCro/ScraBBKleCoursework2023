@@ -10,7 +10,7 @@ import pij.main.tiles.LetterTile;
 public class BoardReaderTest {
 
     @Test
-    public void testGettersAndSetter() {
+    public void testFunctions() {
         Coordinate coord = new Coordinate(0, 0);
         Board board = TestUtility.loadBoardFromTestBoards("testBoard.txt");
         BoardReader reader = new BoardReader(board, coord, 'r');
@@ -45,11 +45,13 @@ public class BoardReaderTest {
         Assertions.assertEquals(7, reader.previous().getValue());
         // ConditionalNext
         reader.next();
-        reader.conditionalNext(t -> t.getValue() == 0, (c) -> {});
+        reader.conditionalNext(t -> t.getValue() == 0, (c) -> {
+        });
         Assertions.assertEquals(2, reader.getCurrent().getValue());
         // Conditional Previous
         reader.previous();
-        reader.conditionalPrevious(t -> t.getValue() == 0, (c) -> {});
+        reader.conditionalPrevious(t -> t.getValue() == 0, (c) -> {
+        });
         Assertions.assertEquals(7, reader.getCurrent().getValue());
 
         // breadthFirstSearch

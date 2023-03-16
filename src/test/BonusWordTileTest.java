@@ -18,17 +18,20 @@ public class BonusWordTileTest {
 
     @Test
     public void testAddToSequence() {
+        // Test bonus tile by itself
         BonusWordTile bonus = new BonusWordTile(3);
         Tile letter = new LetterTile("B", 2);
         Word word = new Word();
         word.addTile(bonus);
         word.finalise();
         Assertions.assertEquals(0, word.getScore());
+        // Test one bonus tile
         word.addTile(letter);
         word.addTile(letter);
         word.finalise();
         Assertions.assertEquals(12, word.getScore());
         Assertions.assertEquals("BB", word.toString());
+        // Test two bonus tiles
         word.addTile(bonus);
         word.finalise();
         Assertions.assertEquals(36, word.getScore());
