@@ -3,33 +3,36 @@ package pij.main.Players;
 import pij.main.*;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 /**
  * 
- * The human player.
+ * The human implementation of Player. Takes a console input to make a turn.
  * 
  * @author Roland Crompton
  *
  */
 public class HumanPlayer extends Player {
 
+	/** A HumanPlayer's name is "Human". */
 	private static final String NAME = "Human";
 
+	/**
+	 * Constructs a new HumanPlayer with the given Board.
+	 *
+	 * @param board the Board the HumanPlayer will make moves on
+	 */
 	public HumanPlayer(Board board) {
 		super(board);
 	}
 
 	/**
-	 * Prints the tile rack.
+	 * Prints the Player's tile rack.
 	 */
 	private void printRack() {
-		String separator = "";
-		for (CharacterTile tile : getRack()) {
-
-			System.out.print(separator + "[" + tile.toString() + "]");
-			separator = ", ";
-		}
-		System.out.println();
+		System.out.println(getRack().stream()
+				.map(t -> "[" + t.toString() + "]")
+				.collect(Collectors.joining(", ")));
 	}
 
 	@Override

@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class ComputerPlayer extends Player {
 
-	/** The ComputerPlayer's name. */
+	/** The ComputerPlayer's name is "Computer". */
 	private static final String NAME = "Computer";
 
 	/**
