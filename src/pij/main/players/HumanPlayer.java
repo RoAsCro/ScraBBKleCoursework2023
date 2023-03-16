@@ -66,9 +66,15 @@ public class HumanPlayer extends Player {
                     + "and direction(d for down, r for right) separated by commas. "
                     + "Entering just two commas passes.");
             input = System.console().readLine();
+            if (!validateInput(input, move)) {
+                System.out.println("This is not a valid move.");
+                valid = false;
+            } else {
+                valid = true;
+            }
 
         } while (
-                !(validateInput(input, move) &&
+                !(valid &&
                         move.tryMove()));
         return move;
     }
@@ -130,5 +136,7 @@ public class HumanPlayer extends Player {
         move.setAll(new Coordinate(x.charAt(0), Integer.parseInt(y)), direction.charAt(0), moveTiles);
         return true;
     }
+
+
 
 }
