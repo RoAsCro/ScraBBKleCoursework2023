@@ -7,6 +7,7 @@ import pij.main.Players.ComputerPlayer;
 import pij.main.Tiles.LetterTile;
 
 import java.util.LinkedList;
+import java.util.List;
 
 public class ComputerTest {
 
@@ -27,15 +28,25 @@ public class ComputerTest {
 
 
     @Test
-    public void testComputer(){
+    public void testTurn(){
         Board board = TestUtility.loadBoardFromTestBoards("TestBoard.txt");
         TestUtility.loadDictionary();
+
+        // Test passing
+        // ...when no tiles
+        ComputerPlayer cpu = new ComputerPlayer(board);
+        Assertions.assertTrue(cpu.turn().isPass());
+        // ...when no valid moves
+        Bag riggedBag = new Bag(new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 });
         TestUtility.writeOnBoard(board, "X", 'd');
+        cpu.draw(riggedBag);
+        Assertions.assertTrue(cpu.turn().isPass());
+        cpu.removeTiles(List.of(new LetterTile("Z", 10)));
+
         TestUtility.writeOnBoard(new Coordinate(board.getCentre().getX(), 8), board, "XX", 'r');
 
         // Test placing prefix
-        Bag riggedBag = new Bag(new int[] { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
-        ComputerPlayer cpu = new ComputerPlayer(board);
+        riggedBag = new Bag(new int[] { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
         turn(cpu, riggedBag);
         board.print();
         Assertions.assertEquals("A1", board.tileAt(6,7).toString());
@@ -50,7 +61,6 @@ public class ComputerTest {
         // Test placing vertically
         riggedBag = new Bag(new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
         turn(cpu, riggedBag);
-        board.print();
         Assertions.assertEquals( "O1", board.tileAt(4,6).toString());
 
         // Test placing suffix
@@ -59,7 +69,6 @@ public class ComputerTest {
         TestUtility.writeOnBoard(new Coordinate(9, 8), board, "S", 'r');
         riggedBag = new Bag(new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
         turn(cpu, riggedBag);
-        board.print();
         Assertions.assertEquals("O1", board.tileAt(9,9).toString());
 
         // Test use of blank tiles and finding best move
@@ -73,7 +82,7 @@ public class ComputerTest {
     }
 
     @Test
-    public void testGameplay() {
+    public void testTurnTwo() {
         Board board = TestUtility.loadBoardFromTestBoards("testBoard.txt");
         TestUtility.loadDictionary();
         ComputerPlayer cpu = new ComputerPlayer(board);
