@@ -18,13 +18,14 @@ public abstract class Player {
 	/** The maximum number of Tiles a Player can have in their rack. */
 	public final static int RACK_SIZE = 7;
 
+	/** The Board a Player makes moves on. */
+	private final Board board;
+
 	/** A List of tiles a Player has available to them. */
 	private final List<CharacterTile> tileRack = new ArrayList<>();
 
 	/** A player's score. */
 	private int score = 0;
-	/** The Board a Player makes moves on. */
-	private final Board board;
 
 	/**
 	 * Constructor. Takes the Board the Player will make moves on.

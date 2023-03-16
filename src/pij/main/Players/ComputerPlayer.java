@@ -6,15 +6,18 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
-	 * The computer player
-	 * 
-	 * @author Roland Crompton
-	 *
-	 */
+ * A computer implementation of Player. Makes Moves automatically using the MoveFinder
+ * based on its tile rack and its Board, finding every possible Move and playing the highest
+ * scoring one.
+ *
+ * @author Roland Crompton
+ */
 public class ComputerPlayer extends Player {
 
+	/** The ComputerPlayer's name. */
 	private static final String NAME = "Computer";
-	private List<Move> moves = new LinkedList<>();
+
+	/** The ComputerPlayer's name. */
 	public ComputerPlayer(Board board) {
 		super(board);
 	}
@@ -26,10 +29,8 @@ public class ComputerPlayer extends Player {
 
 	@Override
 	public Move turn() {
-		moves.clear();
-		moves = MoveFinder.findMoves(getBoard(), this.getRack(), false);
+		List<Move> moves = MoveFinder.findMoves(getBoard(), this.getRack(), false);
 		Move bestMove = new Move(getBoard());
-//		bestMove.tryMove(",,");
 		for (Move m : moves) {
 			if (m.getWord().getScore() > bestMove.getWord().getScore()) {
 				bestMove = m;
