@@ -33,16 +33,43 @@ public class PlayerTest {
         Assertions.assertEquals('A', player.getRack().get(0).getChar());
 
         // Remove
+        // remove a single tile
         List<CharacterTile> list = List.of(new LetterTile("A", 1));
         player.removeTiles(list);
         Assertions.assertTrue(player.getRack().isEmpty());
 
-        player.getRack().add(new WildTile());
+        // remove a single WildTile
+        bag = new Bag(new int[]
+                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1});
+        player.draw(bag);
         list = List.of(new LetterTile("a", 3));
         player.removeTiles(list);
-        System.out.println(player.getRack());
         Assertions.assertTrue(player.getRack().isEmpty());
 
+        // remove a single tile when there is more than one that will match
+        bag = new Bag(new int[]{2, 1});
+        player.draw(bag);
+        list = List.of(new LetterTile("A", 1));
+        player.removeTiles(list);
+        Assertions.assertEquals(2, player.getRack().size());
+        player.removeTiles(list);
+        Assertions.assertEquals(1, player.getRack().size());
+        player.removeTiles(list);
+        Assertions.assertEquals(1, player.getRack().size());
+
+        // remove a WildTile when none match
+        list = List.of(new WildTile());
+        player.removeTiles(list);
+        Assertions.assertEquals(1, player.getRack().size());
+
+        // remove multiple tiles
+        bag = new Bag(new int[]{1, 1});
+        player.draw(bag);
+        list = List.of(new LetterTile("A", 1),
+                new LetterTile("B", 1),
+                new LetterTile("B", 1));
+        player.removeTiles(list);
+        Assertions.assertEquals(0, player.getRack().size());
 
     }
 
