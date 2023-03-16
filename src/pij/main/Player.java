@@ -67,12 +67,13 @@ public abstract class Player {
 	public abstract String getName();
 
 	/**
-	 * Returns the Player's tile rack.
+	 * Returns the Player's tile rack. This is a copy of the TileRack as it shouldn't be possible
+	 * to remove or add Tiles to the rack without using the methods in this class.
 	 * 
-	 * @return the Player's tile rack
+	 * @return a copy of Player's tile rack
 	 */
 	public List<CharacterTile> getRack() {
-		return this.tileRack;
+		return List.copyOf(this.tileRack);
 	}
 
 	/**
