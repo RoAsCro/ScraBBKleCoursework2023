@@ -33,6 +33,7 @@ public class LetterTileTest {
         Word word = new Word();
         word.addTile(new LetterTile("A", 1));
         Assertions.assertEquals("A", word.toString());
+        word.finalise();
         Assertions.assertEquals(1, word.getScore());
     }
 
