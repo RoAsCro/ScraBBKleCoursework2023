@@ -27,6 +27,16 @@ public class HumanPlayer extends Player {
 	}
 
 	/**
+	 * Returns the HumanPlayer's name "Human".
+	 *
+	 * @return the HumanPlayer's name
+	 */
+	@Override
+	public String getName() {
+		return NAME;
+	}
+
+	/**
 	 * Prints the Player's tile rack.
 	 */
 	private void printRack() {
@@ -35,10 +45,6 @@ public class HumanPlayer extends Player {
 				.collect(Collectors.joining(", ")));
 	}
 
-	@Override
-	public String getName() {
-		return NAME;
-	}
 
 	@Override
 	public Move turn() {
