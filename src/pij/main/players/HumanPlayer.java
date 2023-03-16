@@ -66,15 +66,9 @@ public class HumanPlayer extends Player {
                     + "and direction(d for down, r for right) separated by commas. "
                     + "Entering just two commas passes.");
             input = System.console().readLine();
-            if (!validateInput(input, move)) {
-                valid = false;
-                System.out.println("That move was not formatted correctly.");
-            } else {
-                valid = true;
-            }
 
         } while (
-                !(valid &&
+                !(validateInput(input, move) &&
                         move.tryMove()));
         return move;
     }
@@ -94,6 +88,7 @@ public class HumanPlayer extends Player {
         String[] movesToTest = input.split(",");
 
         if (movesToTest.length != 3) {
+            System.out.println("Your move must be separated by two commas, e.g. BEE,a1,r.");
             return false;
         }
         String letters = movesToTest[0];
@@ -101,6 +96,7 @@ public class HumanPlayer extends Player {
         String direction = movesToTest[2];
 
         if (location.length() < 2 || location.length() > 3) {
+            System.out.println("The position must be a coordinate on the board.");
             return false;
         }
 
@@ -114,6 +110,7 @@ public class HumanPlayer extends Player {
                 || !Character.isDigit(y.charAt(yLength - 1))
                 || (!direction.equals("r") && !direction.equals("d"))
                 || letters.length() < 1) {
+            System.out.println("That move was not formatted correctly.");
             return false;
         }
         char[] chars = letters.toCharArray();
@@ -123,6 +120,7 @@ public class HumanPlayer extends Player {
         for (char c : chars) {
             CharacterTile characterTile = playerRack.stream().filter(t -> t.matchChar(c)).findFirst().orElse(null);
             if (characterTile == null) {
+                System.out.println("You do not have the letters to make that move.");
                 return false;
             }
             playerRack.remove(characterTile);

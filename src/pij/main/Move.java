@@ -97,7 +97,7 @@ public class Move {
             int centre = this.board.getCentre().getX();
 
             if (!this.board.getStartState()) {
-                System.out.println("Your word must cross another word");
+                System.out.println("Your word must cross another word.");
                 return false;
             } else if (!(startX + xInc * (wordLength - 1) >= centre && startX <= centre
                     && startY + yInc * (wordLength - 1) >= centre && startY <= centre)) {
