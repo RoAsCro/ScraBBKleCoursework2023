@@ -112,7 +112,8 @@ public class BoardReader {
                 setCoordinate(checkingCoordinate);
                 next();
                 for (int i = 0; i < 2; i++) {
-                    if (getCurrentTile() instanceof CharacterTile && !allCoordinates.contains(this.currentCoordinate)) {
+                    if (this.board.tileAt(this.currentCoordinate)instanceof CharacterTile
+                            && !allCoordinates.contains(this.currentCoordinate)) {
                         coordQueue.add(this.currentCoordinate);
                         allCoordinates.add(this.currentCoordinate);
                     }
@@ -132,16 +133,6 @@ public class BoardReader {
      */
     public Coordinate getCoordinate() {
         return this.currentCoordinate;
-    }
-
-
-    /**
-     * Returns the Tile at the BoardReader;s current location.
-     *
-     * @return the BoardTile at the reader's current location
-     */
-    public BoardTile getCurrentTile() {
-        return this.board.tileAt(currentCoordinate);
     }
 
     /**

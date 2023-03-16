@@ -23,7 +23,7 @@ public class BoardReaderTest {
         Assertions.assertEquals('r', reader.getDirection());
 
         // AbstractBoardTile
-        Assertions.assertEquals(7, reader.getCurrentTile().getValue());
+        Assertions.assertEquals(7, board.tileAt(reader.getCoordinate()).getValue());
 
         // Setters
         // Coordinate Setters
@@ -47,12 +47,12 @@ public class BoardReaderTest {
         reader.next();
         reader.conditionalNext(t -> t.getValue() == 0, (c) -> {
         });
-        Assertions.assertEquals(2, reader.getCurrentTile().getValue());
+        Assertions.assertEquals(2, board.tileAt(reader.getCoordinate()).getValue());
         // Conditional Previous
         reader.previous();
         reader.conditionalPrevious(t -> t.getValue() == 0, (c) -> {
         });
-        Assertions.assertEquals(7, reader.getCurrentTile().getValue());
+        Assertions.assertEquals(7, board.tileAt(reader.getCoordinate()).getValue());
 
         // breadthFirstSearch
         board.placeTile(new Coordinate(7, 7), new LetterTile("a", 1));
