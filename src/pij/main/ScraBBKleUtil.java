@@ -20,6 +20,14 @@ import java.io.IOException;
 public final class ScraBBKleUtil {
 
     /**
+     * The maximum value of a premium tile.
+     */
+    private static final int MAX_PREMIUM_VALUE = 99;
+    /**
+     * The minimum value of a premium tile.
+     */
+    private static final int MIN_PREMIUM_VALUE = -9;
+    /**
      * Divisor used throughout the program for converting direction input to a usable integer.
      */
     public static final int DIRECTION_DIVISOR = 14;
@@ -49,14 +57,6 @@ public final class ScraBBKleUtil {
      * The minimum size of a Board.
      */
     public static final int MIN_MAGNITUDE = 12;
-    /**
-     * The maximum value of a premium tile.
-     */
-    private static final int MAX_PREMIUM_VALUE = 99;
-    /**
-     * The minimum value of a premium tile.
-     */
-    private static final int MIN_PREMIUM_VALUE = -9;
 
     /**
      * Private constructor. This class should not be instantiated.

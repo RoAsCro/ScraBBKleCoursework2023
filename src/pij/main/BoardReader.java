@@ -50,7 +50,7 @@ public class BoardReader {
      */
     public BoardReader(Board board, Coordinate coord, char direction) {
         this.board = board;
-        //xInc and yInc use the integer value of 'd' or 'r' to determine how to iterate across the grid.
+        // xInc and yInc use the integer value of 'd' or 'r' to determine how to iterate across the grid.
         this.xInc = (direction - LOWER_D_ASCII_VALUE) / DIRECTION_DIVISOR;
         this.yInc = (direction - LOWER_R_ASCII_VALUE) / DIRECTION_DIVISOR * -1;
         this.currentCoordinate = coord;
