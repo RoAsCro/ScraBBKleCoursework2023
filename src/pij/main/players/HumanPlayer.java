@@ -59,6 +59,7 @@ public class HumanPlayer extends Player {
         Move move = new Move(getBoard());
         do {
             getBoard().print();
+            System.out.println("It's your turn! Your tiles:");
             printRack();
             System.out.println("Please enter your move with letter sequence, position, "
                     + "and direction(d for down, r for right) separated by commas. "
