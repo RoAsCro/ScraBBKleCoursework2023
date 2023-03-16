@@ -101,10 +101,7 @@ public abstract class Player {
      * @param tiles a List of CharacterTiles to be removed from the Player's rack
      */
     public void removeTiles(List<CharacterTile> tiles) {
-        tiles.forEach(c ->
-                this.tileRack.remove(this.tileRack.stream()
-                        .filter(ch -> ch.matchChar(c.getChar()))
-                        .findFirst().orElse(null)));
+        tiles.forEach(this.tileRack::remove);
     }
 
     /**

@@ -42,7 +42,7 @@ public class PlayerTest {
         bag = new Bag(new int[]
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1});
         player.draw(bag);
-        list = List.of(new LetterTile("a", 3));
+        list = List.of(new WildTile());
         player.removeTiles(list);
         Assertions.assertTrue(player.getRack().isEmpty());
 
@@ -66,8 +66,8 @@ public class PlayerTest {
         bag = new Bag(new int[]{1, 1});
         player.draw(bag);
         list = List.of(new LetterTile("A", 1),
-                new LetterTile("B", 1),
-                new LetterTile("B", 1));
+                new LetterTile("B", 3),
+                new LetterTile("B", 3));
         player.removeTiles(list);
         Assertions.assertEquals(0, player.getRack().size());
     }

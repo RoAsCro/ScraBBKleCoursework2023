@@ -36,6 +36,18 @@ public class WildTile implements CharacterTile {
     }
 
     /**
+     * Checks if a different WildTile is equal to this WildTile.
+     * Two WildTiles are equal if they are both WildTiles.
+     *
+     * @param o the WildTile for this Tile to be checked against
+     * @return true if o is a WildTile, false otherwise
+     */
+    @Override
+    public boolean equals(Object o) {
+        return o instanceof WildTile;
+    }
+
+    /**
      * Always returns a space, ' '.
      *
      * @return a space as a character
