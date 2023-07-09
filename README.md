@@ -1,3 +1,5 @@
+Originally created as coursework for Birkbeck University MSc Computer Science 2022/3 course module Programming in Java, according to the below specifications.
+
 # Please enter your name here:
 
 Roland Crompton
